@@ -1,6 +1,6 @@
 window.remoteUsers = {
   "admin@mcstellar.com": {
-    password: "admin123",
+    password: "admin12",
     redirect: "admin.html"
   },
   "nuevo@mcstellar.com": {
