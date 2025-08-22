@@ -1,10 +1,10 @@
 window.remoteUsers = {
-  "admin@mcstellar.com": {
-    password: "admin12",
+  "zyrakaaguilar@mcstellar.com": {
+    password: "Cyn201030",
     redirect: "admin.html"
   },
-  "nuevo@mcstellar.com": {
-    password: "nuevo2025",
+  "ganga@mcstellar.com": {
+    password: "angel1fa",
     redirect: "nuevo.html"
   }
 };
