@@ -188,18 +188,32 @@ async function updateServerStatus(){
   const playersEl = document.getElementById('players');
   const pingEl = document.getElementById('ping');
   const versionEl = document.getElementById('version');
+
   text.textContent = 'Cargando';
   dot.style.background = '#f5bb6b';
-  try{
-    const res = await fetch('/api/server-status',{cache:'no-store'});
-    if(!res.ok) throw new Error('no');
+
+  try {
+    const res = await fetch('/api/server-status.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error('no');
+
     const data = await res.json();
-    text.textContent = 'Online';
-    dot.style.background = '#34d399';
-    playersEl.textContent = (data.players!==undefined? (data.players+'/'+(data.maxPlayers||'—')) : '—');
-    pingEl.textContent = (data.ping!==undefined? data.ping + ' ms' : '—');
-    versionEl.textContent = data.version||versionEl.textContent;
-  }catch(e){
+
+    if (data.online === true) {
+      text.textContent = 'Online';
+      dot.style.background = '#34d399';
+
+      playersEl.textContent = data.players + "/" + data.maxPlayers;
+      pingEl.textContent = data.ping + " ms";
+      versionEl.textContent = data.version;
+
+    } else {
+      text.textContent = 'Offline';
+      dot.style.background = '#fb7185';
+      playersEl.textContent = '—';
+      pingEl.textContent = '—';
+    }
+
+  } catch (e) {
     text.textContent = 'Offline';
     dot.style.background = '#fb7185';
     playersEl.textContent = '—';
