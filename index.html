@@ -104,8 +104,8 @@ body{
       </div>
 
       <div class="metrics" style="margin-top:14px">
-        <div class="metric"><div class="small">IP</div><div style="font-size:20px;font-weight:700" id="players">—</div></div>
-        <div class="metric"><div class="small">Modo</div><div style="font-size:20px;font-weight:700" id="ping">—</div></div>
+        <div class="metric"><div class="small">Jugadores</div><div style="font-size:20px;font-weight:700" id="players">—</div></div>
+        <div class="metric"><div class="small">Ping</div><div style="font-size:20px;font-weight:700" id="ping">—</div></div>
         <div class="metric"><div class="small">Versión</div><div style="font-size:20px;font-weight:700" id="version">1.20.1</div></div>
       </div>
 
@@ -203,7 +203,7 @@ async function updateServerStatus(){
       dot.style.background = '#34d399';
 
       playersEl.textContent = data.players + "/" + data.maxPlayers;
-      pingEl.textContent = data.ping + " ms";
+      pingEl.textContent = data.ping + " tps";
       versionEl.textContent = data.version;
 
     } else {
