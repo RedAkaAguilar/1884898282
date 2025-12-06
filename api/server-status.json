@@ -1,7 +1,7 @@
 {
   "online": true,
-  "players": "mc.mcstellarstudio.com",
+  "players": "0",
   "maxPlayers": "50",
-  "ping": "Betatest",
+  "ping": "0",
   "version": "1.20.1"
 }
