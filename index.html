@@ -1,1 +1,214 @@
-database:;0x98289([javascript:GLOBAL-DNS*929])
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ZyrAkaNetwork — Comunidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --mint:#dff7ef;
+  --bluelight:#e8f4ff;
+  --accent:#0b7b6b;
+  --blueaccent:#0b6b9a;
+  --text:#06323f;
+  --muted:#6b7d84;
+  --card-shadow: 0 6px 18px rgba(6,50,63,0.06);
+  --glass: rgba(255,255,255,0.7);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background:linear-gradient(180deg,var(--bg) 0%, #fbfffb 50%, #ffffff 100%);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-tap-highlight-color:transparent;
+}
+.container{max-width:1100px;margin:28px auto;padding:20px}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{
+  width:56px;height:56px;border-radius:14px;background:var(--mint);display:flex;align-items:center;justify-content:center;box-shadow:var(--card-shadow);
+  border:1px solid rgba(255,255,255,0.6)
+}
+.brand h1{margin:0;font-size:20px;font-weight:700}
+.brand p{margin:0;font-size:12px;color:var(--muted)}
+.nav{display:flex;gap:10px}
+.btn{
+  padding:10px 14px;border-radius:10px;border:1px solid rgba(6,50,63,0.06);background:var(--glass);font-weight:600;cursor:pointer;transition:all .18s ease
+}
+.btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
+.btn:hover{transform:translateY(-3px)}
+.grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
+.card{background:var(--glass);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(6,50,63,0.04);transition:transform .22s ease,box-shadow .22s ease}
+.card:hover{transform:translateY(-6px)}
+.server-status .row{display:flex;align-items:center;justify-content:space-between}
+.status-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;background:rgba(255,255,255,0.75);border:1px solid rgba(6,50,63,0.06)}
+.status-dot{width:10px;height:10px;border-radius:50%}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.metric{background:white;padding:12px;border-radius:12px;text-align:center;border:1px solid rgba(6,50,63,0.04)}
+.actions{margin-top:14px;display:flex;gap:10px}
+.news-list{display:flex;flex-direction:column;gap:12px}
+.news-item{display:flex;gap:12px;align-items:flex-start;background:white;border-radius:12px;padding:10px;border:1px solid rgba(6,50,63,0.04);overflow:hidden}
+.news-item img{width:110px;height:70px;object-fit:cover;border-radius:8px;flex-shrink:0}
+.news-meta{flex:1}
+.news-meta .date{font-size:12px;color:var(--muted);margin-bottom:6px}
+.news-meta h4{margin:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.news-meta p{margin:6px 0 0;font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.feature{background:white;padding:14px;border-radius:12px;border:1px solid rgba(6,50,63,0.04);display:flex;gap:12px;align-items:center}
+.feature .icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(6,50,63,0.04)}
+.footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
+@media(max-width:880px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.8);border:1px solid rgba(6,50,63,0.04);font-weight:700}
+.small{font-size:13px;color:var(--muted)}
+.sr{display:none}
+.fade-in{animation:fadeIn .45s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="container">
+  <header class="header">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="logo">
+          <rect x="3" y="3" width="18" height="18" rx="4" fill="#dff7ef"></rect>
+          <path d="M7 12h10M7 8h10M7 16h6" stroke="#0b7b6b" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <div>
+        <h1>MCChampionship — Comunidad</h1>
+        <p>Elegante · Familiar · Competitivo</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="btn">Unirse</button>
+      <button class="btn primary">Comprar VIP</button>
+    </nav>
+  </header>
+
+  <main class="grid">
+    <section class="card server-status fade-in" aria-labelledby="estado">
+      <div class="row">
+        <div>
+          <h2 id="estado" style="margin:0;font-size:18px">Estado del servidor</h2>
+          <div class="small">Información en tiempo real del servidor principal</div>
+        </div>
+        <div id="server-pill" class="status-pill"><span id="status-dot" class="status-dot" style="background:#f59e9e"></span><span id="status-text">Cargando</span></div>
+      </div>
+
+      <div class="metrics" style="margin-top:14px">
+        <div class="metric"><div class="small">Jugadores</div><div style="font-size:20px;font-weight:700" id="players">—</div></div>
+        <div class="metric"><div class="small">Ping</div><div style="font-size:20px;font-weight:700" id="ping">—</div></div>
+        <div class="metric"><div class="small">Versión</div><div style="font-size:20px;font-weight:700" id="version">1.20.1</div></div>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="#" id="connect">Conectar</a>
+        <a class="btn" href="#">Reglas del servidor</a>
+      </div>
+
+      <div class="features" style="margin-top:18px">
+        <div class="feature">
+          <div class="icon" style="background:#e6faf2;border-radius:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v20" stroke="#0b7b6b" stroke-width="1.6" stroke-linecap="round"></path><path d="M4 10h16" stroke="#0b7b6b" stroke-width="1.6" stroke-linecap="round"></path></svg></div>
+          <div><div style="font-weight:600">Eventos semanales</div><div class="small">Diversión para todos</div></div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#eaf6ff;border-radius:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4l8 4-8 4-8-4 8-4z" stroke="#0b6b9a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path><path d="M12 12v8" stroke="#0b6b9a" stroke-width="1.4" stroke-linecap="round"></path></svg></div>
+          <div><div style="font-weight:600">Sistema de rangos</div><div class="small">Progresión clara</div></div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#fffaf0;border-radius:10px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 3v18" stroke="#b58900" stroke-width="1.4" stroke-linecap="round"></path></svg></div>
+          <div><div style="font-weight:600">Moderación segura</div><div class="small">Ambiente familiar</div></div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="card fade-in" aria-labelledby="noticias">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div><h3 id="noticias" style="margin:0;font-size:16px">Noticias</h3></div>
+        <a class="small" href="#">Ver todas</a>
+      </div>
+
+      <div class="news-list" id="news"></div>
+    </aside>
+  </main>
+
+  <footer class="footer">© <span id="year"></span> MCChampionship — Hecho con cariño. · <a href="#" style="color:var(--blueaccent);text-decoration:none">Términos</a></footer>
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const sampleNews = [
+  {id:1,title:'Torneo semanal: Inscripciones abiertas',description:'¡Únete al torneo de este fin de semana! Premios para los mejores equipos y diversión para toda la familia.',date:'2025-12-06',image:'https://picsum.photos/seed/news1/800/450'},
+  {id:2,title:'Actualización de mapas: Nuevas arenas',description:'Añadimos 3 arenas nuevas con mecánicas únicas y equilibradas para todos los jugadores.',date:'2025-11-28',image:'https://picsum.photos/seed/news2/800/450'},
+  {id:3,title:'Mantenimiento programado',description:'El servidor tendrá mantenimiento el próximo martes. Duración estimada: 2 horas.',date:'2025-11-20',image:'https://picsum.photos/seed/news3/800/450'}
+];
+
+function renderNews(list){
+  const wrap = document.getElementById('news');
+  wrap.innerHTML = '';
+  list.forEach(n=>{
+    const item = document.createElement('article');
+    item.className = 'news-item';
+    const img = document.createElement('img');
+    img.src = n.image;
+    img.alt = n.title;
+    const meta = document.createElement('div');
+    meta.className = 'news-meta';
+    const d = document.createElement('div');
+    d.className = 'date';
+    d.textContent = (new Date(n.date)).toLocaleDateString();
+    const h = document.createElement('h4');
+    h.textContent = n.title;
+    const p = document.createElement('p');
+    p.textContent = n.description;
+    meta.appendChild(d);
+    meta.appendChild(h);
+    meta.appendChild(p);
+    item.appendChild(img);
+    item.appendChild(meta);
+    wrap.appendChild(item);
+  });
+}
+
+renderNews(sampleNews);
+
+async function updateServerStatus(){
+  const pill = document.getElementById('server-pill');
+  const text = document.getElementById('status-text');
+  const dot = document.getElementById('status-dot');
+  const playersEl = document.getElementById('players');
+  const pingEl = document.getElementById('ping');
+  const versionEl = document.getElementById('version');
+  text.textContent = 'Cargando';
+  dot.style.background = '#f5bb6b';
+  try{
+    const res = await fetch('/api/server-status',{cache:'no-store'});
+    if(!res.ok) throw new Error('no');
+    const data = await res.json();
+    text.textContent = 'Online';
+    dot.style.background = '#34d399';
+    playersEl.textContent = (data.players!==undefined? (data.players+'/'+(data.maxPlayers||'—')) : '—');
+    pingEl.textContent = (data.ping!==undefined? data.ping + ' ms' : '—');
+    versionEl.textContent = data.version||versionEl.textContent;
+  }catch(e){
+    text.textContent = 'Offline';
+    dot.style.background = '#fb7185';
+    playersEl.textContent = '—';
+    pingEl.textContent = '—';
+  }
+}
+
+updateServerStatus();
+setInterval(updateServerStatus,15000);
+</script>
+</body>
+</html>
