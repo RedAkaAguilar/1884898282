@@ -1,7 +1,7 @@
 {
-  "online": false,
+  "online": true,
   "players": "0",
   "maxPlayers": "50",
-  "ping": "0",
+  "ping": "20",
   "version": "1.20.1"
 }
