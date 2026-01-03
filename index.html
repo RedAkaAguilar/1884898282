@@ -274,7 +274,7 @@ async function updateServerStatus(){
       dot.style.background = '#34d399';
 
       playersEl.textContent = `${data.players.online}/${data.players.max}`;
-      pingEl.textContent = data.debug.ping ? data.debug.ping + ' ms' : '—';
+      pingEl.textContent = data.debug.ping ? data.debug.ping + '${data.debug.ping} ms' : '—';
       versionEl.textContent = data.version;
 
     } else {
@@ -294,7 +294,7 @@ async function updateServerStatus(){
 
 
 updateServerStatus();
-setInterval(updateServerStatus,15000);
+setInterval(updateServerStatus,5000);
 </script>
 </body>
 </html>
