@@ -170,7 +170,13 @@ showCopyToast();
 
       <div class="metrics" style="margin-top:14px">
         <div class="metric"><div class="small"><span class="material-symbols-rounded">supervised_user_circle</span> Jugadores</div><div style="font-size:20px;font-weight:700" id="players">—</div></div>
-        <div class="metric"><div class="small"><span class="material-symbols-rounded">wifi</span> Ping</div><div style="font-size:20px;font-weight:700" id="ping">—</div></div>
+        <div class="metric">
+  <div class="small">
+    <span class="material-symbols-rounded">celebration</span> Evento
+  </div>
+  <div style="font-size:20px;font-weight:700" id="ping">—</div>
+</div>
+
         <div class="metric"><div class="small"><span class="material-symbols-rounded">deployed_code_history</span> Versión</div><div style="font-size:20px;font-weight:700" id="version">1.20.1</div></div>
       </div>
 
@@ -210,6 +216,10 @@ showCopyToast();
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
+
+// 🔥 CAMBIA AQUÍ
+const EVENTO_ACTIVO = true; // true = hay evento | false = no hay
+const EVENTO_NOMBRE = 'Test';
 
 const sampleNews = [
   {id:1,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news1/800/450'},
@@ -274,8 +284,16 @@ async function updateServerStatus(){
       dot.style.background = '#34d399';
 
       playersEl.textContent = `${data.players.online}/${data.players.max}`;
-      pingEl.textContent = data.debug.ping ? data.debug.ping + '${data.debug.ping} ms' : '—';
+      pingEl.textContent = data.debug.ping ? data.debug.ping + '' : '—';
       versionEl.textContent = data.version;
+      if (EVENTO_ACTIVO) {
+  pingEl.textContent = EVENTO_NOMBRE;
+  pingEl.style.color = '#16a34a';
+} else {
+  pingEl.textContent = 'Sin evento';
+  pingEl.style.color = '#64748b';
+}
+
 
     } else {
       text.textContent = 'Offline';
