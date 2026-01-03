@@ -265,21 +265,16 @@ async function updateServerStatus(){
   const pingEl = document.getElementById('ping');
   const versionEl = document.getElementById('version');
 
-  text.textContent = 'Cargando';
-  dot.style.background = '#f5bb6b';
-
   try {
-    const res = await fetch('/api/server-status.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('no');
-
+    const res = await fetch('https://api.mcsrvstat.us/2/mc.mcstellarstudio.com');
     const data = await res.json();
 
-    if (data.online === true) {
+    if (data.online) {
       text.textContent = 'Online';
       dot.style.background = '#34d399';
 
-      playersEl.textContent = data.players + "/" + data.maxPlayers;
-      pingEl.textContent = data.ping + " tps";
+      playersEl.textContent = `${data.players.online}/${data.players.max}`;
+      pingEl.textContent = data.debug.ping ? data.debug.ping + ' ms' : '—';
       versionEl.textContent = data.version;
 
     } else {
@@ -296,6 +291,7 @@ async function updateServerStatus(){
     pingEl.textContent = '—';
   }
 }
+
 
 updateServerStatus();
 setInterval(updateServerStatus,15000);
