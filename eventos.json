@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2026-01-10",
+    "title": "Evento Survival",
+    "description": "Evento especial con recompensas",
+    "hour": "18:00"
+  },
+  {
+    "date": "2026-01-22",
+    "title": "Torneo PvP",
+    "description": "PvP competitivo",
+    "hour": "20:30"
+  }
+]
