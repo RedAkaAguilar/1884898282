@@ -105,6 +105,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   font-size:13px;
   cursor:pointer;
   position:relative;
+  z-index:1;
   transition:
     transform .25s ease,
     box-shadow .25s ease,
@@ -122,7 +123,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   inset:8px;
   border-radius:50%;
   background:var(--event-color);
-  z-index:-1;
+  z-index:0;
   animation:pulseNeon 2.5s infinite ease-in-out;
 }
 
@@ -136,6 +137,11 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 .calendar-day.event:hover{
   box-shadow:0 0 18px var(--event-color),
              0 0 30px var(--event-color);
+}
+
+.calendar-day.event:hover::after{
+  opacity:1;
+  filter:blur(0);
 }
   
 .calendar-day:active{
@@ -169,6 +175,10 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   backdrop-filter:blur(12px);
 }
 
+.day-number{
+  position:relative;
+  z-index:2;          
+}
 
 .close-popup{
   position:absolute;
@@ -536,7 +546,7 @@ async function loadCalendar(){
   for(let d=1;d<=daysInMonth;d++){
     const dayEl = document.createElement('div');
     dayEl.className='calendar-day';
-    dayEl.textContent=d;
+    dayEl.innerHTML = `<span class="day-number">${d}</span>`;
 
     const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const ev = events.find(e=>e.date===dateStr);
