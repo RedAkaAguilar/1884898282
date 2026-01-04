@@ -217,8 +217,7 @@ showCopyToast();
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// 🔥 CAMBIA AQUÍ
-const EVENTO_ACTIVO = true; // true = hay evento | false = no hay
+const EVENTO_ACTIVO = true; 
 const EVENTO_NOMBRE = 'Test';
 
 const sampleNews = [
@@ -294,7 +293,7 @@ async function updateServerStatus(){
   pingEl.style.color = '#64748b';
 }
       if (EVENTO_ACTIVO) {
-  pingEl.style.textShadow = '0 0 12px rgba(34,197,94,.6)';
+  pingEl.style.textShadow = '0 0 8px rgba(34,197,94,.6)';
 }
 
 
