@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Servidor Abierto",
+    "description": "El survival ya está disponible para todos los invitados.",
+    "date": "2026-01-03",
+    "image": "https://picsum.photos/seed/noti1/800/450"
+  },
+  {
+    "title": "Evento PvP",
+    "description": "Este sábado tendremos un torneo PvP con premios.",
+    "date": "2026-01-05",
+    "image": "https://picsum.photos/seed/noti2/800/450"
+  },
+  {
+    "title": "Mantenimiento",
+    "description": "El servidor estará cerrado por mantenimiento.",
+    "date": "2026-01-08",
+    "image": "https://picsum.photos/seed/noti3/800/450"
+  }
+]
