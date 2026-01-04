@@ -1,1 +1,251 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ZyrAkaNetwork • Server</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+ --bg:#0e1116;
+ --glass:rgba(255,255,255,.08);
+ --accent:#22c55e;
+ --blue:#38bdf8;
+ --text:#fff;
+ --muted:#cbd5e1;
+ --radius:16px;
+ --shadow:0 20px 50px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Outfit,system-ui;
+ color:var(--text);
+ background:linear-gradient(120deg,#290d0b,#291e0b,#13290b,#0b291a,#0b1729,#240b29);
+ background-size:400% 400%;
+ animation:bgMove 18s ease infinite;
+}
+
+@keyframes bgMove{
+ 0%{background-position:0% 50%}
+ 50%{background-position:100% 50%}
+ 100%{background-position:0% 50%}
+}
+
+.material-symbols-rounded{
+ font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
+ vertical-align:middle;
+}
+
+.container{
+ max-width:1100px;
+ margin:30px auto;
+ padding:20px;
+}
+
+.card{
+ background:var(--glass);
+ border-radius:var(--radius);
+ padding:18px;
+ box-shadow:var(--shadow);
+ backdrop-filter:blur(14px);
+ border:1px solid rgba(255,255,255,.1);
+}
+
+.fade-in{
+ animation:fade .5s ease both;
+}
+@keyframes fade{
+ from{opacity:0;transform:translateY(8px)}
+ to{opacity:1}
+}
+
+.btn{
+ background:rgba(255,255,255,.12);
+ border:1px solid rgba(255,255,255,.2);
+ padding:10px 14px;
+ border-radius:12px;
+ color:white;
+ font-weight:600;
+ cursor:pointer;
+ transition:.2s;
+}
+.btn:hover{transform:translateY(-2px)}
+
+.btn.primary{
+ background:linear-gradient(135deg,var(--accent),var(--blue));
+ box-shadow:0 0 18px rgba(56,189,248,.35);
+}
+
+/* 🎬 VIDEO PLAYER */
+.video-wrapper{
+ position:relative;
+ border-radius:18px;
+ overflow:hidden;
+ background:#000;
+ box-shadow:0 30px 70px rgba(0,0,0,.6);
+}
+
+.video-wrapper video{
+ width:100%;
+ display:block;
+}
+
+/* CONTROLES */
+.video-controls{
+ position:absolute;
+ bottom:12px;
+ left:12px;
+ right:12px;
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:12px 14px;
+ border-radius:14px;
+ background:rgba(0,0,0,.6);
+ backdrop-filter:blur(14px);
+ opacity:0;
+ transition:.35s;
+}
+
+.video-wrapper:hover .video-controls{
+ opacity:1;
+}
+
+.v-btn{
+ width:42px;
+ height:42px;
+ border-radius:50%;
+ background:rgba(255,255,255,.18);
+ border:1px solid rgba(255,255,255,.25);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ cursor:pointer;
+ transition:.2s;
+}
+.v-btn:hover{transform:scale(1.1)}
+
+.v-btn span{font-size:26px}
+
+/* PROGRESO */
+.progress-container{
+ flex:1;
+ height:6px;
+ background:rgba(255,255,255,.25);
+ border-radius:999px;
+ cursor:pointer;
+ overflow:hidden;
+}
+
+#progress{
+ height:100%;
+ width:0%;
+ background:linear-gradient(90deg,var(--accent),var(--blue));
+}
+
+.footer{
+ text-align:center;
+ margin-top:30px;
+ font-size:13px;
+ color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <section class="card fade-in">
+    <h2 style="margin-bottom:12px">
+      <span class="material-symbols-rounded">smart_display</span>
+      Video Oficial del Servidor
+    </h2>
+
+    <div class="video-wrapper">
+      <video id="video" loop muted>
+        <source src="video.mp4" type="video/mp4">
+        Tu navegador no soporta video
+      </video>
+
+      <div class="video-controls">
+        <div class="v-btn" id="playBtn">
+          <span class="material-symbols-rounded">play_arrow</span>
+        </div>
+
+        <div class="progress-container">
+          <div id="progress"></div>
+        </div>
+
+        <div class="v-btn" id="muteBtn">
+          <span class="material-symbols-rounded">volume_up</span>
+        </div>
+
+        <div class="v-btn" id="fullBtn">
+          <span class="material-symbols-rounded">fullscreen</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    © <span id="year"></span> ZyrAkaNetwork
+  </footer>
+
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+const video = document.getElementById('video');
+const playBtn = document.getElementById('playBtn');
+const muteBtn = document.getElementById('muteBtn');
+const fullBtn = document.getElementById('fullBtn');
+const progress = document.getElementById('progress');
+const progressContainer = document.querySelector('.progress-container');
+
+/* AUTOPLAY LOOP */
+video.play();
+
+/* PLAY / PAUSE */
+playBtn.onclick = ()=>{
+ if(video.paused){
+  video.play();
+  playBtn.innerHTML='<span class="material-symbols-rounded">pause</span>';
+ }else{
+  video.pause();
+  playBtn.innerHTML='<span class="material-symbols-rounded">play_arrow</span>';
+ }
+};
+
+/* MUTE */
+muteBtn.onclick = ()=>{
+ video.muted=!video.muted;
+ muteBtn.innerHTML=video.muted
+ ?'<span class="material-symbols-rounded">volume_off</span>'
+ :'<span class="material-symbols-rounded">volume_up</span>';
+};
+
+/* FULLSCREEN */
+fullBtn.onclick = ()=>{
+ if(video.requestFullscreen) video.requestFullscreen();
+};
+
+/* PROGRESO */
+video.addEventListener('timeupdate',()=>{
+ progress.style.width=(video.currentTime/video.duration)*100+'%';
+});
+
+progressContainer.onclick=(e)=>{
+ video.currentTime=(e.offsetX/progressContainer.clientWidth)*video.duration;
+};
+</script>
+
+</body>
+</html>
 
