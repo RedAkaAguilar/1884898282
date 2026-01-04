@@ -241,12 +241,11 @@ async function cargarNoticiasHome(){
     const res = await fetch('notificaciones.json?cache=' + Date.now());
     const data = await res.json();
 
-    // detectar cambios
     const hash = JSON.stringify(data);
     if(hash === lastNewsHash) return;
     lastNewsHash = hash;
 
-    // solo las primeras 3
+    data.sort((a,b) => new Date(b.date) - new Date(a.date));
     const primeras = data.slice(0,3);
 
     const wrap = document.getElementById('news');
