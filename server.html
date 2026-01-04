@@ -86,9 +86,12 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 
 .calendar-grid{
   display:grid;
-  grid-template-columns:repeat(7,1fr);
-  gap:10px;
+  grid-template-columns:repeat(7, minmax(34px, 1fr));
+  gap:8px;
+  max-width:520px;        
+  margin:auto;           
 }
+
 
 .calendar-day{
   aspect-ratio:1 / 1;       
@@ -99,7 +102,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   align-items:center;
   justify-content:center;
   font-weight:600;
-  font-size:14px;
+  font-size:13px;
   cursor:pointer;
   position:relative;
   transition:
@@ -223,9 +226,15 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   animation:calendarIn .6s cubic-bezier(.4,0,.2,1) both;
 }
 
-@media(max-width:700px){
+@media(max-width:600px){
   .calendar-grid{
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(4, minmax(30px, 1fr));
+    gap:6px;
+    max-width:360px;
+  }
+
+  .calendar-day{
+    font-size:12px;
   }
 }
 
