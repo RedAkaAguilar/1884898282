@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZyrAkaNetwork • Player Pro</title>
+<title>ZyrAkaNetwork • Platform Player</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
  --text:#fff;
  --muted:#cbd5e1;
  --radius:20px;
- --shadow:0 40px 100px rgba(0,0,0,.6);
+ --shadow:0 45px 120px rgba(0,0,0,.65);
 }
 *{box-sizing:border-box}
 body{
@@ -36,13 +36,13 @@ body{
  font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
 }
 .container{
- max-width:1200px;
+ max-width:1280px;
  margin:30px auto;
  padding:20px;
 }
 .card{
  background:var(--glass);
- backdrop-filter:blur(18px);
+ backdrop-filter:blur(20px);
  border-radius:var(--radius);
  padding:20px;
  box-shadow:var(--shadow);
@@ -53,6 +53,7 @@ body{
  border-radius:22px;
  overflow:hidden;
  background:#000;
+ user-select:none;
 }
 .player:fullscreen,
 .player:-webkit-full-screen{
@@ -60,7 +61,7 @@ body{
  width:100vw;
  height:100vh;
 }
-.player video{
+video{
  width:100%;
  height:100%;
  display:block;
@@ -70,12 +71,11 @@ body{
  top:14px;
  left:14px;
  padding:8px 14px;
- background:rgba(0,0,0,.6);
+ background:rgba(0,0,0,.65);
  backdrop-filter:blur(14px);
  border-radius:999px;
  font-weight:600;
- font-size:14px;
- z-index:3;
+ z-index:5;
 }
 .controls{
  position:absolute;
@@ -90,12 +90,11 @@ body{
  flex-direction:column;
  gap:12px;
  opacity:0;
- transition:.35s;
- z-index:4;
+ transition:.3s;
+ z-index:6;
 }
 .player.active .controls,
-.player:fullscreen .controls,
-.player:-webkit-full-screen .controls{
+.player:fullscreen .controls{
  opacity:1;
 }
 .progress-wrap{
@@ -104,11 +103,25 @@ body{
  border-radius:999px;
  cursor:pointer;
  overflow:hidden;
+ position:relative;
 }
 .progress{
  height:100%;
  width:0%;
  background:linear-gradient(90deg,var(--accent),var(--blue));
+}
+.preview{
+ position:absolute;
+ bottom:12px;
+ transform:translateX(-50%);
+ background:#000;
+ border-radius:8px;
+ padding:4px;
+ display:none;
+}
+.preview video{
+ width:160px;
+ height:90px;
 }
 .row{
  display:flex;
@@ -127,14 +140,11 @@ body{
  cursor:pointer;
  transition:.25s;
 }
-.btn:hover{
- transform:scale(1.12);
- background:rgba(255,255,255,.3);
-}
+.btn:hover{transform:scale(1.12)}
 .time{
  font-size:13px;
  color:var(--muted);
- min-width:110px;
+ min-width:120px;
  text-align:center;
 }
 .volume{
@@ -148,7 +158,6 @@ body{
  height:4px;
  border-radius:999px;
  background:rgba(255,255,255,.3);
- cursor:pointer;
 }
 .volume input::-webkit-slider-thumb{
  appearance:none;
@@ -164,26 +173,22 @@ body{
  position:absolute;
  bottom:52px;
  right:0;
- background:rgba(0,0,0,.8);
+ background:rgba(0,0,0,.85);
  backdrop-filter:blur(14px);
  border-radius:12px;
  padding:8px;
  display:none;
  flex-direction:column;
- gap:6px;
 }
 .menu-panel button{
  background:none;
  border:none;
  color:white;
- padding:6px 10px;
+ padding:6px 12px;
  border-radius:8px;
  cursor:pointer;
- text-align:left;
 }
-.menu-panel button:hover{
- background:rgba(255,255,255,.15);
-}
+.menu-panel button:hover{background:rgba(255,255,255,.15)}
 footer{
  margin-top:30px;
  text-align:center;
@@ -197,24 +202,26 @@ footer{
 
 <div class="container">
 <section class="card">
-<h2><span class="material-symbols-rounded">smart_display</span> Video Oficial</h2>
+<h2><span class="material-symbols-rounded">smart_display</span> Plataforma de Video</h2>
 
 <div class="player" id="player">
-<span class="title">ZyrAkaNetwork Trailer</span>
+<span class="title">ZyrAkaNetwork Platform Player</span>
 
-<video id="video" loop>
- <source src="vid-01.mp4" type="video/mp4">
+<video id="video" loop playsinline>
+ <source src="video.mp4" type="video/mp4">
 </video>
 
-<div class="controls" id="controls">
- <div class="progress-wrap" id="progressWrap"><div class="progress" id="progress"></div></div>
+<div class="controls">
+ <div class="progress-wrap" id="progressWrap">
+  <div class="progress" id="progress"></div>
+ </div>
 
  <div class="row">
   <div class="btn" id="play"><span class="material-symbols-rounded">play_arrow</span></div>
 
   <div class="volume">
    <div class="btn" id="mute"><span class="material-symbols-rounded">volume_up</span></div>
-   <input type="range" min="0" max="1" step="0.01" value="1" id="volume">
+   <input type="range" min="0" max="1" step="0.01" id="volume">
   </div>
 
   <div class="time" id="time">0:00 / 0:00</div>
@@ -228,6 +235,7 @@ footer{
    <div class="menu-panel" id="menu">
     <button data-speed="0.5">0.5x</button>
     <button data-speed="1">Normal</button>
+    <button data-speed="1.25">1.25x</button>
     <button data-speed="1.5">1.5x</button>
     <button data-speed="2">2x</button>
    </div>
@@ -244,8 +252,6 @@ footer{
 </div>
 
 <script>
-document.getElementById('year').textContent=new Date().getFullYear();
-
 const v=document.getElementById('video');
 const p=document.getElementById('player');
 const play=document.getElementById('play');
@@ -260,14 +266,19 @@ const pip=document.getElementById('pip');
 const menu=document.getElementById('menu');
 const settings=document.getElementById('settings');
 
-let t;
+let hide;
+const savedVol=localStorage.getItem('vol')||1;
+const savedSpeed=localStorage.getItem('speed')||1;
 
+v.volume=savedVol;
+v.playbackRate=savedSpeed;
+vol.value=savedVol;
 v.play();
 
 const show=()=>{
  p.classList.add('active');
- clearTimeout(t);
- t=setTimeout(()=>p.classList.remove('active'),2500);
+ clearTimeout(hide);
+ hide=setTimeout(()=>p.classList.remove('active'),2500);
 };
 
 p.onmousemove=show;
@@ -283,7 +294,10 @@ mute.onclick=()=>{
  mute.innerHTML=`<span class="material-symbols-rounded">${v.muted?'volume_off':'volume_up'}</span>`;
 };
 
-vol.oninput=()=>v.volume=vol.value;
+vol.oninput=()=>{
+ v.volume=vol.value;
+ localStorage.setItem('vol',vol.value);
+};
 
 v.ontimeupdate=()=>{
  const c=Math.floor(v.currentTime);
@@ -301,12 +315,10 @@ v.ondblclick=e=>{
 };
 
 fs.onclick=()=>{
- if(!document.fullscreenElement)p.requestFullscreen();
- else document.exitFullscreen();
+ document.fullscreenElement?document.exitFullscreen():p.requestFullscreen();
 };
 
 cinema.onclick=()=>p.classList.toggle('cinema');
-
 pip.onclick=()=>v.requestPictureInPicture();
 
 settings.onclick=()=>menu.style.display=menu.style.display==='flex'?'none':'flex';
@@ -314,9 +326,18 @@ settings.onclick=()=>menu.style.display=menu.style.display==='flex'?'none':'flex
 menu.querySelectorAll('button').forEach(b=>{
  b.onclick=()=>{
   v.playbackRate=b.dataset.speed;
+  localStorage.setItem('speed',b.dataset.speed);
   menu.style.display='none';
  };
 });
+
+document.onkeydown=e=>{
+ if(e.code==='Space'){e.preventDefault();play.click();}
+ if(e.code==='ArrowRight')v.currentTime+=5;
+ if(e.code==='ArrowLeft')v.currentTime-=5;
+ if(e.code==='KeyF')fs.click();
+};
+document.getElementById('year').textContent=new Date().getFullYear();
 </script>
 
 </body>
