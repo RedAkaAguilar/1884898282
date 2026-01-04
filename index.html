@@ -14,28 +14,41 @@
 <link rel="manifest" href="/ico/site.webmanifest" />
 <style>
 :root{
-  --bg:#ffffff;
-  --mint:#dff7ef;
-  --bluelight:#e8f4ff;
-  --accent:#0b7b6b;
-  --blueaccent:#0b6b9a;
-  --text:#06323f;
-  --muted:#6b7d84;
-  --card-shadow: 0 6px 18px rgba(6,50,63,0.06);
-  --glass: rgba(255,255,255,0.7);
+  --bg:#0e1116;                 
+  --bg-soft:#151a22;            
+  --accent:#22c55e;
+  --blueaccent:#38bdf8;
+
+  --text:#ffffff;              
+  --muted:#cbd5e1;             
+
+  --glass: rgba(255,255,255,0.08);
+  --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
   --radius:16px;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  background:linear-gradient(180deg,var(--bg) 0%, #fbfffb 50%, #ffffff 100%);
+  font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;
   color:var(--text);
+
+  background:
+    linear-gradient(120deg,
+      #0e1116,
+      #111827,
+      #0f172a,
+      #111827,
+      #0e1116
+    );
+
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
+
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-  -webkit-tap-highlight-color:transparent;
 }
+
 .material-symbols-rounded{
   font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
   vertical-align:middle;
@@ -56,10 +69,22 @@ body{
 .btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
 .btn:hover{transform:translateY(-3px)}
 .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-.card{background:var(--glass);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(6,50,63,0.04);transition:transform .22s ease,box-shadow .22s ease}
+.card{
+  background:rgba(255,255,255,0.06);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--card-shadow);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
 .card:hover{transform:translateY(-6px)}
 .server-status .row{display:flex;align-items:center;justify-content:space-between}
-.status-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;background:rgba(255,255,255,0.75);border:1px solid rgba(6,50,63,0.06)}
+.status-pill{
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(255,255,255,0.15);
+}
+
 .status-dot{width:10px;height:10px;border-radius:50%}
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
 .metric{background:white;padding:12px;border-radius:12px;text-align:center;border:1px solid rgba(6,50,63,0.04)}
@@ -120,6 +145,30 @@ body{
   font-size:14px;
   white-space:nowrap;
 }
+h1,h2,h3,h4,h5,h6,
+p,span,div,
+.small{
+  color:var(--text);
+}
+.small,
+.news-meta .date,
+.news-meta p{
+  color:var(--muted);
+}
+
+.btn{
+  background:rgba(255,255,255,0.08);
+  color:white;
+  border:1px solid rgba(255,255,255,0.15);
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  color:#ffffff;
+  box-shadow:0 0 18px rgba(56,189,248,.35);
+}
+
+
 
 @media(max-width:880px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}}
 .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.8);border:1px solid rgba(6,50,63,0.04);font-weight:700}
@@ -127,6 +176,12 @@ body{
 .sr{display:none}
 .fade-in{animation:fadeIn .45s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
 </style>
 </head>
  <div id="copy-toast" class="toast">
