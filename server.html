@@ -73,6 +73,91 @@ body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:v
 h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 .small,.news-meta.date,.news-meta p{color:var(--muted);}
 .btn{background:rgba(255,255,255,0.08);color:white;border:1px solid rgba(255,255,255,0.15);}
+.calendar-card{
+  margin-top:20px;
+}
+
+.calendar-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:14px;
+}
+
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:10px;
+}
+
+.calendar-day{
+  aspect-ratio:1/1;
+  background:rgba(255,255,255,0.06);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  cursor:pointer;
+  position:relative;
+  transition:.25s;
+}
+
+.calendar-day:hover{
+  transform:scale(1.05);
+}
+
+.calendar-day.event::after{
+  content:'';
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  position:absolute;
+  z-index:-1;
+  filter:blur(0.5px);
+}
+
+/* Popup */
+.event-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+
+.event-popup.show{
+  display:flex;
+}
+
+.event-popup-content{
+  padding:20px;
+  border-radius:16px;
+  min-width:280px;
+  max-width:90%;
+  color:#fff;
+  position:relative;
+  box-shadow:0 20px 40px rgba(0,0,0,.6);
+}
+
+.close-popup{
+  position:absolute;
+  top:10px;
+  right:14px;
+  background:none;
+  border:none;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+
+@media(max-width:700px){
+  .calendar-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+}
 .btn.primary{background:linear-gradient(135deg,#22c55e,#38bdf8);color:#ffffff;box-shadow:0 0 18px rgba(56,189,248,.35)}
 @media(max-width:880px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}}
 .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.8);border:1px solid rgba(6,50,63,0.04);font-weight:700}
@@ -176,6 +261,28 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       <div class="news-list" id="news"></div>
     </aside>
   </main>
+
+  <section class="card calendar-card fade-in" aria-labelledby="calendario">
+  <div class="calendar-header">
+    <h2 id="calendario">
+      <span class="material-symbols-rounded">calendar_month</span>
+      Calendario de Eventos
+    </h2>
+    <div id="calendar-month" class="small"></div>
+  </div>
+
+  <div class="calendar-grid" id="calendar"></div>
+</section>
+
+<div id="event-popup" class="event-popup">
+  <div class="event-popup-content">
+    <button class="close-popup">✕</button>
+    <h3 id="popup-title"></h3>
+    <p id="popup-desc"></p>
+    <span id="popup-hour"></span>
+  </div>
+</div>
+
 
   <footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
 </div>
@@ -323,6 +430,222 @@ setInterval(cargarNoticiasHome, 2000);
 
 updateServerStatus();
 setInterval(updateServerStatus,5000);
+
+  const neonColors = [
+  '#22c55e','#38bdf8','#a855f7','#f97316','#ec4899'
+];
+
+async function loadCalendar(){
+  const calendar = document.getElementById('calendar');
+  const monthLabel = document.getElementById('calendar-month');
+  calendar.innerHTML='';
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+
+  monthLabel.textContent = now.toLocaleDateString('es-ES',{
+    month:'long',year:'numeric'
+  });
+
+  const daysInMonth = new Date(year,month+1,0).getDate();
+
+  const res = await fetch('eventos.json');
+  const events = await res.json();
+
+  for(let d=1;d<=daysInMonth;d++){
+    const dayEl = document.createElement('div');
+    dayEl.className='calendar-day';
+    dayEl.textContent=d;
+
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const ev = events.find(e=>e.date===dateStr);
+
+    if(ev){
+      const color = neonColors[Math.floor(Math.random()*neonColors.length)];
+      dayEl.classList.add('event');
+      dayEl.style.color=color;
+      dayEl.style.textShadow=`0 0 8px ${color}`;
+      dayEl.style.setProperty('--c',color);
+      dayEl.style.background='rgba(255,255,255,0.08)';
+      dayEl.style.position='relative';
+      dayEl.style.zIndex='1';
+      dayEl.style.setProperty('--bg',color);
+      dayEl.style.setProperty('--shadow',color);
+
+      dayEl.style.setProperty('--event-color',color);
+      dayEl.addEventListener('click',()=>{
+        openPopup(ev,color);
+      });
+
+      dayEl.style.setProperty('--after-bg',color);
+      dayEl.style.setProperty('--after-shadow',color);
+      dayEl.style.cssText+=`
+        --after-color:${color};
+      `;
+      dayEl.style.position='relative';
+      dayEl.style.zIndex='1';
+
+      dayEl.style.setProperty('--event-bg',color);
+      dayEl.classList.add('event');
+      dayEl.style.setProperty('--event-bg',color);
+
+      dayEl.style.setProperty('--event-bg',color);
+      dayEl.style.setProperty('--event-shadow',color);
+      dayEl.style.setProperty('--event-color',color);
+      dayEl.style.setProperty('--circle',color);
+
+      dayEl.style.setProperty('--circle',color);
+      dayEl.style.cssText+=`
+        --circle:${color};
+      `;
+      dayEl.style.setProperty('--circle',color);
+      dayEl.style.setProperty('--neon',color);
+
+      dayEl.style.setProperty('--neon',color);
+      dayEl.style.setProperty('--glow',color);
+
+      dayEl.style.setProperty('--glow',color);
+      dayEl.style.setProperty('--c',color);
+
+      dayEl.style.cssText += `
+        --event-color:${color};
+      `;
+
+      dayEl.style.setProperty('--event-color',color);
+      dayEl.style.setProperty('--event-bg',color);
+
+      dayEl.style.setProperty('--event-shadow',color);
+
+      dayEl.style.setProperty('--after',color);
+      dayEl.style.cssText += `
+        --after:${color};
+      `;
+
+      dayEl.style.setProperty('--after',color);
+
+      dayEl.style.setProperty('--circle-bg',color);
+
+      dayEl.style.setProperty('--circle-bg',color);
+
+      dayEl.style.cssText += `
+        --circle-bg:${color};
+      `;
+
+      dayEl.style.setProperty('--circle-bg',color);
+
+      dayEl.style.setProperty('--neon-color',color);
+
+      dayEl.style.cssText += `
+        --neon-color:${color};
+      `;
+
+      dayEl.style.setProperty('--neon-color',color);
+
+      dayEl.style.setProperty('--popup-color',color);
+
+      dayEl.style.cssText += `
+        --popup-color:${color};
+      `;
+
+      dayEl.style.setProperty('--popup-color',color);
+
+      dayEl.style.setProperty('--after-bg',color);
+
+      dayEl.style.setProperty('--after-bg',color);
+
+      dayEl.style.setProperty('--after-shadow',color);
+
+      dayEl.style.setProperty('--after-shadow',color);
+
+      dayEl.style.cssText += `
+        position:relative;
+      `;
+      dayEl.querySelector;
+
+      dayEl.style.cssText += `
+        --bg:${color};
+      `;
+
+      dayEl.style.setProperty('--bg',color);
+
+      dayEl.style.setProperty('--shadow',color);
+
+      dayEl.style.cssText += `
+        box-shadow:0 0 12px ${color};
+      `;
+
+      dayEl.style.setProperty('--shadow',color);
+
+      dayEl.style.cssText += `
+        &::after{
+          background:${color};
+        }
+      `;
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+
+      dayEl.style.setProperty('--circle',color);
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+
+      dayEl.style.setProperty('--event-color',color);
+      dayEl.style.cssText += '';
+
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+
+      dayEl.style.setProperty('--event-bg',color);
+
+      dayEl.style.cssText += `
+        &::after{
+          background:${color};
+        }
+      `;
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+
+      dayEl.style.setProperty('--circle-bg',color);
+
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+
+      dayEl.style.setProperty('--neon',color);
+
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+
+      dayEl.style.setProperty('--glow',color);
+
+      dayEl.style.cssText += '';
+      dayEl.style.cssText += '';
+    }
+
+    calendar.appendChild(dayEl);
+  }
+}
+
+function openPopup(ev,color){
+  const popup=document.getElementById('event-popup');
+  const content=popup.querySelector('.event-popup-content');
+  content.style.background=color;
+  document.getElementById('popup-title').textContent=ev.title;
+  document.getElementById('popup-desc').textContent=ev.description;
+  document.getElementById('popup-hour').textContent='⏰ '+ev.hour;
+  popup.classList.add('show');
+}
+
+document.querySelector('.close-popup').onclick=()=>{
+  document.getElementById('event-popup').classList.remove('show');
+};
+
+loadCalendar();
 </script>
 </body>
 </html>
