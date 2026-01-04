@@ -186,12 +186,6 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const EVENTO_ACTIVO = false; 
 const EVENTO_NOMBRE = 'Test';
 
-const sampleNews = [
-  {id:1,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news1/800/450'},
-  {id:2,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news2/800/450'},
-  {id:3,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news3/800/450'}
-];
-
 function renderNews(list){
   const wrap = document.getElementById('news');
   wrap.innerHTML = '';
@@ -240,7 +234,45 @@ function showDiscordToast(){
 
   
 
-renderNews(sampleNews);
+let lastNewsHash = '';
+
+async function cargarNoticiasHome(){
+  try{
+    const res = await fetch('notificaciones.json?cache=' + Date.now());
+    const data = await res.json();
+
+    // detectar cambios
+    const hash = JSON.stringify(data);
+    if(hash === lastNewsHash) return;
+    lastNewsHash = hash;
+
+    // solo las primeras 3
+    const primeras = data.slice(0,3);
+
+    const wrap = document.getElementById('news');
+    wrap.innerHTML = '';
+
+    primeras.forEach(n => {
+      const item = document.createElement('article');
+      item.className = 'news-item';
+
+      item.innerHTML = `
+        <img src="${n.image}" alt="${n.title}">
+        <div class="news-meta">
+          <div class="date">${new Date(n.date).toLocaleDateString()}</div>
+          <h4>${n.title}</h4>
+          <p>${n.description}</p>
+        </div>
+      `;
+
+      wrap.appendChild(item);
+    });
+
+  }catch(e){
+    console.error('Error cargando noticias', e);
+  }
+}
+
 
 async function updateServerStatus(){
   const pill = document.getElementById('server-pill');
@@ -289,6 +321,8 @@ async function updateServerStatus(){
   }
 }
 
+cargarNoticiasHome();
+setInterval(cargarNoticiasHome, 2000);
 
 updateServerStatus();
 setInterval(updateServerStatus,5000);
