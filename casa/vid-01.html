@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Menú</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0e1116;
+  --accent:#22c55e;
+  --blue:#38bdf8;
+  --text:#ffffff;
+  --muted:#cbd5e1;
+  --glass:rgba(255,255,255,.08);
+  --radius:20px;
+  --shadow:0 20px 40px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  font-family:Outfit,system-ui;
+  color:var(--text);
+  background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.material-symbols-rounded{
+  font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.logo{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:var(--glass);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:var(--shadow);
+}
+
+.brand h1{
+  margin:0;
+  font-size:20px;
+}
+
+.brand p{
+  margin:0;
+  font-size:12px;
+  color:var(--muted);
+}
+
+.hero{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:26px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.06);
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.menu-buttons{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.menu-btn{
+  position:relative;
+  padding:22px;
+  border-radius:999px;
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  font-size:16px;
+  font-weight:700;
+  color:white;
+  cursor:pointer;
+  backdrop-filter:blur(14px);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+.menu-btn span{
+  font-size:22px;
+}
+
+.menu-btn:hover{
+  transform:translateY(-6px) scale(1.03);
+  box-shadow:0 0 30px rgba(56,189,248,.35);
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+}
+
+.menu-btn:active{
+  transform:scale(.96);
+}
+
+@media(max-width:900px){
+  .menu-buttons{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:500px){
+  .menu-buttons{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+<body>
+  <img src="https://1drv.ms/v/c/bb28e12eb8d6e4be/IQTMqMgLJizDQoCJE_BZuwR3AWluyyJFj-sRj9QBz6O_5AI?width=1280&height=720" width="1280" height="720" />
+</body>
+</html>
