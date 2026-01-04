@@ -237,51 +237,117 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 
 </div>
  <script>
-document.getElementById("year").textContent=new Date().getFullYear();
-const IP="mc.mcstellarstudio.com";
+document.getElementById('year').textContent = new Date().getFullYear();
 
-function copyIP(){
-  navigator.clipboard.writeText(IP);
-  toast("copy-toast");
+const EVENTO_ACTIVO = false; 
+const EVENTO_NOMBRE = 'Test';
+
+const sampleNews = [
+  {id:1,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news1/800/450'},
+  {id:2,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news2/800/450'},
+  {id:3,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news3/800/450'}
+];
+
+function renderNews(list){
+  const wrap = document.getElementById('news');
+  wrap.innerHTML = '';
+  list.forEach(n=>{
+    const item = document.createElement('article');
+    item.className = 'news-item';
+    const img = document.createElement('img');
+    img.src = n.image;
+    img.alt = n.title;
+    const meta = document.createElement('div');
+    meta.className = 'news-meta';
+    const d = document.createElement('div');
+    d.className = 'date';
+    d.textContent = (new Date(n.date)).toLocaleDateString();
+    const h = document.createElement('h4');
+    h.textContent = n.title;
+    const p = document.createElement('p');
+    p.textContent = n.description;
+    meta.appendChild(d);
+    meta.appendChild(h);
+    meta.appendChild(p);
+    item.appendChild(img);
+    item.appendChild(meta);
+    wrap.appendChild(item);
+  });
 }
-function showDiscordToast(){toast("discord-toast")}
-function toast(id){
-  const t=document.getElementById(id);
-  t.classList.add("show");
-  setTimeout(()=>t.classList.remove("show"),2200);
+
+function showCopyToast(){
+  const toast = document.getElementById('copy-toast');
+  toast.classList.add('show');
+
+  setTimeout(()=>{
+    toast.classList.remove('show');
+  }, 2200);
 }
+
+function showDiscordToast(){
+  const toast = document.getElementById('discord-toast');
+  toast.classList.add('show');
+
+  setTimeout(()=>{
+    toast.classList.remove('show');
+  }, 2200);
+}
+
+
+  
+
+renderNews(sampleNews);
 
 async function updateServerStatus(){
-  try{
-    const r=await fetch(`https://api.mcsrvstat.us/2/${IP}`);
-    const d=await r.json();
-    if(d.online){
-      status("Online","#34d399");
-      players.textContent=`${d.players.online}/${d.players.max}`;
-      version.textContent=d.version;
-      ping.textContent="No Activo";
-    }else throw 0;
-  }catch{
-    status("Offline","#fb7185");
-    players.textContent="—";
-    ping.textContent="—";
-  }
+  const pill = document.getElementById('server-pill');
+  const text = document.getElementById('status-text');
+  const dot = document.getElementById('status-dot');
+  const playersEl = document.getElementById('players');
+  const pingEl = document.getElementById('ping');
+  const versionEl = document.getElementById('version');
+
+  try {
+    const res = await fetch('https://api.mcsrvstat.us/2/mc.mcstellarstudio.com');
+    const data = await res.json();
+
+    if (data.online) {
+      text.textContent = 'Online';
+      dot.style.background = '#34d399';
+
+      playersEl.textContent = `${data.players.online}/${data.players.max}`;
+      pingEl.textContent = data.debug.ping ? data.debug.ping + '' : '—';
+      versionEl.textContent = data.version;
+      if (EVENTO_ACTIVO) {
+        pingEl.textContent = EVENTO_NOMBRE;
+        pingEl.style.color = '#16a34a';
+      } else {
+        pingEl.textContent = 'No Activo';
+        pingEl.style.color = '#64748b';
+      }
+      if (EVENTO_ACTIVO) {
+        pingEl.style.textShadow = '0 0 8px rgba(34,197,94,.6)';
+      }
+
+
+
+    } else {
+      text.textContent = 'Offline';
+      dot.style.background = '#fb7185';
+      playersEl.textContent = '—';
+      pingEl.textContent = '—';
+    }
+
+  } catch (e) {
+    text.textContent = 'Offline';
+    dot.style.background = '#fb7185';
+    playersEl.textContent = '—';
+    pingEl.textContent = '—';
+  }
 }
 
-function status(t,c){
-  statusText.textContent=t;
-  statusDot.style.background=c;
-}
-
-const statusText=document.getElementById("status-text");
-const statusDot=document.getElementById("status-dot");
-const players=document.getElementById("players");
-const ping=document.getElementById("ping");
-const version=document.getElementById("version");
 
 updateServerStatus();
 setInterval(updateServerStatus,5000);
-</script>
-
+ </script>
 </body>
 </html>
