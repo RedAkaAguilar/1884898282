@@ -1,14 +1,14 @@
 [
   {
-    "date": "2026-01-10",
-    "title": "Evento Survival",
-    "description": "Evento especial con recompensas",
-    "hour": "18:00"
+    "date": "2026-02-6",
+    "title": "Apertura",
+    "description": "Este es el Inicio del Evento, donde van a iniciar su aventura en el ZyrAkaNetwork!",
+    "hour": "2:00 pm Hora Costa Rica / Mexico"
   },
   {
-    "date": "2026-01-22",
-    "title": "Torneo PvP",
-    "description": "PvP competitivo",
-    "hour": "20:30"
+    "date": "2026-01-30",
+    "title": "Sitio Web, Publico!",
+    "description": "Ahora esta disponible el Sitio Web Official de el evento ZyrAkaNetwork!",
+    "hour": "2:00 pm Hora Costa Rica / Mexico"
   }
 ]
