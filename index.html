@@ -3,326 +3,216 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ZyrAkaNetwork • Server</title>
+<title>ZyrAkaNetwork • Menú</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="icon" type="image/png" href="/ico/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/ico/favicon.svg" />
-<link rel="shortcut icon" href="/ico/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="ZyrAkaNet" />
-<link rel="manifest" href="/ico/site.webmanifest" />
+
 <style>
 :root{
-  --bg:#0e1116;                 
-  --bg-soft:#151a22;            
+  --bg:#0e1116;
   --accent:#22c55e;
-  --blueaccent:#38bdf8;
-
-  --text:#ffffff;              
-  --muted:#cbd5e1;             
-
-  --glass: rgba(255,255,255,0.08);
-  --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  --radius:16px;
+  --blue:#38bdf8;
+  --text:#ffffff;
+  --muted:#cbd5e1;
+  --glass:rgba(255,255,255,.08);
+  --radius:20px;
+  --shadow:0 20px 40px rgba(0,0,0,.45);
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:var(--text);background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);background-size:400% 400%;animation:bgMove 18s ease infinite;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
-.material-symbols-rounded{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;color: #ffffff;}
-.small .material-symbols-rounded{color:#cbd5e1;}
-.container{max-width:1100px;margin:28px auto;padding:20px}
-.header{display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{width:56px;height:56px;border-radius:14px;background:var(--mint);display:flex;align-items:center;justify-content:center;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.6)}
-.brand h1{margin:0;font-size:20px;font-weight:700}
-.brand p{margin:0;font-size:12px;color:var(--muted)}
-.nav{display:flex;gap:10px}
-.btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(6,50,63,0.06);background:var(--glass);font-weight:600;cursor:pointer;transition:all .18s ease}
-.btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
-.btn:hover{transform:translateY(-3px)}
-.grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-.card{background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(14px);transition:transform .25s ease, box-shadow .25s ease;}
-.card:hover{transform:translateY(-6px)}
-.server-status .row{display:flex;align-items:center;justify-content:space-between}
-.status-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15)}
-.status-dot{width:10px;height:10px;border-radius:50%}
-.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
-.metric{background:rgba(255,255,255,0.07);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);backdrop-filter: blur(10px);}
-.actions{margin-top:14px;display:flex;gap:10px}
-.news-list{display:flex;flex-direction:column;gap:12px}
-.news-item{display:flex;gap:12px;align-items:flex-start;background:white;border-radius:12px;padding:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(10px);}
-.news-item img{width:110px;height:70px;object-fit:cover;border-radius:8px;flex-shrink:0}
-.news-meta{flex:1}
-.news-meta .date{font-size:12px;color:var(--muted);margin-bottom:6px}
-.news-meta h4{margin:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.news-meta p{margin:6px 0 0;font-size:13px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
-.feature{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px;display:flex;align-items:center;gap:16px;min-height:88px;backdrop-filter: blur(10px);}
-.feature .icon{width:52px;height:52px;border-radius:14px;flex-shrink:0;              display:flex;align-items:center;justify-content:center;}
-.footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#22c55e;color:#ffffff;padding:14px 20px;border-radius:999px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(34,197,94,0.35);opacity:0;pointer-events:none;transition:all .45s cubic-bezier(.4,0,.2,1);z-index:9999;}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.toastdiscord{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#69b1ff;color:#ffffff;padding:14px 20px;border-radius:999px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(34,197,94,0.35);opacity:0;pointer-events:none;transition:all .45s cubic-bezier(.4,0,.2,1);z-index:9999;}
-.toastdiscord.show{opacity:1;transform:translateX(-50%) translateY(0);}
-.toastdiscord-icon{width:34px;height:34px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;}
-.toastdiscord-icon span{color:#69b1ff;font-size:22px;font-weight:700;}
-.toast-icon{width:34px;height:34px;border-radius:50%;background:#ffffff;display:flex;align-items:center;justify-content:center;}
-.toast-icon span{color:#22c55e;font-size:22px;font-weight:700;}
-.toast-text{font-weight:700;font-size:14px;white-space:nowrap;}
-h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
-.small,.news-meta.date,.news-meta p{color:var(--muted);}
-.btn{background:rgba(255,255,255,0.08);color:white;border:1px solid rgba(255,255,255,0.15);}
-.btn.primary{background:linear-gradient(135deg,#22c55e,#38bdf8);color:#ffffff;box-shadow:0 0 18px rgba(56,189,248,.35)}
-@media(max-width:880px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.8);border:1px solid rgba(6,50,63,0.04);font-weight:700}
-.small{font-size:13px;color:var(--muted)}
-.sr{display:none}
-.fade-in{animation:fadeIn .45s ease both}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+body{
+  margin:0;
+  font-family:Outfit,system-ui;
+  color:var(--text);
+  background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
+}
+
 @keyframes bgMove{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
+.material-symbols-rounded{
+  font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.logo{
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  background:var(--glass);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:var(--shadow);
+}
+
+.brand h1{
+  margin:0;
+  font-size:20px;
+}
+
+.brand p{
+  margin:0;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* HERO IMAGE */
+.hero{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius:26px;
+  overflow:hidden;
+  background:rgba(255,255,255,.06);
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.1);
+}
+
+.hero img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* MENU BUTTONS */
+.menu-buttons{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.menu-btn{
+  position:relative;
+  padding:22px;
+  border-radius:999px;
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,.15);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  font-size:16px;
+  font-weight:700;
+  color:white;
+  cursor:pointer;
+  backdrop-filter:blur(14px);
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+.menu-btn span{
+  font-size:22px;
+}
+
+/* Hover */
+.menu-btn:hover{
+  transform:translateY(-6px) scale(1.03);
+  box-shadow:0 0 30px rgba(56,189,248,.35);
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+}
+
+/* Click */
+.menu-btn:active{
+  transform:scale(.96);
+}
+
+/* Responsive */
+@media(max-width:900px){
+  .menu-buttons{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:500px){
+  .menu-buttons{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
- <div id="copy-toast" class="toast">
-  <div class="toast-icon">
-    <span class="material-symbols-rounded">check</span>
-  </div>
-  <span class="toast-text">Se ha copiado la IP</span>
- </div>
- <div id="discord-toast" class="toastdiscord">
-  <div class="toastdiscord-icon">
-    <span class="material-symbols-rounded">check</span>
-  </div>
-  <span class="toast-text">Abriendo Pestaña de Discord!</span>
-</div>
 
 <body>
 <div class="container">
+
+  <!-- HEADER -->
   <header class="header">
     <div class="brand">
       <div class="logo">
         <span class="material-symbols-rounded">public</span>
       </div>
       <div>
-        <h1>ZyrAkaNetwork — Server Official</h1>
-        <p>Bienvenido Usuario! Aqui encontraras la Informacion Official</p>
+        <h1>ZyrAkaNetwork</h1>
+        <p>Menú principal</p>
       </div>
     </div>
-    <nav class="nav">
-      <button class="btn"><span class="material-symbols-rounded">login</span> Unete con </button>
-      <button class="btn primary" onclick="
-        navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
-         mc.mcstellarstudio.com
-      </button>
-    </nav>
   </header>
 
-  <main class="grid">
-    <section class="card server-status fade-in" aria-labelledby="estado">
-      <div class="row">
-        <div>
-          <h2 id="estado" style="margin:0;font-size:18px"><span class="material-symbols-rounded">bolt</span> Estado del servidor</h2>
-          <div class="small">Información del servidor en tiempo real! / Mira cuando esta abierto el servidor</div>
-        </div>
-        <div id="server-pill" class="status-pill"><span id="status-dot" class="status-dot" style="background:#f59e9e"></span><span id="status-text">Cargando</span></div>
-      </div>
+  <!-- HERO IMAGE -->
+  <section class="hero">
+    <!-- Cambia la imagen -->
+    <img src="https://images.unsplash.com/photo-1611605698335-7b5dc0b5b8b3?q=80&w=1600" alt="ZyrAkaNetwork">
+  </section>
 
-      <div class="metrics" style="margin-top:14px">
-        <div class="metric"><div class="small"><span class="material-symbols-rounded">supervised_user_circle</span> Jugadores</div><div style="font-size:20px;font-weight:700" id="players">—</div></div>
-        <div class="metric">
-  <div class="small">
-    <span class="material-symbols-rounded">celebration</span> Evento
-  </div>
-  <div style="font-size:20px;font-weight:700" id="ping">—</div>
-</div>
+  <!-- MENU -->
+  <section class="menu-buttons">
+    <div class="menu-btn" onclick="go('server.html')">
+      <span class="material-symbols-rounded">dns</span>
+      Servidor
+    </div>
 
-        <div class="metric"><div class="small"><span class="material-symbols-rounded">deployed_code_history</span> Versión</div><div style="font-size:20px;font-weight:700" id="version">1.20.1</div></div>
-      </div>
+    <div class="menu-btn" onclick="go('eventos.html')">
+      <span class="material-symbols-rounded">celebration</span>
+      Eventos
+    </div>
 
-      <div class="actions">
-        <a class="btn primary" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
-  <span class="material-symbols-rounded">attach_email</span> Discord
-        </a>
-        <a class="btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
-      </div>
+    <div class="menu-btn" onclick="go('tienda.html')">
+      <span class="material-symbols-rounded">shopping_cart</span>
+      Tienda
+    </div>
 
-      <div class="features" style="margin-top:18px">
-        <div class="feature">
-          <div class="icon" style="background:#0e1116;border-radius:10px"><span class="material-symbols-rounded">gamepad</span></div>
-          <div><div style="font-weight:600">Minijuegos a la Semana</div><div class="small">Diversión para todos</div></div>
-        </div>
-        <div class="feature">
-          <div class="icon" style="background:#111827;border-radius:10px"><span class="material-symbols-rounded">card_membership</span></div>
-          <div><div style="font-weight:600">Solo con Invitacion</div><div class="small">Si no tienes una, no puedes entrar</div></div>
-        </div>
-        <div class="feature">
-          <div class="icon" style="background:#0f172a;border-radius:10px"><span class="material-symbols-rounded">clock_arrow_up</span></div>
-          <div><div style="font-weight:600">Survival a toda hora!</div><div class="small">Casi todo el dia esta prendido el servidor</div></div>
-        </div>
-      </div>
-    </section>
+    <div class="menu-btn" onclick="go('perfil.html')">
+      <span class="material-symbols-rounded">account_circle</span>
+      Perfil
+    </div>
+  </section>
 
-    <aside class="card fade-in" aria-labelledby="noticias">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <div><h3 id="noticias" style="margin:0;font-size:16px"><span class="material-symbols-rounded">notifications_active</span> Noticias</h3></div>
-        <a class="small" href="#">Ver todas</a>
-      </div>
-
-      <div class="news-list" id="news"></div>
-    </aside>
-  </main>
-
-  <footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
 </div>
 
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-const EVENTO_ACTIVO = false; 
-const EVENTO_NOMBRE = 'Test';
-
-
-
-function renderNews(list){
-  const wrap = document.getElementById('news');
-  wrap.innerHTML = '';
-  list.forEach(n=>{
-    const item = document.createElement('article');
-    item.className = 'news-item';
-    const img = document.createElement('img');
-    img.src = n.image;
-    img.alt = n.title;
-    const meta = document.createElement('div');
-    meta.className = 'news-meta';
-    const d = document.createElement('div');
-    d.className = 'date';
-    d.textContent = (new Date(n.date)).toLocaleDateString();
-    const h = document.createElement('h4');
-    h.textContent = n.title;
-    const p = document.createElement('p');
-    p.textContent = n.description;
-    meta.appendChild(d);
-    meta.appendChild(h);
-    meta.appendChild(p);
-    item.appendChild(img);
-    item.appendChild(meta);
-    wrap.appendChild(item);
-  });
+function go(page){
+  window.location.href = page;
 }
-
-function showCopyToast(){
-  const toast = document.getElementById('copy-toast');
-  toast.classList.add('show');
-
-  setTimeout(()=>{
-    toast.classList.remove('show');
-  }, 2200);
-}
-
-function showDiscordToast(){
-  const toast = document.getElementById('discord-toast');
-  toast.classList.add('show');
-
-  setTimeout(()=>{
-    toast.classList.remove('show');
-  }, 2200);
-}
-
-let lastNewsHash = '';
-
-async function cargarNoticiasHome(){
-  try{
-    const res = await fetch('notificaciones.json?cache=' + Date.now());
-    const data = await res.json();
-
-    const hash = JSON.stringify(data);
-    if(hash === lastNewsHash) return;
-    lastNewsHash = hash;
-    
-    data.sort((a,b) => new Date(b.date) - new Date(a.date));
-    const primeras = data.slice(0,3);
-
-    const wrap = document.getElementById('news');
-    wrap.innerHTML = '';
-
-    primeras.forEach(n => {
-      const item = document.createElement('article');
-      item.className = 'news-item';
-
-      item.innerHTML = `
-        <img src="${n.image}" alt="${n.title}">
-        <div class="news-meta">
-          <div class="date">${new Date(n.date).toLocaleDateString()}</div>
-          <h4>${n.title}</h4>
-          <p>${n.description}</p>
-        </div>
-      `;
-
-      wrap.appendChild(item);
-    });
-
-  }catch(e){
-    console.error('Error cargando noticias', e);
-  }
-}
-  
-async function updateServerStatus(){
-  const pill = document.getElementById('server-pill');
-  const text = document.getElementById('status-text');
-  const dot = document.getElementById('status-dot');
-  const playersEl = document.getElementById('players');
-  const pingEl = document.getElementById('ping');
-  const versionEl = document.getElementById('version');
-
-  try {
-    const res = await fetch('https://api.mcsrvstat.us/2/mc.mcstellarstudio.com');
-    const data = await res.json();
-
-    if (data.online) {
-      text.textContent = 'Online';
-      dot.style.background = '#34d399';
-
-      playersEl.textContent = `${data.players.online}/${data.players.max}`;
-      pingEl.textContent = data.debug.ping ? data.debug.ping + '' : '—';
-      versionEl.textContent = data.version;
-      if (EVENTO_ACTIVO) {
-        pingEl.textContent = EVENTO_NOMBRE;
-        pingEl.style.color = '#16a34a';
-      } else {
-        pingEl.textContent = 'No Activo';
-        pingEl.style.color = '#64748b';
-      }
-      if (EVENTO_ACTIVO) {
-        pingEl.style.textShadow = '0 0 8px rgba(34,197,94,.6)';
-      }
-
-
-
-    } else {
-      text.textContent = 'Offline';
-      dot.style.background = '#fb7185';
-      playersEl.textContent = '—';
-      pingEl.textContent = '—';
-    }
-
-  } catch (e) {
-    text.textContent = 'Offline';
-    dot.style.background = '#fb7185';
-    playersEl.textContent = '—';
-    pingEl.textContent = '—';
-  }
-}
-
-cargarNoticiasHome();
-setInterval(cargarNoticiasHome, 2000);
-
-updateServerStatus();
-setInterval(updateServerStatus,5000);
 </script>
 </body>
 </html>
