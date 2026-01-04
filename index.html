@@ -251,20 +251,28 @@ async function cargarNoticiasHome(){
     wrap.innerHTML = '';
 
     primeras.forEach(n => {
-      const item = document.createElement('article');
-      item.className = 'news-item';
+  const item = document.createElement('article');
+  item.className = 'news-item';
 
-      item.innerHTML = `
-        <img src="${n.image}" alt="${n.title}">
-        <div class="news-meta">
-          <div class="date">${new Date(n.date).toLocaleDateString()}</div>
-          <h4>${n.title}</h4>
-          <p>${n.description}</p>
-        </div>
-      `;
-
-      wrap.appendChild(item);
+  // si es clickeable
+  if(n.redirect === true && n.link){
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', () => {
+      window.open(n.link, '_blank');
     });
+  }
+
+  item.innerHTML = `
+    <img src="${n.image}" alt="${n.title}">
+    <div class="news-meta">
+      <div class="date">${new Date(n.date).toLocaleDateString()}</div>
+      <h4>${n.title}</h4>
+      <p>${n.description}</p>
+    </div>
+  `;
+
+  wrap.appendChild(item);
+});
 
   }catch(e){
     console.error('Error cargando noticias', e);
