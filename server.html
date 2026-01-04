@@ -164,16 +164,63 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 }
 
 .event-popup-content{
-  padding:22px;
-  border-radius:18px;
-  min-width:280px;
-  max-width:90%;
+  width:90%;
+  max-width:680px;           
+  min-height:360px;
+  padding:32px;
+  border-radius:24px;
   color:#fff;
   position:relative;
-  box-shadow:0 30px 60px rgba(0,0,0,.65);
-  animation:popupIn .4s cubic-bezier(.4,0,.2,1) both;
-  backdrop-filter:blur(12px);
+  box-shadow:
+    0 40px 80px rgba(0,0,0,.75),
+    0 0 40px rgba(255,255,255,.15);
+  animation:popupInPro .45s cubic-bezier(.4,0,.2,1) both;
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
+
+.popup-header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.popup-icon{
+  font-size:48px;
+  filter:drop-shadow(0 0 12px rgba(255,255,255,.6));
+}
+
+.popup-header h3{
+  margin:0;
+  font-size:26px;
+  font-weight:700;
+}
+
+.popup-info{
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+.popup-row{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  font-size:17px;
+}
+
+.popup-row span.material-symbols-rounded{
+  font-size:26px;
+  opacity:.9;
+}
+
+.popup-row p{
+  margin:0;
+  line-height:1.5;
+}
+
 
 .day-number{
   position:relative;
@@ -182,18 +229,30 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 
 .close-popup{
   position:absolute;
-  top:10px;
-  right:12px;
-  background:rgba(255,255,255,.15);
+  top:18px;
+  right:18px;
+  background:rgba(255,255,255,.18);
   border:none;
   color:white;
-  font-size:16px;
-  width:32px;
-  height:32px;
+  width:44px;
+  height:44px;
   border-radius:50%;
   cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   transition:.25s;
 }
+
+.close-popup span{
+  font-size:26px;
+}
+
+.close-popup:hover{
+  background:rgba(255,255,255,.35);
+  transform:rotate(90deg) scale(1.1);
+}
+
 
 .close-popup:hover{
   background:rgba(255,255,255,.35);
@@ -209,6 +268,18 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     transform:none;
   }
 }
+
+@keyframes popupInPro{
+  from{
+    opacity:0;
+    transform:scale(.85) translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
 
 @keyframes pulseNeon{
   0%,100%{
@@ -366,10 +437,28 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 
 <div id="event-popup" class="event-popup">
   <div class="event-popup-content">
-    <button class="close-popup">✕</button>
-    <h3 id="popup-title"></h3>
-    <p id="popup-desc"></p>
-    <span id="popup-hour"></span>
+    
+    <button class="close-popup">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+
+    <div class="popup-header">
+      <span class="material-symbols-rounded popup-icon">event</span>
+      <h3 id="popup-title"></h3>
+    </div>
+
+    <div class="popup-info">
+      <div class="popup-row">
+        <span class="material-symbols-rounded">description</span>
+        <p id="popup-desc"></p>
+      </div>
+
+      <div class="popup-row">
+        <span class="material-symbols-rounded">schedule</span>
+        <span id="popup-hour"></span>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -722,14 +811,23 @@ async function loadCalendar(){
 }
 
 function openPopup(ev,color){
-  const popup=document.getElementById('event-popup');
-  const content=popup.querySelector('.event-popup-content');
-  content.style.background=color;
-  document.getElementById('popup-title').textContent=ev.title;
-  document.getElementById('popup-desc').textContent=ev.description;
-  document.getElementById('popup-hour').textContent='⏰ '+ev.hour;
+  const popup = document.getElementById('event-popup');
+  const content = popup.querySelector('.event-popup-content');
+
+  content.style.background = `linear-gradient(135deg, ${color}, #0f172a)`;
+
+  document.getElementById('popup-title').textContent = ev.title;
+  document.getElementById('popup-desc').textContent = ev.description;
+  document.getElementById('popup-hour').textContent = ev.hour;
+
   popup.classList.add('show');
 }
+
+document.getElementById('event-popup').addEventListener('click',e=>{
+  if(e.target.id === 'event-popup'){
+    e.currentTarget.classList.remove('show');
+  }
+});
 
 document.querySelector('.close-popup').onclick=()=>{
   document.getElementById('event-popup').classList.remove('show');
