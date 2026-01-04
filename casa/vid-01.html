@@ -1,36 +1,35 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>ZyrAkaNetwork • Server</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZyrAkaNetwork • Video</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
- --bg:#0e1116;
- --glass:rgba(255,255,255,.08);
  --accent:#22c55e;
  --blue:#38bdf8;
+ --glass:rgba(255,255,255,.08);
  --text:#fff;
  --muted:#cbd5e1;
- --radius:16px;
- --shadow:0 20px 50px rgba(0,0,0,.45);
+ --radius:18px;
+ --shadow:0 30px 80px rgba(0,0,0,.55);
 }
 
 *{box-sizing:border-box}
 body{
  margin:0;
  font-family:Outfit,system-ui;
- color:var(--text);
- background:linear-gradient(120deg,#290d0b,#291e0b,#13290b,#0b291a,#0b1729,#240b29);
+ background:linear-gradient(120deg,#290d0b,#13290b,#0b291a,#0b1729,#240b29);
  background-size:400% 400%;
- animation:bgMove 18s ease infinite;
+ animation:bg 18s ease infinite;
+ color:var(--text);
 }
 
-@keyframes bgMove{
+@keyframes bg{
  0%{background-position:0% 50%}
  50%{background-position:100% 50%}
  100%{background-position:0% 50%}
@@ -38,7 +37,6 @@ body{
 
 .material-symbols-rounded{
  font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
- vertical-align:middle;
 }
 
 .container{
@@ -49,92 +47,45 @@ body{
 
 .card{
  background:var(--glass);
+ backdrop-filter:blur(16px);
  border-radius:var(--radius);
- padding:18px;
+ padding:20px;
  box-shadow:var(--shadow);
- backdrop-filter:blur(14px);
- border:1px solid rgba(255,255,255,.1);
+ border:1px solid rgba(255,255,255,.12);
 }
 
-.fade-in{
- animation:fade .5s ease both;
-}
-@keyframes fade{
- from{opacity:0;transform:translateY(8px)}
- to{opacity:1}
-}
-
-.btn{
- background:rgba(255,255,255,.12);
- border:1px solid rgba(255,255,255,.2);
- padding:10px 14px;
- border-radius:12px;
- color:white;
- font-weight:600;
- cursor:pointer;
- transition:.2s;
-}
-.btn:hover{transform:translateY(-2px)}
-
-.btn.primary{
- background:linear-gradient(135deg,var(--accent),var(--blue));
- box-shadow:0 0 18px rgba(56,189,248,.35);
-}
-
-/* 🎬 VIDEO PLAYER */
-.video-wrapper{
+/* 🎬 PLAYER */
+.player{
  position:relative;
- border-radius:18px;
+ border-radius:20px;
  overflow:hidden;
  background:#000;
- box-shadow:0 30px 70px rgba(0,0,0,.6);
 }
 
-.video-wrapper video{
+.player video{
  width:100%;
  display:block;
 }
 
 /* CONTROLES */
-.video-controls{
+.controls{
  position:absolute;
- bottom:12px;
- left:12px;
- right:12px;
+ inset:auto 14px 14px 14px;
+ background:rgba(0,0,0,.65);
+ backdrop-filter:blur(16px);
+ border-radius:16px;
+ padding:14px;
  display:flex;
- align-items:center;
- gap:10px;
- padding:12px 14px;
- border-radius:14px;
- background:rgba(0,0,0,.6);
- backdrop-filter:blur(14px);
+ flex-direction:column;
+ gap:12px;
  opacity:0;
  transition:.35s;
 }
 
-.video-wrapper:hover .video-controls{
- opacity:1;
-}
+.player:hover .controls{opacity:1}
 
-.v-btn{
- width:42px;
- height:42px;
- border-radius:50%;
- background:rgba(255,255,255,.18);
- border:1px solid rgba(255,255,255,.25);
- display:flex;
- align-items:center;
- justify-content:center;
- cursor:pointer;
- transition:.2s;
-}
-.v-btn:hover{transform:scale(1.1)}
-
-.v-btn span{font-size:26px}
-
-/* PROGRESO */
-.progress-container{
- flex:1;
+/* PROGRESS */
+.progress-wrap{
  height:6px;
  background:rgba(255,255,255,.25);
  border-radius:999px;
@@ -142,13 +93,85 @@ body{
  overflow:hidden;
 }
 
-#progress{
+.progress{
  height:100%;
  width:0%;
  background:linear-gradient(90deg,var(--accent),var(--blue));
 }
 
-.footer{
+/* CONTROL ROW */
+.controls-row{
+ display:flex;
+ align-items:center;
+ gap:12px;
+}
+
+.ctrl-btn{
+ width:44px;
+ height:44px;
+ border-radius:50%;
+ background:rgba(255,255,255,.18);
+ border:1px solid rgba(255,255,255,.25);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ cursor:pointer;
+ transition:.25s;
+}
+
+.ctrl-btn:hover{
+ transform:scale(1.12);
+ background:rgba(255,255,255,.28);
+}
+
+.ctrl-btn span{font-size:26px}
+
+/* TIME */
+.time{
+ font-size:13px;
+ color:var(--muted);
+ min-width:90px;
+ text-align:center;
+}
+
+/* VOLUME */
+.volume{
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+
+.volume input{
+ width:80px;
+ appearance:none;
+ height:4px;
+ border-radius:999px;
+ background:rgba(255,255,255,.3);
+ cursor:pointer;
+}
+
+.volume input::-webkit-slider-thumb{
+ appearance:none;
+ width:14px;
+ height:14px;
+ border-radius:50%;
+ background:#fff;
+}
+
+/* TITLE */
+.video-title{
+ position:absolute;
+ top:14px;
+ left:14px;
+ padding:8px 14px;
+ background:rgba(0,0,0,.6);
+ backdrop-filter:blur(12px);
+ border-radius:999px;
+ font-size:14px;
+ font-weight:600;
+}
+
+footer{
  text-align:center;
  margin-top:30px;
  font-size:13px;
@@ -160,92 +183,109 @@ body{
 <body>
 
 <div class="container">
-
-  <section class="card fade-in">
-    <h2 style="margin-bottom:12px">
+  <section class="card">
+    <h2 style="margin-bottom:14px">
       <span class="material-symbols-rounded">smart_display</span>
       Video Oficial del Servidor
     </h2>
 
-    <div class="video-wrapper">
-      <video id="video" loop muted>
+    <div class="player" id="player">
+      <span class="video-title">ZyrAkaNetwork Trailer</span>
+
+      <video id="video" loop>
         <source src="vid-01.mp4" type="video/mp4">
-        Tu navegador no soporta video
       </video>
 
-      <div class="video-controls">
-        <div class="v-btn" id="playBtn">
-          <span class="material-symbols-rounded">play_arrow</span>
+      <div class="controls">
+
+        <div class="progress-wrap" id="progressWrap">
+          <div class="progress" id="progress"></div>
         </div>
 
-        <div class="progress-container">
-          <div id="progress"></div>
+        <div class="controls-row">
+          <div class="ctrl-btn" id="play">
+            <span class="material-symbols-rounded">play_arrow</span>
+          </div>
+
+          <div class="volume">
+            <div class="ctrl-btn" id="mute">
+              <span class="material-symbols-rounded">volume_up</span>
+            </div>
+            <input type="range" min="0" max="1" step="0.01" value="1" id="volume">
+          </div>
+
+          <div class="time" id="time">0:00 / 0:00</div>
+
+          <div style="flex:1"></div>
+
+          <div class="ctrl-btn" id="fullscreen">
+            <span class="material-symbols-rounded">fullscreen</span>
+          </div>
         </div>
 
-        <div class="v-btn" id="muteBtn">
-          <span class="material-symbols-rounded">volume_up</span>
-        </div>
-
-        <div class="v-btn" id="fullBtn">
-          <span class="material-symbols-rounded">fullscreen</span>
-        </div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
+  <footer>
     © <span id="year"></span> ZyrAkaNetwork
   </footer>
-
 </div>
 
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
+document.getElementById('year').textContent=new Date().getFullYear();
 
-const video = document.getElementById('video');
-const playBtn = document.getElementById('playBtn');
-const muteBtn = document.getElementById('muteBtn');
-const fullBtn = document.getElementById('fullBtn');
-const progress = document.getElementById('progress');
-const progressContainer = document.querySelector('.progress-container');
+const video=document.getElementById('video');
+const play=document.getElementById('play');
+const mute=document.getElementById('mute');
+const volume=document.getElementById('volume');
+const progress=document.getElementById('progress');
+const progressWrap=document.getElementById('progressWrap');
+const time=document.getElementById('time');
+const fullscreen=document.getElementById('fullscreen');
 
-/* AUTOPLAY LOOP */
+/* AUTOPLAY */
 video.play();
 
-/* PLAY / PAUSE */
-playBtn.onclick = ()=>{
+/* PLAY */
+play.onclick=()=>{
  if(video.paused){
   video.play();
-  playBtn.innerHTML='<span class="material-symbols-rounded">pause</span>';
+  play.innerHTML='<span class="material-symbols-rounded">pause</span>';
  }else{
   video.pause();
-  playBtn.innerHTML='<span class="material-symbols-rounded">play_arrow</span>';
+  play.innerHTML='<span class="material-symbols-rounded">play_arrow</span>';
  }
 };
 
-/* MUTE */
-muteBtn.onclick = ()=>{
+/* VOLUME */
+volume.oninput=()=>video.volume=volume.value;
+
+mute.onclick=()=>{
  video.muted=!video.muted;
- muteBtn.innerHTML=video.muted
+ mute.innerHTML=video.muted
  ?'<span class="material-symbols-rounded">volume_off</span>'
  :'<span class="material-symbols-rounded">volume_up</span>';
 };
 
-/* FULLSCREEN */
-fullBtn.onclick = ()=>{
- if(video.requestFullscreen) video.requestFullscreen();
+/* TIME + PROGRESS */
+video.ontimeupdate=()=>{
+ const cur=Math.floor(video.currentTime);
+ const dur=Math.floor(video.duration||0);
+ progress.style.width=(video.currentTime/video.duration)*100+'%';
+ time.textContent=`${Math.floor(cur/60)}:${('0'+cur%60).slice(-2)} / ${Math.floor(dur/60)}:${('0'+dur%60).slice(-2)}`;
 };
 
-/* PROGRESO */
-video.addEventListener('timeupdate',()=>{
- progress.style.width=(video.currentTime/video.duration)*100+'%';
-});
+/* SEEK */
+progressWrap.onclick=e=>{
+ video.currentTime=(e.offsetX/progressWrap.clientWidth)*video.duration;
+};
 
-progressContainer.onclick=(e)=>{
- video.currentTime=(e.offsetX/progressContainer.clientWidth)*video.duration;
+/* FULLSCREEN */
+fullscreen.onclick=()=>{
+ if(video.requestFullscreen) video.requestFullscreen();
 };
 </script>
 
 </body>
 </html>
-
