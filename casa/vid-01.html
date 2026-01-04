@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZyrAkaNetwork • Video</title>
+<title>ZyrAkaNetwork • Video Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -15,10 +15,9 @@
  --glass:rgba(255,255,255,.08);
  --text:#fff;
  --muted:#cbd5e1;
- --radius:18px;
- --shadow:0 30px 80px rgba(0,0,0,.55);
+ --radius:20px;
+ --shadow:0 40px 100px rgba(0,0,0,.6);
 }
-
 *{box-sizing:border-box}
 body{
  margin:0;
@@ -28,52 +27,57 @@ body{
  animation:bg 18s ease infinite;
  color:var(--text);
 }
-
 @keyframes bg{
  0%{background-position:0% 50%}
  50%{background-position:100% 50%}
  100%{background-position:0% 50%}
 }
-
 .material-symbols-rounded{
  font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
 }
-
 .container{
- max-width:1100px;
+ max-width:1200px;
  margin:30px auto;
  padding:20px;
 }
-
 .card{
  background:var(--glass);
- backdrop-filter:blur(16px);
+ backdrop-filter:blur(18px);
  border-radius:var(--radius);
  padding:20px;
  box-shadow:var(--shadow);
  border:1px solid rgba(255,255,255,.12);
 }
-
-/* 🎬 PLAYER */
 .player{
  position:relative;
- border-radius:20px;
+ border-radius:22px;
  overflow:hidden;
  background:#000;
 }
-
+.player.cinema{
+ max-width:100%;
+}
 .player video{
  width:100%;
  display:block;
 }
-
-/* CONTROLES */
+.title{
+ position:absolute;
+ top:14px;
+ left:14px;
+ padding:8px 14px;
+ background:rgba(0,0,0,.6);
+ backdrop-filter:blur(14px);
+ border-radius:999px;
+ font-weight:600;
+ font-size:14px;
+}
 .controls{
  position:absolute;
- inset:auto 14px 14px 14px;
- background:rgba(0,0,0,.65);
- backdrop-filter:blur(16px);
- border-radius:16px;
+ inset:auto 16px 16px 16px;
+ background:rgba(0,0,0,.7);
+ backdrop-filter:blur(18px);
+ border-radius:18px;
  padding:14px;
  display:flex;
  flex-direction:column;
@@ -81,10 +85,7 @@ body{
  opacity:0;
  transition:.35s;
 }
-
-.player:hover .controls{opacity:1}
-
-/* PROGRESS */
+.player.active .controls{opacity:1}
 .progress-wrap{
  height:6px;
  background:rgba(255,255,255,.25);
@@ -92,21 +93,17 @@ body{
  cursor:pointer;
  overflow:hidden;
 }
-
 .progress{
  height:100%;
  width:0%;
  background:linear-gradient(90deg,var(--accent),var(--blue));
 }
-
-/* CONTROL ROW */
-.controls-row{
+.row{
  display:flex;
  align-items:center;
  gap:12px;
 }
-
-.ctrl-btn{
+.btn{
  width:44px;
  height:44px;
  border-radius:50%;
@@ -118,38 +115,29 @@ body{
  cursor:pointer;
  transition:.25s;
 }
-
-.ctrl-btn:hover{
+.btn:hover{
  transform:scale(1.12);
- background:rgba(255,255,255,.28);
+ background:rgba(255,255,255,.3);
 }
-
-.ctrl-btn span{font-size:26px}
-
-/* TIME */
 .time{
  font-size:13px;
  color:var(--muted);
- min-width:90px;
+ min-width:100px;
  text-align:center;
 }
-
-/* VOLUME */
 .volume{
  display:flex;
  align-items:center;
  gap:8px;
 }
-
 .volume input{
- width:80px;
+ width:90px;
  appearance:none;
  height:4px;
  border-radius:999px;
  background:rgba(255,255,255,.3);
  cursor:pointer;
 }
-
 .volume input::-webkit-slider-thumb{
  appearance:none;
  width:14px;
@@ -157,23 +145,9 @@ body{
  border-radius:50%;
  background:#fff;
 }
-
-/* TITLE */
-.video-title{
- position:absolute;
- top:14px;
- left:14px;
- padding:8px 14px;
- background:rgba(0,0,0,.6);
- backdrop-filter:blur(12px);
- border-radius:999px;
- font-size:14px;
- font-weight:600;
-}
-
 footer{
- text-align:center;
  margin-top:30px;
+ text-align:center;
  font-size:13px;
  color:var(--muted);
 }
@@ -190,27 +164,22 @@ footer{
     </h2>
 
     <div class="player" id="player">
-      <span class="video-title">ZyrAkaNetwork Trailer</span>
+      <span class="title">ZyrAkaNetwork Trailer</span>
 
       <video id="video" loop>
         <source src="vid-01.mp4" type="video/mp4">
       </video>
 
       <div class="controls">
-
         <div class="progress-wrap" id="progressWrap">
           <div class="progress" id="progress"></div>
         </div>
 
-        <div class="controls-row">
-          <div class="ctrl-btn" id="play">
-            <span class="material-symbols-rounded">play_arrow</span>
-          </div>
+        <div class="row">
+          <div class="btn" id="play"><span class="material-symbols-rounded">play_arrow</span></div>
 
           <div class="volume">
-            <div class="ctrl-btn" id="mute">
-              <span class="material-symbols-rounded">volume_up</span>
-            </div>
+            <div class="btn" id="mute"><span class="material-symbols-rounded">volume_up</span></div>
             <input type="range" min="0" max="1" step="0.01" value="1" id="volume">
           </div>
 
@@ -218,24 +187,21 @@ footer{
 
           <div style="flex:1"></div>
 
-          <div class="ctrl-btn" id="fullscreen">
-            <span class="material-symbols-rounded">fullscreen</span>
-          </div>
+          <div class="btn" id="cinema"><span class="material-symbols-rounded">theaters</span></div>
+          <div class="btn" id="fullscreen"><span class="material-symbols-rounded">fullscreen</span></div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <footer>
-    © <span id="year"></span> ZyrAkaNetwork
-  </footer>
+  <footer>© <span id="year"></span> ZyrAkaNetwork</footer>
 </div>
 
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 
 const video=document.getElementById('video');
+const player=document.getElementById('player');
 const play=document.getElementById('play');
 const mute=document.getElementById('mute');
 const volume=document.getElementById('volume');
@@ -243,23 +209,27 @@ const progress=document.getElementById('progress');
 const progressWrap=document.getElementById('progressWrap');
 const time=document.getElementById('time');
 const fullscreen=document.getElementById('fullscreen');
+const cinema=document.getElementById('cinema');
 
-/* AUTOPLAY */
+let hideTimer;
+
 video.play();
 
-/* PLAY */
-play.onclick=()=>{
- if(video.paused){
-  video.play();
-  play.innerHTML='<span class="material-symbols-rounded">pause</span>';
- }else{
-  video.pause();
-  play.innerHTML='<span class="material-symbols-rounded">play_arrow</span>';
- }
+const showControls=()=>{
+ player.classList.add('active');
+ clearTimeout(hideTimer);
+ hideTimer=setTimeout(()=>player.classList.remove('active'),2500);
 };
 
-/* VOLUME */
-volume.oninput=()=>video.volume=volume.value;
+player.onmousemove=showControls;
+player.onclick=showControls;
+
+play.onclick=()=>{
+ video.paused?video.play():video.pause();
+ play.innerHTML=video.paused
+ ?'<span class="material-symbols-rounded">play_arrow</span>'
+ :'<span class="material-symbols-rounded">pause</span>';
+};
 
 mute.onclick=()=>{
  video.muted=!video.muted;
@@ -268,22 +238,29 @@ mute.onclick=()=>{
  :'<span class="material-symbols-rounded">volume_up</span>';
 };
 
-/* TIME + PROGRESS */
+volume.oninput=()=>video.volume=volume.value;
+
 video.ontimeupdate=()=>{
- const cur=Math.floor(video.currentTime);
- const dur=Math.floor(video.duration||0);
+ const c=Math.floor(video.currentTime);
+ const d=Math.floor(video.duration||0);
  progress.style.width=(video.currentTime/video.duration)*100+'%';
- time.textContent=`${Math.floor(cur/60)}:${('0'+cur%60).slice(-2)} / ${Math.floor(dur/60)}:${('0'+dur%60).slice(-2)}`;
+ time.textContent=`${Math.floor(c/60)}:${('0'+c%60).slice(-2)} / ${Math.floor(d/60)}:${('0'+d%60).slice(-2)}`;
 };
 
-/* SEEK */
 progressWrap.onclick=e=>{
  video.currentTime=(e.offsetX/progressWrap.clientWidth)*video.duration;
 };
 
-/* FULLSCREEN */
+video.ondblclick=e=>{
+ video.currentTime+=e.offsetX>video.clientWidth/2?10:-10;
+};
+
 fullscreen.onclick=()=>{
  if(video.requestFullscreen) video.requestFullscreen();
+};
+
+cinema.onclick=()=>{
+ player.classList.toggle('cinema');
 };
 </script>
 
