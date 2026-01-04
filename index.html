@@ -14,17 +14,17 @@
 <link rel="manifest" href="/ico/site.webmanifest" />
 <style>
 :root{
-  --bg:#0e1116;                 
-  --bg-soft:#151a22;            
-  --accent:#22c55e;
-  --blueaccent:#38bdf8;
+  --bg:#0e1116;                 
+  --bg-soft:#151a22;            
+  --accent:#22c55e;
+  --blueaccent:#38bdf8;
 
-  --text:#ffffff;              
-  --muted:#cbd5e1;             
+  --text:#ffffff;              
+  --muted:#cbd5e1;             
 
-  --glass: rgba(255,255,255,0.08);
-  --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  --radius:16px;
+  --glass: rgba(255,255,255,0.08);
+  --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  --radius:16px;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -81,251 +81,217 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 .fade-in{animation:fadeIn .45s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 </style>
 </head>
- <div id="copy-toast" class="toast">
-  <div class="toast-icon">
-    <span class="material-symbols-rounded">check</span>
-  </div>
-  <span class="toast-text">Se ha copiado la IP</span>
- </div>
- <div id="discord-toast" class="toastdiscord">
-  <div class="toastdiscord-icon">
-    <span class="material-symbols-rounded">check</span>
-  </div>
-  <span class="toast-text">Abriendo Pestaña de Discord!</span>
+ <div id="copy-toast" class="toast">
+  <div class="toast-icon">
+    <span class="material-symbols-rounded">check</span>
+  </div>
+  <span class="toast-text">Se ha copiado la IP</span>
+ </div>
+ <div id="discord-toast" class="toastdiscord">
+  <div class="toastdiscord-icon">
+    <span class="material-symbols-rounded">check</span>
+  </div>
+  <span class="toast-text">Abriendo Pestaña de Discord!</span>
 </div>
 
 <body>
 <div class="container">
-  <header class="header">
-    <div class="brand">
-      <div class="logo">
-        <span class="material-symbols-rounded">public</span>
-      </div>
-      <div>
-        <h1>ZyrAkaNetwork — Server Official</h1>
-        <p>Bienvenido Usuario! Aqui encontraras la Informacion Official</p>
-      </div>
-    </div>
-    <nav class="nav">
-      <button class="btn"><span class="material-symbols-rounded">login</span> Unete con </button>
-      <button class="btn primary" onclick="
-        navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
-         mc.mcstellarstudio.com
-      </button>
-    </nav>
-  </header>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">
+        <span class="material-symbols-rounded">public</span>
+      </div>
+      <div>
+        <h1>ZyrAkaNetwork — Server Official</h1>
+        <p>Bienvenido Usuario! Aqui encontraras la Informacion Official</p>
+      </div>
+    </div>
+    <nav class="nav">
+      <button class="btn"><span class="material-symbols-rounded">login</span> Unete con </button>
+      <button class="btn primary" onclick="
+        navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
+         mc.mcstellarstudio.com
+      </button>
+    </nav>
+  </header>
 
-  <main class="grid">
-    <section class="card server-status fade-in" aria-labelledby="estado">
-      <div class="row">
-        <div>
-          <h2 id="estado" style="margin:0;font-size:18px"><span class="material-symbols-rounded">bolt</span> Estado del servidor</h2>
-          <div class="small">Información del servidor en tiempo real! / Mira cuando esta abierto el servidor</div>
-        </div>
-        <div id="server-pill" class="status-pill"><span id="status-dot" class="status-dot" style="background:#f59e9e"></span><span id="status-text">Cargando</span></div>
-      </div>
+  <main class="grid">
+    <section class="card server-status fade-in" aria-labelledby="estado">
+      <div class="row">
+        <div>
+          <h2 id="estado" style="margin:0;font-size:18px"><span class="material-symbols-rounded">bolt</span> Estado del servidor</h2>
+          <div class="small">Información del servidor en tiempo real! / Mira cuando esta abierto el servidor</div>
+        </div>
+        <div id="server-pill" class="status-pill"><span id="status-dot" class="status-dot" style="background:#f59e9e"></span><span id="status-text">Cargando</span></div>
+      </div>
 
-      <div class="metrics" style="margin-top:14px">
-        <div class="metric"><div class="small"><span class="material-symbols-rounded">supervised_user_circle</span> Jugadores</div><div style="font-size:20px;font-weight:700" id="players">—</div></div>
-        <div class="metric">
-  <div class="small">
-    <span class="material-symbols-rounded">celebration</span> Evento
-  </div>
-  <div style="font-size:20px;font-weight:700" id="ping">—</div>
+      <div class="metrics" style="margin-top:14px">
+        <div class="metric"><div class="small"><span class="material-symbols-rounded">supervised_user_circle</span> Jugadores</div><div style="font-size:20px;font-weight:700" id="players">—</div></div>
+        <div class="metric">
+  <div class="small">
+    <span class="material-symbols-rounded">celebration</span> Evento
+  </div>
+  <div style="font-size:20px;font-weight:700" id="ping">—</div>
 </div>
 
-        <div class="metric"><div class="small"><span class="material-symbols-rounded">deployed_code_history</span> Versión</div><div style="font-size:20px;font-weight:700" id="version">1.20.1</div></div>
-      </div>
+        <div class="metric"><div class="small"><span class="material-symbols-rounded">deployed_code_history</span> Versión</div><div style="font-size:20px;font-weight:700" id="version">1.20.1</div></div>
+      </div>
 
-      <div class="actions">
-        <a class="btn primary" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
-  <span class="material-symbols-rounded">attach_email</span> Discord
-        </a>
-        <a class="btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
-      </div>
+      <div class="actions">
+        <a class="btn primary" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
+  <span class="material-symbols-rounded">attach_email</span> Discord
+        </a>
+        <a class="btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
+      </div>
 
-      <div class="features" style="margin-top:18px">
-        <div class="feature">
-          <div class="icon" style="background:#0e1116;border-radius:10px"><span class="material-symbols-rounded">gamepad</span></div>
-          <div><div style="font-weight:600">Minijuegos a la Semana</div><div class="small">Diversión para todos</div></div>
-        </div>
-        <div class="feature">
-          <div class="icon" style="background:#111827;border-radius:10px"><span class="material-symbols-rounded">card_membership</span></div>
-          <div><div style="font-weight:600">Solo con Invitacion</div><div class="small">Si no tienes una, no puedes entrar</div></div>
-        </div>
-        <div class="feature">
-          <div class="icon" style="background:#0f172a;border-radius:10px"><span class="material-symbols-rounded">clock_arrow_up</span></div>
-          <div><div style="font-weight:600">Survival a toda hora!</div><div class="small">Casi todo el dia esta prendido el servidor</div></div>
-        </div>
-      </div>
-    </section>
+      <div class="features" style="margin-top:18px">
+        <div class="feature">
+          <div class="icon" style="background:#0e1116;border-radius:10px"><span class="material-symbols-rounded">gamepad</span></div>
+          <div><div style="font-weight:600">Minijuegos a la Semana</div><div class="small">Diversión para todos</div></div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#111827;border-radius:10px"><span class="material-symbols-rounded">card_membership</span></div>
+          <div><div style="font-weight:600">Solo con Invitacion</div><div class="small">Si no tienes una, no puedes entrar</div></div>
+        </div>
+        <div class="feature">
+          <div class="icon" style="background:#0f172a;border-radius:10px"><span class="material-symbols-rounded">clock_arrow_up</span></div>
+          <div><div style="font-weight:600">Survival a toda hora!</div><div class="small">Casi todo el dia esta prendido el servidor</div></div>
+        </div>
+      </div>
+    </section>
 
-    <aside class="card fade-in" aria-labelledby="noticias">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-        <div><h3 id="noticias" style="margin:0;font-size:16px"><span class="material-symbols-rounded">notifications_active</span> Noticias</h3></div>
-        <a class="small" href="https://www.zyrakaworld.net/notificaciones">Ver todas</a>
-      </div>
+    <aside class="card fade-in" aria-labelledby="noticias">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <div><h3 id="noticias" style="margin:0;font-size:16px"><span class="material-symbols-rounded">notifications_active</span> Noticias</h3></div>
+        <a class="small" href="#">Ver todas</a>
+      </div>
 
-      <div class="news-list" id="news"></div>
-    </aside>
-  </main>
+      <div class="news-list" id="news"></div>
+    </aside>
+  </main>
 
-  <footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
+  <footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
 </div>
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const EVENTO_ACTIVO = false; 
+const EVENTO_ACTIVO = false; 
 const EVENTO_NOMBRE = 'Test';
 
-
+const sampleNews = [
+  {id:1,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news1/800/450'},
+  {id:2,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news2/800/450'},
+  {id:3,title:'No disponible',description:'Aun no hay Notificaciones',date:'?-?-?',image:'https://picsum.photos/seed/news3/800/450'}
+];
 
 function renderNews(list){
-  const wrap = document.getElementById('news');
-  wrap.innerHTML = '';
-  list.forEach(n=>{
-    const item = document.createElement('article');
-    item.className = 'news-item';
-    const img = document.createElement('img');
-    img.src = n.image;
-    img.alt = n.title;
-    const meta = document.createElement('div');
-    meta.className = 'news-meta';
-    const d = document.createElement('div');
-    d.className = 'date';
-    d.textContent = (new Date(n.date)).toLocaleDateString();
-    const h = document.createElement('h4');
-    h.textContent = n.title;
-    const p = document.createElement('p');
-    p.textContent = n.description;
-    meta.appendChild(d);
-    meta.appendChild(h);
-    meta.appendChild(p);
-    item.appendChild(img);
-    item.appendChild(meta);
-    wrap.appendChild(item);
-  });
+  const wrap = document.getElementById('news');
+  wrap.innerHTML = '';
+  list.forEach(n=>{
+    const item = document.createElement('article');
+    item.className = 'news-item';
+    const img = document.createElement('img');
+    img.src = n.image;
+    img.alt = n.title;
+    const meta = document.createElement('div');
+    meta.className = 'news-meta';
+    const d = document.createElement('div');
+    d.className = 'date';
+    d.textContent = (new Date(n.date)).toLocaleDateString();
+    const h = document.createElement('h4');
+    h.textContent = n.title;
+    const p = document.createElement('p');
+    p.textContent = n.description;
+    meta.appendChild(d);
+    meta.appendChild(h);
+    meta.appendChild(p);
+    item.appendChild(img);
+    item.appendChild(meta);
+    wrap.appendChild(item);
+  });
 }
 
 function showCopyToast(){
-  const toast = document.getElementById('copy-toast');
-  toast.classList.add('show');
+  const toast = document.getElementById('copy-toast');
+  toast.classList.add('show');
 
-  setTimeout(()=>{
-    toast.classList.remove('show');
-  }, 2200);
+  setTimeout(()=>{
+    toast.classList.remove('show');
+  }, 2200);
 }
 
 function showDiscordToast(){
-  const toast = document.getElementById('discord-toast');
-  toast.classList.add('show');
+  const toast = document.getElementById('discord-toast');
+  toast.classList.add('show');
 
-  setTimeout(()=>{
-    toast.classList.remove('show');
-  }, 2200);
+  setTimeout(()=>{
+    toast.classList.remove('show');
+  }, 2200);
 }
 
-let lastNewsHash = '';
 
-async function cargarNoticiasHome(){
-  try{
-    const res = await fetch('notificaciones.json?ts=' + Date.now());
-    const data = await res.json();
+  
 
-    const wrap = document.getElementById('news');
-    wrap.innerHTML = '';
+renderNews(sampleNews);
 
-    data.slice(0,3).forEach(n => {
-      const item = document.createElement('article');
-      item.className = 'news-item';
-
-      if(n.redirect === true && n.link){
-        item.style.cursor = 'pointer';
-        item.onclick = () => window.open(n.link, '_blank');
-      }
-
-      item.innerHTML = `
-        <img src="${n.image}">
-        <div class="news-meta">
-          <div class="date">${new Date(n.date).toLocaleDateString()}</div>
-          <h4>${n.title}</h4>
-          <p>${n.description}</p>
-        </div>
-      `;
-
-      wrap.appendChild(item);
-    });
-
-  }catch(e){
-    console.error('ERROR HOME:', e);
-  }
-}
-
-cargarNoticiasHome();
-setInterval(cargarNoticiasHome, 2000);
-
-  }catch(e){
-    console.error('Error cargando noticias', e);
-  }
-}
-  
 async function updateServerStatus(){
-  const pill = document.getElementById('server-pill');
-  const text = document.getElementById('status-text');
-  const dot = document.getElementById('status-dot');
-  const playersEl = document.getElementById('players');
-  const pingEl = document.getElementById('ping');
-  const versionEl = document.getElementById('version');
+  const pill = document.getElementById('server-pill');
+  const text = document.getElementById('status-text');
+  const dot = document.getElementById('status-dot');
+  const playersEl = document.getElementById('players');
+  const pingEl = document.getElementById('ping');
+  const versionEl = document.getElementById('version');
 
-  try {
-    const res = await fetch('https://api.mcsrvstat.us/2/mc.mcstellarstudio.com');
-    const data = await res.json();
+  try {
+    const res = await fetch('https://api.mcsrvstat.us/2/mc.mcstellarstudio.com');
+    const data = await res.json();
 
-    if (data.online) {
-      text.textContent = 'Online';
-      dot.style.background = '#34d399';
+    if (data.online) {
+      text.textContent = 'Online';
+      dot.style.background = '#34d399';
 
-      playersEl.textContent = `${data.players.online}/${data.players.max}`;
-      pingEl.textContent = data.debug.ping ? data.debug.ping + '' : '—';
-      versionEl.textContent = data.version;
-      if (EVENTO_ACTIVO) {
-        pingEl.textContent = EVENTO_NOMBRE;
-        pingEl.style.color = '#16a34a';
-      } else {
-        pingEl.textContent = 'No Activo';
-        pingEl.style.color = '#64748b';
-      }
-      if (EVENTO_ACTIVO) {
-        pingEl.style.textShadow = '0 0 8px rgba(34,197,94,.6)';
-      }
+      playersEl.textContent = `${data.players.online}/${data.players.max}`;
+      pingEl.textContent = data.debug.ping ? data.debug.ping + '' : '—';
+      versionEl.textContent = data.version;
+      if (EVENTO_ACTIVO) {
+        pingEl.textContent = EVENTO_NOMBRE;
+        pingEl.style.color = '#16a34a';
+      } else {
+        pingEl.textContent = 'No Activo';
+        pingEl.style.color = '#64748b';
+      }
+      if (EVENTO_ACTIVO) {
+        pingEl.style.textShadow = '0 0 8px rgba(34,197,94,.6)';
+      }
 
 
 
-    } else {
-      text.textContent = 'Offline';
-      dot.style.background = '#fb7185';
-      playersEl.textContent = '—';
-      pingEl.textContent = '—';
-    }
+    } else {
+      text.textContent = 'Offline';
+      dot.style.background = '#fb7185';
+      playersEl.textContent = '—';
+      pingEl.textContent = '—';
+    }
 
-  } catch (e) {
-    text.textContent = 'Offline';
-    dot.style.background = '#fb7185';
-    playersEl.textContent = '—';
-    pingEl.textContent = '—';
-  }
+  } catch (e) {
+    text.textContent = 'Offline';
+    dot.style.background = '#fb7185';
+    playersEl.textContent = '—';
+    pingEl.textContent = '—';
+  }
 }
-  
+
+
 updateServerStatus();
 setInterval(updateServerStatus,5000);
 </script>
 </body>
-</html>
+</html> 
