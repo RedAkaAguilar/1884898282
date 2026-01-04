@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZyrAkaNetwork • Platform Player</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>ZyrAkaNetwork • Video Platform</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -12,86 +12,89 @@
 :root{
  --accent:#22c55e;
  --blue:#38bdf8;
+ --bg:#0b0f16;
  --glass:rgba(255,255,255,.08);
  --text:#fff;
- --muted:#cbd5e1;
- --radius:20px;
- --shadow:0 45px 120px rgba(0,0,0,.65);
+ --muted:#9ca3af;
 }
 *{box-sizing:border-box}
 body{
  margin:0;
  font-family:Outfit,system-ui;
- background:linear-gradient(120deg,#290d0b,#13290b,#0b291a,#0b1729,#240b29);
- background-size:400% 400%;
- animation:bg 18s ease infinite;
+ background:linear-gradient(120deg,#0b0f16,#111827,#0b1324);
  color:var(--text);
-}
-@keyframes bg{
- 0%{background-position:0% 50%}
- 50%{background-position:100% 50%}
- 100%{background-position:0% 50%}
 }
 .material-symbols-rounded{
  font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
 }
-.container{
- max-width:1280px;
- margin:30px auto;
- padding:20px;
+.app{
+ display:grid;
+ grid-template-columns:1fr;
+ min-height:100vh;
 }
-.card{
+header{
+ position:sticky;
+ top:0;
+ z-index:20;
+ background:rgba(0,0,0,.7);
+ backdrop-filter:blur(18px);
+ padding:12px 16px;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+}
+.logo{
+ font-weight:700;
+ display:flex;
+ align-items:center;
+ gap:8px;
+}
+.main{
+ display:grid;
+ grid-template-columns:1fr;
+ gap:16px;
+ padding:12px;
+}
+.player-card{
  background:var(--glass);
- backdrop-filter:blur(20px);
- border-radius:var(--radius);
- padding:20px;
- box-shadow:var(--shadow);
- border:1px solid rgba(255,255,255,.12);
+ backdrop-filter:blur(18px);
+ border-radius:18px;
+ overflow:hidden;
 }
 .player{
  position:relative;
- border-radius:22px;
- overflow:hidden;
  background:#000;
- user-select:none;
+ aspect-ratio:16/9;
 }
-.player:fullscreen,
-.player:-webkit-full-screen{
- border-radius:0;
- width:100vw;
- height:100vh;
+.player.vertical{
+ aspect-ratio:9/16;
 }
 video{
  width:100%;
  height:100%;
- display:block;
+ object-fit:cover;
 }
-.title{
+.overlay-title{
  position:absolute;
- top:14px;
- left:14px;
- padding:8px 14px;
- background:rgba(0,0,0,.65);
- backdrop-filter:blur(14px);
+ top:12px;
+ left:12px;
+ background:rgba(0,0,0,.6);
+ padding:6px 12px;
  border-radius:999px;
- font-weight:600;
- z-index:5;
+ font-size:13px;
 }
 .controls{
  position:absolute;
- left:16px;
- right:16px;
- bottom:16px;
+ inset:auto 10px 10px 10px;
  background:rgba(0,0,0,.75);
  backdrop-filter:blur(18px);
- border-radius:18px;
- padding:14px;
+ border-radius:16px;
+ padding:10px;
  display:flex;
  flex-direction:column;
- gap:12px;
+ gap:10px;
  opacity:0;
- transition:.3s;
- z-index:6;
+ transition:.25s;
 }
 .player.active .controls,
 .player:fullscreen .controls{
@@ -99,156 +102,155 @@ video{
 }
 .progress-wrap{
  height:6px;
- background:rgba(255,255,255,.25);
+ background:rgba(255,255,255,.3);
  border-radius:999px;
- cursor:pointer;
  overflow:hidden;
- position:relative;
 }
 .progress{
  height:100%;
  width:0%;
  background:linear-gradient(90deg,var(--accent),var(--blue));
 }
-.preview{
- position:absolute;
- bottom:12px;
- transform:translateX(-50%);
- background:#000;
- border-radius:8px;
- padding:4px;
- display:none;
-}
-.preview video{
- width:160px;
- height:90px;
-}
 .row{
  display:flex;
  align-items:center;
- gap:12px;
+ gap:10px;
 }
 .btn{
- width:44px;
- height:44px;
+ width:42px;
+ height:42px;
  border-radius:50%;
  background:rgba(255,255,255,.18);
  border:1px solid rgba(255,255,255,.25);
  display:flex;
  align-items:center;
  justify-content:center;
- cursor:pointer;
- transition:.25s;
 }
-.btn:hover{transform:scale(1.12)}
+.btn span{font-size:26px}
 .time{
- font-size:13px;
+ font-size:12px;
  color:var(--muted);
- min-width:120px;
- text-align:center;
-}
-.volume{
- display:flex;
- align-items:center;
- gap:8px;
+ min-width:90px;
 }
 .volume input{
- width:90px;
- appearance:none;
- height:4px;
- border-radius:999px;
- background:rgba(255,255,255,.3);
+ width:70px;
 }
-.volume input::-webkit-slider-thumb{
- appearance:none;
- width:14px;
- height:14px;
- border-radius:50%;
- background:#fff;
+.meta{
+ padding:14px;
 }
-.menu{
- position:relative;
+.meta h2{
+ margin:0 0 6px;
+ font-size:18px;
 }
-.menu-panel{
- position:absolute;
- bottom:52px;
- right:0;
- background:rgba(0,0,0,.85);
- backdrop-filter:blur(14px);
- border-radius:12px;
- padding:8px;
- display:none;
- flex-direction:column;
+.meta p{
+ margin:0;
+ color:var(--muted);
+ font-size:14px;
 }
-.menu-panel button{
- background:none;
- border:none;
- color:white;
- padding:6px 12px;
- border-radius:8px;
+.actions{
+ display:flex;
+ gap:14px;
+ margin-top:10px;
+}
+.actions .btn{
+ width:38px;
+ height:38px;
+}
+.playlist{
+ background:var(--glass);
+ backdrop-filter:blur(18px);
+ border-radius:18px;
+ padding:12px;
+ display:grid;
+ gap:10px;
+}
+.item{
+ display:flex;
+ gap:10px;
  cursor:pointer;
 }
-.menu-panel button:hover{background:rgba(255,255,255,.15)}
-footer{
- margin-top:30px;
- text-align:center;
- font-size:13px;
- color:var(--muted);
+.thumb{
+ width:120px;
+ aspect-ratio:16/9;
+ background:#000;
+ border-radius:10px;
+}
+.item span{
+ font-size:14px;
+}
+@media(min-width:900px){
+ .main{
+  grid-template-columns:2fr 1fr;
+ }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-<section class="card">
-<h2><span class="material-symbols-rounded">smart_display</span> Plataforma de Video</h2>
-
-<div class="player" id="player">
-<span class="title">ZyrAkaNetwork Platform Player</span>
-
-<video id="video" loop playsinline>
- <source src="vid-01.mp4" type="video/mp4">
-</video>
-
-<div class="controls">
- <div class="progress-wrap" id="progressWrap">
-  <div class="progress" id="progress"></div>
+<div class="app">
+<header>
+ <div class="logo">
+  <span class="material-symbols-rounded">smart_display</span>
+  ZyrAkaNetwork
  </div>
+ <span class="material-symbols-rounded">account_circle</span>
+</header>
 
- <div class="row">
-  <div class="btn" id="play"><span class="material-symbols-rounded">play_arrow</span></div>
+<main class="main">
 
-  <div class="volume">
-   <div class="btn" id="mute"><span class="material-symbols-rounded">volume_up</span></div>
-   <input type="range" min="0" max="1" step="0.01" id="volume">
-  </div>
+<section class="player-card">
+ <div class="player" id="player">
+  <span class="overlay-title">Video Oficial</span>
 
-  <div class="time" id="time">0:00 / 0:00</div>
+  <video id="video" playsinline>
+   <source src="video.mp4" type="video/mp4">
+  </video>
 
-  <div style="flex:1"></div>
+  <div class="controls">
+   <div class="progress-wrap" id="wrap">
+    <div class="progress" id="progress"></div>
+   </div>
 
-  <div class="btn" id="pip"><span class="material-symbols-rounded">picture_in_picture_alt</span></div>
-
-  <div class="menu">
-   <div class="btn" id="settings"><span class="material-symbols-rounded">settings</span></div>
-   <div class="menu-panel" id="menu">
-    <button data-speed="0.5">0.5x</button>
-    <button data-speed="1">Normal</button>
-    <button data-speed="1.25">1.25x</button>
-    <button data-speed="1.5">1.5x</button>
-    <button data-speed="2">2x</button>
+   <div class="row">
+    <div class="btn" id="play"><span class="material-symbols-rounded">play_arrow</span></div>
+    <div class="btn" id="mute"><span class="material-symbols-rounded">volume_up</span></div>
+    <div class="time" id="time">0:00 / 0:00</div>
+    <div style="flex:1"></div>
+    <div class="btn" id="rotate"><span class="material-symbols-rounded">screen_rotation</span></div>
+    <div class="btn" id="fs"><span class="material-symbols-rounded">fullscreen</span></div>
    </div>
   </div>
-
-  <div class="btn" id="cinema"><span class="material-symbols-rounded">theaters</span></div>
-  <div class="btn" id="fullscreen"><span class="material-symbols-rounded">fullscreen</span></div>
  </div>
-</div>
-</div>
+
+ <div class="meta">
+  <h2>Presentación del Servidor</h2>
+  <p>Bienvenido a la plataforma oficial de video</p>
+
+  <div class="actions">
+   <div class="btn"><span class="material-symbols-rounded">thumb_up</span></div>
+   <div class="btn"><span class="material-symbols-rounded">share</span></div>
+   <div class="btn"><span class="material-symbols-rounded">bookmark</span></div>
+  </div>
+ </div>
 </section>
 
-<footer>© <span id="year"></span> ZyrAkaNetwork</footer>
+<aside class="playlist">
+ <div class="item">
+  <div class="thumb"></div>
+  <span>Trailer oficial</span>
+ </div>
+ <div class="item">
+  <div class="thumb"></div>
+  <span>Gameplay</span>
+ </div>
+ <div class="item">
+  <div class="thumb"></div>
+  <span>Eventos</span>
+ </div>
+</aside>
+
+</main>
 </div>
 
 <script>
@@ -256,33 +258,22 @@ const v=document.getElementById('video');
 const p=document.getElementById('player');
 const play=document.getElementById('play');
 const mute=document.getElementById('mute');
-const vol=document.getElementById('volume');
 const prog=document.getElementById('progress');
-const wrap=document.getElementById('progressWrap');
+const wrap=document.getElementById('wrap');
 const time=document.getElementById('time');
-const fs=document.getElementById('fullscreen');
-const cinema=document.getElementById('cinema');
-const pip=document.getElementById('pip');
-const menu=document.getElementById('menu');
-const settings=document.getElementById('settings');
+const fs=document.getElementById('fs');
+const rotate=document.getElementById('rotate');
 
 let hide;
-const savedVol=localStorage.getItem('vol')||1;
-const savedSpeed=localStorage.getItem('speed')||1;
-
-v.volume=savedVol;
-v.playbackRate=savedSpeed;
-vol.value=savedVol;
-v.play();
 
 const show=()=>{
  p.classList.add('active');
  clearTimeout(hide);
- hide=setTimeout(()=>p.classList.remove('active'),2500);
+ hide=setTimeout(()=>p.classList.remove('active'),2000);
 };
 
-p.onmousemove=show;
-p.onclick=show;
+p.addEventListener('touchstart',show,{passive:true});
+p.addEventListener('mousemove',show);
 
 play.onclick=()=>{
  v.paused?v.play():v.pause();
@@ -292,11 +283,6 @@ play.onclick=()=>{
 mute.onclick=()=>{
  v.muted=!v.muted;
  mute.innerHTML=`<span class="material-symbols-rounded">${v.muted?'volume_off':'volume_up'}</span>`;
-};
-
-vol.oninput=()=>{
- v.volume=vol.value;
- localStorage.setItem('vol',vol.value);
 };
 
 v.ontimeupdate=()=>{
@@ -310,34 +296,19 @@ wrap.onclick=e=>{
  v.currentTime=(e.offsetX/wrap.clientWidth)*v.duration;
 };
 
-v.ondblclick=e=>{
- v.currentTime+=e.offsetX>v.clientWidth/2?10:-10;
-};
-
 fs.onclick=()=>{
  document.fullscreenElement?document.exitFullscreen():p.requestFullscreen();
 };
 
-cinema.onclick=()=>p.classList.toggle('cinema');
-pip.onclick=()=>v.requestPictureInPicture();
-
-settings.onclick=()=>menu.style.display=menu.style.display==='flex'?'none':'flex';
-
-menu.querySelectorAll('button').forEach(b=>{
- b.onclick=()=>{
-  v.playbackRate=b.dataset.speed;
-  localStorage.setItem('speed',b.dataset.speed);
-  menu.style.display='none';
- };
-});
-
-document.onkeydown=e=>{
- if(e.code==='Space'){e.preventDefault();play.click();}
- if(e.code==='ArrowRight')v.currentTime+=5;
- if(e.code==='ArrowLeft')v.currentTime-=5;
- if(e.code==='KeyF')fs.click();
+rotate.onclick=()=>{
+ p.classList.toggle('vertical');
 };
-document.getElementById('year').textContent=new Date().getFullYear();
+
+v.onclick=()=>{
+ v.paused?v.play():v.pause();
+};
+
+v.play();
 </script>
 
 </body>
