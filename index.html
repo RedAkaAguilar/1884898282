@@ -118,16 +118,28 @@ body{
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
 .feature{
   background:rgba(255,255,255,0.07);
-  padding:14px;
-  border-radius:12px;
   border:1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(10px);
+  border-radius:14px;
+
+  padding:18px;               /* MÁS espacio interno */
   display:flex;
-  gap:12px;
-  align-items:center
+  align-items:center;
+  gap:16px;                   /* separación icono ↔ texto */
+
+  min-height:88px;            /* evita que se aplasten */
+  backdrop-filter: blur(10px);
 }
 
-.feature .icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(6,50,63,0.04)}
+
+.feature .icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  flex-shrink:0;              
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 .footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
 .toast{
   position:fixed;
