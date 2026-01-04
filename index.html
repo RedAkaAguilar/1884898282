@@ -203,7 +203,9 @@ body{
 
 <script>
 function go(page){
-  window.location.href = page;
+  setTimeout(() => {
+    window.location.href = page;
+  }, 2000);
 }
 </script>
 </body>
