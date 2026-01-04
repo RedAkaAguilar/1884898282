@@ -159,7 +159,7 @@ body{
   transition:all .45s cubic-bezier(.4,0,.2,1);
   z-index:9999;
 }
-.toast-discord{
+.toastdiscord{
   position:fixed;
   bottom:24px;
   left:50%;
@@ -249,7 +249,7 @@ p,span,div,
   </div>
   <span class="toast-text">Se ha copiado la IP</span>
  </div>
- <div id="discord-toast" class="toast-discord">
+ <div id="discord-toast" class="toastdiscord">
   <div class="toast-icon">
     <span class="material-symbols-rounded">check</span>
   </div>
@@ -386,11 +386,11 @@ function showCopyToast(){
 }
 
 function showDiscordToast(){
-  const toast = document.getElementById('discord-toast');
-  toast-discord.classList.add('show');
+  const toastdiscord = document.getElementById('discord-toast');
+  toastdiscord.classList.add('show');
 
   setTimeout(()=>{
-    toast-discord.classList.remove('show');
+    toastdiscord.classList.remove('show');
   }, 2200);
 }
 
