@@ -1,22 +1,24 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>ZyrAkaNetwork • Server</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<link rel="icon" type="image/png" href="/ico/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/svg+xml" href="/ico/favicon.svg">
-<link rel="shortcut icon" href="/ico/favicon.ico">
-<link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png">
-<link rel="manifest" href="/ico/site.webmanifest">
+<link rel="icon" type="image/png" href="/ico/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/ico/favicon.svg" />
+<link rel="shortcut icon" href="/ico/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="ZyrAkaNet" />
+<link rel="manifest" href="/ico/site.webmanifest" />
 
 <style>
 :root{
   --bg:#0e1116;
+  --bg-soft:#151a22;
   --accent:#22c55e;
   --blueaccent:#38bdf8;
   --mint:#22c55e;
@@ -35,7 +37,7 @@ html,body{height:100%}
 
 body{
   margin:0;
-  font-family:Outfit,system-ui;
+  font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;
   color:var(--text);
   background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);
   background-size:400% 400%;
@@ -43,28 +45,18 @@ body{
 }
 
 .material-symbols-rounded{
+  font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
   vertical-align:middle;
-  color:#fff;
+  color:#ffffff;
 }
 
-.container{
-  max-width:1100px;
-  margin:28px auto;
-  padding:20px;
-}
+.small .material-symbols-rounded{color:#cbd5e1}
 
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-}
+.container{max-width:1100px;margin:28px auto;padding:20px}
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+.header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+
+.brand{display:flex;align-items:center;gap:12px}
 
 .logo{
   width:56px;
@@ -75,36 +67,39 @@ body{
   align-items:center;
   justify-content:center;
   box-shadow:var(--card-shadow);
+  border:1px solid rgba(255,255,255,0.6)
 }
 
-.nav{
-  display:flex;
-  gap:10px;
-}
+.brand h1{margin:0;font-size:20px;font-weight:700}
+.brand p{margin:0;font-size:12px;color:var(--muted)}
+
+.nav{display:flex;gap:10px}
 
 .btn{
   padding:10px 14px;
   border-radius:10px;
   border:1px solid rgba(255,255,255,0.15);
   background:rgba(255,255,255,0.08);
-  color:white;
-  cursor:pointer;
   font-weight:600;
-  transition:.2s;
+  cursor:pointer;
+  transition:all .18s ease;
+  color:#fff;
 }
-
-.btn:hover{transform:translateY(-3px)}
 
 .btn.primary{
   background:linear-gradient(135deg,#22c55e,#38bdf8);
+  color:#ffffff;
   box-shadow:0 0 18px rgba(56,189,248,.35);
+  border:none;
 }
+
+.btn:hover{transform:translateY(-3px)}
 
 .grid{
   display:grid;
   grid-template-columns:1fr 340px;
   gap:18px;
-  margin-top:18px;
+  margin-top:18px
 }
 
 .card{
@@ -112,87 +107,56 @@ body{
   border-radius:var(--radius);
   padding:18px;
   box-shadow:var(--card-shadow);
-  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  transition:transform .25s ease, box-shadow .25s ease;
 }
 
-.server-status .row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
+.card:hover{transform:translateY(-6px)}
+
+.server-status .row{display:flex;align-items:center;justify-content:space-between}
 
 .status-pill{
-  display:flex;
+  display:inline-flex;
   align-items:center;
   gap:8px;
   padding:8px 12px;
   border-radius:999px;
-  background:#000;
+  font-weight:600;
+  background:rgba(0,0,0,0.9);
+  border:1px solid rgba(255,255,255,0.15)
 }
 
-.status-dot{
-  width:10px;
-  height:10px;
-  border-radius:50%;
-}
+.status-dot{width:10px;height:10px;border-radius:50%}
 
 .metrics{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:10px;
-  margin-top:14px;
+  margin-top:14px
 }
 
 .metric{
   background:rgba(255,255,255,0.07);
   padding:12px;
   border-radius:12px;
+  border:1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
 }
 
-.actions{
-  display:flex;
-  gap:10px;
-  margin-top:14px;
-}
+.actions{margin-top:14px;display:flex;gap:10px}
 
-.features{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
-  margin-top:18px;
-}
-
-.feature{
-  display:flex;
-  gap:16px;
-  align-items:center;
-  background:rgba(255,255,255,0.07);
-  padding:16px;
-  border-radius:14px;
-}
-
-.feature .icon{
-  width:52px;
-  height:52px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:12px;
-  background:#0e1116;
-}
-
-.news-list{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
+.news-list{display:flex;flex-direction:column;gap:12px}
 
 .news-item{
   display:flex;
   gap:12px;
+  align-items:flex-start;
   background:rgba(255,255,255,0.06);
-  padding:10px;
   border-radius:12px;
+  padding:10px;
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
 }
 
 .news-item img{
@@ -200,16 +164,63 @@ body{
   height:70px;
   object-fit:cover;
   border-radius:8px;
+  flex-shrink:0
 }
 
-.footer{
-  margin-top:26px;
-  text-align:center;
+.news-meta{flex:1}
+
+.news-meta .date{font-size:12px;color:var(--muted);margin-bottom:6px}
+
+.news-meta h4{
+  margin:0;
+  font-size:15px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.news-meta p{
+  margin:6px 0 0;
   font-size:13px;
   color:var(--muted);
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden
 }
 
-.toast, .toastdiscord{
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:18px
+}
+
+.feature{
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;
+  padding:18px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  min-height:88px;
+  backdrop-filter: blur(10px);
+}
+
+.feature .icon{
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#0e1116;
+}
+
+.footer{margin-top:26px;text-align:center;color:var(--muted);font-size:13px}
+
+.toast,.toastdiscord{
   position:fixed;
   bottom:24px;
   left:50%;
@@ -217,15 +228,18 @@ body{
   padding:14px 20px;
   border-radius:999px;
   display:flex;
+  align-items:center;
   gap:12px;
   opacity:0;
-  transition:.4s;
+  pointer-events:none;
+  transition:all .45s cubic-bezier(.4,0,.2,1);
+  z-index:9999;
 }
 
 .toast{background:#22c55e}
-.toastdiscord{background:#5865F2}
+.toastdiscord{background:#69b1ff}
 
-.toast.show, .toastdiscord.show{
+.toast.show,.toastdiscord.show{
   opacity:1;
   transform:translateX(-50%) translateY(0);
 }
@@ -247,12 +261,12 @@ body{
 
 <div id="copy-toast" class="toast">
   <span class="material-symbols-rounded">check</span>
-  IP copiada
+  Se ha copiado la IP
 </div>
 
 <div id="discord-toast" class="toastdiscord">
   <span class="material-symbols-rounded">check</span>
-  Abriendo Discord
+  Abriendo Pestaña de Discord!
 </div>
 
 <div class="container">
@@ -262,12 +276,17 @@ body{
     <div class="logo"><span class="material-symbols-rounded">public</span></div>
     <div>
       <h1>ZyrAkaNetwork — Server Official</h1>
-      <p class="small">Información oficial del servidor</p>
+      <p>Bienvenido Usuario! Aqui encontraras la Informacion Official</p>
     </div>
   </div>
 
   <nav class="nav">
-    <button class="btn primary" onclick="copyIP()">mc.mcstellarstudio.com</button>
+    <button class="btn">
+      <span class="material-symbols-rounded">login</span> Unete con
+    </button>
+    <button class="btn primary" onclick="copyIP()">
+      mc.mcstellarstudio.com
+    </button>
   </nav>
 </header>
 
@@ -275,17 +294,20 @@ body{
 
 <section class="card server-status">
   <div class="row">
-    <h2><span class="material-symbols-rounded">bolt</span> Estado</h2>
+    <div>
+      <h2><span class="material-symbols-rounded">bolt</span> Estado del servidor</h2>
+      <div class="small">Información del servidor en tiempo real</div>
+    </div>
     <div class="status-pill">
-      <span id="status-dot" class="status-dot"></span>
+      <span id="status-dot" class="status-dot" style="background:#f59e9e"></span>
       <span id="status-text">Cargando</span>
     </div>
   </div>
 
   <div class="metrics">
-    <div class="metric">Jugadores<br><b id="players">—</b></div>
-    <div class="metric">Evento<br><b id="ping">—</b></div>
-    <div class="metric">Versión<br><b id="version">1.20.1</b></div>
+    <div class="metric"><div class="small">Jugadores</div><div id="players">—</div></div>
+    <div class="metric"><div class="small">Evento</div><div id="ping">—</div></div>
+    <div class="metric"><div class="small">Versión</div><div id="version">1.20.1</div></div>
   </div>
 
   <div class="actions">
@@ -300,14 +322,36 @@ body{
 
 </main>
 
-<footer class="footer">© <span id="year"></span> ZyrAkaNetwork</footer>
+<footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
 
 </div>
 
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const IP = "mc.mcstellarstudio.com";
+const IP = 'mc.mcstellarstudio.com';
+
+const sampleNews = [
+  {title:'No disponible',description:'Aun no hay Notificaciones',date:'2024-01-01',image:'https://picsum.photos/seed/1/800/450'},
+  {title:'No disponible',description:'Aun no hay Notificaciones',date:'2024-01-01',image:'https://picsum.photos/seed/2/800/450'}
+];
+
+function renderNews(){
+  const n=document.getElementById("news");
+  sampleNews.forEach(e=>{
+    n.innerHTML+=`
+      <article class="news-item">
+        <img src="${e.image}">
+        <div class="news-meta">
+          <div class="date">${new Date(e.date).toLocaleDateString()}</div>
+          <h4>${e.title}</h4>
+          <p>${e.description}</p>
+        </div>
+      </article>`;
+  });
+}
+
+renderNews();
 
 function copyIP(){
   navigator.clipboard.writeText(IP);
@@ -319,22 +363,21 @@ function showDiscordToast(){
 }
 
 function showToast(id){
-  const t = document.getElementById(id);
+  const t=document.getElementById(id);
   t.classList.add("show");
   setTimeout(()=>t.classList.remove("show"),2200);
 }
 
 async function updateServerStatus(){
   try{
-    const r = await fetch(`https://api.mcsrvstat.us/2/${IP}`);
-    const d = await r.json();
-
+    const r=await fetch(`https://api.mcsrvstat.us/2/${IP}`);
+    const d=await r.json();
     if(d.online){
       document.getElementById("status-text").textContent="Online";
       document.getElementById("status-dot").style.background="#34d399";
       document.getElementById("players").textContent=`${d.players.online}/${d.players.max}`;
-      document.getElementById("ping").textContent="No activo";
       document.getElementById("version").textContent=d.version;
+      document.getElementById("ping").textContent="No Activo";
     }else throw "";
   }catch{
     document.getElementById("status-text").textContent="Offline";
