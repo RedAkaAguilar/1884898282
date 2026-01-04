@@ -97,22 +97,6 @@ h1{
   gap:6px;
 }
 
-.card[style*="cursor"],
-.news-item[style*="cursor"]{
-  position:relative;
-}
-
-.card[style*="cursor"]::after,
-.news-item[style*="cursor"]::after{
-  content:"↗";
-  position:absolute;
-  top:10px;
-  right:12px;
-  font-size:14px;
-  opacity:.7;
-}
-
-
 .date{
   font-size:12px;
   color:var(--muted);
@@ -161,10 +145,14 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 let lastHash = '';
 
-async function cargarNoticiasAll(){
+async function cargarNoticias(){
   try{
-    const res = await fetch('notificaciones.json?ts=' + Date.now());
+    const res = await fetch('notificaciones.json?cache=' + Date.now());
     const data = await res.json();
+
+    const hash = JSON.stringify(data);
+    if(hash === lastHash) return; // no hay cambios
+    lastHash = hash;
 
     const grid = document.getElementById('newsGrid');
     grid.innerHTML = '';
@@ -173,13 +161,8 @@ async function cargarNoticiasAll(){
       const card = document.createElement('article');
       card.className = 'card';
 
-      if(n.redirect === true && n.link){
-        card.style.cursor = 'pointer';
-        card.onclick = () => window.open(n.link, '_blank');
-      }
-
       card.innerHTML = `
-        <img src="${n.image}">
+        <img src="${n.image}" alt="${n.title}">
         <div class="card-content">
           <div class="date">${new Date(n.date).toLocaleDateString()}</div>
           <h3>${n.title}</h3>
@@ -191,13 +174,14 @@ async function cargarNoticiasAll(){
     });
 
   }catch(e){
-    console.error('ERROR NOTIFICACIONES:', e);
+    console.error('Error cargando notificaciones', e);
   }
 }
 
-cargarNoticiasAll();
-setInterval(cargarNoticiasAll, 2000);
+// cargar al entrar
+cargarNoticias();
 
+// detectar cambios cada 2 segundos
 setInterval(cargarNoticias, 2000);
 </script>
 </body>
