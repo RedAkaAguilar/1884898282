@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZyrAkaNetwork • Video Pro</title>
+<title>ZyrAkaNetwork • Player Pro</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -54,11 +54,15 @@ body{
  overflow:hidden;
  background:#000;
 }
-.player.cinema{
- max-width:100%;
+.player:fullscreen,
+.player:-webkit-full-screen{
+ border-radius:0;
+ width:100vw;
+ height:100vh;
 }
 .player video{
  width:100%;
+ height:100%;
  display:block;
 }
 .title{
@@ -71,11 +75,14 @@ body{
  border-radius:999px;
  font-weight:600;
  font-size:14px;
+ z-index:3;
 }
 .controls{
  position:absolute;
- inset:auto 16px 16px 16px;
- background:rgba(0,0,0,.7);
+ left:16px;
+ right:16px;
+ bottom:16px;
+ background:rgba(0,0,0,.75);
  backdrop-filter:blur(18px);
  border-radius:18px;
  padding:14px;
@@ -84,8 +91,13 @@ body{
  gap:12px;
  opacity:0;
  transition:.35s;
+ z-index:4;
 }
-.player.active .controls{opacity:1}
+.player.active .controls,
+.player:fullscreen .controls,
+.player:-webkit-full-screen .controls{
+ opacity:1;
+}
 .progress-wrap{
  height:6px;
  background:rgba(255,255,255,.25);
@@ -122,7 +134,7 @@ body{
 .time{
  font-size:13px;
  color:var(--muted);
- min-width:100px;
+ min-width:110px;
  text-align:center;
 }
 .volume{
@@ -145,6 +157,33 @@ body{
  border-radius:50%;
  background:#fff;
 }
+.menu{
+ position:relative;
+}
+.menu-panel{
+ position:absolute;
+ bottom:52px;
+ right:0;
+ background:rgba(0,0,0,.8);
+ backdrop-filter:blur(14px);
+ border-radius:12px;
+ padding:8px;
+ display:none;
+ flex-direction:column;
+ gap:6px;
+}
+.menu-panel button{
+ background:none;
+ border:none;
+ color:white;
+ padding:6px 10px;
+ border-radius:8px;
+ cursor:pointer;
+ text-align:left;
+}
+.menu-panel button:hover{
+ background:rgba(255,255,255,.15);
+}
 footer{
  margin-top:30px;
  text-align:center;
@@ -157,111 +196,127 @@ footer{
 <body>
 
 <div class="container">
-  <section class="card">
-    <h2 style="margin-bottom:14px">
-      <span class="material-symbols-rounded">smart_display</span>
-      Video Oficial del Servidor
-    </h2>
+<section class="card">
+<h2><span class="material-symbols-rounded">smart_display</span> Video Oficial</h2>
 
-    <div class="player" id="player">
-      <span class="title">ZyrAkaNetwork Trailer</span>
+<div class="player" id="player">
+<span class="title">ZyrAkaNetwork Trailer</span>
 
-      <video id="video" loop>
-        <source src="vid-01.mp4" type="video/mp4">
-      </video>
+<video id="video" loop>
+ <source src="video.mp4" type="video/mp4">
+</video>
 
-      <div class="controls">
-        <div class="progress-wrap" id="progressWrap">
-          <div class="progress" id="progress"></div>
-        </div>
+<div class="controls" id="controls">
+ <div class="progress-wrap" id="progressWrap"><div class="progress" id="progress"></div></div>
 
-        <div class="row">
-          <div class="btn" id="play"><span class="material-symbols-rounded">play_arrow</span></div>
+ <div class="row">
+  <div class="btn" id="play"><span class="material-symbols-rounded">play_arrow</span></div>
 
-          <div class="volume">
-            <div class="btn" id="mute"><span class="material-symbols-rounded">volume_up</span></div>
-            <input type="range" min="0" max="1" step="0.01" value="1" id="volume">
-          </div>
+  <div class="volume">
+   <div class="btn" id="mute"><span class="material-symbols-rounded">volume_up</span></div>
+   <input type="range" min="0" max="1" step="0.01" value="1" id="volume">
+  </div>
 
-          <div class="time" id="time">0:00 / 0:00</div>
+  <div class="time" id="time">0:00 / 0:00</div>
 
-          <div style="flex:1"></div>
+  <div style="flex:1"></div>
 
-          <div class="btn" id="cinema"><span class="material-symbols-rounded">theaters</span></div>
-          <div class="btn" id="fullscreen"><span class="material-symbols-rounded">fullscreen</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div class="btn" id="pip"><span class="material-symbols-rounded">picture_in_picture_alt</span></div>
 
-  <footer>© <span id="year"></span> ZyrAkaNetwork</footer>
+  <div class="menu">
+   <div class="btn" id="settings"><span class="material-symbols-rounded">settings</span></div>
+   <div class="menu-panel" id="menu">
+    <button data-speed="0.5">0.5x</button>
+    <button data-speed="1">Normal</button>
+    <button data-speed="1.5">1.5x</button>
+    <button data-speed="2">2x</button>
+   </div>
+  </div>
+
+  <div class="btn" id="cinema"><span class="material-symbols-rounded">theaters</span></div>
+  <div class="btn" id="fullscreen"><span class="material-symbols-rounded">fullscreen</span></div>
+ </div>
+</div>
+</div>
+</section>
+
+<footer>© <span id="year"></span> ZyrAkaNetwork</footer>
 </div>
 
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 
-const video=document.getElementById('video');
-const player=document.getElementById('player');
+const v=document.getElementById('video');
+const p=document.getElementById('player');
 const play=document.getElementById('play');
 const mute=document.getElementById('mute');
-const volume=document.getElementById('volume');
-const progress=document.getElementById('progress');
-const progressWrap=document.getElementById('progressWrap');
+const vol=document.getElementById('volume');
+const prog=document.getElementById('progress');
+const wrap=document.getElementById('progressWrap');
 const time=document.getElementById('time');
-const fullscreen=document.getElementById('fullscreen');
+const fs=document.getElementById('fullscreen');
 const cinema=document.getElementById('cinema');
+const pip=document.getElementById('pip');
+const menu=document.getElementById('menu');
+const settings=document.getElementById('settings');
 
-let hideTimer;
+let t;
 
-video.play();
+v.play();
 
-const showControls=()=>{
- player.classList.add('active');
- clearTimeout(hideTimer);
- hideTimer=setTimeout(()=>player.classList.remove('active'),2500);
+const show=()=>{
+ p.classList.add('active');
+ clearTimeout(t);
+ t=setTimeout(()=>p.classList.remove('active'),2500);
 };
 
-player.onmousemove=showControls;
-player.onclick=showControls;
+p.onmousemove=show;
+p.onclick=show;
 
 play.onclick=()=>{
- video.paused?video.play():video.pause();
- play.innerHTML=video.paused
- ?'<span class="material-symbols-rounded">play_arrow</span>'
- :'<span class="material-symbols-rounded">pause</span>';
+ v.paused?v.play():v.pause();
+ play.innerHTML=`<span class="material-symbols-rounded">${v.paused?'play_arrow':'pause'}</span>`;
 };
 
 mute.onclick=()=>{
- video.muted=!video.muted;
- mute.innerHTML=video.muted
- ?'<span class="material-symbols-rounded">volume_off</span>'
- :'<span class="material-symbols-rounded">volume_up</span>';
+ v.muted=!v.muted;
+ mute.innerHTML=`<span class="material-symbols-rounded">${v.muted?'volume_off':'volume_up'}</span>`;
 };
 
-volume.oninput=()=>video.volume=volume.value;
+vol.oninput=()=>v.volume=vol.value;
 
-video.ontimeupdate=()=>{
- const c=Math.floor(video.currentTime);
- const d=Math.floor(video.duration||0);
- progress.style.width=(video.currentTime/video.duration)*100+'%';
+v.ontimeupdate=()=>{
+ const c=Math.floor(v.currentTime);
+ const d=Math.floor(v.duration||0);
+ prog.style.width=(v.currentTime/v.duration)*100+'%';
  time.textContent=`${Math.floor(c/60)}:${('0'+c%60).slice(-2)} / ${Math.floor(d/60)}:${('0'+d%60).slice(-2)}`;
 };
 
-progressWrap.onclick=e=>{
- video.currentTime=(e.offsetX/progressWrap.clientWidth)*video.duration;
+wrap.onclick=e=>{
+ v.currentTime=(e.offsetX/wrap.clientWidth)*v.duration;
 };
 
-video.ondblclick=e=>{
- video.currentTime+=e.offsetX>video.clientWidth/2?10:-10;
+v.ondblclick=e=>{
+ v.currentTime+=e.offsetX>v.clientWidth/2?10:-10;
 };
 
-fullscreen.onclick=()=>{
- if(video.requestFullscreen) video.requestFullscreen();
+fs.onclick=()=>{
+ if(!document.fullscreenElement)p.requestFullscreen();
+ else document.exitFullscreen();
 };
 
-cinema.onclick=()=>{
- player.classList.toggle('cinema');
-};
+cinema.onclick=()=>p.classList.toggle('cinema');
+
+pip.onclick=()=>v.requestPictureInPicture();
+
+settings.onclick=()=>menu.style.display=menu.style.display==='flex'?'none':'flex';
+
+menu.querySelectorAll('button').forEach(b=>{
+ b.onclick=()=>{
+  v.playbackRate=b.dataset.speed;
+  menu.style.display='none';
+ };
+});
 </script>
 
 </body>
