@@ -29,7 +29,6 @@ body{
 .player{
  position:relative;
  width:100%;
- max-width:100vw;
  aspect-ratio:16/9;
  background:#000;
  overflow:hidden;
@@ -82,9 +81,7 @@ video{
  transition:.25s;
 }
 .player.active .controls,
-.player.fullscreen .controls{
- opacity:1;
-}
+.player.fullscreen .controls{opacity:1}
 .progress-wrap{
  height:6px;
  background:rgba(255,255,255,.25);
@@ -113,6 +110,9 @@ video{
  justify-content:center;
  cursor:pointer;
 }
+.btn.active{
+ background:linear-gradient(135deg,var(--accent),var(--blue));
+}
 .btn span{font-size:26px}
 .time{
  font-size:12px;
@@ -139,9 +139,7 @@ video{
  border-radius:50%;
  background:#fff;
 }
-.speed{
- position:relative;
-}
+.speed{position:relative}
 .speed-menu{
  position:absolute;
  bottom:48px;
@@ -169,7 +167,7 @@ video{
 
 <div class="player paused" id="player">
  <video id="video" playsinline preload="metadata">
-  <source src="vid-01.mp4" type="video/mp4">
+  <source src="video.mp4" type="video/mp4">
  </video>
 
  <div class="overlay-center">
@@ -194,6 +192,8 @@ video{
    <div class="time" id="time">0:00 / 0:00</div>
 
    <div style="flex:1"></div>
+
+   <div class="btn" id="loop"><span class="material-symbols-rounded">repeat</span></div>
 
    <div class="speed">
     <div class="btn" id="speed"><span class="material-symbols-rounded">speed</span></div>
@@ -227,6 +227,7 @@ const fs=document.getElementById('fs');
 const pip=document.getElementById('pip');
 const speed=document.getElementById('speed');
 const speedMenu=document.getElementById('speedMenu');
+const loopBtn=document.getElementById('loop');
 
 let hide;
 
@@ -239,21 +240,12 @@ const show=()=>{
 p.addEventListener('touchstart',show,{passive:true});
 p.addEventListener('mousemove',show);
 
-const togglePlay=()=>{
- if(v.paused){v.play()}else{v.pause()}
-};
-
+const togglePlay=()=>v.paused?v.play():v.pause();
 play.onclick=togglePlay;
 v.onclick=togglePlay;
 
-v.onplay=()=>{
- p.classList.remove('paused');
- play.innerHTML='<span class="material-symbols-rounded">pause</span>';
-};
-v.onpause=()=>{
- p.classList.add('paused');
- play.innerHTML='<span class="material-symbols-rounded">play_arrow</span>';
-};
+v.onplay=()=>{p.classList.remove('paused');play.innerHTML='<span class="material-symbols-rounded">pause</span>';};
+v.onpause=()=>{p.classList.add('paused');play.innerHTML='<span class="material-symbols-rounded">play_arrow</span>';};
 
 rew.onclick=()=>v.currentTime=Math.max(0,v.currentTime-10);
 fwd.onclick=()=>v.currentTime=Math.min(v.duration,v.currentTime+10);
@@ -265,9 +257,20 @@ mute.onclick=()=>{
 
 const savedVol=localStorage.getItem('vol')??1;
 const savedSpeed=localStorage.getItem('speed')??1;
+const savedLoop=localStorage.getItem('loop')==='true';
+
 v.volume=savedVol;
 v.playbackRate=savedSpeed;
+v.loop=savedLoop;
 vol.value=savedVol;
+
+if(savedLoop) loopBtn.classList.add('active');
+
+loopBtn.onclick=()=>{
+ v.loop=!v.loop;
+ loopBtn.classList.toggle('active',v.loop);
+ localStorage.setItem('loop',v.loop);
+};
 
 vol.oninput=()=>{
  v.volume=vol.value;
@@ -302,10 +305,7 @@ pip.onclick=()=>{
  else if(document.pictureInPictureEnabled) v.requestPictureInPicture();
 };
 
-speed.onclick=()=>{
- speedMenu.style.display=speedMenu.style.display==='block'?'none':'block';
-};
-
+speed.onclick=()=>speedMenu.style.display=speedMenu.style.display==='block'?'none':'block';
 speedMenu.querySelectorAll('button').forEach(b=>{
  b.onclick=()=>{
   v.playbackRate=b.dataset.s;
@@ -317,13 +317,6 @@ speedMenu.querySelectorAll('button').forEach(b=>{
 document.addEventListener('fullscreenchange',()=>{
  if(!document.fullscreenElement)p.classList.remove('fullscreen');
 });
-
-document.onkeydown=e=>{
- if(e.code==='Space'){e.preventDefault();togglePlay()}
- if(e.code==='ArrowRight')v.currentTime+=5;
- if(e.code==='ArrowLeft')v.currentTime-=5;
- if(e.code==='KeyF')fs.click();
-};
 </script>
 
 </body>
