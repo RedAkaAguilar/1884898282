@@ -14,7 +14,7 @@
   "productos": [
     {
       "id": "tx001",
-      "categoria": "betatest",
+      "categoria": "textures",
       "titulo": "Test Product",
       "descripcion": "...",
       "imagen": "assets/productos/texture1.jpg",
@@ -26,7 +26,7 @@
     },
     {
       "id": "dp001",
-      "categoria": "betatest",
+      "categoria": "textures",
       "titulo": "Test Product",
       "descripcion": "...",
       "imagen": "assets/productos/datapack1.jpg",
@@ -38,7 +38,7 @@
     },
     {
       "id": "pl001",
-      "categoria": "betatest",
+      "categoria": "textures",
       "titulo": "Test Product",
       "descripcion": "...",
       "imagen": "assets/productos/plugin1.jpg",
