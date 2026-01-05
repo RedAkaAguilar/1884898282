@@ -67,50 +67,69 @@ img{
 const params = new URLSearchParams(window.location.search);
 const productId = params.get('id');
 
+let lastHash = '';
+
 async function cargarProducto(){
-  const res = await fetch('tienda.json');
-  const data = await res.json();
+  try{
+    const res = await fetch('tienda.json?cache=' + Date.now());
+    const data = await res.json();
 
-  const p = data.productos.find(x => x.id === productId);
+    const p = data.productos.find(x => x.id === productId);
 
-  if(!p){
-    document.getElementById('product').innerHTML = 'Producto no encontrado';
-    return;
-  }
+    if(!p){
+      document.getElementById('product').innerHTML = `
+        <div class="card">
+          <h2>Producto no encontrado</h2>
+        </div>
+      `;
+      return;
+    }
 
-if(!p.disponible){
-  document.getElementById('product').innerHTML = `
-    <div class="card">
-      <h2>Producto no disponible</h2>
-      <p>Este producto no está disponible actualmente.</p>
-    </div>
-  `;
-  return;
-}
+    const hash = JSON.stringify(p);
+    if(hash === lastHash) return;
+    lastHash = hash;
 
-  const precioFinal = p.descuento
-    ? (p.precio - (p.precio * p.descuento / 100)).toFixed(2)
-    : p.precio;
+    if(!p.disponible){
+      document.getElementById('product').innerHTML = `
+        <div class="card">
+          <h2>${p.titulo}</h2>
+          <p>Este producto no está disponible actualmente.</p>
+        </div>
+      `;
+      return;
+    }
 
-  document.getElementById('product').innerHTML = `
-    <div class="card">
-      <img src="${p.imagen}">
-      <h1>${p.titulo}</h1>
-      <p>${p.descripcion}</p>
+    const precioFinal = p.descuento
+      ? (p.precio - (p.precio * p.descuento / 100)).toFixed(2)
+      : p.precio;
 
-      <div class="price">
-        $${precioFinal}
-        ${p.descuento ? `<span class="old">$${p.precio}</span>` : ''}
+    document.getElementById('product').innerHTML = `
+      <div class="card">
+        <img src="${p.imagen}">
+        <h1>${p.titulo}</h1>
+        <p>${p.descripcion}</p>
+
+        <div class="price">
+          $${precioFinal}
+          ${p.descuento ? `<span class="old">$${p.precio}</span>` : ''}
+        </div>
+
+        <button class="btn">Acción futura</button>
       </div>
-
-      <br>
-      <button class="btn">Acción futura</button>
-    </div>
-  `;
+    `;
+  }catch(e){
+    console.error('Error leyendo tienda.json', e);
+  }
 }
+
+document.body.classList.add('updated');
+setTimeout(()=>document.body.classList.remove('updated'),300);
 
 cargarProducto();
+
+setInterval(cargarProducto, 1000);
 </script>
+
 
 </body>
 </html>
