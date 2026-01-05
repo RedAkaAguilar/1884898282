@@ -10,11 +10,13 @@
 
 <style>
 :root{
-  --bg:#0e1116;
-  --card:#121826;
-  --border:rgba(255,255,255,.08);
-  --muted:#94a3b8;
-  --grad:linear-gradient(135deg,#22c55e,#38bdf8);
+  --bg:#eaeded;
+  --card:#ffffff;
+  --border:#d5d9d9;
+  --text:#0f1111;
+  --muted:#565959;
+  --amazon:#ffd814;
+  --amazon-hover:#f7ca00;
 }
 
 *{box-sizing:border-box}
@@ -23,213 +25,213 @@ body{
   margin:0;
   font-family:Outfit,sans-serif;
   background:var(--bg);
-  color:#fff;
+  color:var(--text);
 }
 
 /* ---------- LAYOUT ---------- */
 
 .container{
-  max-width:1100px;
+  max-width:1200px;
   margin:auto;
-  padding:20px;
+  padding:18px;
 }
 
-.card{
+.product{
   display:grid;
-  grid-template-columns:1fr;
-  gap:22px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
+  gap:24px;
 }
 
 /* PC */
 @media(min-width:900px){
-  .card{
-    grid-template-columns:1.1fr 1fr;
-    padding:24px;
+  .product{
+    grid-template-columns:1.1fr 1fr 320px;
+    align-items:start;
   }
 }
 
 /* ---------- IMAGEN ---------- */
 
 .media{
-  position:relative;
-  overflow:hidden;
-  border-radius:14px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px;
 }
 
 .media img{
   width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform .5s ease;
+  height:420px;
+  object-fit:contain;
 }
 
-.media:hover img{
-  transform:scale(1.05);
+/* ---------- INFO ---------- */
+
+.info h1{
+  font-size:clamp(22px,2.5vw,28px);
+  margin:0 0 6px;
 }
 
-/* ---------- TEXTO ---------- */
+.brand{
+  color:#007185;
+  font-size:14px;
+}
 
-h1{
-  margin:0;
-  font-size:clamp(22px,3vw,30px);
-  line-height:1.2;
+.rating{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:14px;
+  margin:8px 0;
+}
+
+.rating span{
+  color:#ffa41c;
 }
 
 .desc{
-  color:var(--muted);
   font-size:15px;
   line-height:1.6;
+  color:var(--muted);
+  border-top:1px solid var(--border);
+  padding-top:12px;
 }
 
-/* ---------- PRECIO ---------- */
+/* ---------- COMPRA ---------- */
+
+.buybox{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:16px;
+}
 
 .price{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:10px;
-}
-
-.current{
-  font-size:26px;
+  font-size:28px;
   font-weight:700;
 }
 
 .old{
   font-size:14px;
-  color:var(--muted);
+  color:#565959;
   text-decoration:line-through;
 }
 
-/* ---------- BOTONES ---------- */
-
-.actions{
-  display:flex;
-  gap:12px;
-  margin-top:18px;
+.stock{
+  color:#007600;
+  font-size:14px;
+  margin:8px 0;
 }
 
 .btn{
-  flex:1;
-  min-height:48px;
+  width:100%;
   border:none;
-  border-radius:12px;
+  border-radius:24px;
+  padding:12px;
   font-weight:700;
+  font-size:16px;
+  background:var(--amazon);
   cursor:pointer;
-  background:var(--grad);
-  color:#fff;
-  transition:transform .15s ease,box-shadow .15s ease;
+  margin-top:10px;
 }
 
-.btn:active{
-  transform:scale(.97);
+.btn:hover{
+  background:var(--amazon-hover);
 }
 
 .btn.alt{
-  background:transparent;
-  border:1px solid var(--border);
+  background:#ffa41c;
 }
+
+/* ---------- BACK ---------- */
 
 .back{
   display:inline-flex;
   align-items:center;
   gap:6px;
   font-size:14px;
-  color:#94a3b8;
+  color:#007185;
   text-decoration:none;
   margin-bottom:10px;
 }
 
-.back span{
-  font-size:18px;
-}
+/* ---------- MOBILE ---------- */
 
-.back:hover{
-  color:white;
-}
-
-/* ---------- ESTADOS ---------- */
-
-.center{
-  text-align:center;
-  padding:40px;
-  color:var(--muted);
+@media(max-width:899px){
+  .media img{
+    height:300px;
+  }
+  .buybox{
+    order:-1;
+  }
 }
 </style>
 </head>
 
 <body>
-<a href="shop.html" class="back">
-  <span class="material-symbols-rounded">arrow_back</span>
-  Volver a la tienda
-</a>
+
 <div class="container">
-  <div id="product" class="center">Cargando producto…</div>
+  <a href="index.html" class="back">
+    <span class="material-symbols-rounded">arrow_back</span>
+    Volver a la tienda
+  </a>
+
+  <div id="product"></div>
 </div>
+
 <script>
 const params = new URLSearchParams(location.search);
-const productId = params.get("id");
+const id = params.get("id");
 
-async function cargarProducto(){
-  try{
-    const res = await fetch("tienda.json");
-    const data = await res.json();
-    const p = data.productos.find(x => x.id === productId);
+async function cargar(){
+  const res = await fetch("tienda.json");
+  const data = await res.json();
+  const p = data.productos.find(x => x.id === id);
 
-    if(!p){
-      product.innerHTML = "<div class='center'>Producto no encontrado</div>";
-      return;
-    }
-
-    if(!p.disponible){
-      product.innerHTML = `<div class="center">
-        <h2>${p.titulo}</h2>
-        <p>No disponible actualmente</p>
-      </div>`;
-      return;
-    }
-
-    const precioFinal = p.descuento
-      ? (p.precio - (p.precio * p.descuento / 100)).toFixed(2)
-      : p.precio;
-
-    product.innerHTML = `
-      <div class="card">
-        <div class="media">
-          <img src="${p.imagen}" alt="${p.titulo}">
-        </div>
-
-        <div>
-          <h1>${p.titulo}</h1>
-          <p class="desc">${p.descripcion}</p>
-
-          <div class="price">
-            <div class="current">$${precioFinal}</div>
-            ${p.descuento ? `<div class="old">$${p.precio}</div>` : ""}
-          </div>
-
-          <div class="actions">
-            <a href="${p.link}" class="btn" target="_blank">
-            Comprar ahora
-            </a>
-            <button class="btn alt">
-              <span class="material-symbols-rounded">favorite</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    `;
-  }catch(e){
-    product.innerHTML = "<div class='center'>Error cargando producto</div>";
-    console.error(e);
+  if(!p){
+    product.innerHTML = "Producto no encontrado";
+    return;
   }
+
+  const final = p.descuento
+    ? (p.precio - p.precio * p.descuento / 100).toFixed(2)
+    : p.precio;
+
+  product.innerHTML = `
+    <div class="product">
+      <div class="media">
+        <img src="${p.imagen}" alt="${p.titulo}">
+      </div>
+
+      <div class="info">
+        <div class="brand">${p.marca || "Marca genérica"}</div>
+        <h1>${p.titulo}</h1>
+
+        <div class="rating">
+          <span>★★★★★</span>
+          <div>${p.reviews || 120} calificaciones</div>
+        </div>
+
+        <p class="desc">${p.descripcion}</p>
+      </div>
+
+      <div class="buybox">
+        <div class="price">$${final}</div>
+        ${p.descuento ? `<div class="old">$${p.precio}</div>` : ""}
+        <div class="stock">En stock</div>
+
+        <a href="${p.link}" class="btn" target="_blank">
+          Comprar ahora
+        </a>
+
+        <button class="btn alt">
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
+  `;
 }
 
-cargarProducto();
+cargar();
 </script>
 
 </body>
