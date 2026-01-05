@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZyrAka Store</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0e1116;
+  --glass:rgba(255,255,255,.08);
+  --accent:#22c55e;
+  --blue:#38bdf8;
+  --text:#fff;
+  --muted:#94a3b8;
+  --radius:16px;
+  --shadow:0 15px 40px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#130b29,#0b291a,#0b1729);
+  background-size:400% 400%;
+  animation:bg 20s infinite;
+  color:var(--text);
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.material-symbols-rounded{
+  font-variation-settings:'FILL' 0,'wght' 400,'opsz' 24;
+}
+
+/* NAVBAR */
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:10;
+  backdrop-filter:blur(18px);
+  background:rgba(0,0,0,.4);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.navbar-inner{
+  max-width:1200px;
+  margin:auto;
+  padding:14px 18px;
+  display:flex;
+  gap:14px;
+  align-items:center;
+}
+
+.brand{
+  font-weight:700;
+  font-size:18px;
+  white-space:nowrap;
+}
+
+.search{
+  flex:1;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  padding:12px 42px;
+  border-radius:999px;
+  border:none;
+  outline:none;
+  background:var(--glass);
+  color:white;
+}
+
+.search span{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--muted);
+}
+
+.categories{
+  display:flex;
+  gap:10px;
+}
+
+.cat-btn{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:8px 12px;
+  border-radius:999px;
+  background:var(--glass);
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,.15);
+}
+
+.cat-btn.active{
+  background:linear-gradient(135deg,var(--accent),var(--blue));
+}
+
+/* GRID */
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:22px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:18px;
+}
+
+.card{
+  background:var(--glass);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  transition:.25s;
+}
+
+.card:hover{transform:translateY(-6px)}
+
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+
+.card-body{
+  padding:14px;
+}
+
+.badges{
+  display:flex;
+  gap:6px;
+  margin-bottom:6px;
+}
+
+.badge{
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.badge.oferta{background:#22c55e;color:black}
+.badge.nuevo{background:#38bdf8;color:black}
+.badge.popular{background:#f59e0b;color:black}
+.badge.agotado{background:#ef4444}
+
+.price{
+  margin-top:8px;
+  font-size:18px;
+  font-weight:700;
+}
+
+.old{
+  text-decoration:line-through;
+  font-size:13px;
+  color:var(--muted);
+  margin-left:6px;
+}
+
+.btn{
+  margin-top:10px;
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--accent),var(--blue));
+  font-weight:700;
+  cursor:pointer;
+}
+
+.btn.disabled{
+  background:#334155;
+  cursor:not-allowed;
+}
+
+@media(max-width:700px){
+  .categories{display:none}
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="brand">🛒 ZyrAka Store</div>
+
+    <div class="search">
+      <span class="material-symbols-rounded">search</span>
+      <input id="search" placeholder="Buscar productos...">
+    </div>
+
+    <div class="categories" id="categories"></div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+let lastHash = '';
+let categoriaActiva = 'all';
+
+async function cargarTienda(){
+  const res = await fetch('tienda.json?cache=' + Date.now());
+  const data = await res.json();
+
+  const hash = JSON.stringify(data);
+  if(hash === lastHash) return;
+  lastHash = hash;
+
+  renderCategorias(data.categorias);
+  renderProductos(data.productos);
+}
+
+function renderCategorias(cats){
+  const wrap = document.getElementById('categories');
+  wrap.innerHTML = '';
+
+  const all = document.createElement('div');
+  all.className = 'cat-btn active';
+  all.textContent = 'Todo';
+  all.onclick = ()=>{categoriaActiva='all';renderProductos(window._productos)};
+  wrap.appendChild(all);
+
+  cats.forEach(c=>{
+    const b = document.createElement('div');
+    b.className = 'cat-btn';
+    b.innerHTML = `<span class="material-symbols-rounded">${c.icono}</span>${c.nombre}`;
+    b.onclick = ()=>{
+      categoriaActiva = c.id;
+      document.querySelectorAll('.cat-btn').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      renderProductos(window._productos);
+    };
+    wrap.appendChild(b);
+  });
+}
+
+function renderProductos(list){
+  window._productos = list;
+  const grid = document.getElementById('grid');
+  const q = document.getElementById('search').value.toLowerCase();
+  grid.innerHTML = '';
+
+  list.filter(p=>{
+    if(categoriaActiva !== 'all' && p.categoria !== categoriaActiva) return false;
+    if(!p.titulo.toLowerCase().includes(q)) return false;
+    return true;
+  }).forEach(p=>{
+    const precioFinal = p.descuento
+      ? (p.precio - (p.precio*p.descuento/100)).toFixed(2)
+      : p.precio;
+
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img src="${p.imagen}">
+      <div class="card-body">
+        <div class="badges">
+          ${p.descuento ? `<div class="badge oferta">-${p.descuento}%</div>` : ''}
+          ${p.nuevo ? `<div class="badge nuevo">Nuevo</div>` : ''}
+          ${p.estado==='popular' ? `<div class="badge popular">Popular</div>` : ''}
+          ${!p.disponible ? `<div class="badge agotado">Agotado</div>` : ''}
+        </div>
+        <h3>${p.titulo}</h3>
+        <p style="font-size:13px;color:var(--muted)">${p.descripcion}</p>
+        <div class="price">
+          $${precioFinal}
+          ${p.descuento ? `<span class="old">$${p.precio}</span>` : ''}
+        </div>
+        <button class="btn ${!p.disponible?'disabled':''}">
+          ${p.disponible ? 'Comprar' : 'No disponible'}
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('search').addEventListener('input',()=>renderProductos(window._productos||[]));
+
+cargarTienda();
+setInterval(cargarTienda,1000);
+</script>
+
+</body>
+</html>
