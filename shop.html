@@ -144,21 +144,83 @@ body{
 
 .badges{
   display:flex;
+  flex-wrap:wrap;
   gap:6px;
-  margin-bottom:6px;
+  margin-bottom:8px;
 }
 
 .badge{
-  padding:4px 10px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 12px;
   border-radius:999px;
   font-size:12px;
   font-weight:700;
+  animation:badgeIn .45s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 0 0 rgba(0,0,0,0);
+  backdrop-filter: blur(8px);
 }
 
-.badge.oferta{background:#22c55e;color:black}
-.badge.nuevo{background:#38bdf8;color:black}
-.badge.popular{background:#f59e0b;color:black}
-.badge.agotado{background:#ef4444}
+.badge span{
+  font-size:16px;
+}
+
+/* 🎬 Animación base */
+@keyframes badgeIn{
+  from{
+    opacity:0;
+    transform:translateY(-6px) scale(.9);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* ✨ Glow suave */
+.badge.glow{
+  animation:badgeIn .4s ease, glow 2s infinite alternate;
+}
+
+@keyframes glow{
+  from{box-shadow:0 0 6px rgba(255,255,255,.25)}
+  to{box-shadow:0 0 14px rgba(255,255,255,.45)}
+}
+
+/* 🎨 COLORES + ICONOS */
+.badge.oferta{
+  background:linear-gradient(135deg,#22c55e,#4ade80);
+  color:#052e16;
+}
+.badge.nuevo{
+  background:linear-gradient(135deg,#38bdf8,#60a5fa);
+  color:#082f49;
+}
+.badge.popular{
+  background:linear-gradient(135deg,#f59e0b,#fbbf24);
+  color:#451a03;
+}
+.badge.agotado{
+  background:linear-gradient(135deg,#ef4444,#f87171);
+}
+.badge.proximamente{
+  background:linear-gradient(135deg,#64748b,#94a3b8);
+}
+.badge.destacado{
+  background:linear-gradient(135deg,#a855f7,#d8b4fe);
+}
+.badge.exclusivo{
+  background:linear-gradient(135deg,#ec4899,#f9a8d4);
+}
+.badge.limitado{
+  background:linear-gradient(135deg,#fb7185,#fda4af);
+}
+.badge.mantenimiento{
+  background:linear-gradient(135deg,#fde047,#facc15);
+  color:#422006;
+}
+
 
 .price{
   margin-top:8px;
@@ -256,6 +318,36 @@ function renderCategorias(cats){
   });
 }
 
+function renderBadges(p){
+  const map = {
+    oferta:        {txt:'Oferta', icon:'local_fire_department', cls:'oferta glow'},
+    nuevo:         {txt:'Nuevo', icon:'fiber_new', cls:'nuevo'},
+    popular:       {txt:'Popular', icon:'trending_up', cls:'popular'},
+    agotado:       {txt:'Agotado', icon:'block', cls:'agotado'},
+    proximamente:  {txt:'Próximamente', icon:'schedule', cls:'proximamente'},
+    destacado:     {txt:'Destacado', icon:'star', cls:'destacado glow'},
+    exclusivo:     {txt:'Exclusivo', icon:'workspace_premium', cls:'exclusivo'},
+    limitado:      {txt:'Limitado', icon:'hourglass_top', cls:'limitado'},
+    mantenimiento: {txt:'Mantenimiento', icon:'build', cls:'mantenimiento'}
+  };
+
+  if(!p.estado || p.estado === 'normal') return '';
+
+  const estados = Array.isArray(p.estado) ? p.estado : [p.estado];
+
+  return estados.map(e=>{
+    const b = map[e];
+    if(!b) return '';
+    return `
+      <div class="badge ${b.cls}">
+        <span class="material-symbols-rounded">${b.icon}</span>
+        ${b.txt}
+      </div>
+    `;
+  }).join('');
+}
+
+
 function irProducto(id){
   window.location.href = `producto.html?id=${id}`;
 }
@@ -280,12 +372,7 @@ function renderProductos(list){
     card.innerHTML = `
       <img src="${p.imagen}">
       <div class="card-body">
-        <div class="badges">
-          ${p.descuento ? `<div class="badge oferta">-${p.descuento}%</div>` : ''}
-          ${p.nuevo ? `<div class="badge nuevo">Nuevo</div>` : ''}
-          ${p.estado==='popular' ? `<div class="badge popular">Popular</div>` : ''}
-          ${!p.disponible ? `<div class="badge agotado">Agotado</div>` : ''}
-        </div>
+        <div class="badges">${renderBadges(p)}</div>
         <h3>${p.titulo}</h3>
         <p style="font-size:13px;color:var(--muted)">${p.descripcion}</p>
         <div class="price">
