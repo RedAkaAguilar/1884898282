@@ -8,7 +8,6 @@
   "categorias": [
     { "id": "textures", "nombre": "Betatest", "icono": "palette" },
     { "id": "datapacks", "nombre": "Datapacks", "icono": "extension" },
-    { "id": "addons", "nombre": "Addons", "icono": "construction" },
     { "id": "plugins", "nombre": "Plugins", "icono": "settings" }
   ],
 
@@ -19,8 +18,8 @@
       "titulo": "Test Product",
       "descripcion": "...",
       "imagen": "assets/productos/texture1.jpg",
-      "precio": 15,
-      "descuento": 30,
+      "precio": 10,
+      "descuento": 0,
       "estado": "betatest",
       "nuevo": false,
       "disponible": false
