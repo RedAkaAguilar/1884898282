@@ -21,6 +21,7 @@
       "precio": 0,
       "descuento": 0,
       "estado": "mantenimiento",
+      "link":"https://tupago.com/checkout?id=123",
       "nuevo": false,
       "disponible": true
     },
@@ -33,6 +34,7 @@
       "precio": 10,
       "descuento": 0,
       "estado": "mantenimiento",
+      "link":"https://tupago.com/checkout?id=123",
       "nuevo": false,
       "disponible": false
     },
@@ -45,6 +47,7 @@
       "precio": 50,
       "descuento": 0,
       "estado": "mantenimiento",
+      "link":"https://tupago.com/checkout?id=123",
       "nuevo": false,
       "disponible": false
     }
