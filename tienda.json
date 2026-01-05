@@ -20,7 +20,7 @@
       "imagen": "assets/productos/texture1.jpg",
       "precio": 0,
       "descuento": 0,
-      "estado": "betatest",
+      "estado": "normal",
       "nuevo": false,
       "disponible": true
     },
@@ -44,7 +44,7 @@
       "imagen": "assets/productos/plugin1.jpg",
       "precio": 50,
       "descuento": 0,
-      "estado": "betatest",
+      "estado": "nuevo",
       "nuevo": false,
       "disponible": false
     }
