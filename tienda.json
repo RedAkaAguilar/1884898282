@@ -22,7 +22,7 @@
       "descuento": 0,
       "estado": "betatest",
       "nuevo": false,
-      "disponible": false
+      "disponible": true
     },
     {
       "id": "dp001",
