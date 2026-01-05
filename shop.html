@@ -254,6 +254,10 @@ function renderCategorias(cats){
   });
 }
 
+function irProducto(id){
+  window.location.href = `producto.html?id=${id}`;
+}
+  
 function renderProductos(list){
   window._productos = list;
   const grid = document.getElementById('grid');
@@ -286,9 +290,10 @@ function renderProductos(list){
           $${precioFinal}
           ${p.descuento ? `<span class="old">$${p.precio}</span>` : ''}
         </div>
-        <button class="btn ${!p.disponible?'disabled':''}">
-          ${p.disponible ? 'Comprar' : 'No disponible'}
-        </button>
+        <button class="btn ${!p.disponible ? 'disabled' : ''}"
+  onclick="irProducto('${p.id}')">
+  ${p.disponible ? 'Ver producto' : 'No disponible'}
+</button>
       </div>
     `;
     grid.appendChild(card);
