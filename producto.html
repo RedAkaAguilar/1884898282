@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Producto</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Outfit;
+  background:#0e1116;
+  color:white;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:24px;
+}
+
+.card{
+  background:rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:20px;
+}
+
+img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:14px;
+}
+
+.price{
+  font-size:22px;
+  font-weight:700;
+}
+
+.old{
+  text-decoration:line-through;
+  color:#94a3b8;
+  font-size:14px;
+}
+
+.btn{
+  padding:12px 18px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div id="product"></div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const productId = params.get('id');
+
+async function cargarProducto(){
+  const res = await fetch('tienda.json');
+  const data = await res.json();
+
+  const p = data.productos.find(x => x.id === productId);
+
+  if(!p){
+    document.getElementById('product').innerHTML = 'Producto no encontrado';
+    return;
+  }
+
+  const precioFinal = p.descuento
+    ? (p.precio - (p.precio * p.descuento / 100)).toFixed(2)
+    : p.precio;
+
+  document.getElementById('product').innerHTML = `
+    <div class="card">
+      <img src="${p.imagen}">
+      <h1>${p.titulo}</h1>
+      <p>${p.descripcion}</p>
+
+      <div class="price">
+        $${precioFinal}
+        ${p.descuento ? `<span class="old">$${p.precio}</span>` : ''}
+      </div>
+
+      <br>
+      <button class="btn">Acción futura</button>
+    </div>
+  `;
+}
+
+cargarProducto();
+</script>
+
+</body>
+</html>
