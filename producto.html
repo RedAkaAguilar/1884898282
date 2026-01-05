@@ -134,6 +134,24 @@ h1{
   border:1px solid var(--border);
 }
 
+.back{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:14px;
+  color:#94a3b8;
+  text-decoration:none;
+  margin-bottom:10px;
+}
+
+.back span{
+  font-size:18px;
+}
+
+.back:hover{
+  color:white;
+}
+
 /* ---------- ESTADOS ---------- */
 
 .center{
@@ -145,11 +163,13 @@ h1{
 </head>
 
 <body>
-
+<a href="shop.html" class="back">
+  <span class="material-symbols-rounded">arrow_back</span>
+  Volver a la tienda
+</a>
 <div class="container">
   <div id="product" class="center">Cargando producto…</div>
 </div>
-
 <script>
 const params = new URLSearchParams(location.search);
 const productId = params.get("id");
