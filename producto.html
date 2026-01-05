@@ -2,50 +2,110 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Producto</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
 <style>
-body{
-  margin:0;
-  font-family:Outfit;
-  background:#0e1116;
-  color:white;
+:root{
+  --bg:#0e1116;
+  --card:#121826;
+  --border:rgba(255,255,255,.08);
+  --muted:#94a3b8;
+  --grad:linear-gradient(135deg,#22c55e,#38bdf8);
 }
 
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Outfit,sans-serif;
+  background:var(--bg);
+  color:#fff;
+}
+
+/* ---------- LAYOUT ---------- */
+
 .container{
-  max-width:900px;
+  max-width:1100px;
   margin:auto;
-  padding:24px;
+  padding:20px;
 }
 
 .card{
-  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
-  border:1px solid rgba(255,255,255,.12);
-  backdrop-filter: blur(14px);
-  box-shadow:0 30px 80px rgba(0,0,0,.45);
+  display:grid;
+  grid-template-columns:1fr;
+  gap:22px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px;
 }
 
-img{
-  transition:transform .4s ease;
+/* PC */
+@media(min-width:900px){
+  .card{
+    grid-template-columns:1.1fr 1fr;
+    padding:24px;
+  }
 }
-.card:hover img{
-  transform:scale(1.04);
+
+/* ---------- IMAGEN ---------- */
+
+.media{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
 }
+
+.media img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .5s ease;
+}
+
+.media:hover img{
+  transform:scale(1.05);
+}
+
+/* ---------- TEXTO ---------- */
+
+h1{
+  margin:0;
+  font-size:clamp(22px,3vw,30px);
+  line-height:1.2;
+}
+
+.desc{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* ---------- PRECIO ---------- */
 
 .price{
-  font-size:22px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+
+.current{
+  font-size:26px;
   font-weight:700;
 }
 
 .old{
-  text-decoration:line-through;
-  color:#94a3b8;
   font-size:14px;
+  color:var(--muted);
+  text-decoration:line-through;
 }
+
+/* ---------- BOTONES ---------- */
 
 .actions{
   display:flex;
@@ -53,103 +113,63 @@ img{
   margin-top:18px;
 }
 
-.btn.ghost{
-  background:transparent;
-  border:1px solid rgba(255,255,255,.2);
-}
-
 .btn{
-  padding:12px 18px;
+  flex:1;
+  min-height:48px;
   border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#22c55e,#38bdf8);
-  color:white;
+  border-radius:12px;
   font-weight:700;
   cursor:pointer;
-}
-  
-.skeleton div{
-  background:linear-gradient(90deg,#1f2933,#2b3642,#1f2933);
-  background-size:200% 100%;
-  animation:sk 1.2s infinite;
-  border-radius:10px;
-  margin-bottom:12px;
-}
-.sk-img{height:260px}
-.sk-line{height:22px}
-.small{width:60%}
-
-@keyframes sk{
-  0%{background-position:0%}
-  100%{background-position:200%}
+  background:var(--grad);
+  color:#fff;
+  transition:transform .15s ease,box-shadow .15s ease;
 }
 
-@media(max-width:600px){
-  .card{
-    padding:16px;
-  }
-  h1{
-    font-size:22px;
-  }
+.btn:active{
+  transform:scale(.97);
 }
 
+.btn.alt{
+  background:transparent;
+  border:1px solid var(--border);
+}
+
+/* ---------- ESTADOS ---------- */
+
+.center{
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
+}
 </style>
 </head>
 
 <body>
-<div id="product" class="skeleton">
-  <div class="sk-img"></div>
-  <div class="sk-line"></div>
-  <div class="sk-line small"></div>
-</div>
 
-<h1>${safe(p.titulo)}</h1>
 <div class="container">
-  <div id="product"></div>
+  <div id="product" class="center">Cargando producto…</div>
 </div>
-
-<div class="actions">
-  <button class="btn buy">Comprar ahora</button>
-  <button class="btn ghost">
-    <span class="material-symbols-rounded">favorite</span>
-  </button>
-</div>
-
 
 <script>
-const params = new URLSearchParams(window.location.search);
-const productId = params.get('id');
-const safe = txt => txt.replace(/[<>]/g,'');
-
-let lastHash = '';
+const params = new URLSearchParams(location.search);
+const productId = params.get("id");
 
 async function cargarProducto(){
   try{
-    const res = await fetch('tienda.json?cache=' + Date.now());
+    const res = await fetch("tienda.json");
     const data = await res.json();
-
     const p = data.productos.find(x => x.id === productId);
 
     if(!p){
-      document.getElementById('product').innerHTML = `
-        <div class="card">
-          <h2>Producto no encontrado</h2>
-        </div>
-      `;
+      product.innerHTML = "<div class='center'>Producto no encontrado</div>";
       return;
     }
 
-    const hash = JSON.stringify(p);
-    if(hash === lastHash) return;
-    lastHash = hash;
-
     if(!p.disponible){
-      document.getElementById('product').innerHTML = `
-        <div class="card">
-          <h2>${p.titulo}</h2>
-          <p>Este producto no está disponible actualmente.</p>
-        </div>
-      `;
+      product.innerHTML = `<div class="center">
+        <h2>${p.titulo}</h2>
+        <p>No disponible actualmente</p>
+      </div>`;
       return;
     }
 
@@ -157,33 +177,38 @@ async function cargarProducto(){
       ? (p.precio - (p.precio * p.descuento / 100)).toFixed(2)
       : p.precio;
 
-    document.getElementById('product').innerHTML = `
+    product.innerHTML = `
       <div class="card">
-        <img src="${p.imagen}">
-        <h1>${p.titulo}</h1>
-        <p>${p.descripcion}</p>
-
-        <div class="price">
-          $${precioFinal}
-          ${p.descuento ? `<span class="old">$${p.precio}</span>` : ''}
+        <div class="media">
+          <img src="${p.imagen}" alt="${p.titulo}">
         </div>
 
-        <button class="btn">Acción futura</button>
+        <div>
+          <h1>${p.titulo}</h1>
+          <p class="desc">${p.descripcion}</p>
+
+          <div class="price">
+            <div class="current">$${precioFinal}</div>
+            ${p.descuento ? `<div class="old">$${p.precio}</div>` : ""}
+          </div>
+
+          <div class="actions">
+            <button class="btn">Comprar ahora</button>
+            <button class="btn alt">
+              <span class="material-symbols-rounded">favorite</span>
+            </button>
+          </div>
+        </div>
       </div>
     `;
   }catch(e){
-    console.error('Error leyendo tienda.json', e);
+    product.innerHTML = "<div class='center'>Error cargando producto</div>";
+    console.error(e);
   }
 }
 
-document.body.classList.add('updated');
-setTimeout(()=>document.body.classList.remove('updated'),300);
-
 cargarProducto();
-
-setInterval(cargarProducto, 1000);
 </script>
-
 
 </body>
 </html>
