@@ -32,7 +32,7 @@
       "imagen": "assets/productos/datapack1.jpg",
       "precio": 10,
       "descuento": 0,
-      "estado": ["popular,mantenimiento"],
+      "estado": "mantenimiento",
       "nuevo": false,
       "disponible": false
     },
