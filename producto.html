@@ -78,6 +78,16 @@ async function cargarProducto(){
     return;
   }
 
+if(!p.disponible){
+  document.getElementById('product').innerHTML = `
+    <div class="card">
+      <h2>Producto no disponible</h2>
+      <p>Este producto no está disponible actualmente.</p>
+    </div>
+  `;
+  return;
+}
+
   const precioFinal = p.descuento
     ? (p.precio - (p.precio * p.descuento / 100)).toFixed(2)
     : p.precio;
