@@ -20,7 +20,7 @@
       "imagen": "assets/productos/texture1.jpg",
       "precio": 0,
       "descuento": 0,
-      "estado": "beta",
+      "estado": "mantenimiento",
       "nuevo": false,
       "disponible": true
     },
@@ -32,7 +32,7 @@
       "imagen": "assets/productos/datapack1.jpg",
       "precio": 10,
       "descuento": 0,
-      "estado": ["popular,beta"],
+      "estado": ["popular,mantenimiento"],
       "nuevo": false,
       "disponible": false
     },
@@ -44,7 +44,7 @@
       "imagen": "assets/productos/plugin1.jpg",
       "precio": 50,
       "descuento": 0,
-      "estado": "beta",
+      "estado": "mantenimiento",
       "nuevo": false,
       "disponible": false
     }
