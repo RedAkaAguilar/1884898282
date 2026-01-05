@@ -1,0 +1,53 @@
+{
+  "config": {
+    "nombreTienda": "ZyrAka Store",
+    "moneda": "USD",
+    "actualizacion_ms": 1000
+  },
+
+  "categorias": [
+    { "id": "textures", "nombre": "Texturas", "icono": "palette" },
+    { "id": "datapacks", "nombre": "Datapacks", "icono": "extension" },
+    { "id": "addons", "nombre": "Addons", "icono": "construction" },
+    { "id": "plugins", "nombre": "Plugins", "icono": "settings" }
+  ],
+
+  "productos": [
+    {
+      "id": "tx001",
+      "categoria": "textures",
+      "titulo": "Ultra Realistic Pack",
+      "descripcion": "Texturas realistas 1024x para survival y roleplay.",
+      "imagen": "assets/productos/texture1.jpg",
+      "precio": 15,
+      "descuento": 30,
+      "estado": "oferta",
+      "nuevo": true,
+      "disponible": true
+    },
+    {
+      "id": "dp001",
+      "categoria": "datapacks",
+      "titulo": "Hardcore Survival+",
+      "descripcion": "Datapack extremo con mecánicas únicas.",
+      "imagen": "assets/productos/datapack1.jpg",
+      "precio": 10,
+      "descuento": 0,
+      "estado": "popular",
+      "nuevo": false,
+      "disponible": true
+    },
+    {
+      "id": "pl001",
+      "categoria": "plugins",
+      "titulo": "Economía Pro",
+      "descripcion": "Sistema económico avanzado para servidores.",
+      "imagen": "assets/productos/plugin1.jpg",
+      "precio": 25,
+      "descuento": 50,
+      "estado": "oferta",
+      "nuevo": false,
+      "disponible": false
+    }
+  ]
+}
