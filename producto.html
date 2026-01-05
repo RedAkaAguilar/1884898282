@@ -23,15 +23,17 @@ body{
 }
 
 .card{
-  background:rgba(255,255,255,.08);
-  border-radius:16px;
-  padding:20px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter: blur(14px);
+  box-shadow:0 30px 80px rgba(0,0,0,.45);
 }
 
 img{
-  width:100%;
-  border-radius:14px;
-  margin-bottom:14px;
+  transition:transform .4s ease;
+}
+.card:hover img{
+  transform:scale(1.04);
 }
 
 .price{
@@ -45,6 +47,17 @@ img{
   font-size:14px;
 }
 
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+}
+
+.btn.ghost{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.2);
+}
+
 .btn{
   padding:12px 18px;
   border:none;
@@ -54,18 +67,59 @@ img{
   font-weight:700;
   cursor:pointer;
 }
+  
+.skeleton div{
+  background:linear-gradient(90deg,#1f2933,#2b3642,#1f2933);
+  background-size:200% 100%;
+  animation:sk 1.2s infinite;
+  border-radius:10px;
+  margin-bottom:12px;
+}
+.sk-img{height:260px}
+.sk-line{height:22px}
+.small{width:60%}
+
+@keyframes sk{
+  0%{background-position:0%}
+  100%{background-position:200%}
+}
+
+@media(max-width:600px){
+  .card{
+    padding:16px;
+  }
+  h1{
+    font-size:22px;
+  }
+}
+
 </style>
 </head>
 
 <body>
+<div id="product" class="skeleton">
+  <div class="sk-img"></div>
+  <div class="sk-line"></div>
+  <div class="sk-line small"></div>
+</div>
 
+<h1>${safe(p.titulo)}</h1>
 <div class="container">
   <div id="product"></div>
 </div>
 
+<div class="actions">
+  <button class="btn buy">Comprar ahora</button>
+  <button class="btn ghost">
+    <span class="material-symbols-rounded">favorite</span>
+  </button>
+</div>
+
+
 <script>
 const params = new URLSearchParams(window.location.search);
 const productId = params.get('id');
+const safe = txt => txt.replace(/[<>]/g,'');
 
 let lastHash = '';
 
