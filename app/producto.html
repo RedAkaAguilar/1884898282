@@ -220,7 +220,7 @@ const params = new URLSearchParams(location.search);
 const id = params.get("id");
 
 async function cargar(){
-  const res = await fetch("tienda.json");
+  const res = await fetch("../api/control/tienda.json");
   const data = await res.json();
   const p = data.productos.find(x => x.id === id);
 
