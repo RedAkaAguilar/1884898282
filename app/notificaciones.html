@@ -295,6 +295,44 @@ p, .date{
   gap:6px;
 }
 
+.dynamic-island{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%) scale(.9);
+  padding:10px 18px;
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.85),
+      rgba(0,0,0,.65)
+    );
+
+  color:white;
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  font-size:13px;
+  font-weight:600;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:
+    opacity .3s ease,
+    transform .45s var(--spring);
+
+  z-index:2000;
+}
+
+.dynamic-island.show{
+  opacity:1;
+  transform:translateX(-50%) scale(1);
+}
+
 .date{
   font-size:12px;
   color:var(--muted);
@@ -357,6 +395,11 @@ footer{
     </div>
   </div>
 </div>
+
+<div class="dynamic-island" id="island">
+  <span class="material-symbols-rounded">notifications</span>
+  <span>Notificación abierta</span>
+</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 let lastHash = '';
@@ -397,6 +440,7 @@ async function cargarNoticias(){
 }
 
 function openCard(n){
+  haptic('medium');
   document.getElementById('overlayImg').src = n.image;
   document.getElementById('overlayTitle').textContent = n.title;
   document.getElementById('overlayDesc').textContent = n.description;
@@ -407,7 +451,12 @@ function openCard(n){
   document.body.style.overflow = 'hidden';
 }
 
+const island = document.getElementById('island');
+island.classList.add('show');
+setTimeout(()=>island.classList.remove('show'), 1800);
+
 function closeCard(){
+  haptic('light');
   document.getElementById('overlay').classList.remove('show');
   document.body.style.overflow = '';
 }
@@ -415,8 +464,54 @@ function closeCard(){
 window.addEventListener('pageshow', cargarNoticias);
 window.addEventListener('load', cargarNoticias);
 
+function haptic(type = 'light'){
+  if(!navigator.vibrate) return;
+
+  const patterns = {
+    light: [10],
+    medium: [15],
+    heavy: [25]
+  };
+
+  navigator.vibrate(patterns[type]);
+}
+
 cargarNoticias();
 setInterval(cargarNoticias, 3000);
+
+let startY = 0;
+let currentY = 0;
+let dragging = false;
+
+const overlayCard = document.getElementById('overlayCard');
+
+overlayCard.addEventListener('touchstart', e=>{
+  startY = e.touches[0].clientY;
+  dragging = true;
+  overlayCard.style.transition = 'none';
+});
+
+overlayCard.addEventListener('touchmove', e=>{
+  if(!dragging) return;
+  currentY = e.touches[0].clientY - startY;
+  if(currentY > 0){
+    overlayCard.style.transform = `translateY(${currentY}px) scale(${1 - currentY / 1200})`;
+  }
+});
+
+overlayCard.addEventListener('touchend', ()=>{
+  dragging = false;
+  overlayCard.style.transition = 'transform .45s var(--spring)';
+
+  if(currentY > 120){
+    haptic('heavy');
+    closeCard();
+  }else{
+    overlayCard.style.transform = 'translateY(0) scale(1)';
+  }
+
+  currentY = 0;
+});
 </script>
 </body>
 </html>
