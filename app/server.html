@@ -72,7 +72,36 @@ body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:v
 .toast-text{font-weight:700;font-size:14px;white-space:nowrap;}
 h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 .small,.news-meta.date,.news-meta p{color:var(--muted);}
-.btn{background:rgba(255,255,255,0.08);color:white;border:1px solid rgba(255,255,255,0.15);}
+.btn{
+  position:relative;
+  overflow:hidden;
+  padding:12px 18px;
+  border-radius:14px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.25);
+  color:white;
+  font-weight:600;
+  backdrop-filter:blur(14px);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),
+             box-shadow .25s,
+             background .25s;
+}
+
+.btn::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at var(--x) var(--y),
+    rgba(255,255,255,.45),
+    transparent 40%);
+  opacity:0;
+  transition:.3s;
+}
+
+.btn:hover::after{opacity:1}
+.btn:hover{transform:translateY(-4px)}
+.btn:active{transform:scale(.94)}
+
 .calendar-card{
   margin-top:20px;
 }
@@ -332,6 +361,73 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   100%{background-position:0% 50%}
 }
 
+.card{
+  cursor:pointer;
+  transform-origin:center;
+}
+
+.card.fullscreen{
+  position:fixed;
+  inset:0;
+  margin:0;
+  border-radius:0;
+  z-index:10000;
+  animation:cardOpenIOS .6s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.card.fullscreen::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  backdrop-filter: blur(28px) saturate(180%);
+  background:rgba(15,23,42,.65);
+  z-index:-1;
+}
+
+@keyframes cardOpenIOS{
+  from{
+    transform:scale(.92) translateY(40px);
+    opacity:0;
+  }
+  to{
+    transform:none;
+    opacity:1;
+  }
+}
+
+.card, .btn, .feature{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 20px 50px rgba(0,0,0,.45);
+}
+
+.ios-back{
+  position:fixed;
+  top:18px;
+  left:18px;
+  z-index:10001;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.18);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.25);
+  color:white;
+  font-weight:600;
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+  animation:backFade .4s ease both;
+}
+
+@keyframes backFade{
+  from{opacity:0;transform:translateX(-10px)}
+  to{opacity:1;transform:none}
+}
+
+.ios-back:hover{
+  transform:scale(1.05);
+}
 </style>
 </head>
  <div id="copy-toast" class="toast">
@@ -604,6 +700,15 @@ async function updateServerStatus(){
   }
 }
 
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    document.body.style.opacity = '0';
+    requestAnimationFrame(()=>{
+      document.body.style.opacity = '1';
+    });
+  }
+});
+
 cargarNoticiasHome();
 setInterval(cargarNoticiasHome, 2000);
 
@@ -833,7 +938,45 @@ document.querySelector('.close-popup').onclick=()=>{
   document.getElementById('event-popup').classList.remove('show');
 };
 
+document.querySelectorAll('.btn').forEach(b=>{
+  b.addEventListener('pointermove',e=>{
+    const r=b.getBoundingClientRect();
+    b.style.setProperty('--x',`${e.clientX-r.left}px`);
+    b.style.setProperty('--y',`${e.clientY-r.top}px`);
+  });
+});
+
 loadCalendar();
+
+let activeCard = null;
+let backBtn = null;
+
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    if(activeCard) return;
+
+    activeCard = card;
+    card.classList.add('fullscreen');
+
+    backBtn = document.createElement('button');
+    backBtn.className = 'ios-back';
+    backBtn.innerHTML = `
+      <span class="material-symbols-rounded">arrow_back_ios</span>
+      Volver
+    `;
+    document.body.appendChild(backBtn);
+
+    backBtn.onclick = closeFullscreen;
+  });
+});
+
+function closeFullscreen(){
+  if(!activeCard) return;
+
+  activeCard.classList.remove('fullscreen');
+  backBtn.remove();
+  activeCard = null;
+}
 </script>
 </body>
 </html>
