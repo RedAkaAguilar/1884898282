@@ -47,6 +47,109 @@ body{
   100%{background-position:0% 50%}
 }
 
+.overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(30px);
+  -webkit-backdrop-filter:blur(30px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .45s ease;
+  z-index:1000;
+}
+
+.overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.overlay-card{
+  position:absolute;
+  inset:16px;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.45),
+      rgba(255,255,255,.15)
+    );
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 80px 200px rgba(0,0,0,.8);
+
+  transform:scale(.94) translateY(40px);
+  opacity:0;
+  transition:
+    transform .55s var(--spring),
+    opacity .35s ease;
+}
+
+.overlay.show .overlay-card{
+  transform:scale(1) translateY(0);
+  opacity:1;
+}
+
+.overlay-card img{
+  width:100%;
+  height:38vh;
+  object-fit:cover;
+}
+
+.overlay-content{
+  padding:22px;
+}
+
+.overlay-date{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.overlay-content h2{
+  margin:0;
+  font-size:22px;
+}
+
+.overlay-content p{
+  margin-top:10px;
+  font-size:16px;
+  line-height:1.5;
+  color:var(--muted);
+}
+
+.overlay-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:1px solid var(--border);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.45),
+      rgba(255,255,255,.2)
+    );
+
+  backdrop-filter:blur(20px);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  font-size:22px;
+  cursor:pointer;
+  transition:transform .3s var(--spring);
+}
+
+.overlay-close:active{
+  transform:scale(.88);
+}
+
 .liquid-bg{
   position:fixed;
   inset:-20%;
@@ -112,14 +215,23 @@ p, .date{
   display:flex;
   align-items:center;
   gap:6px;
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,.4),
-    rgba(255,255,255,.15)
-  );
+  padding:10px 16px;
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.45),
+      rgba(255,255,255,.18)
+    );
+
   backdrop-filter:blur(20px);
   border:1px solid var(--border);
+
   color:white;
+  font-weight:600;
+  text-decoration:none;
+
   transition:transform .35s var(--spring);
 }
 
@@ -149,6 +261,7 @@ p, .date{
   flex-direction:column;
 
   opacity:0;
+  cursor:pointer;
   transform:translateY(20px) scale(.96);
   filter:blur(8px);
   transition:
@@ -230,6 +343,20 @@ footer{
 </footer>
 
 </div>
+<div class="overlay" id="overlay">
+  <div class="overlay-card" id="overlayCard">
+    <button class="overlay-close" onclick="closeCard()">
+      <span class="material-symbols-rounded">close</span>
+    </button>
+
+    <img id="overlayImg">
+    <div class="overlay-content">
+      <div class="overlay-date" id="overlayDate"></div>
+      <h2 id="overlayTitle"></h2>
+      <p id="overlayDesc"></p>
+    </div>
+  </div>
+</div>
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 let lastHash = '';
@@ -267,6 +394,22 @@ async function cargarNoticias(){
   }catch(e){
     console.error('Error cargando notificaciones', e);
   }
+}
+
+function openCard(n){
+  document.getElementById('overlayImg').src = n.image;
+  document.getElementById('overlayTitle').textContent = n.title;
+  document.getElementById('overlayDesc').textContent = n.description;
+  document.getElementById('overlayDate').textContent =
+    new Date(n.date).toLocaleDateString();
+
+  document.getElementById('overlay').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCard(){
+  document.getElementById('overlay').classList.remove('show');
+  document.body.style.overflow = '';
 }
 
 window.addEventListener('pageshow', cargarNoticias);
