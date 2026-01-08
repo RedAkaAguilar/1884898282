@@ -3,9 +3,6 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0e1116">
 <title>Server</title>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -28,10 +25,6 @@
   --glass: rgba(255,255,255,0.08);
   --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
   --radius:16px;
-  --glass-bg: rgba(255,255,255,.14);
-  --glass-border: rgba(255,255,255,.28);
-  --glass-highlight: rgba(255,255,255,.45);
-  --accent: #38bdf8;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -49,28 +42,8 @@ body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:v
 .btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
 .btn:hover{transform:translateY(-3px)}
 .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-.card{
-  background:rgba(255,255,255,.14);
-  backdrop-filter: blur(25px) saturate(180%);
-  border-radius:22px;
-  padding:20px;
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.45),
-    inset 0 1px 0 rgba(255,255,255,.3);
-  transition:.35s;
-}
-
-.card:active{
-  transform:scale(.97);
-}
-button, .btn{
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-}
-
-.btn:active{
-  transform:scale(.94);
-}
+.card{background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(14px);transition:transform .25s ease, box-shadow .25s ease;}
+.card:hover{transform:translateY(-6px)}
 .server-status .row{display:flex;align-items:center;justify-content:space-between}
 .status-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15)}
 .status-dot{width:10px;height:10px;border-radius:50%}
@@ -334,23 +307,6 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   animation:calendarIn .6s cubic-bezier(.4,0,.2,1) both;
 }
 
-@media(min-width:900px){
-  .app-container{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-  }
-
-  .tabbar{
-    position:static;
-    height:auto;
-    background:none;
-    backdrop-filter:none;
-  }
-}
-
 @media(max-width:600px){
   .calendar-grid{
     grid-template-columns:repeat(4, minmax(30px, 1fr));
@@ -375,158 +331,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
-.tabbar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  height:82px;
-  background:rgba(20,20,25,.85);
-  backdrop-filter: blur(25px);
-  display:flex;
-  justify-content:space-around;
-  align-items:center;
-  border-top:1px solid rgba(255,255,255,.1);
-  z-index:100;
-}
 
-.tabbar button{
-  background:none;
-  border:none;
-  color:#cbd5e1;
-  font-family:Outfit;
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  font-size:11px;
-  transition:.25s;
-}
-
-.tabbar button.active{
-  color:#38bdf8;
-  transform:translateY(-4px);
-}
-.view{
-  position:absolute;
-  inset:0;
-  padding:20px;
-  overflow-y:auto;
-  opacity:0;
-  transform:translateX(20px) scale(.98);
-  pointer-events:none;
-  transition:.45s cubic-bezier(.4,0,.2,1);
-}
-
-.view.active{
-  opacity:1;
-  transform:none;
-  pointer-events:auto;
-}
-
-.app-bg{
-  position:fixed;
-  inset:-30%;
-  background:
-    radial-gradient(circle at 20% 20%, #22c55e, transparent 40%),
-    radial-gradient(circle at 80% 30%, #38bdf8, transparent 45%),
-    radial-gradient(circle at 50% 80%, #a855f7, transparent 45%);
-  filter: blur(120px);
-  animation:floatBG 18s infinite alternate ease-in-out;
-  z-index:-1;
-}
-
-@keyframes floatBG{
-  from{transform:translate(0,0)}
-  to{transform:translate(-60px,40px)}
-}
-
-.ios-tabbar{
-  position:fixed;
-  left:50%;
-  bottom:18px;
-  transform:translateX(-50%);
-  width:calc(100% - 28px);
-  max-width:420px;
-  height:84px;
-
-  display:flex;
-  align-items:center;
-  justify-content:space-around;
-
-  background:var(--glass-bg);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-
-  border-radius:28px;
-  border:1px solid var(--glass-border);
-
-  box-shadow:
-    0 30px 60px rgba(0,0,0,.55),
-    inset 0 1px 0 var(--glass-highlight);
-
-  animation:glassIdle 6s ease-in-out infinite;
-  z-index:9999;
-}
-
-@keyframes glassIdle{
-  0%{box-shadow:0 30px 60px rgba(0,0,0,.5)}
-  50%{box-shadow:0 40px 70px rgba(0,0,0,.6)}
-  100%{box-shadow:0 30px 60px rgba(0,0,0,.5)}
-}
-
-.tab{
-  position:relative;
-  background:none;
-  border:none;
-  color:#cbd5e1;
-  font-family:Outfit;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:4px;
-  cursor:pointer;
-  padding:10px 14px;
-  transition:.25s cubic-bezier(.4,0,.2,1);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.tab span.material-symbols-rounded{
-  font-size:26px;
-}
-
-.tab .label{
-  font-size:11px;
-  font-weight:600;
-  opacity:.85;
-}
-
-.tab.active{
-  color:var(--accent);
-}
-
-.tab.active span.material-symbols-rounded{
-  text-shadow:0 0 14px rgba(56,189,248,.9);
-}
-
-.tab:active{
-  transform:scale(.88);
-}
-
-.tab-indicator{
-  position:absolute;
-  bottom:10px;
-  width:64px;
-  height:42px;
-  background:rgba(255,255,255,.22);
-  border-radius:20px;
-  backdrop-filter: blur(18px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.5),
-    0 0 18px rgba(56,189,248,.45);
-
-  transition:.45s cubic-bezier(.4,0,.2,1);
-  pointer-events:none;
-}
 </style>
 </head>
  <div id="copy-toast" class="toast">
@@ -542,10 +347,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   <span class="toast-text">Abriendo Pestaña de Discord!</span>
 </div>
 
-<body class="ios-app">
-
-<div class="app-bg"></div>
-
+<body>
 <div class="container">
   <header class="header">
     <div class="brand">
@@ -566,7 +368,6 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     </nav>
   </header>
 
-  <div class="app-container">
   <main class="grid">
     <section class="card server-status fade-in" aria-labelledby="estado">
       <div class="row">
@@ -633,7 +434,6 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 
   <div class="calendar-grid" id="calendar"></div>
 </section>
-</div>
 
 <div id="event-popup" class="event-popup">
   <div class="event-popup-content">
@@ -662,29 +462,6 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   </div>
 </div>
 
-  <nav class="ios-tabbar">
-  <div class="tab-indicator"></div>
-
-  <button class="tab active" data-view="home">
-    <span class="material-symbols-rounded">home</span>
-    <span class="label">Home</span>
-  </button>
-
-  <button class="tab" data-view="server">
-    <span class="material-symbols-rounded">dns</span>
-    <span class="label">Server</span>
-  </button>
-
-  <button class="tab" data-view="shop">
-    <span class="material-symbols-rounded">shopping_bag</span>
-    <span class="label">Shop</span>
-  </button>
-
-  <button class="tab" data-view="profile">
-    <span class="material-symbols-rounded">person</span>
-    <span class="label">Profile</span>
-  </button>
-  </nav>
 
   <footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
 </div>
@@ -746,7 +523,7 @@ let lastNewsHash = '';
 
 async function cargarNoticiasHome(){
   try{
-    const res = await fetch('../api/control/notificaciones.json?cache=' + Date.now());
+    const res = await fetch('notificaciones.json?cache=' + Date.now());
     const data = await res.json();
 
     const hash = JSON.stringify(data);
@@ -852,7 +629,7 @@ async function loadCalendar(){
 
   const daysInMonth = new Date(year,month+1,0).getDate();
 
-  const res = await fetch('../api/control/eventos.json');
+  const res = await fetch('eventos.json');
   const events = await res.json();
 
   for(let d=1;d<=daysInMonth;d++){
@@ -1052,43 +829,9 @@ document.getElementById('event-popup').addEventListener('click',e=>{
   }
 });
 
-document.querySelectorAll('.tabbar button').forEach(btn=>{
-  btn.onclick = ()=>{
-    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-    document.querySelectorAll('.tabbar button').forEach(b=>b.classList.remove('active'));
-
-    document.getElementById(btn.dataset.view).classList.add('active');
-    btn.classList.add('active');
-
-    navigator.vibrate?.(10);
-  };
-});
-
 document.querySelector('.close-popup').onclick=()=>{
   document.getElementById('event-popup').classList.remove('show');
 };
-
-const tabs = document.querySelectorAll('.tab');
-const indicator = document.querySelector('.tab-indicator');
-
-function moveIndicator(tab){
-  const rect = tab.getBoundingClientRect();
-  const parent = tab.parentElement.getBoundingClientRect();
-
-  indicator.style.left = rect.left - parent.left + rect.width/2 - 32 + 'px';
-}
-
-tabs.forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    tabs.forEach(t=>t.classList.remove('active'));
-    tab.classList.add('active');
-    moveIndicator(tab);
-
-    navigator.vibrate?.(8);
-  });
-});
-
-moveIndicator(document.querySelector('.tab.active'));
 
 loadCalendar();
 </script>
