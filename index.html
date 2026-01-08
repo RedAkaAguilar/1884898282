@@ -36,6 +36,9 @@ body{
   background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);
   background-size:400% 400%;
   animation:bgMove 18s ease infinite;
+  opacity:0;
+  animation:pageIn .6s ease forwards;
+}
 }
 
 p{
@@ -45,6 +48,10 @@ p{
 body.fade-out{
   opacity:0;
   transition:opacity .5s ease;
+}
+
+@keyframes pageIn{
+  to{ opacity:1 }
 }
 
 @keyframes bgMove{
