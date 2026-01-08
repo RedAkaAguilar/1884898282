@@ -83,21 +83,6 @@ body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:v
     inset 0 1px 0 rgba(255,255,255,.2);
 }
 
-.card::after{
-  content:'';
-  position:absolute;
-  inset:-50%;
-  background:linear-gradient(
-    120deg,
-    transparent 35%,
-    rgba(255,255,255,.14),
-    transparent 65%
-  );
-  transform:translateX(-100%);
-  transition:transform .9s ease;
-  pointer-events:none;
-}
-
 .card:hover::after{
   transform:translateX(100%);
 }
@@ -163,17 +148,6 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   transition:transform .25s cubic-bezier(.2,.8,.2,1),
              box-shadow .25s,
              background .25s;
-}
-
-.btn::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at var(--x) var(--y),
-    rgba(255,255,255,.45),
-    transparent 40%);
-  opacity:0;
-  transition:.3s;
 }
 
 .btn:hover::after{opacity:1}
@@ -505,6 +479,36 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   transform:none;
   filter:none;
 }
+
+.liquid{
+  transition:
+    background .25s ease,
+    backdrop-filter .25s ease,
+    transform .25s cubic-bezier(.2,.8,.2,1),
+    box-shadow .25s ease;
+}
+
+.liquid:active{
+  background:rgba(255,255,255,0.18) !important;
+  backdrop-filter:blur(22px) saturate(180%);
+  transform:scale(.97);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 12px 30px rgba(0,0,0,.45);
+}
+
+.card:hover,
+.news-item:hover,
+.btn:hover{
+  background:rgba(255,255,255,0.12);
+  backdrop-filter: blur(22px) saturate(140%);
+}
+
+.card,
+.news-item,
+.btn{
+  backdrop-filter: blur(14px) saturate(140%);
+}
 </style>
 </head>
  <div id="copy-toast" class="toast">
@@ -534,7 +538,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     </div>
     <nav class="nav">
       <button class="btn"><span class="material-symbols-rounded">login</span> Unete con </button>
-      <button class="btn primary" onclick="
+      <button class="btn liquid" onclick="
         navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
          mc.mcstellarstudio.com
       </button>
@@ -542,7 +546,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   </header>
 
   <main class="grid">
-    <section class="card server-status fade-in" aria-labelledby="estado">
+    <section class="card liquid" aria-labelledby="estado">
       <div class="row">
         <div>
           <h2 id="estado" style="margin:0;font-size:18px"><span class="material-symbols-rounded">bolt</span> Estado del servidor</h2>
@@ -564,7 +568,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
 
       <div class="actions">
-        <a class="btn primary" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
+        <a class="btn liquid" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
   <span class="material-symbols-rounded">attach_email</span> Discord
         </a>
         <a class="btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
@@ -586,7 +590,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
     </section>
 
-    <aside class="card fade-in" aria-labelledby="noticias">
+    <aside class="card liquid" aria-labelledby="noticias">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div><h3 id="noticias" style="margin:0;font-size:16px"><span class="material-symbols-rounded">notifications_active</span> Noticias</h3></div>
         <a class="small" href="notificaciones">Ver todas</a>
@@ -596,7 +600,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     </aside>
   </main>
 
-  <section class="card calendar-card fade-in" aria-labelledby="calendario">
+  <section class="card liquid" aria-labelledby="calendario">
   <div class="calendar-header">
     <h2 id="calendario">
       <span class="material-symbols-rounded">calendar_month</span>
@@ -825,6 +829,7 @@ async function loadCalendar(){
     if(ev){
       const color = neonColors[Math.floor(Math.random()*neonColors.length)];
       dayEl.classList.add('event');
+      dayEl.classList.add('liquid');
       dayEl.style.color=color;
       dayEl.style.textShadow=`0 0 8px ${color}`;
       dayEl.style.setProperty('--c',color);
