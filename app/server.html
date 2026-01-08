@@ -1078,8 +1078,9 @@ const iosObserver = new IntersectionObserver(entries=>{
 },{threshold:0.18});
 
 document.querySelectorAll(
-  '.card,.feature,.news-item,.metric,.calendar-day'
+  'button,.btn,.news-item,.card,.calendar-day,a'
 ).forEach(el=>{
+  el.classList.add('liquid');
   el.classList.add('ios-animate');
   el.addEventListener('click',()=>haptic('light'));
   iosObserver.observe(el);
