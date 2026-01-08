@@ -283,7 +283,7 @@ let lastHash = '';
 let categoriaActiva = 'all';
 
 async function cargarTienda(){
-  const res = await fetch('tienda.json?cache=' + Date.now());
+  const res = await fetch('../api/control/tienda.json?cache=' + Date.now());
   const data = await res.json();
 
   const hash = JSON.stringify(data);
