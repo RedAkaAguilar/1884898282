@@ -163,6 +163,7 @@ body.fade-out{
   align-items:center;
   justify-content:center;
   gap:14px;
+  overflow:hidden;
 
   font-size:16px;
   font-weight:700;
@@ -179,6 +180,11 @@ body.fade-out{
   transition:
     transform .45s var(--spring),
     box-shadow .45s ease;
+
+  animation:
+    iphoneIn .75s var(--spring) forwards,
+    liquidFloat 6s ease-in-out infinite,
+    liquidGlow 6s ease-in-out infinite;
 }
 
 .menu-btn:nth-child(1){animation-delay:.1s}
@@ -215,7 +221,17 @@ body.fade-out{
   inset:-6px;
   border-radius:999px;
   border:1px solid transparent;
-  transition:.3s;
+  width:120%;
+  height:120%;
+  background:radial-gradient(
+    circle,
+    rgba(255,255,255,.45) 0%,
+    transparent 60%
+  );
+  opacity:0;
+  transform:scale(.3);
+  transition:.6s ease;
+  pointer-events:none;
 }
 
 .menu-btn:hover::after{
@@ -224,6 +240,7 @@ body.fade-out{
 
 .menu-btn:hover{
   transform:translateY(-6px) scale(1.045);
+  letter-spacing:.6px;
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.85),
     0 50px 140px rgba(255,255,255,.25);
@@ -232,6 +249,11 @@ body.fade-out{
 .menu-btn:active{
   transform:scale(.92);
   transition:transform .15s ease;
+}
+
+.menu-btn:active::after{
+  opacity:1;
+  transform:scale(1.2);
 }
 
 .menu-btn::before{
@@ -257,6 +279,17 @@ body.fade-out{
   transform:translateX(120%);
 }
 
+@keyframes liquidFloat{
+  0%{ transform:translateY(0) }
+  50%{ transform:translateY(-6px) }
+  100%{ transform:translateY(0) }
+}
+
+@keyframes liquidGlow{
+  0%{ box-shadow:0 30px 80px rgba(255,255,255,.15) }
+  50%{ box-shadow:0 45px 140px rgba(255,255,255,.35) }
+  100%{ box-shadow:0 30px 80px rgba(255,255,255,.15) }
+}
 
 @keyframes btnIn{
   to{
@@ -322,10 +355,28 @@ body.fade-out{
 </div>
 
 <script>
+function animateButtons(){
+  const buttons = document.querySelectorAll('.menu-btn');
+
+  buttons.forEach((btn, i)=>{
+    btn.style.animation = 'none';
+    btn.offsetHeight;
+    btn.style.animation = `
+      iphoneIn .75s var(--spring) forwards,
+      liquidFloat 6s ease-in-out infinite,
+      liquidGlow 6s ease-in-out infinite
+    `;
+    btn.style.animationDelay = `${i * .12}s`;
+  });
+}
+
 function go(page){
   document.body.classList.add("fade-out");
-  setTimeout(()=>location.href=page,500);
+  setTimeout(()=>location.href = page, 450);
 }
+
+window.addEventListener('pageshow', animateButtons);
+window.addEventListener('load', animateButtons);
 </script>
 </body>
 </html>
