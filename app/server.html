@@ -38,12 +38,47 @@ body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:v
 .brand h1{margin:0;font-size:20px;font-weight:700}
 .brand p{margin:0;font-size:12px;color:var(--muted)}
 .nav{display:flex;gap:10px}
-.btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(6,50,63,0.06);background:var(--glass);font-weight:600;cursor:pointer;transition:all .18s ease}
+.btn {
+  padding:10px 14px;
+  border-radius:10px;
+  border:1px solid rgba(6,50,63,0.06);
+  background:var(--glass);
+  font-weight:600;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  transition:
+    transform .25s cubic-bezier(.2,.8,.2,1),
+    box-shadow .25s;
+}
 .btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
-.btn:hover{transform:translateY(-3px)}
+.btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 40px rgba(0,0,0,.45);
+}
+
+.btn:active{
+  transform:scale(.93);
+}
 .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-.card{background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(14px);transition:transform .25s ease, box-shadow .25s ease;}
-.card:hover{transform:translateY(-6px)}
+.card {
+  background:rgba(255,255,255,0.06);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--card-shadow);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px);
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    box-shadow .45s,
+    background .45s;
+}
+.card:hover{
+  transform:translateY(-8px) scale(1.02);
+  box-shadow:
+    0 30px 70px rgba(0,0,0,.6),
+    inset 0 1px 0 rgba(255,255,255,.2);
+}
 .server-status .row{display:flex;align-items:center;justify-content:space-between}
 .status-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15)}
 .status-dot{width:10px;height:10px;border-radius:50%}
@@ -361,18 +396,25 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   100%{background-position:0% 50%}
 }
 
+.ios-animate{
+  opacity:0;
+  transform:translateY(30px) scale(.96);
+  filter:blur(8px);
+  transition:
+    opacity .7s cubic-bezier(.2,.8,.2,1),
+    transform .7s cubic-bezier(.2,.8,.2,1),
+    filter .7s;
+}
+
+.ios-animate.show{
+  opacity:1;
+  transform:none;
+  filter:none;
+}
+
 .card{
   cursor:pointer;
   transform-origin:center;
-}
-
-.card.fullscreen{
-  position:fixed;
-  inset:0;
-  margin:0;
-  border-radius:0;
-  z-index:10000;
-  animation:cardOpenIOS .6s cubic-bezier(.2,.8,.2,1) both;
 }
 
 .card.fullscreen::before{
@@ -382,17 +424,6 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   backdrop-filter: blur(28px) saturate(180%);
   background:rgba(15,23,42,.65);
   z-index:-1;
-}
-
-@keyframes cardOpenIOS{
-  from{
-    transform:scale(.92) translateY(40px);
-    opacity:0;
-  }
-  to{
-    transform:none;
-    opacity:1;
-  }
 }
 
 .card, .btn, .feature{
@@ -948,35 +979,18 @@ document.querySelectorAll('.btn').forEach(b=>{
 
 loadCalendar();
 
-let activeCard = null;
-let backBtn = null;
-
-document.querySelectorAll('.card').forEach(card=>{
-  card.addEventListener('click',()=>{
-    if(activeCard) return;
-
-    activeCard = card;
-    card.classList.add('fullscreen');
-
-    backBtn = document.createElement('button');
-    backBtn.className = 'ios-back';
-    backBtn.innerHTML = `
-      <span class="material-symbols-rounded">arrow_back_ios</span>
-      Volver
-    `;
-    document.body.appendChild(backBtn);
-
-    backBtn.onclick = closeFullscreen;
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('show');
+    }
   });
+},{threshold:.2});
+
+document.querySelectorAll('.card,.feature,.news-item,.calendar-day').forEach(el=>{
+  el.classList.add('ios-animate');
+  observer.observe(el);
 });
-
-function closeFullscreen(){
-  if(!activeCard) return;
-
-  activeCard.classList.remove('fullscreen');
-  backBtn.remove();
-  activeCard = null;
-}
 </script>
 </body>
 </html>
