@@ -73,6 +73,52 @@ body.fade-out{
   gap:28px;
 }
 
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  z-index:-1;
+  filter:blur(120px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:45vw;
+  height:45vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:liquidMove 20s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){
+  top:10%;
+  left:10%;
+}
+
+.liquid-bg span:nth-child(2){
+  bottom:15%;
+  right:10%;
+  animation-duration:26s;
+}
+
+.liquid-bg span:nth-child(3){
+  top:40%;
+  right:30%;
+  animation-duration:32s;
+}
+
+@keyframes liquidMove{
+  0%{
+    transform:translate(0,0) scale(1);
+  }
+  50%{
+    transform:translate(80px,-60px) scale(1.25);
+  }
+  100%{
+    transform:translate(0,0) scale(1);
+  }
+}
+
 .header{
   display:flex;
   align-items:center;
@@ -320,6 +366,11 @@ body.fade-out{
 </head>
 
 <body>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
 <div class="container">
 
   <header class="header">
@@ -384,6 +435,52 @@ function go(page){
 
 window.addEventListener('pageshow', animateButtons);
 window.addEventListener('load', animateButtons);
+
+let gyroEnabled = false;
+
+function enableGyro(){
+  if (
+    typeof DeviceOrientationEvent !== 'undefined' &&
+    typeof DeviceOrientationEvent.requestPermission === 'function'
+  ){
+    DeviceOrientationEvent.requestPermission()
+      .then(response=>{
+        if(response === 'granted'){
+          gyroEnabled = true;
+        }
+      });
+  }else{
+    gyroEnabled = true;
+  }
+}
+
+window.addEventListener('click', enableGyro, { once:true });
+
+window.addEventListener('deviceorientation', e=>{
+  if(!gyroEnabled) return;
+
+  const x = Math.max(-10, Math.min(10, e.gamma || 0));
+  const y = Math.max(-10, Math.min(10, e.beta || 0));
+
+  document.querySelectorAll('.menu-btn').forEach(btn=>{
+    btn.style.transform = `
+      translateY(-6px)
+      rotateX(${y * -0.6}deg)
+      rotateY(${x * 0.6}deg)
+    `;
+  });
+});
+
+window.addEventListener('deviceorientation', e=>{
+  if(!gyroEnabled) return;
+
+  const x = (e.gamma || 0) * 0.3;
+  const y = (e.beta || 0) * 0.3;
+
+  document.querySelectorAll('.liquid-bg span').forEach(blob=>{
+    blob.style.transform = `translate(${x}px, ${y}px)`;
+  });
+});
 </script>
 </body>
 </html>
