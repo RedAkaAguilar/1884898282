@@ -26,7 +26,11 @@
   --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
   --radius:16px;
 }
-*{box-sizing:border-box}
+* {
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
 html,body{height:100%}
 body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:var(--text);background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);background-size:400% 400%;animation:bgMove 18s ease infinite;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .material-symbols-rounded{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;color: #ffffff;}
@@ -41,24 +45,35 @@ body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:v
 .btn {
   padding:10px 14px;
   border-radius:10px;
-  border:1px solid rgba(6,50,63,0.06);
-  background:var(--glass);
   font-weight:600;
   cursor:pointer;
+  
   position:relative;
   overflow:hidden;
+  isolation:isolate;
+
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.14);
+  backdrop-filter:blur(14px) saturate(140%);
+
   transition:
+    background .25s ease,
     transform .25s cubic-bezier(.2,.8,.2,1),
-    box-shadow .25s;
+    box-shadow .25s ease;
 }
 .btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
 .btn:hover{
+  background:rgba(255,255,255,0.14);
   transform:translateY(-4px);
   box-shadow:0 20px 45px rgba(0,0,0,.5);
 }
 
 .btn:active{
-  transform:scale(.92);
+  background:rgba(255,255,255,0.22);
+  transform:scale(.94);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 14px 35px rgba(0,0,0,.5);
 }
 .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
 .card {
@@ -150,9 +165,16 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
              background .25s;
 }
 
-.btn:hover::after{opacity:1}
-.btn:hover{transform:translateY(-4px)}
-.btn:active{transform:scale(.94)}
+.btn:hover::after {
+  opacity:1
+}
+.btn:hover {
+  transform:translateY(-4px)
+}
+.btn:active {
+  transform:scale(.94);
+  animation:appleTap .35s cubic-bezier(.2,.8,.2,1);
+}
 
 .calendar-card{
   margin-top:20px;
@@ -480,21 +502,26 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   filter:none;
 }
 
+@keyframes appleTap{
+  0%{transform:scale(1)}
+  45%{transform:scale(.92)}
+  100%{transform:scale(1)}
+}
+
 .liquid{
   transition:
     background .25s ease,
     backdrop-filter .25s ease,
-    transform .25s cubic-bezier(.2,.8,.2,1),
-    box-shadow .25s ease;
+    transform .25s cubic-bezier(.2,.8,.2,1);
 }
 
 .liquid:active{
-  background:rgba(255,255,255,0.18) !important;
-  backdrop-filter:blur(22px) saturate(180%);
   transform:scale(.97);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.35),
     0 12px 30px rgba(0,0,0,.45);
+  background:rgba(255,255,255,0.18)!important;
+  backdrop-filter:blur(22px) saturate(180%);
 }
 
 .card:hover,
