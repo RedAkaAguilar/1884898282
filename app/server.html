@@ -330,6 +330,23 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   animation:calendarIn .6s cubic-bezier(.4,0,.2,1) both;
 }
 
+@media(min-width:900px){
+  .app-container{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+  }
+
+  .tabbar{
+    position:static;
+    height:auto;
+    background:none;
+    backdrop-filter:none;
+  }
+}
+
 @media(max-width:600px){
   .calendar-grid{
     grid-template-columns:repeat(4, minmax(30px, 1fr));
