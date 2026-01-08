@@ -1062,6 +1062,7 @@ document.querySelector('.close-popup').onclick=()=>{
   document.getElementById('event-popup').classList.remove('show');
 };
 
+
 function animateButtons(){
   const buttons = document.querySelectorAll('.menu-btn');
 
@@ -1077,6 +1078,14 @@ function animateButtons(){
   });
 }
 
+function go(page){
+  document.body.classList.add("fade-out");
+  setTimeout(()=>location.href = page, 450);
+}
+
+window.addEventListener('pageshow', animateButtons);
+window.addEventListener('load', animateButtons);
+  
 loadCalendar();
 </script>
 </body>
