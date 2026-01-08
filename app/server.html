@@ -429,7 +429,14 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 }
 
 .btn.primary{background:linear-gradient(135deg,#22c55e,#38bdf8);color:#ffffff;box-shadow:0 0 18px rgba(56,189,248,.35)}
-@media(max-width:880px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}}
+@media(max-width:767px) {
+  .grid {
+    grid-template-columns:1fr
+  }
+  .features {
+    grid-template-columns:1fr
+  }
+}
 .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.8);border:1px solid rgba(6,50,63,0.04);font-weight:700}
 .small{font-size:13px;color:var(--muted)}
 .sr{display:none}
