@@ -332,8 +332,127 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   100%{background-position:0% 50%}
 }
 
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  z-index:-1;
+  filter:blur(120px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:45vw;
+  height:45vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:liquidMove 20s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){
+  top:10%;
+  left:10%;
+}
+
+.liquid-bg span:nth-child(2){
+  bottom:15%;
+  right:10%;
+  animation-duration:26s;
+}
+
+.liquid-bg span:nth-child(3){
+  top:40%;
+  right:30%;
+  animation-duration:32s;
+}
+
+@keyframes liquidMove{
+  0%{
+    transform:translate(0,0) scale(1);
+  }
+  50%{
+    transform:translate(80px,-60px) scale(1.25);
+  }
+  100%{
+    transform:translate(0,0) scale(1);
+  }
+}
+
+@keyframes iphoneIn{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+  
+.menu-btn{
+  position:relative;
+  padding:22px 30px;
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.45),
+      rgba(255,255,255,.12)
+    );
+
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(180%);
+
+  border:1px solid var(--border);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    inset 0 -1px 0 rgba(255,255,255,.15),
+    0 40px 120px rgba(0,0,0,.65);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:14px;
+  overflow:hidden;
+
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.3px;
+
+  color:#fff;
+
+  
+  opacity:0;
+  transform:translateY(20px) scale(.96);
+  filter:blur(8px);
+  animation:iphoneIn .75s var(--spring) forwards;
+
+  transition:
+    transform .45s var(--spring),
+    box-shadow .45s ease;
+
+  animation:
+    iphoneIn .75s var(--spring) forwards,
+    liquidFloat 6s ease-in-out infinite,
+    liquidGlow 6s ease-in-out infinite;
+}
+
+.menu-btn:nth-child(1){animation-delay:.1s}
+.menu-btn:nth-child(2){animation-delay:.2s}
+.menu-btn:nth-child(3){animation-delay:.3s}
+.menu-btn:nth-child(4){animation-delay:.4s}
+
+.menu-btn.primary{
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  box-shadow:0 0 50px rgba(34,197,94,.5);
+}
 </style>
 </head>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+  
  <div id="copy-toast" class="toast">
   <div class="toast-icon">
     <span class="material-symbols-rounded">check</span>
@@ -360,8 +479,8 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
     </div>
     <nav class="nav">
-      <button class="btn"><span class="material-symbols-rounded">login</span> Unete con </button>
-      <button class="btn primary" onclick="
+      <button class="menu-btn"><span class="material-symbols-rounded">login</span> Unete con </button>
+      <button class="menu-btn primary" onclick="
         navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
          mc.mcstellarstudio.com
       </button>
@@ -391,10 +510,10 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
 
       <div class="actions">
-        <a class="btn primary" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
+        <a class="menu-btn primary" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
   <span class="material-symbols-rounded">attach_email</span> Discord
         </a>
-        <a class="btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
+        <a class="menu-btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
       </div>
 
       <div class="features" style="margin-top:18px">
@@ -832,6 +951,21 @@ document.getElementById('event-popup').addEventListener('click',e=>{
 document.querySelector('.close-popup').onclick=()=>{
   document.getElementById('event-popup').classList.remove('show');
 };
+
+function animateButtons(){
+  const buttons = document.querySelectorAll('.menu-btn');
+
+  buttons.forEach((btn, i)=>{
+    btn.style.animation = 'none';
+    btn.offsetHeight;
+    btn.style.animation = `
+      iphoneIn .75s var(--spring) forwards,
+      liquidFloat 6s ease-in-out infinite,
+      liquidGlow 6s ease-in-out infinite
+    `;
+    btn.style.animationDelay = `${i * .12}s`;
+  });
+}
 
 loadCalendar();
 </script>
