@@ -14,43 +14,21 @@
 <link rel="manifest" href="/ico/site.webmanifest" />
 <style>
 :root{
-  --bg:#0b0f14;
-  --glass:rgba(255,255,255,.18);
-  --glass-strong:rgba(255,255,255,.26);
-  --border:rgba(255,255,255,.35);
-  --white:#fff;
-  --white-soft:rgba(255,255,255,.85);
-  --blur:28px;
-  --radius:28px;
-  --spring:cubic-bezier(.28,1.25,.55,1);
-}
+  --bg:#0e1116;                 
+  --bg-soft:#151a22;            
+  --accent:#22c55e;
+  --blueaccent:#38bdf8;
 
-*{
-  box-sizing:border-box;
-  -webkit-tap-highlight-color:transparent;
-  -webkit-touch-callout: none;
+  --text:#ffffff;              
+  --muted:#cbd5e1;             
+
+  --glass: rgba(255,255,255,0.08);
+  --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  --radius:16px;
 }
+*{box-sizing:border-box}
 html,body{height:100%}
-
-body{
-  margin:0;
-  font-family:Outfit,system-ui;
-  color:var(--white);
-  background:linear-gradient(
-    120deg,
-    #290d0b,#291e0b,#27290b,#13290b,
-    #0b291a,#0b2529,#0b1729,
-    #130b29,#240b29,#290b17
-  );
-  background-size:400% 400%;
-  animation:bgMove 18s ease infinite;
-}
-
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:var(--text);background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);background-size:400% 400%;animation:bgMove 18s ease infinite;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
 .material-symbols-rounded{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;color: #ffffff;}
 .small .material-symbols-rounded{color:#cbd5e1;}
 .container{max-width:1100px;margin:28px auto;padding:20px}
@@ -60,81 +38,20 @@ body{
 .brand h1{margin:0;font-size:20px;font-weight:700}
 .brand p{margin:0;font-size:12px;color:var(--muted)}
 .nav{display:flex;gap:10px}
-.btn{
-  background:none;
-  border:none;
-  padding:0;
-}
-
+.btn{padding:10px 14px;border-radius:10px;border:1px solid rgba(6,50,63,0.06);background:var(--glass);font-weight:600;cursor:pointer;transition:all .18s ease}
 .btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
-.btn:hover{
-  background:rgba(255,255,255,0.14);
-  transform:translateY(-4px);
-  box-shadow:0 20px 45px rgba(0,0,0,.5);
-}
-
-.btn:active{
-  background:rgba(255,255,255,0.22);
-  transform:scale(.94);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.35),
-    0 14px 35px rgba(0,0,0,.5);
-}
+.btn:hover{transform:translateY(-3px)}
 .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-.card {
-  background:rgba(255,255,255,0.06);
-  border-radius:var(--radius);
-  padding:18px;
-  box-shadow:var(--card-shadow);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(14px);
-  cursor:pointer;
-  transform-origin:center;
-  position:relative;
-  transition:
-    transform .45s cubic-bezier(.2,.8,.2,1),
-    box-shadow .45s,
-    background .45s;
-}
-.card:hover{
-  transform:translateY(-10px) scale(1.02);
-  box-shadow:
-    0 35px 80px rgba(0,0,0,.65),
-    inset 0 1px 0 rgba(255,255,255,.2);
-}
-
-.card:hover::after{
-  transform:translateX(100%);
-}
+.card{background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(14px);transition:transform .25s ease, box-shadow .25s ease;}
+.card:hover{transform:translateY(-6px)}
 .server-status .row{display:flex;align-items:center;justify-content:space-between}
 .status-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15)}
 .status-dot{width:10px;height:10px;border-radius:50%}
 .metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
 .metric{background:rgba(255,255,255,0.07);padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.1);backdrop-filter: blur(10px);}
 .actions{margin-top:14px;display:flex;gap:10px}
-.news-list {
-  display:flex;
-  flex-direction:column;
-  gap:12px
-}
-.news-item {
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  background:white;
-  border-radius:12px;
-  padding:10px;
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
-  transition:
-    transform .45s cubic-bezier(.2,.8,.2,1),
-    box-shadow .45s;
-}
-.news-item:hover{
-  transform:translateY(-8px) scale(1.03);
-  box-shadow:0 25px 60px rgba(0,0,0,.6);
-}
+.news-list{display:flex;flex-direction:column;gap:12px}
+.news-item{display:flex;gap:12px;align-items:flex-start;background:white;border-radius:12px;padding:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(10px);}
 .news-item img{width:110px;height:70px;object-fit:cover;border-radius:8px;flex-shrink:0}
 .news-meta{flex:1}
 .news-meta .date{font-size:12px;color:var(--muted);margin-bottom:6px}
@@ -155,32 +72,7 @@ body{
 .toast-text{font-weight:700;font-size:14px;white-space:nowrap;}
 h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 .small,.news-meta.date,.news-meta p{color:var(--muted);}
-.btn{
-  position:relative;
-  overflow:hidden;
-  padding:12px 18px;
-  border-radius:14px;
-  background:rgba(255,255,255,.12);
-  border:1px solid rgba(255,255,255,.25);
-  color:white;
-  font-weight:600;
-  backdrop-filter:blur(14px);
-  transition:transform .25s cubic-bezier(.2,.8,.2,1),
-             box-shadow .25s,
-             background .25s;
-}
-
-.btn:hover::after {
-  opacity:1
-}
-.btn:hover {
-  transform:translateY(-4px)
-}
-.btn:active {
-  transform:scale(.94);
-  animation:appleTap .35s cubic-bezier(.2,.8,.2,1);
-}
-
+.btn{background:rgba(255,255,255,0.08);color:white;border:1px solid rgba(255,255,255,0.15);}
 .calendar-card{
   margin-top:20px;
 }
@@ -215,15 +107,14 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   position:relative;
   z-index:1;
   transition:
-    transform .35s cubic-bezier(.2,.8,.2,1),
-    box-shadow .35s;
+    transform .25s ease,
+    box-shadow .25s ease,
     background .25s ease;
 }
 
 
 .calendar-day:hover{
-  transform:translateY(-4px) scale(1.08);
-  box-shadow:0 0 18px var(--event-color,rgba(255,255,255,.25));
+  transform:scale(1.05);
 }
 
 .calendar-day.event::after{
@@ -416,7 +307,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   animation:calendarIn .6s cubic-bezier(.4,0,.2,1) both;
 }
 
-@media(max-width:767px){
+@media(max-width:600px){
   .calendar-grid{
     grid-template-columns:repeat(4, minmax(30px, 1fr));
     gap:6px;
@@ -429,17 +320,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 }
 
 .btn.primary{background:linear-gradient(135deg,#22c55e,#38bdf8);color:#ffffff;box-shadow:0 0 18px rgba(56,189,248,.35)}
-@media(max-width:767px) {
-  .grid {
-    grid-template-columns:1fr
-  }
-  .server-btn.featured {
-    display: none;
-  }
-  .features {
-    grid-template-columns:1fr
-  }
-}
+@media(max-width:880px){.grid{grid-template-columns:1fr}.features{grid-template-columns:1fr}}
 .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.8);border:1px solid rgba(6,50,63,0.04);font-weight:700}
 .small{font-size:13px;color:var(--muted)}
 .sr{display:none}
@@ -451,334 +332,8 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   100%{background-position:0% 50%}
 }
 
-.ios-animate{
-  opacity:0;
-  transform:translateY(30px) scale(.96);
-  filter:blur(8px);
-  transition:
-    opacity .7s cubic-bezier(.2,.8,.2,1),
-    transform .7s cubic-bezier(.2,.8,.2,1),
-    filter .7s;
-}
-
-.ios-animate.show{
-  opacity:1;
-  transform:none;
-  filter:none;
-}
-
-.card, .btn, .feature{
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.25),
-    0 20px 50px rgba(0,0,0,.45);
-}
-
-.ios-back{
-  position:fixed;
-  top:18px;
-  left:18px;
-  z-index:10001;
-  display:flex;
-  align-items:center;
-  gap:6px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(255,255,255,.18);
-  backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.25);
-  color:white;
-  font-weight:600;
-  box-shadow:0 12px 30px rgba(0,0,0,.35);
-  animation:backFade .4s ease both;
-}
-
-@keyframes backFade{
-  from{opacity:0;transform:translateX(-10px)}
-  to{opacity:1;transform:none}
-}
-
-.ios-back:hover{
-  transform:scale(1.05);
-}
-
-.ios-animate{
-  opacity:0;
-  transform:translateY(28px) scale(.96);
-  filter:blur(10px);
-  transition:
-    opacity .8s cubic-bezier(.2,.8,.2,1),
-    transform .8s cubic-bezier(.2,.8,.2,1),
-    filter .8s;
-}
-
-.ios-animate.show{
-  opacity:1;
-  transform:none;
-  filter:none;
-}
-
-@keyframes appleTap{
-  0%{transform:scale(1)}
-  45%{transform:scale(.92)}
-  100%{transform:scale(1)}
-}
-
-.liquid{
-  transition:
-    background .25s ease,
-    backdrop-filter .25s ease,
-    transform .25s cubic-bezier(.2,.8,.2,1);
-}
-
-.card:hover,
-.news-item:hover,
-.btn:hover{
-  background:rgba(255,255,255,0.12);
-  backdrop-filter: blur(22px) saturate(140%);
-}
-
-.card,
-.news-item,
-.btn{
-  backdrop-filter: blur(14px) saturate(140%);
-}
-
-.apple-btn{
-  position:relative;
-  padding:14px 20px;
-  border-radius:999px;
-
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.15);
-
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-
-  font-size:15px;
-  font-weight:700;
-  color:#fff;
-
-  cursor:pointer;
-  backdrop-filter:blur(14px) saturate(140%);
-  -webkit-backdrop-filter:blur(14px) saturate(140%);
-
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease,
-    background .25s ease;
-}
-
-.apple-btn .material-symbols-rounded{
-  font-size:22px;
-}
-
-.apple-btn:hover{
-  transform:translateY(-6px) scale(1.03);
-  background:linear-gradient(135deg,#22c55e,#38bdf8);
-  box-shadow:0 0 30px rgba(56,189,248,.35);
-}
-
-.apple-btn:active{
-  transform:scale(.96);
-}
-
-.server-btn{
-  position:relative;
-  padding:18px 28px;
-  border-radius:999px;
-
-  background:linear-gradient(
-    180deg,
-    rgba(255,255,255,.45),
-    rgba(255,255,255,.12)
-  );
-
-  backdrop-filter:blur(var(--blur)) saturate(180%);
-  -webkit-backdrop-filter:blur(var(--blur)) saturate(180%);
-  border:1px solid var(--border);
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7),
-    inset 0 -1px 0 rgba(255,255,255,.15),
-    0 40px 120px rgba(0,0,0,.65);
-
-  color:#fff;
-  font-weight:700;
-  font-size:15px;
-  letter-spacing:.3px;
-
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-
-  cursor:pointer;
-  overflow:hidden;
-
-  animation:
-    iphoneIn .75s var(--spring) forwards,
-    liquidFloat 6s ease-in-out infinite,
-    liquidGlow 6s ease-in-out infinite;
-
-  transition:
-    transform .45s var(--spring),
-    box-shadow .45s ease;
-}
-
-.server-btn:hover{
-  transform:translateY(-6px) scale(1.045);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.85),
-    0 50px 140px rgba(255,255,255,.25);
-}
-
-.server-btn:active{
-  transform:scale(.92);
-  transition:transform .15s ease;
-}
-
-.server-btn::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:inherit;
-  background:linear-gradient(
-    120deg,
-    transparent 30%,
-    rgba(255,255,255,.6),
-    transparent 70%
-  );
-  opacity:.35;
-  transform:translateX(-120%);
-  transition:transform .9s ease;
-  pointer-events:none;
-}
-
-.server-btn:hover::before{
-  transform:translateX(120%);
-}
-
-@keyframes iphoneIn{
-  to{
-    opacity:1;
-    transform:translateY(0) scale(1);
-    filter:blur(0);
-  }
-}
-
-@keyframes liquidFloat{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-6px)}
-  100%{transform:translateY(0)}
-}
-
-@keyframes liquidGlow{
-  0%{box-shadow:0 30px 80px rgba(255,255,255,.15)}
-  50%{box-shadow:0 45px 140px rgba(255,255,255,.35)}
-  100%{box-shadow:0 30px 80px rgba(255,255,255,.15)}
-}
-
-.liquid-bg{
-  position:fixed;
-  inset:-20%;
-  z-index:-1;
-  filter:blur(120px);
-  pointer-events:none;
-}
-
-.liquid-bg span{
-  position:absolute;
-  width:45vw;
-  height:45vw;
-  border-radius:50%;
-  background:rgba(255,255,255,.18);
-  animation:liquidMove 20s ease-in-out infinite;
-}
-
-.liquid-bg span:nth-child(1){top:10%;left:10%}
-.liquid-bg span:nth-child(2){bottom:15%;right:10%;animation-duration:26s}
-.liquid-bg span:nth-child(3){top:40%;right:30%;animation-duration:32s}
-
-@keyframes liquidMove{
-  0%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(80px,-60px) scale(1.25)}
-  100%{transform:translate(0,0) scale(1)}
-}
-
-.server-btn.featured{
-  font-size:16px;
-  letter-spacing:.6px;
-
-  background:
-    linear-gradient(
-      180deg,
-      rgba(255,255,255,.65),
-      rgba(255,255,255,.18)
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.9),
-    0 60px 160px rgba(255,255,255,.35);
-
-  animation:
-    iphoneIn .75s var(--spring) forwards,
-    liquidFloat 5s ease-in-out infinite,
-    featuredGlow 4s ease-in-out infinite;
-}
-
-@keyframes featuredGlow{
-  0%{
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.9),
-      0 40px 120px rgba(255,255,255,.25);
-  }
-  50%{
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,1),
-      0 70px 200px rgba(255,255,255,.45);
-  }
-  100%{
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,.9),
-      0 40px 120px rgba(255,255,255,.25);
-  }
-}
-
-.server-btn.discord{
-  background:
-    linear-gradient(
-      180deg,
-      rgba(88,101,242,.45),
-      rgba(88,101,242,.15)
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.35),
-    0 40px 120px rgba(88,101,242,.45);
-}
-
-.server-btn.creator{
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255,215,0,.45),
-      rgba(255,255,255,.12)
-    );
-
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7),
-    0 40px 140px rgba(255,215,0,.35);
-}
 </style>
 </head>
-<div class="liquid-bg">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
  <div id="copy-toast" class="toast">
   <div class="toast-icon">
     <span class="material-symbols-rounded">check</span>
@@ -805,8 +360,8 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
     </div>
     <nav class="nav">
-      <button class="server-btn"><span class="material-symbols-rounded">login</span> Unete con </button>
-      <button class="server-btn featured" onclick="
+      <button class="btn"><span class="material-symbols-rounded">login</span> Unete con </button>
+      <button class="btn primary" onclick="
         navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
          mc.mcstellarstudio.com
       </button>
@@ -814,7 +369,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   </header>
 
   <main class="grid">
-    <section class="card liquid" aria-labelledby="estado">
+    <section class="card server-status fade-in" aria-labelledby="estado">
       <div class="row">
         <div>
           <h2 id="estado" style="margin:0;font-size:18px"><span class="material-symbols-rounded">bolt</span> Estado del servidor</h2>
@@ -836,10 +391,10 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
 
       <div class="actions">
-        <a class="server-btn discord" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
+        <a class="btn primary" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
   <span class="material-symbols-rounded">attach_email</span> Discord
         </a>
-        <a class="server-btn creator" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
+        <a class="btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
       </div>
 
       <div class="features" style="margin-top:18px">
@@ -858,7 +413,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
     </section>
 
-    <aside class="card liquid" aria-labelledby="noticias">
+    <aside class="card fade-in" aria-labelledby="noticias">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div><h3 id="noticias" style="margin:0;font-size:16px"><span class="material-symbols-rounded">notifications_active</span> Noticias</h3></div>
         <a class="small" href="notificaciones">Ver todas</a>
@@ -868,7 +423,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     </aside>
   </main>
 
-  <section class="card liquid" aria-labelledby="calendario">
+  <section class="card calendar-card fade-in" aria-labelledby="calendario">
   <div class="calendar-header">
     <h2 id="calendario">
       <span class="material-symbols-rounded">calendar_month</span>
@@ -1049,15 +604,6 @@ async function updateServerStatus(){
   }
 }
 
-window.addEventListener('pageshow', e => {
-  if (e.persisted) {
-    document.body.style.opacity = '0';
-    requestAnimationFrame(()=>{
-      document.body.style.opacity = '1';
-    });
-  }
-});
-
 cargarNoticiasHome();
 setInterval(cargarNoticiasHome, 2000);
 
@@ -1097,7 +643,6 @@ async function loadCalendar(){
     if(ev){
       const color = neonColors[Math.floor(Math.random()*neonColors.length)];
       dayEl.classList.add('event');
-      dayEl.classList.add('liquid');
       dayEl.style.color=color;
       dayEl.style.textShadow=`0 0 8px ${color}`;
       dayEl.style.setProperty('--c',color);
@@ -1288,67 +833,7 @@ document.querySelector('.close-popup').onclick=()=>{
   document.getElementById('event-popup').classList.remove('show');
 };
 
-document.querySelectorAll('.btn').forEach(b=>{
-  b.addEventListener('pointermove',e=>{
-    const r=b.getBoundingClientRect();
-    b.style.setProperty('--x',`${e.clientX-r.left}px`);
-    b.style.setProperty('--y',`${e.clientY-r.top}px`);
-  });
-});
-
 loadCalendar();
-
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('show');
-    }
-  });
-},{threshold:.2});
-
-document.querySelectorAll('.card,.feature,.news-item,.calendar-day').forEach(el=>{
-  el.classList.add('ios-animate');
-  observer.observe(el);
-});
-const iosObserver = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
-  });
-},{threshold:0.18});
-
-document.querySelectorAll(
-  'button,.btn,.news-item,.card,.calendar-day,a'
-).forEach(el=>{
-  el.classList.add('liquid');
-  el.classList.add('ios-animate');
-  el.addEventListener('click',()=>haptic('light'));
-  iosObserver.observe(el);
-});
-
-function haptic(type='light'){
-  if(!navigator.vibrate) return;
-  const map={
-    light:[8],
-    medium:[14],
-    heavy:[22]
-  };
-  navigator.vibrate(map[type]);
-}
-
-document.querySelectorAll(
-  'button.btn, a.btn, .btn.primary'
-).forEach(el=>{
-  el.classList.add('apple-btn');
-});
-
-document.querySelectorAll('a')
-.forEach(a=>{
-  if(a.classList.contains('btn')){
-    a.classList.add('apple-btn');
-  }
-});
 </script>
 </body>
 </html>
