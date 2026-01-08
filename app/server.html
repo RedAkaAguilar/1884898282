@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0e1116">
 <title>Server</title>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -42,8 +45,28 @@ body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:v
 .btn.primary{background:var(--bluelight);color:var(--blueaccent);border:none}
 .btn:hover{transform:translateY(-3px)}
 .grid{display:grid;grid-template-columns:1fr 340px;gap:18px;margin-top:18px}
-.card{background:rgba(255,255,255,0.06);border-radius:var(--radius);padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.08);backdrop-filter: blur(14px);transition:transform .25s ease, box-shadow .25s ease;}
-.card:hover{transform:translateY(-6px)}
+.card{
+  background:rgba(255,255,255,.14);
+  backdrop-filter: blur(25px) saturate(180%);
+  border-radius:22px;
+  padding:20px;
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.3);
+  transition:.35s;
+}
+
+.card:active{
+  transform:scale(.97);
+}
+button, .btn{
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn:active{
+  transform:scale(.94);
+}
 .server-status .row{display:flex;align-items:center;justify-content:space-between}
 .status-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;font-weight:600;background:rgba(0,0,0,0.9);border:1px solid rgba(255,255,255,0.15)}
 .status-dot{width:10px;height:10px;border-radius:50%}
@@ -331,7 +354,70 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
+.tabbar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:82px;
+  background:rgba(20,20,25,.85);
+  backdrop-filter: blur(25px);
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  border-top:1px solid rgba(255,255,255,.1);
+  z-index:100;
+}
 
+.tabbar button{
+  background:none;
+  border:none;
+  color:#cbd5e1;
+  font-family:Outfit;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  font-size:11px;
+  transition:.25s;
+}
+
+.tabbar button.active{
+  color:#38bdf8;
+  transform:translateY(-4px);
+}
+.view{
+  position:absolute;
+  inset:0;
+  padding:20px;
+  overflow-y:auto;
+  opacity:0;
+  transform:translateX(20px) scale(.98);
+  pointer-events:none;
+  transition:.45s cubic-bezier(.4,0,.2,1);
+}
+
+.view.active{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
+}
+
+.app-bg{
+  position:fixed;
+  inset:-30%;
+  background:
+    radial-gradient(circle at 20% 20%, #22c55e, transparent 40%),
+    radial-gradient(circle at 80% 30%, #38bdf8, transparent 45%),
+    radial-gradient(circle at 50% 80%, #a855f7, transparent 45%);
+  filter: blur(120px);
+  animation:floatBG 18s infinite alternate ease-in-out;
+  z-index:-1;
+}
+
+@keyframes floatBG{
+  from{transform:translate(0,0)}
+  to{transform:translate(-60px,40px)}
+}
 </style>
 </head>
  <div id="copy-toast" class="toast">
@@ -347,7 +433,10 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   <span class="toast-text">Abriendo Pestaña de Discord!</span>
 </div>
 
-<body>
+<body class="ios-app">
+
+<div class="app-bg"></div>
+
 <div class="container">
   <header class="header">
     <div class="brand">
@@ -368,6 +457,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     </nav>
   </header>
 
+  <div class="app-container">
   <main class="grid">
     <section class="card server-status fade-in" aria-labelledby="estado">
       <div class="row">
@@ -434,6 +524,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 
   <div class="calendar-grid" id="calendar"></div>
 </section>
+</div>
 
 <div id="event-popup" class="event-popup">
   <div class="event-popup-content">
@@ -462,6 +553,11 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   </div>
 </div>
 
+  <nav class="tabbar">
+  <button data-view="homeView">Inicio</button>
+  <button data-view="calendarView">Eventos</button>
+  <button data-view="newsView">Noticias</button>
+  </nav>
 
   <footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
 </div>
@@ -827,6 +923,18 @@ document.getElementById('event-popup').addEventListener('click',e=>{
   if(e.target.id === 'event-popup'){
     e.currentTarget.classList.remove('show');
   }
+});
+
+document.querySelectorAll('.tabbar button').forEach(btn=>{
+  btn.onclick = ()=>{
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    document.querySelectorAll('.tabbar button').forEach(b=>b.classList.remove('active'));
+
+    document.getElementById(btn.dataset.view).classList.add('active');
+    btn.classList.add('active');
+
+    navigator.vibrate?.(10);
+  };
 });
 
 document.querySelector('.close-popup').onclick=()=>{
