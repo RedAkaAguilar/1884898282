@@ -28,6 +28,10 @@
   --glass: rgba(255,255,255,0.08);
   --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
   --radius:16px;
+  --glass-bg: rgba(255,255,255,.14);
+  --glass-border: rgba(255,255,255,.28);
+  --glass-highlight: rgba(255,255,255,.45);
+  --accent: #38bdf8;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -435,6 +439,94 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   from{transform:translate(0,0)}
   to{transform:translate(-60px,40px)}
 }
+
+.ios-tabbar{
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  width:calc(100% - 28px);
+  max-width:420px;
+  height:84px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+
+  background:var(--glass-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+
+  border-radius:28px;
+  border:1px solid var(--glass-border);
+
+  box-shadow:
+    0 30px 60px rgba(0,0,0,.55),
+    inset 0 1px 0 var(--glass-highlight);
+
+  animation:glassIdle 6s ease-in-out infinite;
+  z-index:9999;
+}
+
+@keyframes glassIdle{
+  0%{box-shadow:0 30px 60px rgba(0,0,0,.5)}
+  50%{box-shadow:0 40px 70px rgba(0,0,0,.6)}
+  100%{box-shadow:0 30px 60px rgba(0,0,0,.5)}
+}
+
+.tab{
+  position:relative;
+  background:none;
+  border:none;
+  color:#cbd5e1;
+  font-family:Outfit;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  cursor:pointer;
+  padding:10px 14px;
+  transition:.25s cubic-bezier(.4,0,.2,1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab span.material-symbols-rounded{
+  font-size:26px;
+}
+
+.tab .label{
+  font-size:11px;
+  font-weight:600;
+  opacity:.85;
+}
+
+.tab.active{
+  color:var(--accent);
+}
+
+.tab.active span.material-symbols-rounded{
+  text-shadow:0 0 14px rgba(56,189,248,.9);
+}
+
+.tab:active{
+  transform:scale(.88);
+}
+
+.tab-indicator{
+  position:absolute;
+  bottom:10px;
+  width:64px;
+  height:42px;
+  background:rgba(255,255,255,.22);
+  border-radius:20px;
+  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.5),
+    0 0 18px rgba(56,189,248,.45);
+
+  transition:.45s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
 </style>
 </head>
  <div id="copy-toast" class="toast">
@@ -570,10 +662,28 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   </div>
 </div>
 
-  <nav class="tabbar">
-  <button data-view="homeView">Inicio</button>
-  <button data-view="calendarView">Eventos</button>
-  <button data-view="newsView">Noticias</button>
+  <nav class="ios-tabbar">
+  <div class="tab-indicator"></div>
+
+  <button class="tab active" data-view="home">
+    <span class="material-symbols-rounded">home</span>
+    <span class="label">Home</span>
+  </button>
+
+  <button class="tab" data-view="server">
+    <span class="material-symbols-rounded">dns</span>
+    <span class="label">Server</span>
+  </button>
+
+  <button class="tab" data-view="shop">
+    <span class="material-symbols-rounded">shopping_bag</span>
+    <span class="label">Shop</span>
+  </button>
+
+  <button class="tab" data-view="profile">
+    <span class="material-symbols-rounded">person</span>
+    <span class="label">Profile</span>
+  </button>
   </nav>
 
   <footer class="footer">© <span id="year"></span> ZyrAkaNetwork — Propiedad de ZyrAkaAguilar</footer>
@@ -957,6 +1067,28 @@ document.querySelectorAll('.tabbar button').forEach(btn=>{
 document.querySelector('.close-popup').onclick=()=>{
   document.getElementById('event-popup').classList.remove('show');
 };
+
+const tabs = document.querySelectorAll('.tab');
+const indicator = document.querySelector('.tab-indicator');
+
+function moveIndicator(tab){
+  const rect = tab.getBoundingClientRect();
+  const parent = tab.parentElement.getBoundingClientRect();
+
+  indicator.style.left = rect.left - parent.left + rect.width/2 - 32 + 'px';
+}
+
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    tab.classList.add('active');
+    moveIndicator(tab);
+
+    navigator.vibrate?.(8);
+  });
+});
+
+moveIndicator(document.querySelector('.tab.active'));
 
 loadCalendar();
 </script>
