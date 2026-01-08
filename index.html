@@ -332,6 +332,143 @@ body.fade-out{
   transform:translateX(120%);
 }
 
+/* ===== NAV GLASS ===== */
+.nav-glass{
+  position:fixed;
+  z-index:100;
+  display:flex;
+  gap:14px;
+  padding:14px;
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.35),
+    rgba(255,255,255,.12)
+  );
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 40px 120px rgba(0,0,0,.6);
+  border-radius:28px;
+  animation:navIn .8s cubic-bezier(.28,1.25,.55,1) forwards;
+}
+
+/* PC → Izquierda */
+@media(min-width:901px){
+  .nav-glass{
+    top:50%;
+    left:22px;
+    transform:translateY(-50%);
+    flex-direction:column;
+  }
+}
+
+/* Móvil → Abajo */
+@media(max-width:900px){
+  .nav-glass{
+    bottom:16px;
+    left:50%;
+    transform:translateX(-50%);
+    flex-direction:row;
+  }
+}
+
+.nav-item{
+  position:relative;
+  border:none;
+  background:transparent;
+  color:white;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:16px 22px;
+  border-radius:999px;
+  font-family:Outfit,system-ui;
+  font-weight:700;
+  letter-spacing:.3px;
+  cursor:pointer;
+  overflow:hidden;
+
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.45),
+    rgba(255,255,255,.12)
+  );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    inset 0 -1px 0 rgba(255,255,255,.15),
+    0 30px 80px rgba(0,0,0,.55);
+
+  transition:
+    transform .45s cubic-bezier(.28,1.25,.55,1),
+    box-shadow .45s ease;
+}
+
+/* Icono */
+.nav-item span{
+  font-size:22px;
+  transition:transform .4s cubic-bezier(.28,1.25,.55,1);
+}
+
+/* Texto */
+.nav-item em{
+  font-style:normal;
+  font-size:14px;
+}
+
+/* Hover */
+.nav-item:hover{
+  transform:translateY(-6px) scale(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.85),
+    0 50px 140px rgba(255,255,255,.35);
+}
+
+.nav-item:hover span{
+  transform:scale(1.25);
+}
+
+/* Activo */
+.nav-item.active{
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  box-shadow:0 0 60px rgba(56,189,248,.55);
+}
+
+/* Ripple glass */
+.nav-item::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:inherit;
+  background:radial-gradient(
+    circle,
+    rgba(255,255,255,.45),
+    transparent 60%
+  );
+  opacity:0;
+  transform:scale(.3);
+  transition:.6s ease;
+}
+
+.nav-item:active::after{
+  opacity:1;
+  transform:scale(1.2);
+}
+
+/* Entrada */
+@keyframes navIn{
+  from{
+    opacity:0;
+    transform:scale(.9);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
 @keyframes liquidFloat{
   0%{ transform:translateY(0) }
   50%{ transform:translateY(-6px) }
@@ -373,6 +510,28 @@ body.fade-out{
 </div>
 <div class="container">
 
+<nav class="nav-glass">
+  <button class="nav-item active" onclick="navGo('/app/home.html')">
+    <span class="material-symbols-rounded">home</span>
+    <em>Home</em>
+  </button>
+
+  <button class="nav-item" onclick="navGo('/app/server.html')">
+    <span class="material-symbols-rounded">dns</span>
+    <em>Server</em>
+  </button>
+
+  <button class="nav-item" onclick="navGo('/app/shop.html')">
+    <span class="material-symbols-rounded">shopping_cart</span>
+    <em>Shop</em>
+  </button>
+
+  <button class="nav-item" onclick="navGo('/app/profile.html')">
+    <span class="material-symbols-rounded">account_circle</span>
+    <em>Profile</em>
+  </button>
+</nav>
+
   <header class="header">
     <div class="brand">
       <div class="logo">
@@ -413,6 +572,44 @@ body.fade-out{
 </div>
 
 <script>
+function navGo(page){
+  document.body.classList.add("fade-out");
+  setTimeout(()=>location.href = page, 450);
+}
+
+/* Activar botón actual */
+const path = location.pathname;
+document.querySelectorAll('.nav-item').forEach(btn=>{
+  if(btn.getAttribute('onclick')?.includes(path)){
+    btn.classList.add('active');
+  }
+});
+
+let navGyro = false;
+
+window.addEventListener('click',()=>{
+  if(typeof DeviceOrientationEvent?.requestPermission === 'function'){
+    DeviceOrientationEvent.requestPermission().then(p=>{
+      if(p === 'granted') navGyro = true;
+    });
+  }else{
+    navGyro = true;
+  }
+},{once:true});
+
+window.addEventListener('deviceorientation',e=>{
+  if(!navGyro) return;
+  const x = Math.max(-10,Math.min(10,e.gamma||0));
+  const y = Math.max(-10,Math.min(10,e.beta||0));
+
+  document.querySelectorAll('.nav-item').forEach(btn=>{
+    btn.style.transform = `
+      rotateX(${y * -0.4}deg)
+      rotateY(${x * 0.4}deg)
+    `;
+  });
+});
+
 function animateButtons(){
   const buttons = document.querySelectorAll('.menu-btn');
 
