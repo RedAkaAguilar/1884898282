@@ -32,6 +32,11 @@ body{
   animation:bgMove 18s ease infinite;
 }
 
+body.fade-out{
+  opacity:0;
+  transition:opacity .5s ease;
+}
+
 @keyframes bgMove{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
@@ -144,8 +149,26 @@ body{
 .menu-btn:nth-child(3){animation-delay:.3s}
 .menu-btn:nth-child(4){animation-delay:.4s}
 
+.menu-btn.primary{
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  box-shadow:0 0 50px rgba(34,197,94,.5);
+}
+
 .menu-btn span{
   font-size:22px;
+}
+
+.menu-btn::after{
+  content:"";
+  position:absolute;
+  inset:-6px;
+  border-radius:999px;
+  border:1px solid transparent;
+  transition:.3s;
+}
+
+.menu-btn:hover::after{
+  border-color:rgba(255,255,255,.25);
 }
 
 .menu-btn:hover{
@@ -196,7 +219,7 @@ body{
   </header>
 
   <section class="menu-buttons">
-    <div class="menu-btn" onclick="go('/app/server.html')">
+    <div class="menu-btn primary" onclick="go('/app/server.html')">
       <span class="material-symbols-rounded">dns</span>
       Servidor
     </div>
@@ -224,9 +247,8 @@ body{
 
 <script>
 function go(page){
-  setTimeout(() => {
-    window.location.href = page;
-  }, 800);
+  document.body.classList.add("fade-out");
+  setTimeout(()=>location.href=page,500);
 }
 </script>
 </body>
