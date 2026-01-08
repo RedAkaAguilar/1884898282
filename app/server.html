@@ -14,25 +14,43 @@
 <link rel="manifest" href="/ico/site.webmanifest" />
 <style>
 :root{
-  --bg:#0e1116;                 
-  --bg-soft:#151a22;            
-  --accent:#22c55e;
-  --blueaccent:#38bdf8;
-
-  --text:#ffffff;              
-  --muted:#cbd5e1;             
-
-  --glass: rgba(255,255,255,0.08);
-  --card-shadow: 0 10px 30px rgba(0,0,0,0.4);
-  --radius:16px;
+  --bg:#0b0f14;
+  --glass:rgba(255,255,255,.18);
+  --glass-strong:rgba(255,255,255,.26);
+  --border:rgba(255,255,255,.35);
+  --white:#fff;
+  --white-soft:rgba(255,255,255,.85);
+  --blur:28px;
+  --radius:28px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
 }
-* {
+
+*{
   box-sizing:border-box;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color:transparent;
   -webkit-touch-callout: none;
 }
 html,body{height:100%}
-body{margin:0;font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;color:var(--text);background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);background-size:400% 400%;animation:bgMove 18s ease infinite;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+
+body{
+  margin:0;
+  font-family:Outfit,system-ui;
+  color:var(--white);
+  background:linear-gradient(
+    120deg,
+    #290d0b,#291e0b,#27290b,#13290b,
+    #0b291a,#0b2529,#0b1729,
+    #130b29,#240b29,#290b17
+  );
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 .material-symbols-rounded{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;color: #ffffff;}
 .small .material-symbols-rounded{color:#cbd5e1;}
 .container{max-width:1100px;margin:28px auto;padding:20px}
@@ -564,8 +582,137 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 .apple-btn:active{
   transform:scale(.96);
 }
+
+.server-btn{
+  position:relative;
+  padding:18px 28px;
+  border-radius:999px;
+
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.45),
+    rgba(255,255,255,.12)
+  );
+
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  -webkit-backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    inset 0 -1px 0 rgba(255,255,255,.15),
+    0 40px 120px rgba(0,0,0,.65);
+
+  color:#fff;
+  font-weight:700;
+  font-size:15px;
+  letter-spacing:.3px;
+
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+
+  cursor:pointer;
+  overflow:hidden;
+
+  animation:
+    iphoneIn .75s var(--spring) forwards,
+    liquidFloat 6s ease-in-out infinite,
+    liquidGlow 6s ease-in-out infinite;
+
+  transition:
+    transform .45s var(--spring),
+    box-shadow .45s ease;
+}
+
+.server-btn:hover{
+  transform:translateY(-6px) scale(1.045);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.85),
+    0 50px 140px rgba(255,255,255,.25);
+}
+
+.server-btn:active{
+  transform:scale(.92);
+  transition:transform .15s ease;
+}
+
+.server-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.6),
+    transparent 70%
+  );
+  opacity:.35;
+  transform:translateX(-120%);
+  transition:transform .9s ease;
+  pointer-events:none;
+}
+
+.server-btn:hover::before{
+  transform:translateX(120%);
+}
+
+@keyframes iphoneIn{
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
+}
+
+@keyframes liquidFloat{
+  0%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+  100%{transform:translateY(0)}
+}
+
+@keyframes liquidGlow{
+  0%{box-shadow:0 30px 80px rgba(255,255,255,.15)}
+  50%{box-shadow:0 45px 140px rgba(255,255,255,.35)}
+  100%{box-shadow:0 30px 80px rgba(255,255,255,.15)}
+}
+
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  z-index:-1;
+  filter:blur(120px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:45vw;
+  height:45vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:liquidMove 20s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){top:10%;left:10%}
+.liquid-bg span:nth-child(2){bottom:15%;right:10%;animation-duration:26s}
+.liquid-bg span:nth-child(3){top:40%;right:30%;animation-duration:32s}
+
+@keyframes liquidMove{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(80px,-60px) scale(1.25)}
+  100%{transform:translate(0,0) scale(1)}
+}
 </style>
 </head>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
  <div id="copy-toast" class="toast">
   <div class="toast-icon">
     <span class="material-symbols-rounded">check</span>
@@ -592,8 +739,8 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
     </div>
     <nav class="nav">
-      <button class="btn"><span class="material-symbols-rounded">login</span> Unete con </button>
-      <button class="btn liquid" onclick="
+      <button class="server-btn"><span class="material-symbols-rounded">login</span> Unete con </button>
+      <button class="server-btn" onclick="
         navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
          mc.mcstellarstudio.com
       </button>
@@ -601,7 +748,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   </header>
 
   <main class="grid">
-    <section class="card liquid" aria-labelledby="estado">
+    <section class="card server-btn" aria-labelledby="estado">
       <div class="row">
         <div>
           <h2 id="estado" style="margin:0;font-size:18px"><span class="material-symbols-rounded">bolt</span> Estado del servidor</h2>
@@ -623,10 +770,10 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
 
       <div class="actions">
-        <a class="btn liquid" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
+        <a class="server-btn" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
   <span class="material-symbols-rounded">attach_email</span> Discord
         </a>
-        <a class="btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
+        <a class="server-btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
       </div>
 
       <div class="features" style="margin-top:18px">
@@ -645,7 +792,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
     </section>
 
-    <aside class="card liquid" aria-labelledby="noticias">
+    <aside class="server-btn" aria-labelledby="noticias">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
         <div><h3 id="noticias" style="margin:0;font-size:16px"><span class="material-symbols-rounded">notifications_active</span> Noticias</h3></div>
         <a class="small" href="notificaciones">Ver todas</a>
@@ -655,7 +802,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     </aside>
   </main>
 
-  <section class="card liquid" aria-labelledby="calendario">
+  <section class="card server-btn" aria-labelledby="calendario">
   <div class="calendar-header">
     <h2 id="calendario">
       <span class="material-symbols-rounded">calendar_month</span>
