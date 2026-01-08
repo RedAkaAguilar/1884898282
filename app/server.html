@@ -523,7 +523,7 @@ let lastNewsHash = '';
 
 async function cargarNoticiasHome(){
   try{
-    const res = await fetch('notificaciones.json?cache=' + Date.now());
+    const res = await fetch('../api/control/notificaciones.json?cache=' + Date.now());
     const data = await res.json();
 
     const hash = JSON.stringify(data);
@@ -629,7 +629,7 @@ async function loadCalendar(){
 
   const daysInMonth = new Date(year,month+1,0).getDate();
 
-  const res = await fetch('eventos.json');
+  const res = await fetch('../api/control/eventos.json');
   const events = await res.json();
 
   for(let d=1;d<=daysInMonth;d++){
