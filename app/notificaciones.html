@@ -149,7 +149,7 @@ let lastHash = '';
 
 async function cargarNoticias(){
   try{
-    const res = await fetch('notificaciones.json?cache=' + Date.now());
+    const res = await fetch('../api/control/notificaciones.json?cache=' + Date.now());
     const data = await res.json();
 
     const hash = JSON.stringify(data);
