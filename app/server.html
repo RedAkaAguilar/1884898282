@@ -696,6 +696,71 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
   50%{transform:translate(80px,-60px) scale(1.25)}
   100%{transform:translate(0,0) scale(1)}
 }
+
+.server-btn.featured{
+  font-size:16px;
+  letter-spacing:.6px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.65),
+      rgba(255,255,255,.18)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.9),
+    0 60px 160px rgba(255,255,255,.35);
+
+  animation:
+    iphoneIn .75s var(--spring) forwards,
+    liquidFloat 5s ease-in-out infinite,
+    featuredGlow 4s ease-in-out infinite;
+}
+
+@keyframes featuredGlow{
+  0%{
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.9),
+      0 40px 120px rgba(255,255,255,.25);
+  }
+  50%{
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,1),
+      0 70px 200px rgba(255,255,255,.45);
+  }
+  100%{
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.9),
+      0 40px 120px rgba(255,255,255,.25);
+  }
+}
+
+.server-btn.discord{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(88,101,242,.45),
+      rgba(88,101,242,.15)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    0 40px 120px rgba(88,101,242,.45);
+}
+
+.server-btn.creator{
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,215,0,.45),
+      rgba(255,255,255,.12)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 40px 140px rgba(255,215,0,.35);
+}
 </style>
 </head>
 <div class="liquid-bg">
@@ -731,7 +796,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
     </div>
     <nav class="nav">
       <button class="server-btn"><span class="material-symbols-rounded">login</span> Unete con </button>
-      <button class="server-btn" onclick="
+      <button class="server-btn featured" onclick="
         navigator.clipboard.writeText('mc.mcstellarstudio.com');showCopyToast();">
          mc.mcstellarstudio.com
       </button>
@@ -761,10 +826,10 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
       </div>
 
       <div class="actions">
-        <a class="server-btn" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
+        <a class="server-btn discord" href="https://discord.gg/DVBdqXgsGu" id="connect" onclick="showDiscordToast()" target="_blank">
   <span class="material-symbols-rounded">attach_email</span> Discord
         </a>
-        <a class="server-btn" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
+        <a class="server-btn creator" href="#"><span class="material-symbols-rounded">attribution</span> Creador</a>
       </div>
 
       <div class="features" style="margin-top:18px">
