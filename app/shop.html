@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"/>
 <title>ZyrAka Shop</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -20,14 +20,38 @@
   --shadow:0 15px 40px rgba(0,0,0,.45);
 }
 
-*{box-sizing:border-box}
+* {
+  box-sizing:border-box
+  max-width: 100vw;
+}
+
+*, *::before, *::after {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-focus-ring-color: rgba(0,0,0,0);
+  outline: none !important;
+}
+  
 body{
   margin:0;
   font-family:Outfit,system-ui;
-  background:linear-gradient(120deg,#130b29,#0b291a,#0b1729);
+  background:linear-gradient(120deg,#290d0b,#0b291a,#0b1729,#240b29);
   background-size:400% 400%;
-  animation:bg 20s infinite;
+  animation:bg 18s ease infinite;
   color:var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
 }
 
 @keyframes bg{
