@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"/>
+<title>Web Update #2 • ZyrAkaNetwork</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0f14;
+  --glass:rgba(255,255,255,.18);
+  --border:rgba(255,255,255,.35);
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.75);
+  --radius:26px;
+  --blur:30px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+}
+
+* {
+  box-sizing:border-box
+  max-width: 100vw;
+}
+
+*, *::before, *::after {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-focus-ring-color: rgba(0,0,0,0);
+  outline: none !important;
+}
+  
+body{
+  margin:0;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#290d0b,#0b291a,#0b1729,#240b29);
+  background-size:400% 400%;
+  animation:bg 18s ease infinite;
+  color:var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+html, body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  touch-action: pan-y;
+  overscroll-behavior-x: none;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.container{
+  max-width:880px;
+  margin:30px auto;
+  padding:20px;
+}
+
+header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:26px;
+}
+
+.back{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:10px 16px;
+  border-radius:999px;
+  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.18));
+  backdrop-filter:blur(20px);
+  border:1px solid var(--border);
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.article{
+  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.12));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:0 60px 160px rgba(0,0,0,.6);
+  overflow:hidden;
+}
+
+.article img{
+  width:100%;
+  height:320px;
+  object-fit:cover;
+}
+
+.article-content{
+  padding:26px;
+}
+
+.date{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+
+h1{
+  margin:0;
+  font-size:30px;
+  font-weight:700;
+}
+
+hr{
+  border:none;
+  height:1px;
+  background:rgba(255,255,255,.25);
+  margin:26px 0;
+}
+
+p{
+  font-size:16px;
+  line-height:1.7;
+  color:var(--muted);
+}
+
+.bold{font-weight:700;color:#fff}
+
+.italic{font-style:italic}
+
+.gradient-text{
+  background:linear-gradient(90deg,#22c55e,#38bdf8,#a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-weight:700;
+}
+
+ul, ol{
+  margin:16px 0 16px 22px;
+  color:var(--muted);
+}
+
+li{
+  margin:8px 0;
+}
+  
+.highlight{
+  margin:24px 0;
+  padding:18px 20px;
+  border-radius:18px;
+  background:linear-gradient(135deg,rgba(56,189,248,.35),rgba(168,85,247,.25));
+  border:1px solid rgba(255,255,255,.35);
+  color:#fff;
+  font-weight:600;
+}
+
+.quote{
+  margin:22px 0;
+  padding-left:18px;
+  border-left:4px solid #38bdf8;
+  font-style:italic;
+  color:#e5e7eb;
+}
+
+footer{
+  text-align:center;
+  margin-top:26px;
+  font-size:13px;
+  color:var(--muted);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <a href="https://www.zyrakaworld.net/app/notificaciones" class="back">
+    <span class="material-symbols-rounded">arrow_back</span> Volver
+  </a>
+</header>
+
+<article class="article">
+
+  <img src="https://raw.githubusercontent.com/RedAkaAguilar/1884898282/main/textures/noticias/-ann-img3.jpg">
+
+  <div class="article-content">
+
+    <div class="date">04 de Enero, 2026</div>
+    <h1>Web Update #2</h1>
+
+    <hr>
+
+    <p>
+      Hemos lanzado un nuevo <span class="bold">update importante</span> para el sitio web de 
+      <span class="gradient-text">ZyrAkaNetwork</span>.
+      Este cambio mejora tanto la experiencia visual como la funcionalidad general.
+    </p>
+
+    <p class="italic">
+      Este update estaba planeado desde hace semanas y finalmente está disponible.
+    </p>
+
+    <div class="highlight">
+      🚀 Este update marca un antes y un después en la web.
+    </div>
+
+    <p>Entre las novedades se incluyen:</p>
+
+    <ul>
+      <li>Nuevo calendario de eventos</li>
+      <li>Mejor rendimiento en móviles</li>
+      <li>Animaciones estilo iOS / Liquid Glass</li>
+    </ul>
+
+    <p>Próximamente también veremos:</p>
+
+    <ol>
+      <li>Sistema de cuentas</li>
+      <li>Notificaciones avanzadas</li>
+      <li>Integración directa con Discord</li>
+    </ol>
+
+    <div class="quote">
+      “Queremos que la web se sienta como una app nativa.”
+    </div>
+
+    <p>
+      Gracias por formar parte de esta comunidad.  
+      <span class="bold">Seguiremos mejorando.</span>
+    </p>
+
+  </div>
+</article>
+
+<footer>
+  © <span id="year"></span> ZyrAkaNetwork
+</footer>
+
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+document.addEventListener('contextmenu', e => {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+  }
+});
+
+document.addEventListener('touchstart', function (e) {
+  if (e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+  document.addEventListener('wheel', function (e) {
+  if (e.ctrlKey) {
+    e.preventDefault();
+  }
+}, { passive: false });
+</script>
+
+</body>
+</html>
+
