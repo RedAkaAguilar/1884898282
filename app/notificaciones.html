@@ -57,6 +57,7 @@ body{
 
 html, body {
   overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
   touch-action: pan-y;
   overscroll-behavior-x: none;
@@ -540,8 +541,8 @@ document.addEventListener('contextmenu', e => {
   }
 });
 
-document.addEventListener('touchmove', function (e) {
-  if (e.scale !== 1) {
+document.addEventListener('touchstart', function (e) {
+  if (e.touches.length > 1) {
     e.preventDefault();
   }
 }, { passive: false });
