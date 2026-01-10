@@ -1223,28 +1223,30 @@ loadCalendar();
   const isFirstTime = !localStorage.getItem("visited");
 
   const messagePool = isFirstTime ? firstTimeMessages : returningMessages;
-  const message = messagePool[Math.floor(Math.random() * messagePool.length)];
-
-  textEl.textContent = message;
-  banner.classList.remove("hidden");
+  textEl.textContent = messagePool[Math.floor(Math.random() * messagePool.length)];
 
   if(isFirstTime){
     localStorage.setItem("visited", "true");
   }
 
   let time = 5;
-  timeEl.textContent = time;
 
-  const interval = setInterval(()=>{
-    time--;
+  setTimeout(() => {
+    banner.classList.remove("hidden");
     timeEl.textContent = time;
 
-    if(time <= 0){
-      clearInterval(interval);
-      banner.style.animation = "welcomeOut .6s ease forwards";
-      setTimeout(()=> banner.remove(), 600);
-    }
-  },1000);
+    const interval = setInterval(()=>{
+      time--;
+      timeEl.textContent = time;
+
+      if(time <= 0){
+        clearInterval(interval);
+        banner.style.animation = "welcomeOut .6s ease forwards";
+        setTimeout(()=> banner.remove(), 600);
+      }
+    },1000);
+
+  }, 2000);
 })();
 </script>
 </body>
