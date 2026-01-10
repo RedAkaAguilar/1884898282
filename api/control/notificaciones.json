@@ -3,30 +3,40 @@
     "title": "Test",
     "description": "Esto es una noticia prueba! Carajos",
     "date": "2026-01-10",
-    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg"
+    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg",
+    "clickable": true,
+    "url": "/eventos.html"
   },
   {
     "title": "Recordatorio!",
     "description": "Si eres participante del ZyrAkaNetwork, debes estar en el servidor official de Discord!",
     "date": "2026-01-04",
-    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg"
+    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg",
+    "clickable": true,
+    "url": "/eventos.html"
   },
   {
     "title": "Casi Terminado!",
     "description": "Ya esta casi al 100% el Sitio Web, haciendo que hayan updates de vez en cuando!",
     "date": "2026-01-01",
-    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg"
+    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg",
+    "clickable": true,
+    "url": "/eventos.html"
   },
   {
     "title": "Web Update #1",
     "description": "Ahora hubo una mejora en el HUD de la pagina web!",
     "date": "2026-01-02",
-    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img2.jpg"
+    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img2.jpg",
+    "clickable": true,
+    "url": "/eventos.html"
   },
   {
     "title": "Web Update #2",
     "description": "Ahora Hay un calendario de eventos!, ahora sabras cuando hay un evento de ZyrAka!",
     "date": "2026-01-04",
-    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img3.jpg"
+    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img3.jpg",
+    "clickable": true,
+    "url": "/eventos.html"
   }
 ]
