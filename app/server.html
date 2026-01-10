@@ -591,8 +591,14 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 
   z-index:9999;
   opacity:0;
+}
 
+.welcome.enter{
   animation:welcomeIn .7s cubic-bezier(.28,1.25,.55,1) forwards;
+}
+
+.welcome.exit{
+  animation:welcomeOut .6s cubic-bezier(.4,0,.2,1) forwards;
 }
 
 .welcome.hidden{
@@ -1221,18 +1227,20 @@ loadCalendar();
   ];
 
   const isFirstTime = !localStorage.getItem("visited");
+  const pool = isFirstTime ? firstTimeMessages : returningMessages;
 
-  const messagePool = isFirstTime ? firstTimeMessages : returningMessages;
-  textEl.textContent = messagePool[Math.floor(Math.random() * messagePool.length)];
+  textEl.textContent = pool[Math.floor(Math.random() * pool.length)];
 
   if(isFirstTime){
-    localStorage.setItem("visited", "true");
+    localStorage.setItem("visited","true");
   }
 
   let time = 5;
 
   setTimeout(() => {
     banner.classList.remove("hidden");
+    banner.classList.add("enter");
+
     timeEl.textContent = time;
 
     const interval = setInterval(()=>{
@@ -1241,8 +1249,13 @@ loadCalendar();
 
       if(time <= 0){
         clearInterval(interval);
-        banner.style.animation = "welcomeOut .6s ease forwards";
-        setTimeout(()=> banner.remove(), 600);
+
+        banner.classList.remove("enter");
+        banner.classList.add("exit");
+
+        banner.addEventListener("animationend", () => {
+          banner.remove();
+        }, { once:true });
       }
     },1000);
 
