@@ -291,6 +291,20 @@ p, .date{
     box-shadow .45s ease;
 }
 
+.card.link{
+  cursor:pointer;
+}
+
+.card.link::after{
+  content:"arrow_forward";
+  font-family:'Material Symbols Rounded';
+  position:absolute;
+  top:12px;
+  right:12px;
+  font-size:20px;
+  opacity:.7;
+}
+
 .card:hover{
   transform:translateY(-8px) scale(1.03);
   box-shadow:
@@ -439,22 +453,34 @@ async function cargarNoticias(){
     grid.innerHTML = '';
 
     data.forEach((n,i)=>{
-      const card = document.createElement('article');
-      card.className = 'card';
+  const card = document.createElement('article');
+  card.className = 'card';
 
-      card.innerHTML = `
-        <img src="${n.image}" alt="${n.title}">
-        <div class="card-content">
-          <div class="date">${new Date(n.date).toLocaleDateString()}</div>
-          <h3>${n.title}</h3>
-          <p>${n.description}</p>
-        </div>
-      `;
+  if(n.clickable === true && n.url){
+    card.classList.add('link');
 
-      grid.appendChild(card);
-
-      setTimeout(()=>card.classList.add('show'), i * 120);
+    card.addEventListener('click', () => {
+      haptic('medium');
+      location.href = n.url;
     });
+
+  }else{
+    // Comportamiento normal (overlay)
+    card.addEventListener('click', () => openCard(n));
+  }
+
+  card.innerHTML = `
+    <img src="${n.image}" alt="${n.title}">
+    <div class="card-content">
+      <div class="date">${new Date(n.date).toLocaleDateString()}</div>
+      <h3>${n.title}</h3>
+      <p>${n.description}</p>
+    </div>
+  `;
+
+  grid.appendChild(card);
+  setTimeout(()=>card.classList.add('show'), i * 120);
+});
 
   }catch(e){
     console.error('Error cargando notificaciones', e);
