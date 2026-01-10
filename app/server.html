@@ -50,6 +50,7 @@
 html,body {
   height:100%
   overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
   touch-action: pan-y;
   overscroll-behavior-x: none;
@@ -1457,8 +1458,8 @@ loadCalendar();
   }
 });
 
-  document.addEventListener('touchmove', function (e) {
-  if (e.scale !== 1) {
+document.addEventListener('touchstart', function (e) {
+  if (e.touches.length > 1) {
     e.preventDefault();
   }
 }, { passive: false });
