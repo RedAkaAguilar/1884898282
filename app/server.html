@@ -820,7 +820,7 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const EVENTO_ACTIVO = false; 
+const EVENTO_ACTIVO = true; 
 const EVENTO_NOMBRE = 'Test';
 
 
@@ -927,7 +927,7 @@ async function updateServerStatus(){
       text.textContent = 'Online';
       dot.style.background = '#34d399';
 
-      document.title = `${SITE_NAME} • Online`;
+      document.title = `Online • ${SITE_NAME}`;
 
       playersEl.textContent = `${data.players.online}/${data.players.max}`;
       pingEl.textContent = data.debug.ping ? data.debug.ping + '' : '—';
