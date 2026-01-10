@@ -1239,30 +1239,66 @@ loadCalendar();
   if(isFirstTime){
     localStorage.setItem("visited","true");
   }
-
+  
   let time = 10;
+  let interval = null;
+  let paused = false;
 
-  setTimeout(() => {
-    banner.classList.remove("hidden");
-    banner.classList.add("enter");
+  function startTimer(){
+    interval = setInterval(()=>{
+      if(paused) return;
 
-    timeEl.textContent = time;
-
-    const interval = setInterval(()=>{
       time--;
       timeEl.textContent = time;
 
       if(time <= 0){
         clearInterval(interval);
-
-        banner.classList.remove("enter");
-        banner.classList.add("exit");
-
-        banner.addEventListener("animationend", () => {
-          banner.remove();
-        }, { once:true });
+        closeBanner();
       }
     },1000);
+  }
+
+  function closeBanner(){
+    banner.classList.remove("enter");
+    banner.classList.add("exit");
+
+    banner.addEventListener("animationend", () => {
+    banner.remove();
+  }, { once:true });
+  }
+
+  setTimeout(() => {    
+    banner.classList.remove("hidden");
+    banner.classList.add("enter");
+
+    timeEl.textContent = time;
+    startTimer();
+  }, 2000);
+
+  banner.addEventListener("mouseenter", () => paused = true);
+  banner.addEventListener("mouseleave", () => paused = false);
+
+  banner.addEventListener("touchstart", () => paused = true);
+  banner.addEventListener("touchend", () => paused = false);
+
+  banner.addEventListener("click", () => {
+    if(interval) clearInterval(interval);
+    closeBanner();
+  });
+
+    function startTimer(){
+      interval = setInterval(()=>{
+        if(paused) return;
+     
+        time--;
+        timeEl.textContent = time;
+
+        if(time <= 0){
+          clearInterval(interval);
+          closeBanner();
+        }
+      },1000);
+    }
 
     if(time <= 3){
       banner.style.borderColor = "rgba(248,113,113,.6)";
