@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
 <title>Server</title>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -37,8 +37,17 @@
 
   --spring:cubic-bezier(.28,1.25,.55,1);
 }
-*{box-sizing:border-box}
-html,body{height:100%}
+* {
+  box-sizing:border-box
+  -webkit-tap-highlight-color: transparent;
+}
+html,body {
+  height:100%
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  touch-action: pan-y;
+}
 body {
   margin:0;
   font-family:Outfit,system-ui,-apple-system,Segoe UI,Roboto;
@@ -50,6 +59,10 @@ body {
   -moz-osx-font-smoothing:grayscale;
   opacity:0;
   animation:pageIn .6s ease forwards;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 body.fade-out{
@@ -1431,6 +1444,12 @@ loadCalendar();
 
   }, 2000);
 })();
+
+  document.addEventListener('contextmenu', e => {
+  if (e.target.tagName === 'IMG') {
+    e.preventDefault();
+  }
+});
 </script>
 </body>
 </html>
