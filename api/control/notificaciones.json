@@ -5,7 +5,7 @@
     "date": "2026-01-10",
     "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg",
     "clickable": false,
-    "url": "/eventos.html"
+    "url": "https://www.zyrakaworld.net/api/blog/noticia-web-null"
   },
   {
     "title": "Recordatorio!",
@@ -13,7 +13,7 @@
     "date": "2026-01-04",
     "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg",
     "clickable": false,
-    "url": "/eventos.html"
+    "url": "https://www.zyrakaworld.net/api/blog/noticia-web-null"
   },
   {
     "title": "Casi Terminado!",
@@ -21,7 +21,7 @@
     "date": "2026-01-01",
     "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg",
     "clickable": false,
-    "url": "/eventos.html"
+    "url": "https://www.zyrakaworld.net/api/blog/noticia-web-null"
   },
   {
     "title": "Web Update #1",
@@ -29,7 +29,7 @@
     "date": "2026-01-02",
     "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img2.jpg",
     "clickable": false,
-    "url": "/eventos.html"
+    "url": "https://www.zyrakaworld.net/api/blog/noticia-web-null"
   },
   {
     "title": "Web Update #2",
@@ -37,6 +37,6 @@
     "date": "2026-01-04",
     "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img3.jpg",
     "clickable": false,
-    "url": "/eventos.html"
+    "url": "https://www.zyrakaworld.net/api/blog/noticia-web-null"
   }
 ]
