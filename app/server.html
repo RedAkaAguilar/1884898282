@@ -651,10 +651,15 @@ h1,h2,h3,h4,h5,h6,p,span,div,.small{color:var(--text);}
 }
 
 @keyframes welcomeOut{
+  from{
+    opacity:1;
+    transform:translateX(-50%) translateY(0) scale(1);
+    filter:blur(0);
+  }
   to{
     opacity:0;
-    transform:translateX(-50%) translateY(-20px) scale(.92);
-    filter:blur(10px);
+    transform:translateX(-50%) translateY(-32px) scale(.92);
+    filter:blur(14px);
   }
 }
 </style>
