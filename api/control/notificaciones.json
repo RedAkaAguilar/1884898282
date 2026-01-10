@@ -1,5 +1,11 @@
 [
   {
+    "title": "Test",
+    "description": "Esto es una noticia prueba! <a href="https://ejemplo.com">Leer mas</a>",
+    "date": "2026-01-04",
+    "image": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/refs/heads/main/textures/noticias/-ann-img1.jpg"
+  },
+  {
     "title": "Recordatorio!",
     "description": "Si eres participante del ZyrAkaNetwork, debes estar en el servidor official de Discord!",
     "date": "2026-01-04",
