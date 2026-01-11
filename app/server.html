@@ -1519,6 +1519,7 @@ document.addEventListener('touchend', function (e) {
 
 const STATUS_URL = '../api/status.json'
 const CHECK_INTERVAL = 1000
+const HOME_URL = '/'
 
 const routes = {
   mantenimiento: '../api/error/mantenimiento.html',
@@ -1528,8 +1529,6 @@ const routes = {
   actualizacion: '../api/error/actualizacion.html'
 }
 
-let redirected = false
-
 async function checkStatus(){
   try{
     const res = await fetch(STATUS_URL + '?t=' + Date.now(), { cache: 'no-store' })
@@ -1537,12 +1536,19 @@ async function checkStatus(){
 
     for(const key in routes){
       if(data[key] === true){
-        if(!redirected && !location.pathname.includes(routes[key])){
-          redirected = true
+        if(!location.pathname.includes(routes[key])){
           location.replace(routes[key])
         }
         return
       }
+    }
+
+    const isErrorPage = Object.values(routes).some(p =>
+      location.pathname.includes(p)
+    )
+
+    if(isErrorPage){
+      location.replace(HOME_URL)
     }
 
   }catch(e){
