@@ -243,9 +243,14 @@ document.getElementById('tip').textContent=
 document.getElementById('year').textContent=
   new Date().getFullYear()
 
+const min = 3000
+const max = 8000
+
+const wait = Math.floor(Math.random() * (max - min + 1)) + min
+
 setTimeout(()=>{
-  location.href='https://www.zyrakaworld.net/app/server'
-},4000)
+  location.href = 'https://www.zyrakaworld.net/app/server'
+}, wait)
 </script>
 </body>
 </html>
