@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<title>Cargando...</title>
+<title>Cargando • ZyrAkaNetwork</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
   --border:rgba(255,255,255,.35);
   --text:#fff;
   --muted:rgba(255,255,255,.75);
-  --blur:30px;
+  --blur:32px;
   --spring:cubic-bezier(.28,1.25,.55,1);
 }
 
@@ -46,102 +46,142 @@ body{
 .liquid-bg{
   position:fixed;
   inset:-20%;
-  filter:blur(140px);
+  filter:blur(160px);
   pointer-events:none;
 }
 
 .liquid-bg span{
   position:absolute;
-  width:45vw;
-  height:45vw;
+  width:48vw;
+  height:48vw;
   border-radius:50%;
   background:rgba(255,255,255,.18);
-  animation:float 30s ease-in-out infinite;
+  animation:float 32s ease-in-out infinite;
 }
 
-.liquid-bg span:nth-child(1){top:10%;left:10%}
-.liquid-bg span:nth-child(2){bottom:10%;right:15%;animation-duration:38s}
-.liquid-bg span:nth-child(3){top:40%;right:30%;animation-duration:45s}
+.liquid-bg span:nth-child(1){top:5%;left:8%}
+.liquid-bg span:nth-child(2){bottom:8%;right:10%;animation-duration:40s}
+.liquid-bg span:nth-child(3){top:35%;right:30%;animation-duration:48s}
 
 @keyframes float{
   0%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(90px,-70px) scale(1.35)}
+  50%{transform:translate(110px,-80px) scale(1.4)}
   100%{transform:translate(0,0) scale(1)}
 }
 
 .loader-card{
-  width:360px;
-  padding:34px 28px 30px;
-  border-radius:28px;
+  width:380px;
+  padding:38px 30px 34px;
+  border-radius:30px;
   background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15));
   backdrop-filter:blur(var(--blur)) saturate(180%);
   border:1px solid var(--border);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.7),
-    0 80px 200px rgba(0,0,0,.8);
+    0 90px 220px rgba(0,0,0,.85);
   text-align:center;
   animation:enter .9s var(--spring);
 }
 
 @keyframes enter{
-  from{opacity:0;transform:translateY(40px) scale(.92)}
+  from{opacity:0;transform:translateY(50px) scale(.9)}
   to{opacity:1;transform:none}
 }
 
-.logo{
-  width:74px;
-  height:74px;
+.orbit{
+  position:relative;
+  width:96px;
+  height:96px;
   margin:0 auto 18px;
+}
+
+.core{
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:26px;
+  height:26px;
   border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.25));
-  border:1px solid var(--border);
-  backdrop-filter:blur(20px);
-  font-size:38px;
+  background:#fff;
+  box-shadow:0 0 30px rgba(255,255,255,.9);
+  animation:pulse 1.8s ease-in-out infinite;
 }
 
-.loader{
-  width:100%;
-  height:6px;
-  border-radius:999px;
-  background:rgba(255,255,255,.25);
-  overflow:hidden;
-  margin:18px 0 14px;
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.35)}
 }
 
-.loader span{
-  display:block;
-  height:100%;
-  width:40%;
-  background:linear-gradient(90deg,#fff,rgba(255,255,255,.6));
-  border-radius:999px;
-  animation:load 2s ease-in-out infinite;
+.ring{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);
 }
 
-@keyframes load{
-  0%{transform:translateX(-100%)}
-  50%{transform:translateX(120%)}
-  100%{transform:translateX(120%)}
+.dot{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:10px;
+  height:10px;
+  margin:-5px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 18px rgba(255,255,255,.9);
+  animation:orbit 2.2s linear infinite;
+  transform-origin:0 0;
+}
+
+@keyframes orbit{
+  from{transform:rotate(0deg) translateX(48px)}
+  to{transform:rotate(360deg) translateX(48px)}
 }
 
 h1{
-  margin:0;
+  margin:6px 0 4px;
   font-size:20px;
   font-weight:700;
 }
 
-.tip{
-  margin-top:12px;
-  font-size:14px;
+.sub{
+  font-size:13px;
   color:var(--muted);
-  min-height:40px;
-  animation:fadeTip .8s ease;
+  margin-bottom:14px;
 }
 
-@keyframes fadeTip{
-  from{opacity:0;transform:translateY(6px)}
+.progress{
+  height:6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.25);
+  overflow:hidden;
+  margin-bottom:14px;
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  width:35%;
+  background:linear-gradient(90deg,#fff,rgba(255,255,255,.6));
+  border-radius:999px;
+  animation:progress 1.9s ease-in-out infinite;
+}
+
+@keyframes progress{
+  0%{transform:translateX(-120%)}
+  50%{transform:translateX(140%)}
+  100%{transform:translateX(140%)}
+}
+
+.tip{
+  font-size:14px;
+  color:var(--muted);
+  min-height:42px;
+  animation:tipIn .8s ease;
+}
+
+@keyframes tipIn{
+  from{opacity:0;transform:translateY(8px)}
   to{opacity:1;transform:none}
 }
 
@@ -163,13 +203,16 @@ footer{
 </div>
 
 <div class="loader-card">
-  <div class="logo">
-    <span class="material-symbols-rounded">dns</span>
+  <div class="orbit">
+    <div class="ring"></div>
+    <div class="dot"></div>
+    <div class="core"></div>
   </div>
 
-  <h1>Conectando al servidor</h1>
+  <h1>Conectando</h1>
+  <div class="sub">Estableciendo enlace seguro</div>
 
-  <div class="loader">
+  <div class="progress">
     <span></span>
   </div>
 
@@ -182,12 +225,12 @@ footer{
 
 <script>
 const tips=[
-  'Puedes usar /spawn para volver al inicio rápidamente',
-  'Recuerda revisar las recompensas diarias',
-  'Únete a nuestro Discord para eventos exclusivos',
-  'Explora el mundo para encontrar estructuras únicas',
-  'Las misiones cambian cada semana',
-  'Activa las notificaciones para no perder eventos'
+  'Usa /spawn para volver rápido al inicio',
+  'Reclama tus recompensas diarias',
+  'Eventos especiales cada semana',
+  'Explora para encontrar loot exclusivo',
+  'Únete a Discord para ventajas extra',
+  'Las misiones cambian constantemente'
 ]
 
 document.getElementById('tip').textContent=
