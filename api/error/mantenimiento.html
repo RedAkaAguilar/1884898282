@@ -160,6 +160,29 @@ p{
     El servicio se restablecerá automáticamente
   </div>
 </div>
+
+  <script>
+const STATUS_URL = '../control/status.json'
+const CHECK_INTERVAL = 1000
+const HOME_URL = '/'
+
+async function checkMaintenance(){
+  try{
+    const res = await fetch(STATUS_URL + '?t=' + Date.now(), { cache: 'no-store' })
+    const data = await res.json()
+
+    if(data.mantenimiento !== true){
+      location.replace(HOME_URL)
+    }
+
+  }catch(e){
+    console.error('Error verificando mantenimiento', e)
+  }
+}
+
+setInterval(checkMaintenance, CHECK_INTERVAL)
+checkMaintenance()
+  </script>
 </body>
 </html>
 
