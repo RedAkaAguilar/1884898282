@@ -1,5 +1,5 @@
 {
-  "mantenimiento": false,
+  "mantenimiento": true,
   "apagado": false,
   "servidores": false,
   "problema_tecnico": false,
