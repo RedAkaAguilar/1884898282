@@ -162,8 +162,6 @@ p{
 </div>
 
   <script>
-    document.body.style.opacity = 0
-    
 const STATUS_URL = '/api/control/status.json'
 const CHECK_INTERVAL = 1000
 const HOME_URL = '/'
@@ -174,7 +172,6 @@ async function checkMaintenance(){
     const data = await res.json()
 
     if(data.mantenimiento !== true){
-      document.body.style.opacity = 1
       location.replace(HOME_URL)
     }
 
