@@ -1,8 +1,7 @@
 {
   "mantenimiento": false,
-  "apagado": false,
+  "apagado": true,
   "servidores": false,
   "problema_tecnico": false,
   "actualizacion": false
 }
-
