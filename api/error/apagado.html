@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Servidor Apagado • ZyrAkaNetwork</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+<style>
+:root{
+  --glass:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.35);
+  --text:#fff;
+  --muted:rgba(255,255,255,.7);
+  --blur:32px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#0a0a0a,#121212,#0a0a0a);
+  background-size:300% 300%;
+  animation:bg 20s ease infinite;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  filter:blur(160px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:46vw;
+  height:46vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+  animation:float 38s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){top:10%;left:14%}
+.liquid-bg span:nth-child(2){bottom:12%;right:16%;animation-duration:46s}
+.liquid-bg span:nth-child(3){top:42%;right:30%;animation-duration:54s}
+
+@keyframes float{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(90px,-70px) scale(1.35)}
+  100%{transform:translate(0,0) scale(1)}
+}
+
+.card{
+  width:380px;
+  padding:40px 32px 36px;
+  border-radius:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,.12));
+  backdrop-filter:blur(var(--blur)) saturate(170%);
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.6),
+    0 90px 220px rgba(0,0,0,.9);
+  text-align:center;
+  animation:enter .9s var(--spring);
+}
+
+@keyframes enter{
+  from{opacity:0;transform:translateY(48px) scale(.92)}
+  to{opacity:1;transform:none}
+}
+
+.icon-wrap{
+  width:96px;
+  height:96px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 0 36px rgba(255,255,255,.25);
+  animation:softPulse 3s ease-in-out infinite;
+}
+
+@keyframes softPulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.06)}
+}
+
+.icon{
+  font-size:46px;
+  color:#cfcfcf;
+  animation:fadePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes fadePulse{
+  0%,100%{opacity:.85}
+  50%{opacity:1}
+}
+
+h1{
+  margin:10px 0 6px;
+  font-size:22px;
+  font-weight:700;
+}
+
+p{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.note{
+  margin-top:16px;
+  font-size:12px;
+  color:rgba(255,255,255,.55);
+}
+</style>
+</head>
+
+<body>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="card">
+  <div class="icon-wrap">
+    <span class="material-symbols-rounded icon">power_settings_new</span>
+  </div>
+
+  <h1>Servidor Apagado</h1>
+  <p>
+    El servidor no está activo en este momento.<br>
+    Volverá a encenderse pronto.
+  </p>
+
+  <div class="note">
+    El acceso se restablecerá automáticamente
+  </div>
+</div>
+
+<script>
+const STATUS_URL = '/api/control/status.json'
+const CHECK_INTERVAL = 1000
+const HOME_URL = '/'
+
+async function checkShutdown(){
+  try{
+    const res = await fetch(STATUS_URL + '?t=' + Date.now(), { cache: 'no-store' })
+    const data = await res.json()
+
+    if(data.apagado !== true){
+      location.replace(HOME_URL)
+    }
+
+  }catch(e){
+    console.error('Error verificando apagado', e)
+  }
+}
+
+setInterval(checkShutdown, CHECK_INTERVAL)
+checkShutdown()
+</script>
+
+</body>
+</html>
