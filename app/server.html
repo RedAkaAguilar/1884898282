@@ -1145,6 +1145,62 @@ setInterval(updateServerStatus,5000);
   '#22c55e','#38bdf8','#a855f7','#f97316','#ec4899'
 ];
 
+let lastEventsHash = '';
+
+async function loadCalendarLive(){
+  try{
+    const res = await fetch(
+      '../api/control/eventos.json?t=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    const events = await res.json();
+
+    const hash = JSON.stringify(events);
+    if(hash === lastEventsHash) return; 
+    lastEventsHash = hash;
+
+    const calendar = document.getElementById('calendar');
+    const monthLabel = document.getElementById('calendar-month');
+    calendar.innerHTML = '';
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    monthLabel.textContent = now.toLocaleDateString('es-ES',{
+      month:'long',
+      year:'numeric'
+    });
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    for(let d = 1; d <= daysInMonth; d++){
+      const dayEl = document.createElement('div');
+      dayEl.className = 'calendar-day';
+      dayEl.innerHTML = `<span class="day-number">${d}</span>`;
+
+      const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const ev = events.find(e => e.date === dateStr);
+
+      if(ev){
+        const color = neonColors[Math.floor(Math.random()*neonColors.length)];
+        dayEl.classList.add('event');
+        dayEl.style.setProperty('--event-color', color);
+
+        dayEl.addEventListener('click', ()=>{
+          openPopup(ev, color);
+        });
+      }
+
+      calendar.appendChild(dayEl);
+    }
+
+  }catch(e){
+    console.error('Error cargando eventos', e);
+  }
+}
+
 async function loadCalendar(){
   const calendar = document.getElementById('calendar');
   const monthLabel = document.getElementById('calendar-month');
@@ -1387,9 +1443,9 @@ function go(page){
 
 window.addEventListener('pageshow', animateButtons);
 window.addEventListener('load', animateButtons);
-  
-loadCalendar();
-setInterval(loadCalendar, 1000);
+
+loadCalendarLive();
+setInterval(loadCalendarLive, 1000);
 
 (function welcomeBanner(){
   const banner = document.getElementById('welcome-banner');
