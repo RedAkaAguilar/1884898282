@@ -391,6 +391,48 @@ const observer = new IntersectionObserver(entries => {
 },{ threshold:0.15 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const STATUS_URL = '/api/control/status.json'
+const CHECK_INTERVAL = 1000
+const HOME_URL = '/'
+
+const routes = {
+  mantenimiento: '/api/error/mantenimiento.html',
+  apagado: '/api/error/apagado.html',
+  servidores: '/api/error/servidores.html',
+  problema_tecnico: '/api/error/problema-tecnico.html',
+  actualizacion: '/api/error/actualizacion.html'
+}
+
+async function checkStatus(){
+  try{
+    const res = await fetch(STATUS_URL + '?t=' + Date.now(), { cache: 'no-store' })
+    const data = await res.json()
+
+    for(const key in routes){
+      if(data[key] === true){
+        if(!location.pathname.includes(routes[key])){
+          location.replace(routes[key])
+        }
+        return
+      }
+    }
+
+    const isErrorPage = Object.values(routes).some(p =>
+      location.pathname.includes(p)
+    )
+
+    if(isErrorPage){
+      location.replace(HOME_URL)
+    }
+
+  }catch(e){
+    console.error('Error leyendo status.json', e)
+  }
+}
+
+setInterval(checkStatus, CHECK_INTERVAL)
+checkStatus()
 </script>
 </body>
 </html>
