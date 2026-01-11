@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Actualización • ZyrAkaNetwork</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+<style>
+:root{
+  --glass:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.35);
+  --text:#fff;
+  --muted:rgba(255,255,255,.72);
+  --blur:32px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#0b2a24,#0b162a,#0b2a24);
+  background-size:400% 400%;
+  animation:bg 16s ease infinite;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  filter:blur(160px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:48vw;
+  height:48vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:float 30s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){top:8%;left:12%}
+.liquid-bg span:nth-child(2){bottom:14%;right:18%;animation-duration:38s}
+.liquid-bg span:nth-child(3){top:42%;right:30%;animation-duration:46s}
+
+@keyframes float{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(120px,-90px) scale(1.45)}
+  100%{transform:translate(0,0) scale(1)}
+}
+
+.card{
+  width:380px;
+  padding:40px 32px 36px;
+  border-radius:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.14));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.65),
+    0 90px 220px rgba(0,0,0,.85);
+  text-align:center;
+  animation:enter .9s var(--spring);
+}
+
+@keyframes enter{
+  from{opacity:0;transform:translateY(48px) scale(.92)}
+  to{opacity:1;transform:none}
+}
+
+.icon-wrap{
+  width:96px;
+  height:96px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.4);
+  box-shadow:0 0 42px rgba(255,255,255,.35);
+}
+
+.icon{
+  font-size:46px;
+  color:#8bffe0;
+  animation:spin 2.8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+h1{
+  margin:10px 0 6px;
+  font-size:22px;
+  font-weight:700;
+}
+
+p{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.note{
+  margin-top:16px;
+  font-size:12px;
+  color:rgba(255,255,255,.6);
+}
+</style>
+</head>
+
+<body>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="card">
+  <div class="icon-wrap">
+    <span class="material-symbols-rounded icon">sync</span>
+  </div>
+
+  <h1>Actualización en progreso</h1>
+  <p>
+    Estamos desplegando mejoras y optimizaciones.<br>
+    El servicio volverá en breve.
+  </p>
+
+  <div class="note">
+    No es necesario recargar la página
+  </div>
+</div>
+
+<script>
+const STATUS_URL = '/api/control/status.json'
+const CHECK_INTERVAL = 1000
+const HOME_URL = '/'
+
+async function checkUpdate(){
+  try{
+    const res = await fetch(STATUS_URL + '?t=' + Date.now(), { cache: 'no-store' })
+    const data = await res.json()
+
+    if(data.actualizacion !== true){
+      location.replace(HOME_URL)
+    }
+
+  }catch(e){
+    console.error('Error verificando actualización', e)
+  }
+}
