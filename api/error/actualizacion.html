@@ -173,3 +173,10 @@ async function checkUpdate(){
     console.error('Error verificando actualización', e)
   }
 }
+
+setInterval(checkUpdate, CHECK_INTERVAL)
+checkUpdate()
+</script>
+
+</body>
+</html>
