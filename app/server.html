@@ -1516,6 +1516,42 @@ document.addEventListener('touchend', function (e) {
     e.preventDefault();
   }
 }, { passive: false });
+
+const STATUS_URL = '../api/status.json'
+const CHECK_INTERVAL = 1000
+
+const routes = {
+  mantenimiento: '../api/error/mantenimiento.html',
+  apagado: '../api/error/apagado.html',
+  servidores: '../api/error/servidores.html',
+  problema_tecnico: '../api/error/problema-tecnico.html',
+  actualizacion: '../api/error/actualizacion.html'
+}
+
+let redirected = false
+
+async function checkStatus(){
+  try{
+    const res = await fetch(STATUS_URL + '?t=' + Date.now(), { cache: 'no-store' })
+    const data = await res.json()
+
+    for(const key in routes){
+      if(data[key] === true){
+        if(!redirected && !location.pathname.includes(routes[key])){
+          redirected = true
+          location.replace(routes[key])
+        }
+        return
+      }
+    }
+
+  }catch(e){
+    console.error('Error leyendo status.json', e)
+  }
+}
+
+setInterval(checkStatus, CHECK_INTERVAL)
+checkStatus()
 </script>
 </body>
 </html>
