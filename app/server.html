@@ -1517,16 +1517,16 @@ document.addEventListener('touchend', function (e) {
   }
 }, { passive: false });
 
-const STATUS_URL = '../api/status.json'
+const STATUS_URL = '/api/control/status.json'
 const CHECK_INTERVAL = 1000
 const HOME_URL = '/'
 
 const routes = {
-  mantenimiento: '../api/error/mantenimiento.html',
-  apagado: '../api/error/apagado.html',
-  servidores: '../api/error/servidores.html',
-  problema_tecnico: '../api/error/problema-tecnico.html',
-  actualizacion: '../api/error/actualizacion.html'
+  mantenimiento: '/api/error/mantenimiento.html',
+  apagado: '/api/error/apagado.html',
+  servidores: '/api/error/servidores.html',
+  problema_tecnico: '/api/error/problema-tecnico.html',
+  actualizacion: '/api/error/actualizacion.html'
 }
 
 async function checkStatus(){
