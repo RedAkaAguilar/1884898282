@@ -1,1 +1,204 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>Cargando • ZyrAkaNetwork</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --glass:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.35);
+  --text:#fff;
+  --muted:rgba(255,255,255,.75);
+  --blur:30px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#290d0b,#0b291a,#0b1729,#240b29);
+  background-size:400% 400%;
+  animation:bg 18s ease infinite;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  filter:blur(140px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:45vw;
+  height:45vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:float 30s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){top:10%;left:10%}
+.liquid-bg span:nth-child(2){bottom:10%;right:15%;animation-duration:38s}
+.liquid-bg span:nth-child(3){top:40%;right:30%;animation-duration:45s}
+
+@keyframes float{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(90px,-70px) scale(1.35)}
+  100%{transform:translate(0,0) scale(1)}
+}
+
+.loader-card{
+  width:360px;
+  padding:34px 28px 30px;
+  border-radius:28px;
+  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 80px 200px rgba(0,0,0,.8);
+  text-align:center;
+  animation:enter .9s var(--spring);
+}
+
+@keyframes enter{
+  from{opacity:0;transform:translateY(40px) scale(.92)}
+  to{opacity:1;transform:none}
+}
+
+.logo{
+  width:74px;
+  height:74px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.25));
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  font-size:38px;
+}
+
+.loader{
+  width:100%;
+  height:6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.25);
+  overflow:hidden;
+  margin:18px 0 14px;
+}
+
+.loader span{
+  display:block;
+  height:100%;
+  width:40%;
+  background:linear-gradient(90deg,#fff,rgba(255,255,255,.6));
+  border-radius:999px;
+  animation:load 2s ease-in-out infinite;
+}
+
+@keyframes load{
+  0%{transform:translateX(-100%)}
+  50%{transform:translateX(120%)}
+  100%{transform:translateX(120%)}
+}
+
+h1{
+  margin:0;
+  font-size:20px;
+  font-weight:700;
+}
+
+.tip{
+  margin-top:12px;
+  font-size:14px;
+  color:var(--muted);
+  min-height:40px;
+  animation:fadeTip .8s ease;
+}
+
+@keyframes fadeTip{
+  from{opacity:0;transform:translateY(6px)}
+  to{opacity:1;transform:none}
+}
+
+footer{
+  position:fixed;
+  bottom:16px;
+  font-size:12px;
+  color:var(--muted);
+  opacity:.8;
+}
+</style>
+</head>
+
+<body>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="loader-card">
+  <div class="logo">
+    <span class="material-symbols-rounded">dns</span>
+  </div>
+
+  <h1>Conectando al servidor</h1>
+
+  <div class="loader">
+    <span></span>
+  </div>
+
+  <div class="tip" id="tip"></div>
+</div>
+
+<footer>
+  © <span id="year"></span> ZyrAkaNetwork
+</footer>
+
+<script>
+const tips=[
+  'Puedes usar /spawn para volver al inicio rápidamente',
+  'Recuerda revisar las recompensas diarias',
+  'Únete a nuestro Discord para eventos exclusivos',
+  'Explora el mundo para encontrar estructuras únicas',
+  'Las misiones cambian cada semana',
+  'Activa las notificaciones para no perder eventos'
+]
+
+document.getElementById('tip').textContent=
+  tips[Math.floor(Math.random()*tips.length)]
+
+document.getElementById('year').textContent=
+  new Date().getFullYear()
+
+setTimeout(()=>{
+  location.href='https://www.zyrakaworld.net/app/server'
+},4000)
+</script>
+</body>
+</html>
