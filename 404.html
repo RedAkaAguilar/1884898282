@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>404 • Página no encontrada</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --glass:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.35);
+  --text:#fff;
+  --muted:rgba(255,255,255,.75);
+  --radius:28px;
+  --blur:30px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#290d0b,#0b291a,#0b1729,#240b29);
+  background-size:400% 400%;
+  animation:bg 18s ease infinite;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  filter:blur(140px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:45vw;
+  height:45vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:float 30s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){top:10%;left:10%}
+.liquid-bg span:nth-child(2){bottom:10%;right:15%;animation-duration:38s}
+.liquid-bg span:nth-child(3){top:40%;right:30%;animation-duration:45s}
+
+@keyframes float{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(90px,-70px) scale(1.35)}
+  100%{transform:translate(0,0) scale(1)}
+}
+
+.card{
+  position:relative;
+  max-width:420px;
+  padding:34px 28px 36px;
+  text-align:center;
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 80px 200px rgba(0,0,0,.8);
+  animation:enter .9s var(--spring);
+}
+
+@keyframes enter{
+  from{opacity:0;transform:translateY(40px) scale(.92)}
+  to{opacity:1;transform:none}
+}
+
+.icon{
+  width:74px;
+  height:74px;
+  border-radius:50%;
+  margin:0 auto 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.25));
+  border:1px solid var(--border);
+  backdrop-filter:blur(20px);
+  font-size:40px;
+}
+
+h1{
+  margin:0;
+  font-size:64px;
+  letter-spacing:.5px;
+}
+
+p{
+  margin:14px 0 26px;
+  font-size:16px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+}
+
+a{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  padding:12px 18px;
+  border-radius:999px;
+  text-decoration:none;
+  font-weight:600;
+  color:#000;
+  background:linear-gradient(180deg,#fff,#eaeaea);
+  transition:transform .35s var(--spring);
+}
+
+a.secondary{
+  background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,.25));
+  color:#fff;
+  border:1px solid var(--border);
+}
+
+a:active{
+  transform:scale(.92);
+}
+
+footer{
+  position:fixed;
+  bottom:16px;
+  font-size:12px;
+  color:var(--muted);
+  opacity:.8;
+}
+</style>
+</head>
+
+<body>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="card">
+  <div class="icon">
+    <span class="material-symbols-rounded">sentiment_dissatisfied</span>
+  </div>
+
+  <h1>404</h1>
+  <p>La página que intentas abrir no existe o fue movida.</p>
+
+  <div class="actions">
+    <a href="/">
+      <span class="material-symbols-rounded">home</span>
+      Inicio
+    </a>
+    <a href="javascript:history.back()" class="secondary">
+      <span class="material-symbols-rounded">arrow_back</span>
+      Volver
+    </a>
+  </div>
+</div>
+
+<footer>
+  © <span id="year"></span> ZyrAkaNetwork
+</footer>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear()
+
+const path = location.pathname.replace("/", "");
+location.replace("/?route=" + path);
+</script>
+</body>
+</html>
+
