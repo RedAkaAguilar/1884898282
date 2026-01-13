@@ -400,14 +400,44 @@ margin-bottom:18px;
 animation:pulse 3s ease-in-out infinite;
 }
 @keyframes pulse{50%{opacity:.7}}
+
+.features{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+opacity:.85;
+}
+.features div{
+padding:14px 20px;
+border-radius:18px;
+background:rgba(255,255,255,.1);
+backdrop-filter:blur(14px);
+font-weight:600;
+}
+
+.preview-card{
+height:280px;
+border-radius:28px;
+background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.05));
+box-shadow:0 60px 160px rgba(0,0,0,.6);
+margin:60px 0;
+}
+
+.divider{
+height:1px;
+margin:80px 0;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+animation:dividerGlow 6s linear infinite;
+}
+@keyframes dividerGlow{
+50%{opacity:.4}
+}
 </style>
 </head>
 
 <body>
 <div class="liquid-bg"><span></span><span></span><span></span></div>
-
-<div class="hero-badge">● Plataforma oficial</div>
-
+  
 <div id="page-loader">
   <div id="wifi-loader">
     <svg class="circle-outer" viewBox="0 0 86 86">
@@ -426,6 +456,16 @@ animation:pulse 3s ease-in-out infinite;
     <div class="text" data-text="Conectando"></div>
   </div>
 </div>
+
+<div class="hero-badge">● Plataforma oficial</div>
+
+<div class="features">
+  <div>⚡ Descarga instantánea</div>
+  <div>🔒 100% seguro</div>
+  <div>☁️ Actualizaciones automáticas</div>
+</div>
+
+<div class="preview-card"></div>
 
 <div id="app" class="app">
 <div class="loader">
