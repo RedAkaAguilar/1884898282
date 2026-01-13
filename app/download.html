@@ -378,6 +378,13 @@ left:0;
 @keyframes loaderPulse{
   50%{ transform:scale(1.08) }
 }
+
+#page-loader.hide{
+  opacity:0;
+  visibility:hidden;
+  transform:scale(1.1);
+  filter:blur(20px);
+}
 </style>
 </head>
 
@@ -490,6 +497,46 @@ function hideLoader(){
 }
 
 window.addEventListener('load', hideLoader)
+
+const phases = [
+  'Conectando',
+  'Sincronizando',
+  'Cargando datos',
+  'Preparando interfaz',
+  'Listo'
+]
+
+const textEl = document.querySelector('#wifi-loader .text')
+const phaseDuration = MIN_TIME / phases.length
+
+phases.forEach((txt, i) => {
+  setTimeout(() => {
+    if (textEl) textEl.dataset.text = txt
+  }, i * phaseDuration)
+})
+
+document.addEventListener('mousemove',e=>{
+  document.querySelectorAll('.download').forEach(b=>{
+    const r=b.getBoundingClientRect()
+    const x=e.clientX-r.left-r.width/2
+    const y=e.clientY-r.top-r.height/2
+    b.style.transform=`translate(${x*0.15}px,${y*0.15}px)`
+  })
+})
+
+document.querySelectorAll('.download').forEach(b=>{
+  b.addEventListener('mouseleave',()=>{
+    b.style.transform=''
+  })
+})
+
+document.addEventListener('mousemove',e=>{
+  document.querySelectorAll('.liquid-bg span').forEach((b,i)=>{
+    const x=(e.clientX/window.innerWidth-.5)*(20+i*10)
+    const y=(e.clientY/window.innerHeight-.5)*(20+i*10)
+    b.style.transform=`translate(${x}px,${y}px)`
+  })
+})
 </script>
 
 </body>
