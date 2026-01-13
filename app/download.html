@@ -432,6 +432,14 @@ animation:dividerGlow 6s linear infinite;
 @keyframes dividerGlow{
 50%{opacity:.4}
 }
+
+.updated{
+  animation: pulseUpdate .3s ease;
+}
+
+@keyframes pulseUpdate{
+  50%{ filter:brightness(1.05) }
+}
 </style>
 </head>
 
@@ -592,24 +600,31 @@ document.addEventListener('mousemove',e=>{
 })
 
 let lastData = null
+let checking = false
 
 async function checkChanges(){
+  if(checking) return
+  checking = true
+
   try{
-    const res = await fetch('/api/control/descarga-manager.json', {
+    const res = await fetch('/api/control/status.json', {
       cache: 'no-store'
     })
-
     if(!res.ok) return
 
     const data = await res.json()
 
     if(JSON.stringify(data) !== JSON.stringify(lastData)){
       lastData = data
-      onChange(data)
+      applyChanges(data)
     }
 
   }catch(e){}
+
+  checking = false
 }
+
+setInterval(checkChanges, 1000)
 
 function onChange(data){
   console.log('Cambio detectado:', data)
@@ -649,6 +664,29 @@ setInterval(async ()=>{
 
   checking = false
 },1000)
+
+  function applyChanges(data){
+
+  const title = document.getElementById('dynamic-title')
+  if(title && data.title){
+    title.textContent = data.title
+  }
+
+  const desc = document.getElementById('dynamic-desc')
+  if(desc && data.description){
+    desc.innerHTML = data.description.replace(/\n/g,'<br>')
+  }
+
+  const badge = document.getElementById('status-badge')
+  if(badge){
+    badge.classList.toggle('on', data.online)
+    badge.classList.toggle('off', !data.online)
+    badge.textContent = data.online ? 'Online' : 'Offline'
+  }
+
+  document.body.classList.add('updated')
+  setTimeout(()=>document.body.classList.remove('updated'),300)
+  }
 </script>
 
 </body>
