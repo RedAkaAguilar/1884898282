@@ -31,7 +31,7 @@ html,body{background:var(--bg);color:var(--text);font-family:'Outfit',system-ui;
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;height:88px;z-index:50;display:flex;align-items:center;justify-content:center}
 .nav-inner{width:100%;max-width:1400px;display:flex;gap:36px;padding:0 40px;background:linear-gradient(180deg,rgba(6,8,15,.85),rgba(6,8,15,.55));backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-nav a{color:var(--muted);text-decoration:none;font-weight:600;font-size:1.05rem;letter-spacing:.3px;position:relative;padding:18px 6px}
+nav a{display:flex;align-items:center;gap:10px;color:var(--muted);text-decoration:none;font-weight:600;font-size:1.05rem;letter-spacing:.3px;position:relative;padding:18px 10px}
 nav a::after{content:"";position:absolute;left:50%;bottom:8px;width:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transform:translateX(-50%);transition:.3s}
 nav a:hover{color:var(--text)}
 nav a:hover::after{width:60%}
@@ -63,10 +63,13 @@ section{min-height:auto;padding:110px 10vw 90px;display:flex;flex-direction:colu
 .timeline{display:flex;flex-direction:column;gap:24px}
 .step{padding:26px;border-left:3px solid var(--accent);background:linear-gradient(90deg,rgba(124,156,255,.12),transparent)}
 
-/* GALLERY */
-.gallery{display:flex;gap:24px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
-.gallery img{height:360px;border-radius:26px;scroll-snap-align:center;flex-shrink:0;transition:.4s}
-.gallery img:hover{transform:scale(1.05)}
+/* GALLERY CAROUSEL */
+.gallery-wrap{position:relative;max-width:1200px;margin:auto}
+.carousel{display:flex;align-items:center;gap:40px;overflow:hidden}
+.slide{flex:0 0 60%;height:420px;border-radius:36px;position:relative;transition:all 1.2s cubic-bezier(.4,0,.2,1)}
+.slide img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.slide.main{box-shadow:0 0 0 2px rgba(255,255,255,.35),0 40px 120px rgba(0,0,0,.6)}
+.slide.side{flex-basis:35%;filter:brightness(.55) saturate(.8);transform:scale(.9)}
 
 /* FOOTER */
 footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px solid var(--border)}
@@ -103,12 +106,12 @@ footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px sol
 
 <nav>
   <div class="nav-inner">
-    <a href="#inicio">Inicio</a>
-    <a href="#sobre">Sobre mí</a>
-    <a href="#habilidades">Habilidades</a>
-    <a href="#experiencia">Experiencia</a>
-    <a href="#galeria">Galería</a>
-    <a href="#contacto">Contacto</a>
+    <a href="#inicio"><span class="material-symbols-rounded">home</span>Inicio</a>
+    <a href="#sobre"><span class="material-symbols-rounded">person</span>Sobre mí</a>
+    <a href="#habilidades"><span class="material-symbols-rounded">auto_fix_high</span>Habilidades</a>
+    <a href="#experiencia"><span class="material-symbols-rounded">timeline</span>Experiencia</a>
+    <a href="#galeria"><span class="material-symbols-rounded">view_carousel</span>Galería</a>
+    <a href="#contacto"><span class="material-symbols-rounded">mail</span>Contacto</a>
   </div>
 </nav>
 
@@ -152,15 +155,13 @@ footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px sol
 
 <section id="galeria" class="reveal">
   <h2>Galería Conceptual</h2>
-  <div class="events">
-    <div class="event glass"><div class="event-content"><h3>Eventos Competitivos</h3><p>Organización clara, reglas justas y control total del evento.</p></div></div>
-    <div class="event glass"><div class="event-content"><h3>Eventos Comunitarios</h3><p>Experiencias divertidas, ordenadas y accesibles.</p></div></div>
-    <div class="event glass"><div class="event-content"><h3>Eventos Privados</h3><p>Planificación exclusiva y administración profesional.</p></div></div>
-</div>
-    <img src="https://picsum.photos/800/600?1" alt="Evento">
-    <img src="https://picsum.photos/800/600?2" alt="Evento">
-    <img src="https://picsum.photos/800/600?3" alt="Evento">
-    <img src="https://picsum.photos/800/600?4" alt="Evento">
+  <div class="gallery-wrap">
+    <div class="carousel" id="carousel">
+      <div class="slide main"><img src="https://picsum.photos/1200/800?1" alt="Evento"></div>
+      <div class="slide side"><img src="https://picsum.photos/1200/800?2" alt="Evento"></div>
+      <div class="slide side"><img src="https://picsum.photos/1200/800?3" alt="Evento"></div>
+      <div class="slide side"><img src="https://picsum.photos/1200/800?4" alt="Evento"></div>
+    </div>
   </div>
 </section>
 
@@ -175,9 +176,20 @@ footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px sol
 </footer>
 
 <script>
+/* reveal */
 const observer=new IntersectionObserver(e=>{e.forEach(v=>{if(v.isIntersecting)v.target.classList.add('visible')})},{threshold:.2})
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
+
+/* carousel auto */
+const carousel=document.getElementById('carousel')
+let index=0
+setInterval(()=>{
+  const slides=[...carousel.children]
+  slides.forEach(s=>s.className='slide side')
+  index=(index+1)%slides.length
+  slides[index].className='slide main'
+  carousel.appendChild(slides[index])
+},5000)
 </script>
 </body>
 </html>
-
