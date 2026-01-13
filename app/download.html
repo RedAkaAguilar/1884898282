@@ -5,22 +5,21 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Descarga • ZyrAkaNetwork</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
 <style>
 :root{
-  --bg1:#0b162a;
-  --bg2:#0b2a24;
+  --bg:#0b0f1a;
   --glass:rgba(255,255,255,.18);
-  --glass-strong:rgba(255,255,255,.32);
-  --border:rgba(255,255,255,.28);
+  --glass-strong:rgba(255,255,255,.28);
+  --border:rgba(255,255,255,.22);
   --text:#fff;
-  --muted:rgba(255,255,255,.68);
+  --muted:rgba(255,255,255,.65);
   --accent:#8bffe0;
   --accent-2:#6cf2ff;
-  --blur:38px;
-  --spring:cubic-bezier(.2,1.2,.4,1);
+  --blur:44px;
+  --spring:cubic-bezier(.22,1.1,.36,1);
 }
 
 *{
@@ -32,9 +31,10 @@ body{
   margin:0;
   min-height:100vh;
   font-family:Outfit,system-ui;
-  background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg1));
-  background-size:400% 400%;
-  animation:bg 20s ease infinite;
+  background:
+    radial-gradient(1200px 600px at 10% 10%,#1a2440,transparent),
+    radial-gradient(1000px 600px at 90% 90%,#0f3d36,transparent),
+    var(--bg);
   color:var(--text);
   display:flex;
   align-items:center;
@@ -42,86 +42,84 @@ body{
   overflow:hidden;
 }
 
-@keyframes bg{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* LIQUID BACKGROUND */
-.liquid{
+/* FLOATING LIGHTS */
+.lights{
   position:fixed;
-  inset:-25%;
-  filter:blur(160px);
+  inset:-30%;
+  filter:blur(180px);
   pointer-events:none;
-  z-index:0;
 }
-.liquid span{
+.lights span{
   position:absolute;
-  width:50vw;
-  height:50vw;
+  width:55vw;
+  height:55vw;
   border-radius:50%;
   background:rgba(255,255,255,.16);
-  animation:float 34s ease-in-out infinite;
+  animation:float 40s ease-in-out infinite;
 }
-.liquid span:nth-child(1){top:8%;left:10%}
-.liquid span:nth-child(2){bottom:12%;right:14%;animation-duration:42s}
-.liquid span:nth-child(3){top:38%;right:32%;animation-duration:50s}
+.lights span:nth-child(1){top:6%;left:10%}
+.lights span:nth-child(2){bottom:8%;right:14%;animation-duration:54s}
+.lights span:nth-child(3){top:42%;right:28%;animation-duration:62s}
 
 @keyframes float{
   0%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(140px,-90px) scale(1.45)}
+  50%{transform:translate(160px,-120px) scale(1.5)}
   100%{transform:translate(0,0) scale(1)}
 }
 
-/* APP CARD */
+/* APP WINDOW */
 .app{
   position:relative;
   z-index:1;
-  width:460px;
-  padding:34px;
-  border-radius:34px;
+  width:min(860px,94vw);
+  min-height:560px;
+  padding:44px 48px 46px;
+  border-radius:38px;
   background:
     linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.12));
   backdrop-filter:blur(var(--blur)) saturate(180%);
   border:1px solid var(--border);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7),
-    0 120px 260px rgba(0,0,0,.9);
-  animation:appIn .9s var(--spring);
+    inset 0 1px 0 rgba(255,255,255,.75),
+    0 160px 320px rgba(0,0,0,.9);
+  animation:appIn 1s var(--spring);
 }
 
 @keyframes appIn{
-  from{opacity:0;transform:translateY(60px) scale(.92)}
+  from{opacity:0;transform:translateY(80px) scale(.9)}
   to{opacity:1;transform:none}
 }
 
 /* HEADER */
 .header{
-  margin-bottom:14px;
+  max-width:520px;
+  margin-bottom:28px;
 }
 .header h1{
   margin:0;
-  font-size:24px;
+  font-size:28px;
   font-weight:800;
+  letter-spacing:.2px;
 }
 .header p{
-  margin:6px 0 0;
-  font-size:14px;
+  margin:10px 0 0;
+  font-size:15px;
   color:var(--muted);
-  line-height:1.6;
+  line-height:1.7;
 }
 
 /* LOADER */
 .loader{
+  height:100%;
   display:flex;
-  flex-direction:column;
   align-items:center;
-  gap:16px;
+  justify-content:center;
+  flex-direction:column;
+  gap:18px;
 }
 .spinner{
-  width:56px;
-  height:56px;
+  width:62px;
+  height:62px;
   border-radius:50%;
   border:4px solid rgba(255,255,255,.25);
   border-top-color:var(--accent);
@@ -132,11 +130,11 @@ body{
 /* SECTIONS */
 .section{
   margin-top:18px;
-  border-radius:22px;
+  border-radius:26px;
   background:rgba(255,255,255,.16);
-  border:1px solid rgba(255,255,255,.3);
+  border:1px solid rgba(255,255,255,.28);
   overflow:hidden;
-  animation:sectionIn .7s var(--spring) both;
+  animation:sectionIn .8s var(--spring) both;
 }
 .section:nth-child(2){animation-delay:.05s}
 .section:nth-child(3){animation-delay:.1s}
@@ -150,62 +148,64 @@ body{
 .section-header{
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:16px;
+  gap:14px;
+  padding:20px 22px;
   cursor:pointer;
 }
 .section-header span{
-  font-size:24px;
+  font-size:26px;
 }
 .section-header strong{
   flex:1;
+  font-size:16px;
 }
 
 .recommended{
-  font-size:11px;
+  font-size:12px;
   font-weight:700;
-  padding:4px 10px;
+  padding:5px 12px;
   border-radius:999px;
   background:linear-gradient(135deg,var(--accent),var(--accent-2));
   color:#000;
 }
 
 .section-content{
-  padding:0 16px 16px;
+  padding:0 22px 22px;
   display:none;
   animation:expand .35s ease;
 }
 @keyframes expand{
-  from{opacity:0;transform:translateY(-6px)}
+  from{opacity:0;transform:translateY(-8px)}
   to{opacity:1}
 }
 .section-content p{
-  margin:12px 0 0;
-  font-size:13px;
+  margin:14px 0 0;
+  font-size:14px;
   color:rgba(255,255,255,.82);
-  line-height:1.55;
+  line-height:1.65;
   white-space:pre-line;
 }
 
 /* DOWNLOAD BUTTON */
 .download{
-  margin-top:14px;
-  height:46px;
-  border-radius:16px;
+  margin-top:18px;
+  height:52px;
+  border-radius:18px;
   background:linear-gradient(135deg,var(--accent),var(--accent-2));
   color:#000;
   font-weight:800;
+  font-size:15px;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:10px;
   text-decoration:none;
   transition:transform .25s var(--spring),box-shadow .25s;
-  box-shadow:0 18px 50px rgba(140,255,230,.45);
+  box-shadow:0 22px 60px rgba(140,255,230,.45);
 }
 .download:hover{
   transform:translateY(-2px);
-  box-shadow:0 26px 70px rgba(140,255,230,.65);
+  box-shadow:0 30px 80px rgba(140,255,230,.65);
 }
 .download:active{
   transform:scale(.96);
@@ -216,7 +216,7 @@ body{
   text-align:center;
 }
 .error span{
-  font-size:60px;
+  font-size:64px;
   opacity:.75;
 }
 </style>
@@ -224,16 +224,14 @@ body{
 
 <body>
 
-<div class="liquid">
+<div class="lights">
   <span></span><span></span><span></span>
 </div>
 
 <div id="app" class="app">
   <div class="loader">
     <div class="spinner"></div>
-    <div class="header">
-      <p>Cargando información de descarga…</p>
-    </div>
+    <p class="header">Cargando información…</p>
   </div>
 </div>
 
@@ -255,7 +253,7 @@ function showError(title,msg){
     <div class="error">
       <span class="material-symbols-rounded">error</span>
       <h1>${title}</h1>
-      <p class="header">${msg}</p>
+      <p>${msg}</p>
     </div>`
 }
 
@@ -312,4 +310,3 @@ function toggle(i){
 
 </body>
 </html>
-
