@@ -21,104 +21,77 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:var(--bg);color:var(--text);font-family:'Outfit',system-ui;-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 
-/* BACKGROUND FX */
+/* BACKGROUND */
 .bg-orbs{position:fixed;inset:0;z-index:-1;overflow:hidden}
 .orb{position:absolute;width:600px;height:600px;border-radius:50%;filter:blur(120px);opacity:.35;animation:float 30s infinite linear}
 .orb.one{background:#7c9cff;top:-200px;left:-200px}
 .orb.two{background:#5dffe2;bottom:-200px;right:-200px;animation-duration:40s}
 @keyframes float{0%{transform:translate(0,0)}50%{transform:translate(120px,80px)}100%{transform:translate(0,0)}}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;height:88px;z-index:50;display:flex;align-items:center;justify-content:center}
-.nav-inner{width:100%;max-width:1400px;display:flex;gap:36px;padding:0 40px;background:linear-gradient(180deg,rgba(6,8,15,.85),rgba(6,8,15,.55));backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-nav a{display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-weight:600;font-size:1.2rem;position:relative;width:56px;height:56px;border-radius:18px}
-nav a::after{content:"";position:absolute;left:50%;bottom:6px;width:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transform:translateX(-50%);transition:width .3s ease}
-nav a:hover{color:var(--text)}
-nav a:hover::after{width:24px}
-.nav-inner{display:flex;gap:24px;padding:14px 26px;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(18px);border-radius:40px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-nav a{color:var(--muted);text-decoration:none;font-weight:500;position:relative}
-nav a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}
-nav a:hover{color:var(--text)}
-nav a:hover::after{width:100%}
+/* NAV (STABLE & CLEAN) */
+nav{position:fixed;top:0;left:0;right:0;height:88px;display:flex;justify-content:center;align-items:center;z-index:50}
+.nav-inner{display:flex;gap:26px;padding:14px 28px;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(20px);border-radius:40px}
+nav a{width:56px;height:56px;display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;position:relative;border-radius:18px;transition:color .25s ease,transform .25s ease}
+nav a::after{content:"";position:absolute;left:50%;bottom:6px;width:22px;height:3px;opacity:0;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transform:translateX(-50%);transition:opacity .25s ease}
+nav a:hover{color:var(--text);transform:translateY(-2px)}
+nav a:hover::after{opacity:1}
 
 /* SECTIONS */
-section{min-height:auto;padding:110px 10vw 90px;display:flex;flex-direction:column;justify-content:flex-start;gap:26px}
+section{padding:120px 10vw;display:flex;flex-direction:column;gap:26px}
 
-.hero h1{font-size:clamp(2.6rem,6vw,4.8rem);font-weight:900;line-height:1.1;max-width:1100px}
+.hero h1{font-size:clamp(2.6rem,6vw,4.8rem);font-weight:900;line-height:1.1}
 .hero span{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
 .hero p{max-width:820px;color:var(--muted);font-size:1.05rem}
-.hero .cta{display:flex;gap:18px;margin-top:20px}
+
 .button{padding:16px 28px;border-radius:30px;border:1px solid var(--border);background:var(--glass);color:var(--text);text-decoration:none;font-weight:600;backdrop-filter:blur(16px);transition:.35s}
 .button.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#000;border:none}
-.button:hover{transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.button:hover{transform:translateY(-4px)}
 
-/* CARDS */
+/* GRID */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px}
-.card{background:var(--glass);border:1px solid var(--border);border-radius:28px;padding:28px;backdrop-filter:blur(20px);transition:.4s}
-.card:hover{transform:translateY(-10px) scale(1.02)}
-.card h3{margin-bottom:12px}
-.card p{color:var(--muted)}
+.card{background:var(--glass);border:1px solid var(--border);border-radius:28px;padding:28px;backdrop-filter:blur(20px);transition:.35s}
+.card:hover{transform:translateY(-8px)}
 
 /* TIMELINE */
-.timeline{display:flex;flex-direction:column;gap:24px}
+.timeline{display:flex;flex-direction:column;gap:22px}
 .step{padding:26px;border-left:3px solid var(--accent);background:linear-gradient(90deg,rgba(124,156,255,.12),transparent)}
 
-/* GALLERY CAROUSEL (TV STYLE) */
-.gallery-wrap{position:relative;max-width:1400px;margin:auto}
-.carousel{display:flex;align-items:center;gap:48px;overflow:hidden;justify-content:center}
-.slide{flex:0 0 70%;aspect-ratio:16/9;border-radius:36px;position:relative;transition:all 1s cubic-bezier(.4,0,.2,1)}
+/* GALLERY (DISNEY+ STYLE) */
+.gallery-wrap{max-width:1400px;margin:auto}
+.carousel{display:flex;align-items:center;justify-content:center;gap:48px;overflow:hidden}
+.slide{flex:0 0 70%;aspect-ratio:16/9;border-radius:36px;transition:all 1s cubic-bezier(.4,0,.2,1)}
 .slide img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .slide.center{box-shadow:0 0 0 2px rgba(255,255,255,.4),0 50px 140px rgba(0,0,0,.7)}
 .slide.left,.slide.right{flex-basis:45%;filter:brightness(.5) saturate(.7);transform:scale(.88)}
 
-/* FOOTER */
-footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px solid var(--border)}
-/* SCROLL ANIMATIONS */
+/* REVEAL */
 .reveal{opacity:0;transform:translateY(40px) scale(.96);filter:blur(12px);transition:all .9s cubic-bezier(.28,1.25,.55,1)}
 .reveal.visible{opacity:1;transform:none;filter:blur(0)}
 
-/* LIQUID GLASS ENHANCED */
-.glass{
-  background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06));
-  backdrop-filter:blur(28px) saturate(180%);
-  -webkit-backdrop-filter:blur(28px) saturate(180%);
-  border:1px solid rgba(255,255,255,.35);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 40px 120px rgba(0,0,0,.65);
-}
+footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px solid var(--border)}
 
-/* EVENTS */
-.events{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px}
-.event{position:relative;padding:34px;border-radius:32px;overflow:hidden}
-.event::before{content:"";position:absolute;inset:-40%;background:radial-gradient(circle,rgba(124,156,255,.45),transparent 60%);animation:liquidMove 12s ease-in-out infinite}
-.event-content{position:relative;z-index:1}
-
-@keyframes liquidMove{50%{transform:translate(80px,-60px) scale(1.2)}}
-
-@media(max-width:700px){nav{height:72px}.nav-inner{gap:22px;padding:0 20px;overflow-x:auto}section{padding:90px 6vw 70px}.hero h1{font-size:2.4rem}}section{padding:120px 6vw}.hero h1{font-size:2.8rem}}
+@media(max-width:700px){section{padding:90px 6vw}.hero h1{font-size:2.4rem}}
 </style>
 </head>
 <body>
 
-<div class="bg-orbs">
-  <div class="orb one"></div>
-  <div class="orb two"></div>
-</div>
+<div class="bg-orbs"><div class="orb one"></div><div class="orb two"></div></div>
 
 <nav>
   <div class="nav-inner">
-    <a href="#inicio" aria-label="Inicio"><span class="material-symbols-rounded">home</span></a>
-    <a href="#sobre" aria-label="Sobre mí"><span class="material-symbols-rounded">person</span></a>
-    <a href="#habilidades" aria-label="Habilidades"><span class="material-symbols-rounded">auto_fix_high</span></a>
-    <a href="#experiencia" aria-label="Experiencia"><span class="material-symbols-rounded">timeline</span></a>
-    <a href="#galeria" aria-label="Galería"><span class="material-symbols-rounded">view_carousel</span></a>
-    <a href="#contacto" aria-label="Contacto"><span class="material-symbols-rounded">mail</span></a>
+    <a href="#inicio"><span class="material-symbols-rounded">home</span></a>
+    <a href="#sobre"><span class="material-symbols-rounded">person</span></a>
+    <a href="#habilidades"><span class="material-symbols-rounded">auto_fix_high</span></a>
+    <a href="#experiencia"><span class="material-symbols-rounded">timeline</span></a>
+    <a href="#trabajo"><span class="material-symbols-rounded">view_carousel</span></a>
+    <a href="#contacto"><span class="material-symbols-rounded">mail</span></a>
   </div>
 </nav>
 
 <section class="hero reveal" id="inicio">
   <h1>ZyrAkaAguilar<br><span>Creadora de Eventos Minecraft</span></h1>
-  <p>Soy organizadora y creadora de eventos Minecraft. Tras más de 5 años aprendiendo y perfeccionando programación, administración y organización, inicio mi camino profesional ofreciendo eventos justos, bien estructurados y con alto nivel de calidad.</p>
-  <div class="cta">
+  <p>Organizadora y creadora de eventos Minecraft con más de 5 años de aprendizaje en programación, administración y planificación profesional.</p>
+  <div style="display:flex;gap:18px">
     <a class="button primary" href="#contacto">Trabajemos juntos</a>
     <a class="button" href="#sobre">Conocer más</a>
   </div>
@@ -126,98 +99,70 @@ footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px sol
 
 <section id="sobre" class="reveal">
   <h2>Sobre mí</h2>
-  <p>Me caracterizo por el trabajo en equipo, la organización profesional y la honestidad. No soy perfecta, pero doy el 100% en cada proyecto. Creo firmemente en eventos bien planeados, experiencias memorables y comunidades sanas.</p>
+  <p>Trabajo con honestidad, estructura y compromiso. No soy perfecta, pero siempre doy el máximo en cada proyecto.</p>
   <div class="grid">
-    <div class="card"><h3>Visión</h3><p>Crear eventos Minecraft inolvidables, justos y bien administrados.</p></div>
-    <div class="card"><h3>Valores</h3><p>Honestidad, justicia, compromiso, comunicación y liderazgo.</p></div>
-    <div class="card"><h3>Objetivo</h3><p>Convertirme en una referencia profesional en eventos Minecraft.</p></div>
+    <div class="card"><h3>Visión</h3><p>Eventos justos, memorables y bien organizados.</p></div>
+    <div class="card"><h3>Valores</h3><p>Honestidad, liderazgo, comunicación.</p></div>
+    <div class="card"><h3>Objetivo</h3><p>Ser referencia profesional en eventos Minecraft.</p></div>
   </div>
 </section>
 
 <section id="habilidades" class="reveal">
   <h2>Habilidades</h2>
   <div class="grid">
-    <div class="card"><h3>Organización de Eventos</h3><p>Planificación completa, reglas claras y ejecución ordenada.</p></div>
-    <div class="card"><h3>Administración</h3><p>Gestión de equipos, roles, tiempos y resolución de conflictos.</p></div>
-    <div class="card"><h3>Programación Minecraft</h3><p>Conocimiento de plugins, configuraciones y sistemas personalizados.</p></div>
-    <div class="card"><h3>Trabajo en Equipo</h3><p>Comunicación efectiva y liderazgo colaborativo.</p></div>
+    <div class="card"><h3>Organización</h3><p>Planificación completa y ejecución ordenada.</p></div>
+    <div class="card"><h3>Administración</h3><p>Gestión de equipos y resolución de conflictos.</p></div>
+    <div class="card"><h3>Programación</h3><p>Plugins, configuraciones y sistemas Minecraft.</p></div>
   </div>
 </section>
 
 <section id="experiencia" class="reveal">
   <h2>Mi Camino</h2>
   <div class="timeline">
-    <div class="step"><strong>2019 – 2021</strong><br>Aprendizaje autodidacta de programación y sistemas Minecraft.</div>
-    <div class="step"><strong>2022 – 2024</strong><br>Perfeccionamiento en administración, pruebas internas y planificación de eventos.</div>
-    <div class="step"><strong>2025 – Presente</strong><br>Lanzamiento profesional como organizadora de eventos Minecraft.</div>
+    <div class="step"><strong>2019–2021</strong><br>Aprendizaje autodidacta.</div>
+    <div class="step"><strong>2022–2024</strong><br>Perfeccionamiento y pruebas.</div>
+    <div class="step"><strong>2025–Presente</strong><br>Lanzamiento profesional.</div>
   </div>
 </section>
 
-<section id="galeria" class="reveal">
+<section id="trabajo" class="reveal">
   <h2>Trabajo</h2>
   <div class="gallery-wrap">
     <div class="carousel" id="carousel">
-      <div class="slide center"><img src="https://picsum.photos/1600/900?1" alt="Evento recomendado"></div>
-      <div class="slide right"><img src="https://picsum.photos/1600/900?2" alt="Evento"></div>
-      <div class="slide right"><img src="https://picsum.photos/1600/900?3" alt="Evento"></div>
-      <div class="slide right"><img src="https://picsum.photos/1600/900?4" alt="Evento"></div>
+      <div class="slide"><img src="https://picsum.photos/1600/900?1"></div>
+      <div class="slide"><img src="https://picsum.photos/1600/900?2"></div>
+      <div class="slide"><img src="https://picsum.photos/1600/900?3"></div>
     </div>
   </div>
 </section>
 
 <section id="contacto" class="reveal">
   <h2>Contacto</h2>
-  <p>¿Quieres probar mi trabajo en un evento? Estoy lista para demostrar de lo que soy capaz.</p>
+  <p>¿Quieres probar mi trabajo en un evento?</p>
   <a class="button primary" href="mailto:contacto@ejemplo.com">Escríbeme</a>
 </section>
 
-<footer>
-  © 2026 ZyrAkaAguilar • Portfolio Profesional Minecraft
-</footer>
+<footer>© 2026 ZyrAkaAguilar • Portfolio</footer>
 
 <script>
-/* REVEAL ON SCROLL */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible')
-  })
-},{ threshold: 0.2 })
+/* reveal */
+const observer=new IntersectionObserver(e=>{e.forEach(v=>{if(v.isIntersecting)v.target.classList.add('visible')})},{threshold:.2})
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
-
-/* DISNEY+ TV STYLE CAROUSEL (CENTER FOCUS) */
-const carousel = document.getElementById('carousel')
-if (carousel) {
-  let index = 0
-  setInterval(() => {
-    const slides = [...carousel.children]
-    slides.forEach(s => s.classList.remove('left','center','right'))
-
-    const center = index % slides.length
-    const right = (index + 1) % slides.length
-    const left = (index - 1 + slides.length) % slides.length
-
-    slides[center].classList.add('center')
-    slides[right].classList.add('right')
-    slides[left].classList.add('left')
-
-    index = (index + 1) % slides.length
-  }, 5000)
-}
-
-/* INTERVAL START */
-setInterval(() => {
-    const slides = [...carousel.children]
-    slides.forEach(s => s.classList.remove('left','center','right'))
-
-    if (slides.length >= 3) {
-      slides[0].classList.add('center')
-      slides[1].classList.add('right')
-      slides[slides.length - 1].classList.add('left')
-    }
-
-    carousel.appendChild(slides[0])
-  }, 5000)
+/* carousel */
+const carousel=document.getElementById('carousel')
+if(carousel){
+ let i=0
+ const slides=[...carousel.children]
+ function update(){
+  slides.forEach(s=>s.classList.remove('left','center','right'))
+  slides[i%slides.length].classList.add('center')
+  slides[(i+1)%slides.length].classList.add('right')
+  slides[(i-1+slides.length)%slides.length].classList.add('left')
+  i++
+ }
+ update()
+ setInterval(update,5000)
 }
 </script>
 </body>
