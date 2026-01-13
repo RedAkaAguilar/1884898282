@@ -18,7 +18,7 @@
       "titulo": "Test Product",
       "descripcion": "...",
       "imagen": "assets/productos/texture1.jpg",
-      "precio": 0,
+      "precio": 2.99,
       "descuento": 0,
       "estado": "mantenimiento",
       "link":"https://tupago.com/checkout?id=123",
