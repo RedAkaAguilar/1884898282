@@ -289,18 +289,18 @@ if(!id){
             if(rec && recommendedIndex===-1) recommendedIndex=i
             return`
             <div class="section" id="wrap${i}">
-            <div class="section-header" onclick="toggle(${i})">
-            <span class="material-symbols-rounded">${s.icono}</span>
-            <strong>${s.titulo}</strong>
+             <div class="section-header" onclick="toggle(${i})">
+              <span class="material-symbols-rounded">${s.icono}</span>
+               <strong>${s.titulo}</strong>
             </div>
-            <div class="section-content">
-            <p>${rich(s.descripcion)}</p>
-            <a class="download" href="${s.url}">
+             <div class="section-content">
+              <p>${rich(s.descripcion)}</p>
+              <a class="download" href="${s.url}">
             <span class="material-symbols-rounded">download</span>
             Descargar
             </a>
-            </div>
-            </div>`
+           </div>
+          </div>
           }).join('')}
         </div>
       `
@@ -313,11 +313,11 @@ if(!id){
 }
 
 function toggle(i){
-  const section=document.getElementById('wrap'+i)
-  const open=section.classList.contains('open')
+  const section = document.getElementById('wrap'+i)
+  const open = section.classList.contains('open')
 
   document.querySelectorAll('.section.open')
-    .forEach(s=>s.classList.remove('open'))
+    .forEach(s => s.classList.remove('open'))
 
   if(!open){
     section.classList.add('open')
