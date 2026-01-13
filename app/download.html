@@ -313,8 +313,15 @@ if(!id){
 }
 
 function toggle(i){
-  const el=document.getElementById('sec'+i)
-  el.style.display=el.style.display==='block'?'none':'block'
+  const section=document.getElementById('wrap'+i)
+  const open=section.classList.contains('open')
+
+  document.querySelectorAll('.section.open')
+    .forEach(s=>s.classList.remove('open'))
+
+  if(!open){
+    section.classList.add('open')
+  }
 }
 </script>
 
