@@ -607,7 +607,7 @@ async function checkChanges(){
   checking = true
 
   try{
-    const res = await fetch('/api/control/status.json', {
+    const res = await fetch('/api/control/descarga-manager.json', {
       cache: 'no-store'
     })
     if(!res.ok) return
