@@ -497,8 +497,19 @@ const error=(t,m)=>app.innerHTML=`
 
 if(!id) error('Descarga no válida','No se especificó producto.')
 else fetch(DATA_URL,{cache:'no-store'})
-.then(r=>r.ok?r.json():0)
+.then(r=>r.ok?r.json():null)
 .then(d=>{
+  if(!d) return
+
+  app.innerHTML = renderHTML(d)
+
+  dataReady = true
+  tryHideLoader()
+})
+.catch(()=>{
+  dataReady = true
+  tryHideLoader()
+})
 const p=d.productos?.[id]
 if(!p)return error('No encontrado','Producto inexistente.')
 
@@ -547,6 +558,7 @@ document.querySelectorAll('.section').forEach(s=>obs.observe(s))
 const loader = document.getElementById('page-loader')
 const MIN_TIME = 5000
 const startTime = performance.now()
+let dataReady = false
 
 function hideLoader(){
   const elapsed = performance.now() - startTime
@@ -558,6 +570,13 @@ function hideLoader(){
 }
 
 window.addEventListener('load', hideLoader)
+
+function tryHideLoader(){
+  const elapsed = performance.now() - loaderStart
+  if(elapsed >= MIN_TIME && dataReady){
+    loader.classList.add('hide')
+  }
+}
 
 const messages = [
   'Conectando',
