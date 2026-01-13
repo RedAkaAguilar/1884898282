@@ -237,6 +237,7 @@ body{
 
   <div id="product"></div>
 </div>
+<script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID&currency=USD"></script>
 
 <script>
 const params = new URLSearchParams(location.search);
@@ -283,14 +284,39 @@ async function cargar(){
             <a href="${p.link}" class="btn" target="_blank">
               Comprar ahora
             </a>
-            <button class="btn alt fav" data-id="${p.id}">
-            <span class="material-symbols-rounded">favorite</span>
-            </button>
-          </div>
+            <div id="paypal-button-container"></div>
+           
+           <button class="btn alt fav" data-id="${p.id}">
+          <span class="material-symbols-rounded">favorite</span>
+          </button>
         </div>
       </div>
     </div>
   `;
+
+  // Después de product.innerHTML = `...`
+paypal.Buttons({
+  createOrder: function(data, actions) {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: final // monto calculado en tu código
+        },
+        description: p.titulo // descripción del producto
+      }]
+    });
+  },
+  onApprove: function(data, actions) {
+    return actions.order.capture().then(function(details) {
+      alert('Pago completado por ' + details.payer.name.given_name);
+      // Aquí puedes hacer más acciones, como redirigir o actualizar UI
+    });
+  },
+  onError: function(err) {
+    console.error(err);
+    alert('Error en el pago, intenta nuevamente.');
+  }
+}).render('#paypal-button-container');
 }
 
 cargar();
