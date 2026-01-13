@@ -498,29 +498,29 @@ function hideLoader(){
 
 window.addEventListener('load', hideLoader)
 
-const phases = [
+const messages = [
   'Conectando',
   'Sincronizando',
   'Cargando datos',
-  'Preparando interfaz',
-  'Listo'
+  'Preparando interfaz'
 ]
 
+let msgIndex = 0
 const textEl = document.querySelector('#wifi-loader .text')
-const phaseDuration = MIN_TIME / phases.length
 
-phases.forEach((txt, i) => {
-  setTimeout(() => {
-    if (textEl) textEl.dataset.text = txt
-  }, i * phaseDuration)
-})
+setInterval(()=>{
+  if(textEl){
+    msgIndex = (msgIndex + 1) % messages.length
+    textEl.dataset.text = messages[msgIndex]
+  }
+}, 3000)
 
 document.addEventListener('mousemove',e=>{
   document.querySelectorAll('.download').forEach(b=>{
     const r=b.getBoundingClientRect()
-    const x=e.clientX-r.left-r.width/2
-    const y=e.clientY-r.top-r.height/2
-    b.style.transform=`translate(${x*0.15}px,${y*0.15}px)`
+    const x=e.clientX-(r.left+r.width/2)
+    const y=e.clientY-(r.top+r.height/2)
+    b.style.transform=`translate(${x*0.04}px,${y*0.04}px)`
   })
 })
 
