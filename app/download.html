@@ -63,7 +63,6 @@ body{
   100%{transform:translate(0,0)}
 }
 
-/* APP WRAPPER */
 .app{
   position:relative;
   z-index:1;
@@ -72,7 +71,6 @@ body{
   padding:56px 64px 80px;
 }
 
-/* HEADER */
 .header{
   max-width:720px;
   margin-bottom:42px;
@@ -89,13 +87,11 @@ body{
   line-height:1.75;
 }
 
-/* SECTIONS ROW */
 .sections{
   display:grid;
   gap:26px;
 }
 
-/* CARD */
 .section{
   border-radius:32px;
   background:linear-gradient(
@@ -114,7 +110,6 @@ body{
   box-shadow:0 60px 160px rgba(0,0,0,.85);
 }
 
-/* HEADER */
 .section-header{
   display:flex;
   align-items:center;
@@ -139,26 +134,35 @@ body{
   color:#000;
 }
 
-/* CONTENT */
 .section-content{
-  display:none;
-  padding:0 30px 30px;
-  animation:expand .45s var(--spring);
+  overflow:hidden;
+  max-height:0;
+  opacity:0;
+  transform:translateY(-6px);
+  transition:
+    max-height .65s cubic-bezier(.22,1,.36,1),
+    opacity .45s ease,
+    transform .55s cubic-bezier(.22,1,.36,1);
+}
+
+.section.open .section-content{
+  max-height:500px;
+  opacity:1;
+  transform:translateY(0);
+}
+
+.section-content p{
+  margin:18px 0 0;
+  font-size:15px;
+  color:rgba(255,255,255,.82);
+  line-height:1.7;
+  white-space:pre-line;
 }
 @keyframes expand{
   from{opacity:0;transform:translateY(-10px)}
   to{opacity:1}
 }
 
-.section-content p{
-  font-size:15px;
-  color:rgba(255,255,255,.82);
-  line-height:1.7;
-  white-space:pre-line;
-  max-width:800px;
-}
-
-/* DOWNLOAD */
 .download{
   margin-top:24px;
   height:58px;
