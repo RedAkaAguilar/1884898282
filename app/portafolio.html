@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+<title>ZyrAkaAguilar • Portafolio Profesional</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#0b0e14;
+  --glass:rgba(255,255,255,.14);
+  --glass-strong:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.28);
+  --text:#ffffff;
+  --muted:#cbd5e1;
+  --accent:#22c55e;
+  --accent2:#38bdf8;
+  --radius:26px;
+  --blur:28px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;width:100%;overflow-x:hidden}
+body{
+  font-family:Outfit,system-ui;
+  color:var(--text);
+  background:linear-gradient(120deg,#1a0b29,#0b1a29,#0b291f,#1f290b,#290b16);
+  background-size:400% 400%;
+  animation:bgMove 20s ease infinite;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+section{padding:120px 20px;position:relative}
+.container{max-width:1200px;margin:auto}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+}
+.hero-card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(var(--blur));
+  border-radius:var(--radius);
+  padding:70px;
+  box-shadow:0 60px 160px rgba(0,0,0,.65);
+  animation:heroIn 1.2s var(--spring) both;
+}
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(60px) scale(.95);filter:blur(18px)}
+  to{opacity:1;transform:none;filter:blur(0)}
+}
+.hero h1{
+  font-size:64px;
+  font-weight:900;
+  line-height:1.05;
+  margin:0 0 20px;
+}
+.hero h1 span{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent}
+.hero p{font-size:20px;max-width:720px;color:var(--muted)}
+.hero-actions{margin-top:40px;display:flex;gap:20px;flex-wrap:wrap}
+.btn{
+  padding:22px 34px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:16px;
+  border:1px solid var(--border);
+  background:var(--glass);
+  color:#fff;
+  backdrop-filter:blur(var(--blur));
+  cursor:pointer;
+  transition:.45s var(--spring);
+}
+.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;box-shadow:0 0 50px rgba(56,189,248,.45)}
+.btn:hover{transform:translateY(-6px) scale(1.05)}
+
+/* TITLES */
+.section-title{text-align:center;margin-bottom:80px}
+.section-title h2{font-size:48px;margin:0}
+.section-title p{color:var(--muted);font-size:18px}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:50px;
+  backdrop-filter:blur(var(--blur));
+  box-shadow:0 40px 120px rgba(0,0,0,.55);
+  animation:float 6s ease-in-out infinite;
+}
+@keyframes float{50%{transform:translateY(-12px)}}
+.about-card h3{font-size:32px;margin-top:0}
+.about-card p{font-size:17px;line-height:1.7;color:var(--muted)}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+.skill{
+  padding:40px;
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(18px);
+  transition:.45s var(--spring);
+}
+.skill:hover{transform:translateY(-12px) scale(1.04);box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.skill span{font-size:46px}
+.skill h4{margin:20px 0 10px;font-size:22px}
+.skill p{color:var(--muted)}
+
+/* TIMELINE */
+.timeline{display:flex;flex-direction:column;gap:40px;max-width:900px;margin:auto}
+.step{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:40px;
+  backdrop-filter:blur(var(--blur));
+  animation:slideIn .9s var(--spring) both;
+}
+@keyframes slideIn{from{opacity:0;transform:translateX(-40px)}to{opacity:1}}
+.step h4{margin:0 0 10px;font-size:22px}
+.step p{color:var(--muted)}
+
+/* GALLERY */
+.gallery{display:flex;gap:30px;overflow-x:auto;padding-bottom:20px}
+.gallery::-webkit-scrollbar{height:8px}
+.gallery::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3);border-radius:999px}
+.shot{
+  min-width:360px;
+  height:240px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  position:relative;
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
+  animation:shotFloat 7s ease-in-out infinite;
+}
+@keyframes shotFloat{50%{transform:translateY(-10px) scale(1.03)}}
+.shot::after{
+  content:"Evento Minecraft";
+  position:absolute;
+  bottom:18px;left:18px;
+  font-weight:800;
+}
+
+/* CTA */
+.cta{
+  text-align:center;
+  background:linear-gradient(135deg,rgba(34,197,94,.35),rgba(56,189,248,.35));
+}
+.cta h2{font-size:52px;margin:0 0 20px}
+.cta p{font-size:20px;color:var(--muted)}
+
+footer{text-align:center;padding:40px;color:var(--muted)}
+
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr}
+  .skills-grid{grid-template-columns:1fr}
+  .hero h1{font-size:46px}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-card">
+      <h1>Soy <span>ZyrAkaAguilar</span><br>Creadora y Organizadora<br>de Eventos Minecraft</h1>
+      <p>Estoy comenzando oficialmente mi camino profesional, pero llevo más de <b>5 años aprendiendo, perfeccionando y viviendo</b> el arte de la programación Minecraft y la creación de eventos memorables.</p>
+      <div class="hero-actions">
+        <button class="btn primary">Ver mi trabajo</button>
+        <button class="btn">Contactarme</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Sobre mí</h2>
+      <p>Pasión, disciplina y profesionalismo</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-card">
+        <h3>Quién soy</h3>
+        <p>Soy creadora de eventos Minecraft y organizadora. Aunque recién me lanzo a trabajar profesionalmente, llevo años preparándome para ofrecer eventos bien estructurados, justos, organizados y con una experiencia única para jugadores y equipos.</p>
+      </div>
+      <div class="about-card">
+        <h3>Mi filosofía</h3>
+        <p>No soy perfecta, pero soy honesta, justa y comprometida. Cada proyecto lo tomo como si fuera propio, buscando siempre la mejor organización, administración y cooperación en equipo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Habilidades</h2>
+      <p>Todo lo que puedo aportar a un evento</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill"><span class="material-symbols-rounded">celebration</span><h4>Eventos Minecraft</h4><p>Diseño y organización completa de eventos.</p></div>
+      <div class="skill"><span class="material-symbols-rounded">settings</span><h4>Administración</h4><p>Gestión de equipos, roles y servidores.</p></div>
+      <div class="skill"><span class="material-symbols-rounded">group</span><h4>Trabajo en equipo</h4><p>Comunicación clara y liderazgo justo.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Mi camino</h2>
+      <p>Cómo llegué hasta aquí</p>
+    </div>
+    <div class="timeline">
+      <div class="step"><h4>2019 – Aprendizaje</h4><p>Inicio en programación y sistemas de Minecraft.</p></div>
+      <div class="step"><h4>2021 – Experiencia</h4><p>Práctica privada, pruebas y perfeccionamiento.</p></div>
+      <div class="step"><h4>2024 – Profesionalización</h4><p>Lanzamiento oficial como creadora de eventos.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <h2>Eventos & Proyectos</h2>
+      <p>Ejemplos visuales de lo que puedo crear</p>
+    </div>
+    <div class="gallery">
+      <div class="shot"></div>
+      <div class="shot"></div>
+      <div class="shot"></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>¿Trabajamos juntos?</h2>
+    <p>Si me das una oportunidad, verás profesionalismo, dedicación y resultados.</p>
+    <br>
+    <button class="btn primary">Contactar ahora</button>
+  </div>
+</section>
+
+<footer>© 2026 • ZyrAkaAguilar — Portafolio Profesional</footer>
+
+</body>
+</html>
