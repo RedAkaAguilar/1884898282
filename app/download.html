@@ -590,6 +590,65 @@ document.addEventListener('mousemove',e=>{
     b.style.transform=`translate(${x}px,${y}px)`
   })
 })
+
+let lastData = null
+
+async function checkChanges(){
+  try{
+    const res = await fetch('/api/control/descarga-manager.json', {
+      cache: 'no-store'
+    })
+
+    if(!res.ok) return
+
+    const data = await res.json()
+
+    if(JSON.stringify(data) !== JSON.stringify(lastData)){
+      lastData = data
+      onChange(data)
+    }
+
+  }catch(e){}
+}
+
+function onChange(data){
+  console.log('Cambio detectado:', data)
+}
+
+setInterval(checkChanges, 1000)
+
+  function onChange(data){
+  const status = document.getElementById('server-status')
+
+  if(data.online){
+    status.textContent = 'Online'
+    status.classList.add('on')
+    status.classList.remove('off')
+  }else{
+    status.textContent = 'Offline'
+    status.classList.add('off')
+    status.classList.remove('on')
+  }
+  }
+
+  let checking = false
+
+setInterval(async ()=>{
+  if(checking) return
+  checking = true
+
+  try{
+    const res = await fetch('/api/control/descarga-manager.json',{cache:'no-store'})
+    const data = await res.json()
+
+    if(JSON.stringify(data) !== JSON.stringify(lastData)){
+      lastData = data
+      onChange(data)
+    }
+  }catch(e){}
+
+  checking = false
+},1000)
 </script>
 
 </body>
