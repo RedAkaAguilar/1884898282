@@ -246,12 +246,124 @@ opacity:.7;
 .app{padding:40px 20px 90px}
 .header h1{font-size:30px}
 }
+
+#page-loader{
+position:fixed;
+inset:0;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(180deg,rgba(15,18,25,.85),rgba(15,18,25,.65));
+backdrop-filter:blur(40px) saturate(180%);
+transition:opacity .8s ease,visibility .8s ease;
+}
+
+#page-loader.hide{
+opacity:0;
+visibility:hidden;
+}
+
+#wifi-loader{
+--background:transparent;
+--front-color:var(--blue);
+--back-color:rgba(255,255,255,.25);
+--text-color:rgba(255,255,255,.65);
+width:86px;
+height:86px;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+filter:drop-shadow(0 0 25px rgba(56,189,248,.45));
+}
+
+#wifi-loader svg{
+position:absolute;
+}
+
+#wifi-loader svg circle{
+fill:none;
+stroke-width:6px;
+stroke-linecap:round;
+transform:rotate(-100deg);
+transform-origin:center;
+}
+
+#wifi-loader svg circle.back{
+stroke:var(--back-color);
+}
+
+#wifi-loader svg circle.front,
+#wifi-loader svg circle.new{
+stroke:var(--front-color);
+}
+
+#wifi-loader .text{
+position:absolute;
+bottom:-44px;
+font-size:14px;
+font-weight:600;
+letter-spacing:.4px;
+text-transform:lowercase;
+}
+
+#wifi-loader .text::before,
+#wifi-loader .text::after{
+content:attr(data-text);
+}
+
+#wifi-loader .text::before{
+color:var(--text-color);
+}
+
+#wifi-loader .text::after{
+color:var(--front-color);
+animation:text-animation76 3.6s ease infinite;
+position:absolute;
+left:0;
+}
+
+#wifi-loader svg.circle-outer{width:86px;height:86px}
+#wifi-loader svg.circle-middle{width:60px;height:60px}
+#wifi-loader svg.circle-inner{width:34px;height:34px}
+
+#wifi-loader svg.circle-outer circle{stroke-dasharray:62.75 188.25}
+#wifi-loader svg.circle-middle circle{stroke-dasharray:42.5 127.5}
+#wifi-loader svg.circle-inner circle{stroke-dasharray:22 66}
+
+#wifi-loader svg.circle-outer circle.back{animation:circle-outer135 1.8s ease infinite .3s}
+#wifi-loader svg.circle-outer circle.front{animation:circle-outer135 1.8s ease infinite .15s}
+
+#wifi-loader svg.circle-middle circle.back{animation:circle-middle6123 1.8s ease infinite .25s}
+#wifi-loader svg.circle-middle circle.front{animation:circle-middle6123 1.8s ease infinite .1s}
+
+#wifi-loader svg.circle-inner circle.back{animation:circle-inner162 1.8s ease infinite .2s}
+#wifi-loader svg.circle-inner circle.front{animation:circle-inner162 1.8s ease infinite .05s}
 </style>
 </head>
 
 <body>
-
 <div class="liquid-bg"><span></span><span></span><span></span></div>
+
+<div id="page-loader">
+  <div id="wifi-loader">
+    <svg class="circle-outer" viewBox="0 0 86 86">
+      <circle class="back" cx="43" cy="43" r="40"></circle>
+      <circle class="front" cx="43" cy="43" r="40"></circle>
+      <circle class="new" cx="43" cy="43" r="40"></circle>
+    </svg>
+    <svg class="circle-middle" viewBox="0 0 60 60">
+      <circle class="back" cx="30" cy="30" r="27"></circle>
+      <circle class="front" cx="30" cy="30" r="27"></circle>
+    </svg>
+    <svg class="circle-inner" viewBox="0 0 34 34">
+      <circle class="back" cx="17" cy="17" r="14"></circle>
+      <circle class="front" cx="17" cy="17" r="14"></circle>
+    </svg>
+    <div class="text" data-text="Conectando"></div>
+  </div>
+</div>
 
 <div id="app" class="app">
 <div class="loader">
@@ -325,6 +437,21 @@ if(v.isIntersecting)v.target.classList.add('visible')
 
 document.querySelectorAll('.section').forEach(s=>obs.observe(s))
 }
+
+const loader = document.getElementById('page-loader')
+const MIN_TIME = 2000
+const startTime = performance.now()
+
+function hideLoader(){
+  const elapsed = performance.now() - startTime
+  const remaining = Math.max(0, MIN_TIME - elapsed)
+
+  setTimeout(()=>{
+    loader.classList.add('hide')
+  }, remaining)
+}
+
+window.addEventListener('load', hideLoader)
 </script>
 
 </body>
