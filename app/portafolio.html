@@ -152,15 +152,23 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
 /* carousel */
 const carousel=document.getElementById('carousel')
 if(carousel){
- let i=0
- const slides=[...carousel.children]
- function update(){
-  slides.forEach(s=>s.classList.remove('left','center','right'))
-  slides[i%slides.length].classList.add('center')
-  slides[(i+1)%slides.length].classList.add('right')
-  slides[(i-1+slides.length)%slides.length].classList.add('left')
-  i++
- }
+  let index=0
+  const slides=[...carousel.children]
+
+  function update(){
+    slides.forEach(s=>s.classList.remove('left','center','right'))
+    const center=index%slides.length
+    const right=(center+1)%slides.length
+    const left=(center-1+slides.length)%slides.length
+    slides[center].classList.add('center')
+    slides[right].classList.add('right')
+    slides[left].classList.add('left')
+    index++
+  }
+
+  update()
+  setInterval(update,5000)
+}
  update()
  setInterval(update,5000)
 }
