@@ -11,14 +11,14 @@
 <style>
 :root{
 --bg:#0e1116;
---glass:rgba(255,255,255,.16);
---glass-strong:rgba(255,255,255,.28);
---border:rgba(255,255,255,.35);
+--glass:rgba(255,255,255,.18);
+--glass-strong:rgba(255,255,255,.32);
+--border:rgba(255,255,255,.38);
 --txt:#fff;
 --muted:#cbd5e1;
 --green:#22c55e;
 --blue:#38bdf8;
---blur:32px;
+--blur:34px;
 --spring:cubic-bezier(.28,1.25,.55,1);
 }
 
@@ -43,7 +43,7 @@ overflow-x:hidden;
 .liquid-bg{
 position:fixed;
 inset:-25%;
-filter:blur(120px);
+filter:blur(140px);
 pointer-events:none;
 z-index:-1;
 }
@@ -52,27 +52,27 @@ position:absolute;
 width:45vw;
 height:45vw;
 border-radius:50%;
-background:rgba(255,255,255,.18);
-animation:liquidMove 26s ease-in-out infinite;
+background:rgba(255,255,255,.2);
+animation:liquidMove 30s ease-in-out infinite;
 }
-.liquid-bg span:nth-child(2){animation-duration:34s;bottom:10%;right:10%}
-.liquid-bg span:nth-child(3){animation-duration:40s;top:40%;right:30%}
+.liquid-bg span:nth-child(2){animation-duration:40s;bottom:10%;right:10%}
+.liquid-bg span:nth-child(3){animation-duration:50s;top:40%;right:30%}
 
 @keyframes liquidMove{
-50%{transform:translate(90px,-70px) scale(1.25)}
+50%{transform:translate(120px,-90px) scale(1.3)}
 }
 
 .app{
 max-width:1200px;
 margin:auto;
-padding:80px 64px 120px;
+padding:90px 64px 140px;
 display:flex;
 flex-direction:column;
-gap:64px;
+gap:70px;
 opacity:0;
-transform:translateY(30px) scale(.97);
-filter:blur(10px);
-animation:appIn .9s var(--spring) forwards;
+transform:translateY(40px) scale(.96);
+filter:blur(12px);
+animation:appIn 1s var(--spring) forwards;
 }
 
 @keyframes appIn{
@@ -83,67 +83,66 @@ to{opacity:1;transform:none;filter:none}
 max-width:760px;
 }
 .header h1{
-font-size:42px;
+font-size:44px;
 font-weight:900;
 margin:0;
 }
 .header p{
-margin-top:16px;
+margin-top:18px;
 font-size:18px;
-line-height:1.8;
+line-height:1.85;
 color:var(--muted);
+white-space:normal;
 }
 
 .sections{
 display:grid;
-gap:28px;
+gap:32px;
 }
 
 .section{
 background:linear-gradient(180deg,var(--glass-strong),rgba(255,255,255,.08));
 backdrop-filter:blur(var(--blur)) saturate(180%);
 border:1px solid var(--border);
-border-radius:32px;
-box-shadow:0 40px 140px rgba(0,0,0,.75);
+border-radius:34px;
+box-shadow:0 50px 160px rgba(0,0,0,.8);
 overflow:hidden;
 opacity:0;
-transform:translateY(20px) scale(.96);
-animation:cardIn .8s var(--spring) forwards;
+transform:translateY(30px) scale(.95);
+transition:.6s var(--spring);
 }
-.section:nth-child(1){animation-delay:.1s}
-.section:nth-child(2){animation-delay:.2s}
-.section:nth-child(3){animation-delay:.3s}
 
-@keyframes cardIn{
-to{opacity:1;transform:none}
+.section.visible{
+opacity:1;
+transform:none;
 }
 
 .section:hover{
-transform:translateY(-6px) scale(1.015);
+transform:translateY(-8px) scale(1.02);
 }
 
 .section-header{
 display:flex;
 align-items:center;
-gap:20px;
-padding:30px 34px;
+gap:22px;
+padding:32px 36px;
 cursor:pointer;
 }
 
 .section-header span{
-font-size:34px;
+font-size:36px;
 background:linear-gradient(135deg,var(--green),var(--blue));
 -webkit-background-clip:text;
 color:transparent;
-transition:transform .4s var(--spring);
+transition:transform .45s var(--spring);
 }
 
 .section:hover .section-header span{
-transform:scale(1.25);
+transform:scale(1.35);
 }
 
 .section-header strong{
-font-size:21px;
+font-size:22px;
 font-weight:800;
 flex:1;
 }
@@ -151,31 +150,31 @@ flex:1;
 .section-content{
 max-height:0;
 opacity:0;
-padding:0 34px;
+padding:0 36px;
 overflow:hidden;
-transform:translateY(-10px);
+transform:translateY(-12px);
 transition:
-max-height .9s var(--spring),
-opacity .5s ease,
-transform .6s var(--spring);
+max-height 1s var(--spring),
+opacity .55s ease,
+transform .7s var(--spring);
 }
 
 .section.open .section-content{
-max-height:700px;
+max-height:900px;
 opacity:1;
 transform:none;
-padding-bottom:34px;
+padding-bottom:36px;
 }
 
 .section-content p{
-margin:22px 0 28px;
-line-height:1.75;
-color:rgba(255,255,255,.85);
+margin:24px 0 30px;
+line-height:1.8;
+color:rgba(255,255,255,.88);
 }
 
 .download{
-height:62px;
-max-width:340px;
+height:64px;
+max-width:360px;
 border-radius:999px;
 background:linear-gradient(135deg,var(--green),var(--blue));
 display:flex;
@@ -185,32 +184,32 @@ gap:14px;
 font-weight:900;
 color:#fff;
 text-decoration:none;
-box-shadow:0 0 40px rgba(56,189,248,.45);
+box-shadow:0 0 60px rgba(56,189,248,.55);
 position:relative;
 overflow:hidden;
-transition:.4s var(--spring);
+transition:.45s var(--spring);
 }
 
 .download::before{
 content:"";
 position:absolute;
 inset:0;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,.65),transparent);
-transform:translateX(-120%);
-transition:.9s ease;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,.7),transparent);
+transform:translateX(-130%);
+transition:1s ease;
 }
 
 .download:hover::before{
-transform:translateX(120%);
+transform:translateX(130%);
 }
 
 .download:hover{
-transform:translateY(-6px) scale(1.05);
-box-shadow:0 0 70px rgba(56,189,248,.75);
+transform:translateY(-8px) scale(1.08);
+box-shadow:0 0 90px rgba(56,189,248,.9);
 }
 
 .download:active{
-transform:scale(.92);
+transform:scale(.9);
 }
 
 .loader{
@@ -219,31 +218,32 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-gap:24px;
+gap:26px;
 }
 
 .spinner{
-width:76px;
-height:76px;
+width:80px;
+height:80px;
 border-radius:50%;
 border:4px solid rgba(255,255,255,.25);
 border-top-color:var(--blue);
-animation:spin .9s linear infinite;
+animation:spin .85s linear infinite;
 }
 
 @keyframes spin{to{rotate:360deg}}
 
 .error{
 text-align:center;
-margin-top:100px;
+margin-top:120px;
 }
+
 .error span{
-font-size:80px;
+font-size:86px;
 opacity:.7;
 }
 
 @media(max-width:900px){
-.app{padding:40px 20px 80px}
+.app{padding:40px 20px 90px}
 .header h1{font-size:30px}
 }
 </style>
@@ -266,6 +266,7 @@ const app=document.getElementById('app')
 const id=new URLSearchParams(location.search).get('id')
 
 const rich=t=>t
+.replace(/\n/g,'<br>')
 .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
 .replace(/_(.*?)_/g,'<i>$1</i>')
 .replace(/`(.*?)`/g,'<code>$1</code>')
@@ -303,6 +304,8 @@ ${p.secciones.map((s,i)=>`
 </div>
 </div>`).join('')}
 </div>`
+
+observe()
 })
 .catch(()=>error('Error','No se pudo cargar la información.'))
 
@@ -311,6 +314,16 @@ document.querySelectorAll('.section').forEach(s=>s.classList.remove('open'))
 const sec=document.getElementById('s'+i)
 sec.classList.add('open')
 sec.scrollIntoView({behavior:'smooth',block:'center'})
+}
+
+function observe(){
+const obs=new IntersectionObserver(e=>{
+e.forEach(v=>{
+if(v.isIntersecting)v.target.classList.add('visible')
+})
+},{threshold:.2})
+
+document.querySelectorAll('.section').forEach(s=>obs.observe(s))
 }
 </script>
 
