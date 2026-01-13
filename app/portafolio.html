@@ -31,10 +31,10 @@ html,body{background:var(--bg);color:var(--text);font-family:'Outfit',system-ui;
 /* NAV */
 nav{position:fixed;top:0;left:0;right:0;height:88px;z-index:50;display:flex;align-items:center;justify-content:center}
 .nav-inner{width:100%;max-width:1400px;display:flex;gap:36px;padding:0 40px;background:linear-gradient(180deg,rgba(6,8,15,.85),rgba(6,8,15,.55));backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-nav a{display:flex;align-items:center;gap:10px;color:var(--muted);text-decoration:none;font-weight:600;font-size:1.05rem;letter-spacing:.3px;position:relative;padding:18px 10px}
+nav a{display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-weight:600;font-size:1.2rem;position:relative;width:56px;height:56px;border-radius:18px}
 nav a::after{content:"";position:absolute;left:50%;bottom:8px;width:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;transform:translateX(-50%);transition:.3s}
 nav a:hover{color:var(--text)}
-nav a:hover::after{width:60%}
+nav a:hover::after{width:22px}
 .nav-inner{display:flex;gap:24px;padding:14px 26px;background:var(--glass);border:1px solid var(--border);backdrop-filter:blur(18px);border-radius:40px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
 nav a{color:var(--muted);text-decoration:none;font-weight:500;position:relative}
 nav a::after{content:'';position:absolute;left:0;bottom:-6px;width:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}
@@ -63,13 +63,13 @@ section{min-height:auto;padding:110px 10vw 90px;display:flex;flex-direction:colu
 .timeline{display:flex;flex-direction:column;gap:24px}
 .step{padding:26px;border-left:3px solid var(--accent);background:linear-gradient(90deg,rgba(124,156,255,.12),transparent)}
 
-/* GALLERY CAROUSEL */
-.gallery-wrap{position:relative;max-width:1200px;margin:auto}
-.carousel{display:flex;align-items:center;gap:40px;overflow:hidden}
-.slide{flex:0 0 60%;height:420px;border-radius:36px;position:relative;transition:all 1.2s cubic-bezier(.4,0,.2,1)}
+/* GALLERY CAROUSEL (TV STYLE) */
+.gallery-wrap{position:relative;max-width:1400px;margin:auto}
+.carousel{display:flex;align-items:center;gap:48px;overflow:hidden;justify-content:center}
+.slide{flex:0 0 70%;aspect-ratio:16/9;border-radius:36px;position:relative;transition:all 1s cubic-bezier(.4,0,.2,1)}
 .slide img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
-.slide.main{box-shadow:0 0 0 2px rgba(255,255,255,.35),0 40px 120px rgba(0,0,0,.6)}
-.slide.side{flex-basis:35%;filter:brightness(.55) saturate(.8);transform:scale(.9)}
+.slide.center{box-shadow:0 0 0 2px rgba(255,255,255,.4),0 50px 140px rgba(0,0,0,.7)}
+.slide.left,.slide.right{flex-basis:45%;filter:brightness(.5) saturate(.7);transform:scale(.88)}
 
 /* FOOTER */
 footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px solid var(--border)}
@@ -106,12 +106,12 @@ footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px sol
 
 <nav>
   <div class="nav-inner">
-    <a href="#inicio"><span class="material-symbols-rounded">home</span>Inicio</a>
-    <a href="#sobre"><span class="material-symbols-rounded">person</span>Sobre mí</a>
-    <a href="#habilidades"><span class="material-symbols-rounded">auto_fix_high</span>Habilidades</a>
-    <a href="#experiencia"><span class="material-symbols-rounded">timeline</span>Experiencia</a>
-    <a href="#galeria"><span class="material-symbols-rounded">view_carousel</span>Galería</a>
-    <a href="#contacto"><span class="material-symbols-rounded">mail</span>Contacto</a>
+    <a href="#inicio" aria-label="Inicio"><span class="material-symbols-rounded">home</span></a>
+    <a href="#sobre" aria-label="Sobre mí"><span class="material-symbols-rounded">person</span></a>
+    <a href="#habilidades" aria-label="Habilidades"><span class="material-symbols-rounded">auto_fix_high</span></a>
+    <a href="#experiencia" aria-label="Experiencia"><span class="material-symbols-rounded">timeline</span></a>
+    <a href="#galeria" aria-label="Galería"><span class="material-symbols-rounded">view_carousel</span></a>
+    <a href="#contacto" aria-label="Contacto"><span class="material-symbols-rounded">mail</span></a>
   </div>
 </nav>
 
@@ -154,13 +154,13 @@ footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px sol
 </section>
 
 <section id="galeria" class="reveal">
-  <h2>Galería Conceptual</h2>
+  <h2>Recomendados</h2>
   <div class="gallery-wrap">
     <div class="carousel" id="carousel">
-      <div class="slide main"><img src="https://picsum.photos/1200/800?1" alt="Evento"></div>
-      <div class="slide side"><img src="https://picsum.photos/1200/800?2" alt="Evento"></div>
-      <div class="slide side"><img src="https://picsum.photos/1200/800?3" alt="Evento"></div>
-      <div class="slide side"><img src="https://picsum.photos/1200/800?4" alt="Evento"></div>
+      <div class="slide center"><img src="https://picsum.photos/1600/900?1" alt="Evento recomendado"></div>
+      <div class="slide right"><img src="https://picsum.photos/1600/900?2" alt="Evento"></div>
+      <div class="slide right"><img src="https://picsum.photos/1600/900?3" alt="Evento"></div>
+      <div class="slide right"><img src="https://picsum.photos/1600/900?4" alt="Evento"></div>
     </div>
   </div>
 </section>
@@ -176,20 +176,31 @@ footer{padding:56px 10vw;text-align:center;color:var(--muted);border-top:1px sol
 </footer>
 
 <script>
-/* reveal */
-const observer=new IntersectionObserver(e=>{e.forEach(v=>{if(v.isIntersecting)v.target.classList.add('visible')})},{threshold:.2})
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
+/* REVEAL ON SCROLL */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible')
+  })
+},{ threshold: 0.2 })
 
-/* carousel auto */
-const carousel=document.getElementById('carousel')
-let index=0
-setInterval(()=>{
-  const slides=[...carousel.children]
-  slides.forEach(s=>s.className='slide side')
-  index=(index+1)%slides.length
-  slides[index].className='slide main'
-  carousel.appendChild(slides[index])
-},5000)
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+
+/* DISNEY+ TV STYLE CAROUSEL */
+const carousel = document.getElementById('carousel')
+if (carousel) {
+  setInterval(() => {
+    const slides = [...carousel.children]
+    slides.forEach(s => s.classList.remove('left','center','right'))
+
+    if (slides.length >= 3) {
+      slides[0].classList.add('center')
+      slides[1].classList.add('right')
+      slides[slides.length - 1].classList.add('left')
+    }
+
+    carousel.appendChild(slides[0])
+  }, 5000)
+}
 </script>
 </body>
 </html>
