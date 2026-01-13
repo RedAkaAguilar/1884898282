@@ -37,9 +37,10 @@ body{
     var(--bg);
   color:var(--text);
   overflow-x:hidden;
+  display:flex;
+  justify-content:center;
 }
 
-/* BACKGROUND LIGHTS */
 .lights{
   position:fixed;
   inset:-30%;
@@ -69,6 +70,11 @@ body{
   max-width:1400px;
   margin:0 auto;
   padding:56px 64px 80px;
+  width:100%;
+  padding:64px 72px 96px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
 .header{
@@ -85,6 +91,12 @@ body{
   font-size:17px;
   color:var(--muted);
   line-height:1.75;
+}
+
+.header,
+.sections{
+  width:100%;
+  max-width:1100px;
 }
 
 .sections{
@@ -219,9 +231,20 @@ body{
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .app{padding:36px 22px}
-  .header h1{font-size:28px}
-  .section-header strong{font-size:18px}
+  .app{
+    padding:36px 20px 64px;
+  }
+
+  .header,
+  .sections{
+    max-width:100%;
+  }
+  .header h1{
+    font-size:28px
+  }
+  .section-header strong{
+    font-size:18px
+  }
 }
 </style>
 </head>
