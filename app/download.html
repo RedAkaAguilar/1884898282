@@ -9,6 +9,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
 <style>
+:root{
+  --glass:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.35);
+  --text:#fff;
+  --muted:rgba(255,255,255,.7);
+  --blur:32px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+  --accent:#8bffe0;
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
 body{
   margin:0;
   min-height:100vh;
@@ -16,11 +28,10 @@ body{
   background:linear-gradient(120deg,#0b162a,#0b2a24,#0b162a);
   background-size:400% 400%;
   animation:bg 18s ease infinite;
-  color:#fff;
+  color:var(--text);
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
 }
 
 @keyframes bg{
@@ -30,39 +41,52 @@ body{
 }
 
 .card{
-  width:420px;
+  width:440px;
   padding:36px 32px;
-  border-radius:30px;
-  background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.14));
-  backdrop-filter:blur(32px) saturate(180%);
-  border:1px solid rgba(255,255,255,.35);
-  box-shadow:0 80px 200px rgba(0,0,0,.85);
-  animation:enter .8s cubic-bezier(.28,1.25,.55,1);
+  border-radius:32px;
+  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.14));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+  box-shadow:0 90px 220px rgba(0,0,0,.85);
+  animation:enter .9s var(--spring);
 }
 
 @keyframes enter{
-  from{opacity:0;transform:translateY(40px) scale(.92)}
+  from{opacity:0;transform:translateY(50px) scale(.92)}
   to{opacity:1;transform:none}
 }
 
-h1{
-  margin:0 0 6px;
-  font-size:22px;
+h1{margin:0 0 6px;font-size:22px}
+.desc{font-size:14px;color:var(--muted);line-height:1.55}
+
+.loader{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:14px;
 }
 
-.desc{
-  font-size:14px;
-  color:rgba(255,255,255,.75);
-  line-height:1.5;
+.spinner{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  border:4px solid rgba(255,255,255,.25);
+  border-top-color:var(--accent);
+  animation:spin 1s linear infinite;
 }
+
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .section{
   margin-top:18px;
-  border-radius:18px;
+  border-radius:20px;
   background:rgba(255,255,255,.18);
   border:1px solid rgba(255,255,255,.35);
   overflow:hidden;
+  transition:transform .25s var(--spring);
 }
+
+.section:hover{transform:translateY(-2px)}
 
 .section-header{
   display:flex;
@@ -72,8 +96,15 @@ h1{
   cursor:pointer;
 }
 
-.section-header span{
-  font-size:22px;
+.section-header span{font-size:22px}
+
+.recommended{
+  font-size:11px;
+  background:linear-gradient(135deg,#9dffe9,#6cf2ff);
+  color:#000;
+  padding:3px 8px;
+  border-radius:999px;
+  font-weight:700;
 }
 
 .section-content{
@@ -90,47 +121,45 @@ h1{
 .section-content p{
   font-size:13px;
   color:rgba(255,255,255,.8);
-  line-height:1.45;
+  line-height:1.5;
   white-space:pre-line;
 }
 
 .download{
   margin-top:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
   height:44px;
   border-radius:14px;
   background:linear-gradient(135deg,#9dffe9,#6cf2ff);
   color:#000;
   font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
   text-decoration:none;
 }
 
-.error{
-  text-align:center;
-  animation:enter .8s cubic-bezier(.28,1.25,.55,1);
-}
-
-.error span{
-  font-size:54px;
-  opacity:.7;
-}
+.error{text-align:center}
+.error span{font-size:56px;opacity:.7}
 </style>
 </head>
 
 <body>
-
-<div id="app"></div>
+<div id="app" class="card">
+  <div class="loader">
+    <div class="spinner"></div>
+    <div class="desc">Cargando descarga…</div>
+  </div>
+</div>
 
 <script>
-const DATA_URL = '/api/control/descarga-manager.json'
-const id = new URLSearchParams(location.search).get('id')
-const app = document.getElementById('app')
+const DATA_URL='/descarga-manager.json'
+const id=new URLSearchParams(location.search).get('id')
+const app=document.getElementById('app')
+const os=navigator.platform.toLowerCase()
 
-function rich(text){
-  return text
+function rich(t){
+  return t
     .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
     .replace(/_(.*?)_/g,'<i>$1</i>')
     .replace(/`(.*?)`/g,'<code>$1</code>')
@@ -139,37 +168,42 @@ function rich(text){
 fetch(DATA_URL)
 .then(r=>r.json())
 .then(data=>{
-  const p = data.productos?.[id]
+  const p=data.productos?.[id]
   if(!p){
     app.innerHTML=`
-      <div class="error card">
+      <div class="error">
         <span class="material-symbols-rounded">error</span>
         <h1>Producto no encontrado</h1>
-        <p class="desc">La descarga solicitada no existe o fue eliminada.</p>
+        <div class="desc">La descarga solicitada no existe.</div>
       </div>`
     return
   }
 
   app.innerHTML=`
-    <div class="card">
-      <h1>${p.titulo}</h1>
-      <div class="desc">${rich(p.descripcion)}</div>
-      ${p.secciones.map((s,i)=>`
-        <div class="section">
-          <div class="section-header" onclick="toggle(${i})">
-            <span class="material-symbols-rounded">${s.icono}</span>
-            <strong>${s.titulo}</strong>
-          </div>
-          <div class="section-content" id="sec${i}">
-            <p>${rich(s.descripcion)}</p>
-            <a class="download" href="${s.url}">
-              <span class="material-symbols-rounded">download</span>
-              Descargar
-            </a>
-          </div>
+    <h1>${p.titulo}</h1>
+    <div class="desc">${rich(p.descripcion)}</div>
+    ${p.secciones.map((s,i)=>{
+      const recommended=
+        (os.includes('win') && s.titulo.toLowerCase().includes('windows')) ||
+        (os.includes('linux') && s.titulo.toLowerCase().includes('linux')) ||
+        (os.includes('mac') && s.titulo.toLowerCase().includes('mac'))
+      return `
+      <div class="section">
+        <div class="section-header" onclick="toggle(${i})">
+          <span class="material-symbols-rounded">${s.icono}</span>
+          <strong>${s.titulo}</strong>
+          ${recommended?'<span class="recommended">Recomendado</span>':''}
         </div>
-      `).join('')}
-    </div>`
+        <div class="section-content" id="sec${i}">
+          <p>${rich(s.descripcion)}</p>
+          <a class="download" href="${s.url}">
+            <span class="material-symbols-rounded">download</span>
+            Descargar
+          </a>
+        </div>
+      </div>`
+    }).join('')}
+  `
 })
 
 function toggle(i){
@@ -177,6 +211,5 @@ function toggle(i){
   el.style.display=el.style.display==='block'?'none':'block'
 }
 </script>
-
 </body>
 </html>
