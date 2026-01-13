@@ -664,29 +664,6 @@ setInterval(async ()=>{
 
   checking = false
 },1000)
-
-  function applyChanges(data){
-
-  const title = document.getElementById('dynamic-title')
-  if(title && data.title){
-    title.textContent = data.title
-  }
-
-  const desc = document.getElementById('dynamic-desc')
-  if(desc && data.description){
-    desc.innerHTML = data.description.replace(/\n/g,'<br>')
-  }
-
-  const badge = document.getElementById('status-badge')
-  if(badge){
-    badge.classList.toggle('on', data.online)
-    badge.classList.toggle('off', !data.online)
-    badge.textContent = data.online ? 'Online' : 'Offline'
-  }
-
-  document.body.classList.add('updated')
-  setTimeout(()=>document.body.classList.remove('updated'),300)
-  }
 </script>
 
 </body>
