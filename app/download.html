@@ -288,19 +288,18 @@ if(!id){
               (os.includes('mac')&&s.titulo.toLowerCase().includes('mac'))
             if(rec && recommendedIndex===-1) recommendedIndex=i
             return`
-            <div class="section">
-              <div class="section-header" onclick="toggle(${i})">
-                <span class="material-symbols-rounded">${s.icono}</span>
-                <strong>${s.titulo}</strong>
-                ${rec?'<span class="badge">Recomendado</span>':''}
-              </div>
-              <div class="section-content" id="sec${i}">
-                <p>${rich(s.descripcion)}</p>
-                <a class="download" href="${s.url}">
-                  <span class="material-symbols-rounded">download</span>
-                  Descargar
-                </a>
-              </div>
+            <div class="section" id="wrap${i}">
+            <div class="section-header" onclick="toggle(${i})">
+            <span class="material-symbols-rounded">${s.icono}</span>
+            <strong>${s.titulo}</strong>
+            </div>
+            <div class="section-content">
+            <p>${rich(s.descripcion)}</p>
+            <a class="download" href="${s.url}">
+            <span class="material-symbols-rounded">download</span>
+            Descargar
+            </a>
+            </div>
             </div>`
           }).join('')}
         </div>
