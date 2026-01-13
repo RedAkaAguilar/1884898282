@@ -1,0 +1,23 @@
+{
+  "productos": {
+    "launcher": {
+      "titulo": "ZyrAka Launcher",
+      "descripcion": "Launcher oficial para **ZyrAkaNetwork** con soporte _multiplataforma_ y actualizaciones automáticas.",
+      "secciones": [
+        {
+          "titulo": "Windows 64-bit",
+          "icono": "desktop_windows",
+          "descripcion": "Compatible con **Windows 10/11**\n\nIncluye:\n- Actualizaciones automáticas\n- Instalador `.exe`\n- Soporte completo",
+          "url": "https://tudominio.com/windows.exe"
+        },
+        {
+          "titulo": "Linux",
+          "icono": "terminal",
+          "descripcion": "Distribuciones soportadas:\n`Ubuntu`, `Arch`, `Debian`\n\nFormato **AppImage**",
+          "url": "https://tudominio.com/linux.AppImage"
+        }
+      ]
+    }
+  }
+}
+
