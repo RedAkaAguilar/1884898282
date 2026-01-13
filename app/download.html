@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Descarga • ZyrAkaNetwork</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#0b162a,#0b2a24,#0b162a);
+  background-size:400% 400%;
+  animation:bg 18s ease infinite;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.card{
+  width:420px;
+  padding:36px 32px;
+  border-radius:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,.42),rgba(255,255,255,.14));
+  backdrop-filter:blur(32px) saturate(180%);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 80px 200px rgba(0,0,0,.85);
+  animation:enter .8s cubic-bezier(.28,1.25,.55,1);
+}
+
+@keyframes enter{
+  from{opacity:0;transform:translateY(40px) scale(.92)}
+  to{opacity:1;transform:none}
+}
+
+h1{
+  margin:0 0 6px;
+  font-size:22px;
+}
+
+.desc{
+  font-size:14px;
+  color:rgba(255,255,255,.75);
+  line-height:1.5;
+}
+
+.section{
+  margin-top:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.35);
+  overflow:hidden;
+}
+
+.section-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 16px;
+  cursor:pointer;
+}
+
+.section-header span{
+  font-size:22px;
+}
+
+.section-content{
+  padding:14px 16px;
+  display:none;
+  animation:fade .35s ease;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(-6px)}
+  to{opacity:1}
+}
+
+.section-content p{
+  font-size:13px;
+  color:rgba(255,255,255,.8);
+  line-height:1.45;
+  white-space:pre-line;
+}
+
+.download{
+  margin-top:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  height:44px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#9dffe9,#6cf2ff);
+  color:#000;
+  font-weight:700;
+  text-decoration:none;
+}
+
+.error{
+  text-align:center;
+  animation:enter .8s cubic-bezier(.28,1.25,.55,1);
+}
+
+.error span{
+  font-size:54px;
+  opacity:.7;
+}
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+const DATA_URL = '/descarga-manager.json'
+const id = new URLSearchParams(location.search).get('id')
+const app = document.getElementById('app')
+
+function rich(text){
+  return text
+    .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
+    .replace(/_(.*?)_/g,'<i>$1</i>')
+    .replace(/`(.*?)`/g,'<code>$1</code>')
+}
+
+fetch(DATA_URL)
+.then(r=>r.json())
+.then(data=>{
+  const p = data.productos?.[id]
+  if(!p){
+    app.innerHTML=`
+      <div class="error card">
+        <span class="material-symbols-rounded">error</span>
+        <h1>Producto no encontrado</h1>
+        <p class="desc">La descarga solicitada no existe o fue eliminada.</p>
+      </div>`
+    return
+  }
+
+  app.innerHTML=`
+    <div class="card">
+      <h1>${p.titulo}</h1>
+      <div class="desc">${rich(p.descripcion)}</div>
+      ${p.secciones.map((s,i)=>`
+        <div class="section">
+          <div class="section-header" onclick="toggle(${i})">
+            <span class="material-symbols-rounded">${s.icono}</span>
+            <strong>${s.titulo}</strong>
+          </div>
+          <div class="section-content" id="sec${i}">
+            <p>${rich(s.descripcion)}</p>
+            <a class="download" href="${s.url}">
+              <span class="material-symbols-rounded">download</span>
+              Descargar
+            </a>
+          </div>
+        </div>
+      `).join('')}
+    </div>`
+})
+
+function toggle(i){
+  const el=document.getElementById('sec'+i)
+  el.style.display=el.style.display==='block'?'none':'block'
+}
+</script>
+
+</body>
+</html>
