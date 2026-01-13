@@ -293,14 +293,12 @@ async function cargar(){
       </div>
     </div>
   `;
-
-  // Después de product.innerHTML = `...`
 paypal.Buttons({
   createOrder: function(data, actions) {
     return actions.order.create({
       purchase_units: [{
         amount: {
-          value: 0 // monto calculado en tu código
+          value: 1.99
         },
         description: p.titulo // descripción del producto
       }]
