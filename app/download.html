@@ -5,33 +5,41 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Descarga • ZyrAkaNetwork</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
 <style>
 :root{
-  --glass:rgba(255,255,255,.22);
-  --border:rgba(255,255,255,.35);
+  --bg1:#0b162a;
+  --bg2:#0b2a24;
+  --glass:rgba(255,255,255,.18);
+  --glass-strong:rgba(255,255,255,.32);
+  --border:rgba(255,255,255,.28);
   --text:#fff;
-  --muted:rgba(255,255,255,.7);
-  --blur:32px;
-  --spring:cubic-bezier(.28,1.25,.55,1);
+  --muted:rgba(255,255,255,.68);
   --accent:#8bffe0;
+  --accent-2:#6cf2ff;
+  --blur:38px;
+  --spring:cubic-bezier(.2,1.2,.4,1);
 }
 
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
 
 body{
   margin:0;
   min-height:100vh;
   font-family:Outfit,system-ui;
-  background:linear-gradient(120deg,#0b162a,#0b2a24,#0b162a);
+  background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg1));
   background-size:400% 400%;
-  animation:bg 18s ease infinite;
+  animation:bg 20s ease infinite;
   color:var(--text);
   display:flex;
   align-items:center;
   justify-content:center;
+  overflow:hidden;
 }
 
 @keyframes bg{
@@ -40,122 +48,199 @@ body{
   100%{background-position:0% 50%}
 }
 
-.card{
-  width:440px;
-  padding:36px 32px;
-  border-radius:32px;
-  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.14));
-  backdrop-filter:blur(var(--blur)) saturate(180%);
-  border:1px solid var(--border);
-  box-shadow:0 90px 220px rgba(0,0,0,.85);
-  animation:enter .9s var(--spring);
+/* LIQUID BACKGROUND */
+.liquid{
+  position:fixed;
+  inset:-25%;
+  filter:blur(160px);
+  pointer-events:none;
+  z-index:0;
+}
+.liquid span{
+  position:absolute;
+  width:50vw;
+  height:50vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.16);
+  animation:float 34s ease-in-out infinite;
+}
+.liquid span:nth-child(1){top:8%;left:10%}
+.liquid span:nth-child(2){bottom:12%;right:14%;animation-duration:42s}
+.liquid span:nth-child(3){top:38%;right:32%;animation-duration:50s}
+
+@keyframes float{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(140px,-90px) scale(1.45)}
+  100%{transform:translate(0,0) scale(1)}
 }
 
-@keyframes enter{
-  from{opacity:0;transform:translateY(50px) scale(.92)}
+/* APP CARD */
+.app{
+  position:relative;
+  z-index:1;
+  width:460px;
+  padding:34px;
+  border-radius:34px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.12));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 120px 260px rgba(0,0,0,.9);
+  animation:appIn .9s var(--spring);
+}
+
+@keyframes appIn{
+  from{opacity:0;transform:translateY(60px) scale(.92)}
   to{opacity:1;transform:none}
 }
 
-h1{margin:0 0 6px;font-size:22px}
-.desc{font-size:14px;color:var(--muted);line-height:1.55}
+/* HEADER */
+.header{
+  margin-bottom:14px;
+}
+.header h1{
+  margin:0;
+  font-size:24px;
+  font-weight:800;
+}
+.header p{
+  margin:6px 0 0;
+  font-size:14px;
+  color:var(--muted);
+  line-height:1.6;
+}
 
+/* LOADER */
 .loader{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:14px;
+  gap:16px;
 }
-
 .spinner{
-  width:54px;
-  height:54px;
+  width:56px;
+  height:56px;
   border-radius:50%;
   border:4px solid rgba(255,255,255,.25);
   border-top-color:var(--accent);
   animation:spin 1s linear infinite;
 }
-
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* SECTIONS */
 .section{
   margin-top:18px;
-  border-radius:20px;
-  background:rgba(255,255,255,.18);
-  border:1px solid rgba(255,255,255,.35);
+  border-radius:22px;
+  background:rgba(255,255,255,.16);
+  border:1px solid rgba(255,255,255,.3);
   overflow:hidden;
-  transition:transform .25s var(--spring);
+  animation:sectionIn .7s var(--spring) both;
 }
+.section:nth-child(2){animation-delay:.05s}
+.section:nth-child(3){animation-delay:.1s}
+.section:nth-child(4){animation-delay:.15s}
 
-.section:hover{transform:translateY(-2px)}
+@keyframes sectionIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1}
+}
 
 .section-header{
   display:flex;
   align-items:center;
-  gap:10px;
-  padding:14px 16px;
+  gap:12px;
+  padding:16px;
   cursor:pointer;
 }
-
-.section-header span{font-size:22px}
+.section-header span{
+  font-size:24px;
+}
+.section-header strong{
+  flex:1;
+}
 
 .recommended{
   font-size:11px;
-  background:linear-gradient(135deg,#9dffe9,#6cf2ff);
-  color:#000;
-  padding:3px 8px;
-  border-radius:999px;
   font-weight:700;
+  padding:4px 10px;
+  border-radius:999px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#000;
 }
 
 .section-content{
-  padding:14px 16px;
+  padding:0 16px 16px;
   display:none;
-  animation:fade .35s ease;
+  animation:expand .35s ease;
 }
-
-@keyframes fade{
+@keyframes expand{
   from{opacity:0;transform:translateY(-6px)}
   to{opacity:1}
 }
-
 .section-content p{
+  margin:12px 0 0;
   font-size:13px;
-  color:rgba(255,255,255,.8);
-  line-height:1.5;
+  color:rgba(255,255,255,.82);
+  line-height:1.55;
   white-space:pre-line;
 }
 
+/* DOWNLOAD BUTTON */
 .download{
-  margin-top:12px;
-  height:44px;
-  border-radius:14px;
-  background:linear-gradient(135deg,#9dffe9,#6cf2ff);
+  margin-top:14px;
+  height:46px;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
   color:#000;
-  font-weight:700;
+  font-weight:800;
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:8px;
+  gap:10px;
   text-decoration:none;
+  transition:transform .25s var(--spring),box-shadow .25s;
+  box-shadow:0 18px 50px rgba(140,255,230,.45);
+}
+.download:hover{
+  transform:translateY(-2px);
+  box-shadow:0 26px 70px rgba(140,255,230,.65);
+}
+.download:active{
+  transform:scale(.96);
 }
 
-.error{text-align:center}
-.error span{font-size:56px;opacity:.7}
+/* ERROR */
+.error{
+  text-align:center;
+}
+.error span{
+  font-size:60px;
+  opacity:.75;
+}
 </style>
 </head>
 
 <body>
-<div id="app" class="card">
+
+<div class="liquid">
+  <span></span><span></span><span></span>
+</div>
+
+<div id="app" class="app">
   <div class="loader">
     <div class="spinner"></div>
-    <div class="desc">Cargando descarga…</div>
+    <div class="header">
+      <p>Cargando información de descarga…</p>
+    </div>
   </div>
 </div>
 
 <script>
 const DATA_URL='/api/control/descarga-manager.json'
-const id=new URLSearchParams(location.search).get('id')
 const app=document.getElementById('app')
+const id=new URLSearchParams(location.search).get('id')
 const os=navigator.platform.toLowerCase()
 
 function rich(t){
@@ -165,51 +250,66 @@ function rich(t){
     .replace(/`(.*?)`/g,'<code>$1</code>')
 }
 
-fetch(DATA_URL)
-.then(r=>r.json())
-.then(data=>{
-  const p=data.productos?.[id]
-  if(!p){
-    app.innerHTML=`
-      <div class="error">
-        <span class="material-symbols-rounded">error</span>
-        <h1>Producto no encontrado</h1>
-        <div class="desc">La descarga solicitada no existe.</div>
-      </div>`
-    return
-  }
-
+function showError(title,msg){
   app.innerHTML=`
-    <h1>${p.titulo}</h1>
-    <div class="desc">${rich(p.descripcion)}</div>
-    ${p.secciones.map((s,i)=>{
-      const recommended=
-        (os.includes('win') && s.titulo.toLowerCase().includes('windows')) ||
-        (os.includes('linux') && s.titulo.toLowerCase().includes('linux')) ||
-        (os.includes('mac') && s.titulo.toLowerCase().includes('mac'))
-      return `
-      <div class="section">
-        <div class="section-header" onclick="toggle(${i})">
-          <span class="material-symbols-rounded">${s.icono}</span>
-          <strong>${s.titulo}</strong>
-          ${recommended?'<span class="recommended">Recomendado</span>':''}
+    <div class="error">
+      <span class="material-symbols-rounded">error</span>
+      <h1>${title}</h1>
+      <p class="header">${msg}</p>
+    </div>`
+}
+
+if(!id){
+  showError('Descarga no válida','No se especificó un producto.')
+}else{
+  fetch(DATA_URL,{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw 0;return r.json()})
+    .then(data=>{
+      const p=data.productos?.[id]
+      if(!p){
+        showError('Producto no encontrado','Esta descarga no existe.')
+        return
+      }
+
+      app.innerHTML=`
+        <div class="header">
+          <h1>${p.titulo}</h1>
+          <p>${rich(p.descripcion)}</p>
         </div>
-        <div class="section-content" id="sec${i}">
-          <p>${rich(s.descripcion)}</p>
-          <a class="download" href="${s.url}">
-            <span class="material-symbols-rounded">download</span>
-            Descargar
-          </a>
-        </div>
-      </div>`
-    }).join('')}
-  `
-})
+
+        ${p.secciones.map((s,i)=>{
+          const rec=
+            (os.includes('win')&&s.titulo.toLowerCase().includes('windows'))||
+            (os.includes('linux')&&s.titulo.toLowerCase().includes('linux'))||
+            (os.includes('mac')&&s.titulo.toLowerCase().includes('mac'))
+
+          return`
+          <div class="section">
+            <div class="section-header" onclick="toggle(${i})">
+              <span class="material-symbols-rounded">${s.icono}</span>
+              <strong>${s.titulo}</strong>
+              ${rec?'<span class="recommended">Recomendado</span>':''}
+            </div>
+            <div class="section-content" id="sec${i}">
+              <p>${rich(s.descripcion)}</p>
+              <a class="download" href="${s.url}">
+                <span class="material-symbols-rounded">download</span>
+                Descargar
+              </a>
+            </div>
+          </div>`
+        }).join('')}
+      `
+    })
+    .catch(()=>showError('Error de carga','No se pudo obtener la información.'))
+}
 
 function toggle(i){
   const el=document.getElementById('sec'+i)
   el.style.display=el.style.display==='block'?'none':'block'
 }
 </script>
+
 </body>
 </html>
+
