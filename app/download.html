@@ -275,35 +275,29 @@ if(!id){
 
       let recommendedIndex=-1
 
-      app.innerHTML=`
-        <div class="header">
-          <h1>${p.titulo}</h1>
-          <p>${rich(p.descripcion)}</p>
+      app.innerHTML = `
+  <div class="header">
+    <h1>${p.titulo}</h1>
+    <p>${rich(p.descripcion)}</p>
+  </div>
+  <div class="sections">
+    ${p.secciones.map((s,i)=>`
+      <div class="section" id="wrap${i}">
+        <div class="section-header" onclick="toggle(${i})">
+          <span class="material-symbols-rounded">${s.icono}</span>
+          <strong>${s.titulo}</strong>
         </div>
-        <div class="sections">
-          ${p.secciones.map((s,i)=>{
-            const rec=
-              (os.includes('win')&&s.titulo.toLowerCase().includes('windows'))||
-              (os.includes('linux')&&s.titulo.toLowerCase().includes('linux'))||
-              (os.includes('mac')&&s.titulo.toLowerCase().includes('mac'))
-            if(rec && recommendedIndex===-1) recommendedIndex=i
-            return`
-            <div class="section" id="wrap${i}">
-             <div class="section-header" onclick="toggle(${i})">
-              <span class="material-symbols-rounded">${s.icono}</span>
-               <strong>${s.titulo}</strong>
-            </div>
-             <div class="section-content">
-              <p>${rich(s.descripcion)}</p>
-              <a class="download" href="${s.url}">
+        <div class="section-content">
+          <p>${rich(s.descripcion)}</p>
+          <a class="download" href="${s.url}">
             <span class="material-symbols-rounded">download</span>
             Descargar
-            </a>
-           </div>
-          </div>
-          `).join('')}
+          </a>
         </div>
-      `
+      </div>
+    `).join('')}
+  </div>
+`
 
       if(recommendedIndex>-1){
         document.getElementById('sec'+recommendedIndex).style.display='block'
