@@ -237,7 +237,7 @@ body{
 
   <div id="product"></div>
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id=TU_CLIENT_ID&currency=USD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AXX-gsl8idRGstMRyweLZTOkRPBTqF8Yoy2ZNwLhIGwsfX8ptU7E7wtFEYZmh5VixYO1Y7Cq1SS9LaXi&currency=USD"></script>
 
 <script>
 const params = new URLSearchParams(location.search);
@@ -300,7 +300,7 @@ paypal.Buttons({
     return actions.order.create({
       purchase_units: [{
         amount: {
-          value: final // monto calculado en tu código
+          value: 0 // monto calculado en tu código
         },
         description: p.titulo // descripción del producto
       }]
