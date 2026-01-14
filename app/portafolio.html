@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ZyrAkaAguilar • test</title>
+<title>ZyrAkaAguilar • Eventos Minecraft</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
@@ -67,25 +67,9 @@ backdrop-filter:blur(30px);
 background:linear-gradient(to bottom, rgba(6,8,15,.9), rgba(6,8,15,.4));
 }
 
-.header h1{
-font-size:1.1rem;
-font-weight:700;
-letter-spacing:.4px;
-}
+main{padding-bottom:160px}
 
-main{
-padding-bottom:160px;
-}
-
-section{
-padding:60px 24px;
-animation:fadeUp 1s var(--spring) both;
-}
-
-@keyframes fadeUp{
-from{opacity:0;transform:translateY(40px)}
-to{opacity:1;transform:none}
-}
+section{padding:60px 24px}
 
 .hero h2{
 font-size:clamp(2.6rem,8vw,4rem);
@@ -96,18 +80,11 @@ line-height:1.05;
 background:linear-gradient(90deg,var(--accent),var(--accent2),var(--pink));
 -webkit-background-clip:text;
 color:transparent;
-animation:gradientFlow 6s linear infinite;
 }
-
-@keyframes gradientFlow{
-0%{filter:hue-rotate(0deg)}
-100%{filter:hue-rotate(360deg)}
-}
-
 .hero p{
-margin-top:18px;
+margin-top:20px;
 color:var(--muted);
-max-width:540px;
+max-width:620px;
 font-size:1.05rem;
 }
 
@@ -121,25 +98,15 @@ color:white;
 font-weight:800;
 box-shadow:0 25px 80px rgba(56,189,248,.45);
 transition:.35s var(--spring);
-animation:pulse 3s ease-in-out infinite;
 }
-
-@keyframes pulse{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.05)}
-}
-
-.btn:active{
-transform:scale(.92);
-}
+.btn:active{transform:scale(.92)}
 
 .stats{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
 gap:18px;
-margin-top:40px;
+margin-top:42px;
 }
-
 .stat{
 background:var(--glass);
 border:1px solid var(--border);
@@ -147,19 +114,11 @@ border-radius:24px;
 padding:24px;
 backdrop-filter:blur(20px);
 text-align:center;
-animation:floatCard 6s ease-in-out infinite;
 }
-
-@keyframes floatCard{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-10px)}
-}
-
 .stat h3{
 font-size:2rem;
 font-weight:900;
 }
-
 .stat p{
 font-size:.8rem;
 color:var(--muted);
@@ -182,41 +141,24 @@ display:flex;
 gap:16px;
 align-items:flex-start;
 transition:.35s var(--spring);
-animation:cardIdle 8s ease-in-out infinite;
 }
-
-@keyframes cardIdle{
-0%,100%{transform:translateY(0)}
-50%{transform:translateY(-8px)}
-}
-
-.card:hover{
-transform:scale(1.05);
-}
-
+.card:hover{transform:scale(1.05)}
 .card span{
 font-size:28px;
 color:var(--accent);
-animation:iconPulse 2.5s ease-in-out infinite;
 }
-
-@keyframes iconPulse{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.2)}
-}
+.card p{font-size:.95rem}
 
 .timeline{
 display:grid;
 gap:24px;
 margin-top:20px;
 }
-
 .step{
 display:flex;
 gap:18px;
 align-items:flex-start;
 }
-
 .step span{
 font-size:28px;
 color:var(--accent2);
@@ -226,7 +168,6 @@ color:var(--accent2);
 margin-top:50px;
 perspective:1600px;
 }
-
 .carousel{
 position:relative;
 height:280px;
@@ -234,7 +175,6 @@ display:flex;
 justify-content:center;
 align-items:center;
 }
-
 .slide{
 position:absolute;
 width:80%;
@@ -246,28 +186,10 @@ transform:scale(.7) rotateY(30deg);
 transition:1s var(--spring);
 box-shadow:0 80px 200px rgba(0,0,0,.9);
 }
-
-.slide img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.slide.active{
-opacity:1;
-transform:translateX(0) scale(1);
-z-index:3;
-}
-
-.slide.prev{
-opacity:.5;
-transform:translateX(-70%) scale(.8) rotateY(20deg);
-}
-
-.slide.next{
-opacity:.5;
-transform:translateX(70%) scale(.8) rotateY(-20deg);
-}
+.slide img{width:100%;height:100%;object-fit:cover}
+.slide.active{opacity:1;transform:translateX(0) scale(1);z-index:3}
+.slide.prev{opacity:.5;transform:translateX(-70%) scale(.8) rotateY(20deg)}
+.slide.next{opacity:.5;transform:translateX(70%) scale(.8) rotateY(-20deg)}
 
 .tabbar{
 position:fixed;
@@ -285,7 +207,6 @@ justify-content:space-around;
 align-items:center;
 box-shadow:0 40px 120px rgba(0,0,0,.8);
 }
-
 .tab{
 display:flex;
 flex-direction:column;
@@ -294,19 +215,8 @@ font-size:.7rem;
 color:var(--muted);
 transition:.35s var(--spring);
 }
-
-.tab span{
-font-size:28px;
-}
-
-.tab.active{
-color:white;
-transform:translateY(-6px);
-}
-
-.tab:active{
-transform:scale(.85);
-}
+.tab span{font-size:28px}
+.tab.active{color:white;transform:translateY(-6px)}
 </style>
 </head>
 
@@ -321,36 +231,60 @@ transform:scale(.85);
 <main>
 
 <section class="hero">
-<h2>ZyrAkaAguilar<br><span>Eventos Minecraft</span></h2>
-<p>Producción de eventos Minecraft con enfoque técnico, visual y experiencia de usuario profesional.</p>
-<button class="btn">Iniciar Proyecto</button>
+<h2>Soy ZyrAkaAguilar<br><span>Creadora de Eventos Minecraft</span></h2>
+<p>
+Soy creadora de eventos Minecraft con más de 5 años de estudio y experiencia en la planificación,
+organización y ejecución de eventos. Actualmente ofrezco mis servicios de forma profesional,
+buscando colaborar con studios y comunidades para demostrar todo mi potencial creativo y técnico.
+</p>
+<button class="btn">Contratar Servicio</button>
 
 <div class="stats">
-<div class="stat"><h3>+5</h3><p>Años experiencia</p></div>
-<div class="stat"><h3>120+</h3><p>Eventos realizados</p></div>
-<div class="stat"><h3>98%</h3><p>Estabilidad</p></div>
+<div class="stat"><h3>5+</h3><p>Años estudiando eventos</p></div>
+<div class="stat"><h3>Roleplay</h3><p>Experiencia profesional</p></div>
+<div class="stat"><h3>Staff</h3><p>Seguridad y moderación</p></div>
 </div>
 </section>
 
 <section class="grid">
-<div class="card"><span class="material-symbols-rounded">stadia_controller</span><p>Eventos PvP, PvE, Hardcore y Roleplay con sistemas personalizados.</p></div>
-<div class="card"><span class="material-symbols-rounded">groups</span><p>Dirección de staff, moderación, builders y desarrolladores.</p></div>
-<div class="card"><span class="material-symbols-rounded">settings</span><p>Optimización de servidores, plugins y rendimiento.</p></div>
-<div class="card"><span class="material-symbols-rounded">rocket_launch</span><p>Proyectos escalables con visión profesional.</p></div>
-</section>
-
-<section>
-<h2>Proceso de Trabajo</h2>
-<div class="timeline">
-<div class="step"><span class="material-symbols-rounded">lightbulb</span><p>Idea y planificación estratégica.</p></div>
-<div class="step"><span class="material-symbols-rounded">build</span><p>Desarrollo técnico y pruebas.</p></div>
-<div class="step"><span class="material-symbols-rounded">sports_esports</span><p>Ejecución en vivo del evento.</p></div>
-<div class="step"><span class="material-symbols-rounded">verified</span><p>Optimización post-evento.</p></div>
+<div class="card">
+<span class="material-symbols-rounded">event</span>
+<p>Organización completa de eventos Minecraft, desde la idea hasta la ejecución final.</p>
+</div>
+<div class="card">
+<span class="material-symbols-rounded">shield</span>
+<p>Moderación y seguridad general en eventos, con experiencia como Staff y Mod.</p>
+</div>
+<div class="card">
+<span class="material-symbols-rounded">groups</span>
+<p>Coordinación de equipos, control de roles y manejo de participantes.</p>
+</div>
+<div class="card">
+<span class="material-symbols-rounded">sports_esports</span>
+<p>Skills avanzados en Roleplay aplicados a eventos narrativos y dinámicos.</p>
 </div>
 </section>
 
 <section>
-<h2>Proyectos Destacados</h2>
+<h2>Experiencia</h2>
+<div class="timeline">
+<div class="step">
+<span class="material-symbols-rounded">school</span>
+<p>5 años de estudio y aprendizaje enfocado en la creación de eventos Minecraft.</p>
+</div>
+<div class="step">
+<span class="material-symbols-rounded">apartment</span>
+<p>Trabajo en Roleplay dentro de Crystal Studio, participando en proyectos profesionales.</p>
+</div>
+<div class="step">
+<span class="material-symbols-rounded">trending_up</span>
+<p>Proyección a futuro para colaborar con más studios y mostrar mis capacidades.</p>
+</div>
+</div>
+</section>
+
+<section>
+<h2>Proyectos y Eventos</h2>
 <div class="carousel-wrap">
 <div class="carousel" id="carousel">
 <div class="slide active"><img src="https://picsum.photos/1600/900?1"></div>
@@ -365,7 +299,7 @@ transform:scale(.85);
 
 <nav class="tabbar">
 <div class="tab active"><span class="material-symbols-rounded">home</span>Inicio</div>
-<div class="tab"><span class="material-symbols-rounded">work</span>Proyectos</div>
+<div class="tab"><span class="material-symbols-rounded">work</span>Experiencia</div>
 <div class="tab"><span class="material-symbols-rounded">mail</span>Contacto</div>
 </nav>
 
