@@ -9,8 +9,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
 <meta name="theme-color" content="#06080f">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 <style>
 :root{
@@ -22,14 +20,13 @@
 --accent:#38bdf8;
 --accent2:#22c55e;
 --pink:#ec4899;
---radius:26px;
+--radius:30px;
 --spring:cubic-bezier(.28,1.25,.55,1);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
 
 html,body{
-height:100%;
 background:var(--bg);
 color:var(--text);
 font-family:Outfit,system-ui;
@@ -45,46 +42,53 @@ overflow:hidden;
 }
 .bg span{
 position:absolute;
-width:55vw;
-height:55vw;
+width:60vw;
+height:60vw;
 border-radius:50%;
-filter:blur(150px);
-opacity:.32;
-animation:float 36s ease-in-out infinite;
+filter:blur(160px);
+opacity:.35;
+animation:float 40s ease-in-out infinite;
 }
-.bg span:nth-child(1){background:#38bdf8;top:-15%;left:-15%}
-.bg span:nth-child(2){background:#22c55e;bottom:-15%;right:-15%;animation-duration:44s}
-.bg span:nth-child(3){background:#ec4899;top:30%;right:10%;animation-duration:52s}
+.bg span:nth-child(1){background:#38bdf8;top:-20%;left:-20%}
+.bg span:nth-child(2){background:#22c55e;bottom:-20%;right:-20%;animation-duration:50s}
+.bg span:nth-child(3){background:#ec4899;top:25%;right:15%;animation-duration:60s}
 
 @keyframes float{
 0%,100%{transform:translate(0,0)}
-50%{transform:translate(140px,-90px)}
+50%{transform:translate(160px,-120px)}
 }
 
 .header{
 position:sticky;
 top:0;
 z-index:20;
-padding:18px 22px calc(18px + env(safe-area-inset-top));
-backdrop-filter:blur(24px);
-background:linear-gradient(to bottom, rgba(6,8,15,.88), rgba(6,8,15,.55));
-border-bottom:1px solid var(--border);
+padding:22px;
+backdrop-filter:blur(30px);
+background:linear-gradient(to bottom, rgba(6,8,15,.9), rgba(6,8,15,.4));
 }
+
 .header h1{
-font-size:1.15rem;
+font-size:1.1rem;
 font-weight:700;
+letter-spacing:.4px;
 }
 
 main{
-padding-bottom:calc(110px + env(safe-area-inset-bottom));
+padding-bottom:160px;
 }
 
 section{
-padding:42px 22px;
+padding:60px 24px;
+animation:fadeUp 1s var(--spring) both;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:none}
 }
 
 .hero h2{
-font-size:clamp(2.4rem,7vw,3.6rem);
+font-size:clamp(2.6rem,8vw,4rem);
 font-weight:900;
 line-height:1.05;
 }
@@ -92,79 +96,155 @@ line-height:1.05;
 background:linear-gradient(90deg,var(--accent),var(--accent2),var(--pink));
 -webkit-background-clip:text;
 color:transparent;
+animation:gradientFlow 6s linear infinite;
 }
+
+@keyframes gradientFlow{
+0%{filter:hue-rotate(0deg)}
+100%{filter:hue-rotate(360deg)}
+}
+
 .hero p{
-margin-top:16px;
+margin-top:18px;
 color:var(--muted);
-max-width:520px;
+max-width:540px;
+font-size:1.05rem;
 }
 
 .btn{
-margin-top:26px;
-padding:16px 30px;
+margin-top:34px;
+padding:18px 34px;
 border-radius:999px;
 background:linear-gradient(135deg,var(--accent),var(--accent2));
 border:none;
 color:white;
-font-weight:700;
-box-shadow:0 20px 60px rgba(56,189,248,.45);
-transition:.3s var(--spring);
+font-weight:800;
+box-shadow:0 25px 80px rgba(56,189,248,.45);
+transition:.35s var(--spring);
+animation:pulse 3s ease-in-out infinite;
 }
+
+@keyframes pulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.05)}
+}
+
 .btn:active{
-transform:scale(.94);
-box-shadow:0 10px 30px rgba(56,189,248,.35);
+transform:scale(.92);
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:18px;
+margin-top:40px;
+}
+
+.stat{
+background:var(--glass);
+border:1px solid var(--border);
+border-radius:24px;
+padding:24px;
+backdrop-filter:blur(20px);
+text-align:center;
+animation:floatCard 6s ease-in-out infinite;
+}
+
+@keyframes floatCard{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
+}
+
+.stat h3{
+font-size:2rem;
+font-weight:900;
+}
+
+.stat p{
+font-size:.8rem;
+color:var(--muted);
+margin-top:6px;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:18px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
 }
 
 .card{
 background:var(--glass);
 border:1px solid var(--border);
-border-radius:var(--radius);
-padding:22px;
-backdrop-filter:blur(20px);
+border-radius:28px;
+padding:26px;
+backdrop-filter:blur(22px);
 display:flex;
-gap:14px;
+gap:16px;
 align-items:flex-start;
-transition:.25s var(--spring);
+transition:.35s var(--spring);
+animation:cardIdle 8s ease-in-out infinite;
 }
-.card:active{transform:scale(.97)}
+
+@keyframes cardIdle{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-8px)}
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
 .card span{
-font-size:26px;
+font-size:28px;
 color:var(--accent);
+animation:iconPulse 2.5s ease-in-out infinite;
 }
-.card p{
-font-size:.95rem;
-color:var(--text);
+
+@keyframes iconPulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.2)}
+}
+
+.timeline{
+display:grid;
+gap:24px;
+margin-top:20px;
+}
+
+.step{
+display:flex;
+gap:18px;
+align-items:flex-start;
+}
+
+.step span{
+font-size:28px;
+color:var(--accent2);
 }
 
 .carousel-wrap{
-margin-top:10px;
-perspective:1400px;
+margin-top:50px;
+perspective:1600px;
 }
 
 .carousel{
 position:relative;
+height:280px;
 display:flex;
 justify-content:center;
 align-items:center;
-height:260px;
 }
 
 .slide{
 position:absolute;
-width:78%;
+width:80%;
 aspect-ratio:16/9;
-border-radius:30px;
+border-radius:34px;
 overflow:hidden;
 opacity:0;
 transform:scale(.7) rotateY(30deg);
 transition:1s var(--spring);
-box-shadow:0 60px 160px rgba(0,0,0,.9);
+box-shadow:0 80px 200px rgba(0,0,0,.9);
 }
 
 .slide img{
@@ -180,31 +260,30 @@ z-index:3;
 }
 
 .slide.prev{
-opacity:.45;
-transform:translateX(-65%) scale(.75) rotateY(25deg);
-z-index:2;
+opacity:.5;
+transform:translateX(-70%) scale(.8) rotateY(20deg);
 }
 
 .slide.next{
-opacity:.45;
-transform:translateX(65%) scale(.75) rotateY(-25deg);
-z-index:2;
+opacity:.5;
+transform:translateX(70%) scale(.8) rotateY(-20deg);
 }
 
 .tabbar{
 position:fixed;
-left:0;
-right:0;
-bottom:0;
-height:88px;
-padding-bottom:env(safe-area-inset-bottom);
-backdrop-filter:blur(30px);
-background:linear-gradient(to top, rgba(6,8,15,.95), rgba(6,8,15,.6));
-border-top:1px solid var(--border);
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+width:calc(100% - 80px);
+max-width:420px;
+height:78px;
+background:linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+backdrop-filter:blur(40px);
+border-radius:999px;
 display:flex;
 justify-content:space-around;
 align-items:center;
-z-index:30;
+box-shadow:0 40px 120px rgba(0,0,0,.8);
 }
 
 .tab{
@@ -213,11 +292,21 @@ flex-direction:column;
 align-items:center;
 font-size:.7rem;
 color:var(--muted);
-transition:.25s;
+transition:.35s var(--spring);
 }
-.tab span{font-size:26px}
-.tab.active{color:white}
-.tab:active{transform:scale(.9)}
+
+.tab span{
+font-size:28px;
+}
+
+.tab.active{
+color:white;
+transform:translateY(-6px);
+}
+
+.tab:active{
+transform:scale(.85);
+}
 </style>
 </head>
 
@@ -233,31 +322,35 @@ transition:.25s;
 
 <section class="hero">
 <h2>ZyrAkaAguilar<br><span>Eventos Minecraft</span></h2>
-<p>Creación, dirección y ejecución de eventos Minecraft con enfoque técnico, visual y profesional.</p>
-<button class="btn">Trabajemos juntos</button>
+<p>Producción de eventos Minecraft con enfoque técnico, visual y experiencia de usuario profesional.</p>
+<button class="btn">Iniciar Proyecto</button>
+
+<div class="stats">
+<div class="stat"><h3>+5</h3><p>Años experiencia</p></div>
+<div class="stat"><h3>120+</h3><p>Eventos realizados</p></div>
+<div class="stat"><h3>98%</h3><p>Estabilidad</p></div>
+</div>
 </section>
 
 <section class="grid">
-<div class="card">
-<span class="material-symbols-rounded">stadia_controller</span>
-<p>Eventos PvP, PvE y Roleplay con estabilidad y alto impacto.</p>
-</div>
-<div class="card">
-<span class="material-symbols-rounded">groups</span>
-<p>Coordinación de equipos, moderadores y desarrolladores.</p>
-</div>
-<div class="card">
-<span class="material-symbols-rounded">settings</span>
-<p>Sistemas personalizados, optimización y control técnico.</p>
-</div>
-<div class="card">
-<span class="material-symbols-rounded">rocket_launch</span>
-<p>Proyectos escalables con visión profesional a largo plazo.</p>
+<div class="card"><span class="material-symbols-rounded">stadia_controller</span><p>Eventos PvP, PvE, Hardcore y Roleplay con sistemas personalizados.</p></div>
+<div class="card"><span class="material-symbols-rounded">groups</span><p>Dirección de staff, moderación, builders y desarrolladores.</p></div>
+<div class="card"><span class="material-symbols-rounded">settings</span><p>Optimización de servidores, plugins y rendimiento.</p></div>
+<div class="card"><span class="material-symbols-rounded">rocket_launch</span><p>Proyectos escalables con visión profesional.</p></div>
+</section>
+
+<section>
+<h2>Proceso de Trabajo</h2>
+<div class="timeline">
+<div class="step"><span class="material-symbols-rounded">lightbulb</span><p>Idea y planificación estratégica.</p></div>
+<div class="step"><span class="material-symbols-rounded">build</span><p>Desarrollo técnico y pruebas.</p></div>
+<div class="step"><span class="material-symbols-rounded">sports_esports</span><p>Ejecución en vivo del evento.</p></div>
+<div class="step"><span class="material-symbols-rounded">verified</span><p>Optimización post-evento.</p></div>
 </div>
 </section>
 
 <section>
-<h2 style="margin-bottom:18px">Proyectos Destacados</h2>
+<h2>Proyectos Destacados</h2>
 <div class="carousel-wrap">
 <div class="carousel" id="carousel">
 <div class="slide active"><img src="https://picsum.photos/1600/900?1"></div>
@@ -271,33 +364,21 @@ transition:.25s;
 </main>
 
 <nav class="tabbar">
-<div class="tab active">
-<span class="material-symbols-rounded">home</span>
-Inicio
-</div>
-<div class="tab">
-<span class="material-symbols-rounded">work</span>
-Proyectos
-</div>
-<div class="tab">
-<span class="material-symbols-rounded">mail</span>
-Contacto
-</div>
+<div class="tab active"><span class="material-symbols-rounded">home</span>Inicio</div>
+<div class="tab"><span class="material-symbols-rounded">work</span>Proyectos</div>
+<div class="tab"><span class="material-symbols-rounded">mail</span>Contacto</div>
 </nav>
 
 <script>
 const slides=[...document.querySelectorAll(".slide")]
-let index=0
-
-function update(){
+let i=0
+setInterval(()=>{
 slides.forEach(s=>s.className="slide")
-slides[index].classList.add("active")
-slides[(index+1)%slides.length].classList.add("next")
-slides[(index-1+slides.length)%slides.length].classList.add("prev")
-index=(index+1)%slides.length
-}
-
-setInterval(update,4500)
+slides[i].classList.add("active")
+slides[(i+1)%slides.length].classList.add("next")
+slides[(i-1+slides.length)%slides.length].classList.add("prev")
+i=(i+1)%slides.length
+},4500)
 </script>
 
 </body>
