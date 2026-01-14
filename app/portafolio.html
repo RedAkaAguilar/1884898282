@@ -273,6 +273,95 @@ transition:.35s var(--spring);
   transform:scale(.9);
 }
 
+.footer-panel{
+  padding:120px 24px 40px;
+}
+
+.footer-card{
+  max-width:1200px;
+  margin:0 auto;
+  background:linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+  backdrop-filter:blur(40px);
+  border-radius:40px;
+  padding:60px 50px 40px;
+  box-shadow:0 80px 200px rgba(0,0,0,.9);
+  animation:footerIn 1.2s cubic-bezier(.28,1.25,.55,1);
+}
+
+@keyframes footerIn{
+  from{opacity:0;transform:translateY(80px)}
+  to{opacity:1;transform:none}
+}
+
+.footer-brand{
+  max-width:420px;
+}
+
+.brand-icon{
+  width:64px;
+  height:64px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 20px 60px rgba(56,189,248,.5);
+}
+
+.brand-icon span{
+  font-size:32px;
+}
+
+.footer-brand h3{
+  margin-top:18px;
+  font-size:1.4rem;
+  font-weight:800;
+}
+
+.footer-brand p{
+  margin-top:12px;
+  font-size:.95rem;
+  color:var(--muted);
+}
+
+.footer-columns{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:40px;
+  margin-top:50px;
+}
+
+.footer-col h4{
+  font-size:.9rem;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  color:white;
+}
+
+.footer-col a{
+  display:block;
+  font-size:.9rem;
+  color:var(--muted);
+  margin-bottom:10px;
+  cursor:pointer;
+  transition:.25s;
+}
+
+.footer-col a:hover{
+  color:white;
+  transform:translateX(6px);
+}
+
+.footer-bottom{
+  margin-top:50px;
+  padding-top:30px;
+  border-top:1px solid var(--border);
+  font-size:.8rem;
+  color:var(--muted);
+  text-align:center;
+}
+
 @media (min-width: 900px){
   .toolbar{
     top:20px;
@@ -364,6 +453,55 @@ buscando colaborar con studios y comunidades para demostrar todo mi potencial cr
 </div>
 </section>
 
+<section class="footer-panel" id="contacto">
+  <div class="footer-card">
+
+    <div class="footer-brand">
+      <div class="brand-icon">
+        <span class="material-symbols-rounded">stadia_controller</span>
+      </div>
+      <h3>ZyrAkaAguilar</h3>
+      <p>
+        Creadora de Eventos Minecraft especializada en organización,
+        moderación y desarrollo de experiencias profesionales.
+      </p>
+    </div>
+
+    <div class="footer-columns">
+
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <a>Organización de Eventos</a>
+        <a>Moderación y Seguridad</a>
+        <a>Creación de Eventos</a>
+        <a>Roleplay Profesional</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Experiencia</h4>
+        <a>Crystal Studio</a>
+        <a>Eventos Roleplay</a>
+        <a>Staff & Moderación</a>
+        <a>Proyectos futuros</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <a>Discord</a>
+        <a>Email</a>
+        <a>Colaboraciones</a>
+        <a>Servicios</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 ZyrAkaAguilar · Eventos Minecraft Profesionales
+    </div>
+
+  </div>
+</section>
+  
 </main>
 
 <nav class="toolbar">
