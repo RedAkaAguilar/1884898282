@@ -10,230 +10,239 @@
 
 <style>
 :root{
-  --bg:#0e1116;
-  --accent:#22c55e;
-  --blue:#38bdf8;
+  --bg:#06080f;
+  --accent:#38bdf8;
+  --accent2:#22c55e;
+  --pink:#ec4899;
   --glass:rgba(255,255,255,.12);
   --border:rgba(255,255,255,.25);
   --text:#fff;
-  --muted:#cbd5e1;
-  --radius:28px;
-  --shadow:0 20px 60px rgba(0,0,0,.55);
+  --muted:#aab0c5;
+  --radius:30px;
+  --shadow:0 40px 120px rgba(0,0,0,.7);
   --spring:cubic-bezier(.28,1.25,.55,1);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  font-family:Outfit,system-ui;
-  background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29);
-  background-size:400% 400%;
-  animation:bgMove 18s ease infinite;
-  color:var(--text);
-  -webkit-font-smoothing:antialiased;
+html,body{background:var(--bg);color:var(--text);font-family:Outfit,system-ui}
+body{overflow-x:hidden}
+
+/* ===== BACKGROUND ORBS ===== */
+.bg{
+  position:fixed;inset:0;z-index:-1;overflow:hidden
+}
+.bg span{
+  position:absolute;width:45vw;height:45vw;border-radius:50%;
+  filter:blur(140px);opacity:.35;
+  animation:float 28s ease-in-out infinite;
+}
+.bg span:nth-child(1){background:#38bdf8;top:-10%;left:-10%}
+.bg span:nth-child(2){background:#22c55e;bottom:-10%;right:-10%;animation-duration:36s}
+.bg span:nth-child(3){background:#ec4899;top:30%;right:20%;animation-duration:42s}
+
+@keyframes float{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(120px,-80px)}
 }
 
-/* fondo líquido */
-.liquid-bg{
-  position:fixed;
-  inset:-20%;
-  z-index:-1;
-  filter:blur(120px);
-}
-.liquid-bg span{
-  position:absolute;
-  width:45vw;height:45vw;
-  border-radius:50%;
-  background:rgba(255,255,255,.18);
-  animation:liquidMove 24s ease-in-out infinite;
-}
-.liquid-bg span:nth-child(1){top:10%;left:10%}
-.liquid-bg span:nth-child(2){bottom:15%;right:10%;animation-duration:30s}
-.liquid-bg span:nth-child(3){top:40%;right:30%;animation-duration:36s}
-
-@keyframes liquidMove{
-  0%,100%{transform:translate(0,0) scale(1)}
-  50%{transform:translate(80px,-60px) scale(1.25)}
-}
-@keyframes bgMove{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-.container{max-width:1100px;margin:auto;padding:32px}
-
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-}
-.brand{
-  display:flex;
-  gap:14px;
-  align-items:center;
-}
-.logo{
-  width:56px;height:56px;
-  border-radius:14px;
-  background:var(--glass);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
-}
-.brand h1{font-size:20px;font-weight:700}
-.brand p{font-size:13px;color:var(--muted)}
-
-.menu-btn{
-  padding:18px 26px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background:var(--glass);
-  backdrop-filter:blur(20px);
-  color:white;
-  font-weight:700;
-  cursor:pointer;
-  transition:.45s var(--spring);
-}
-.menu-btn.primary{
-  background:linear-gradient(135deg,var(--accent),var(--blue));
-  box-shadow:0 0 40px rgba(56,189,248,.45);
-}
-.menu-btn:hover{transform:translateY(-6px) scale(1.05)}
-.menu-btn:active{transform:scale(.92)}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px;
-  margin-top:28px;
-}
-
-.card{
-  background:var(--glass);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:26px;
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(20px);
-  transition:.45s var(--spring);
-}
-.card:hover{transform:translateY(-10px)}
-
+/* ===== HERO ===== */
 .hero{
-  grid-column:1/-1;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:0 10vw;
 }
-.hero h2{
-  font-size:clamp(2.2rem,5vw,3.8rem);
+.hero-inner{
+  max-width:900px;
+  animation:heroIn 1.2s var(--spring) both;
+}
+@keyframes heroIn{
+  from{opacity:0;transform:translateY(60px) scale(.95)}
+  to{opacity:1;transform:none}
+}
+
+.hero h1{
+  font-size:clamp(3rem,7vw,5.2rem);
   font-weight:900;
+  line-height:1.05;
 }
 .hero span{
-  background:linear-gradient(135deg,var(--accent),var(--blue));
+  background:linear-gradient(90deg,var(--accent),var(--accent2),var(--pink));
   -webkit-background-clip:text;
   color:transparent;
 }
 .hero p{
-  margin-top:14px;
-  max-width:760px;
+  margin-top:20px;
+  max-width:720px;
   color:var(--muted);
+  font-size:1.05rem;
 }
 
-.section-title{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-bottom:12px;
-  font-size:18px;
+/* ===== BUTTON ===== */
+.btn{
+  margin-top:30px;
+  padding:18px 34px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:var(--glass);
+  color:white;
   font-weight:700;
+  backdrop-filter:blur(18px);
+  cursor:pointer;
+  transition:.45s var(--spring);
+  animation:btnIdle 4s ease-in-out infinite;
+}
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;
+  box-shadow:0 0 40px rgba(56,189,248,.45);
+}
+.btn:hover{transform:translateY(-6px) scale(1.05)}
+@keyframes btnIdle{
+  0%,100%{box-shadow:0 0 30px rgba(56,189,248,.25)}
+  50%{box-shadow:0 0 60px rgba(56,189,248,.5)}
 }
 
+/* ===== SECTIONS ===== */
+section{padding:120px 10vw}
+h2{
+  font-size:2.4rem;
+  margin-bottom:26px;
+}
+
+/* ===== GRID VARIADO ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:26px;
+}
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:28px;
+  backdrop-filter:blur(20px);
+  box-shadow:var(--shadow);
+  opacity:0;
+  transform:translateY(40px) scale(.96);
+  animation:reveal .9s var(--spring) forwards;
+}
+.card:nth-child(odd){animation-delay:.15s}
+.card:nth-child(even){animation-delay:.3s}
+
+@keyframes reveal{
+  to{opacity:1;transform:none}
+}
+
+/* ===== DISNEY+ CAROUSEL ===== */
+.carousel-wrap{
+  margin-top:40px;
+  perspective:1400px;
+}
+.carousel{
+  display:flex;
+  gap:40px;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.slide{
+  flex:0 0 65%;
+  aspect-ratio:16/9;
+  border-radius:36px;
+  overflow:hidden;
+  position:absolute;
+  opacity:0;
+  transform:scale(.7) rotateY(30deg);
+  transition:all 1s var(--spring);
+  box-shadow:0 60px 160px rgba(0,0,0,.9);
+}
+.slide img{
+  width:100%;height:100%;object-fit:cover;
+}
+
+.slide.prev{
+  opacity:.45;
+  transform:translateX(-65%) scale(.75) rotateY(25deg);
+}
+.slide.next{
+  opacity:.45;
+  transform:translateX(65%) scale(.75) rotateY(-25deg);
+}
+.slide.active{
+  opacity:1;
+  transform:translateX(0) scale(1);
+  z-index:3;
+  box-shadow:0 80px 220px rgba(0,0,0,1);
+}
+
+/* ===== FOOTER ===== */
 footer{
-  margin-top:48px;
+  padding:60px 10vw;
   text-align:center;
-  font-size:13px;
   color:var(--muted);
 }
 </style>
 </head>
 
 <body>
-<div class="liquid-bg">
+
+<div class="bg">
   <span></span><span></span><span></span>
 </div>
 
-<div class="container">
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>ZyrAkaAguilar<br><span>Creadora de Eventos Minecraft</span></h1>
+    <p>
+      Diseño, organización y ejecución de eventos Minecraft con enfoque
+      profesional, técnico y visual.
+    </p>
+    <button class="btn primary">Trabajemos juntos</button>
+  </div>
+</section>
 
-<header class="header">
-  <div class="brand">
-    <div class="logo">
-      <span class="material-symbols-rounded">person</span>
+<!-- SOBRE -->
+<section>
+  <h2>Perfil Profesional</h2>
+  <div class="grid">
+    <div class="card">Más de 5 años creando eventos estables y memorables.</div>
+    <div class="card">Gestión de equipos, tiempos y sistemas.</div>
+    <div class="card">Mentalidad profesional y visión a largo plazo.</div>
+  </div>
+</section>
+
+<!-- CAROUSEL -->
+<section>
+  <h2>Proyectos Destacados</h2>
+  <div class="carousel-wrap">
+    <div class="carousel" id="carousel">
+      <div class="slide active"><img src="https://picsum.photos/1600/900?1"></div>
+      <div class="slide next"><img src="https://picsum.photos/1600/900?2"></div>
+      <div class="slide"><img src="https://picsum.photos/1600/900?3"></div>
+      <div class="slide prev"><img src="https://picsum.photos/1600/900?4"></div>
     </div>
-    <div>
-      <h1>ZyrAkaAguilar</h1>
-      <p>Portfolio Profesional</p>
-    </div>
   </div>
-
-  <button class="menu-btn primary">Contacto</button>
-</header>
-
-<main class="grid">
-
-<section class="card hero">
-  <h2>Creadora de <span>Eventos Minecraft</span></h2>
-  <p>
-    Organizadora profesional con más de 5 años de experiencia en planificación,
-    administración de servidores y desarrollo de sistemas personalizados.
-  </p>
 </section>
-
-<section class="card">
-  <div class="section-title">
-    <span class="material-symbols-rounded">visibility</span> Visión
-  </div>
-  <p>Crear eventos justos, memorables y técnicamente impecables.</p>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span class="material-symbols-rounded">verified</span> Valores
-  </div>
-  <p>Honestidad, liderazgo, comunicación clara y responsabilidad.</p>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span class="material-symbols-rounded">auto_fix_high</span> Habilidades
-  </div>
-  <p>Organización de eventos, administración de staff, plugins y sistemas.</p>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span class="material-symbols-rounded">timeline</span> Experiencia
-  </div>
-  <p>2019–Presente · Aprendizaje constante y ejecución profesional.</p>
-</section>
-
-<section class="card">
-  <div class="section-title">
-    <span class="material-symbols-rounded">mail</span> Contacto
-  </div>
-  <button class="menu-btn primary" style="margin-top:10px">
-    Escríbeme
-  </button>
-</section>
-
-</main>
 
 <footer>
-  © 2026 ZyrAkaAguilar — Portfolio Oficial
+  © 2026 ZyrAkaAguilar — Portfolio Premium
 </footer>
 
-</div>
+<script>
+const slides = [...document.querySelectorAll('.slide')]
+let index = 0
+
+function updateCarousel(){
+  slides.forEach(s=>s.className='slide')
+  slides[index].classList.add('active')
+  slides[(index+1)%slides.length].classList.add('next')
+  slides[(index-1+slides.length)%slides.length].classList.add('prev')
+  index = (index+1)%slides.length
+}
+setInterval(updateCarousel,4500)
+</script>
+
 </body>
 </html>
