@@ -217,6 +217,75 @@ transition:.35s var(--spring);
 }
 .tab span{font-size:28px}
 .tab.active{color:white;transform:translateY(-6px)}
+
+.toolbar{
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:22px;
+  display:flex;
+  gap:6px;
+  padding:10px;
+  background:linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
+  backdrop-filter:blur(40px);
+  border-radius:999px;
+  box-shadow:0 40px 120px rgba(0,0,0,.85);
+  z-index:100;
+}
+
+.nav-btn{
+  border:none;
+  background:transparent;
+  color:var(--muted);
+  width:64px;
+  height:64px;
+  border-radius:999px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  font-family:inherit;
+  cursor:pointer;
+  transition:.35s cubic-bezier(.28,1.25,.55,1);
+}
+
+.nav-btn span{
+  font-size:28px;
+}
+
+.nav-btn small{
+  font-size:.65rem;
+}
+
+.nav-btn:hover{
+  color:white;
+}
+
+.nav-btn.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:white;
+  transform:translateY(-6px) scale(1.05);
+  box-shadow:0 20px 60px rgba(56,189,248,.5);
+}
+
+.nav-btn:active{
+  transform:scale(.9);
+}
+
+@media (min-width: 900px){
+  .toolbar{
+    top:20px;
+    bottom:auto;
+  }
+}
+  
+@media (min-width: 900px) {
+  .toolbar{
+    top:20px;
+    bottom:auto;
+  }
+}
 </style>
 </head>
 
@@ -230,7 +299,7 @@ transition:.35s var(--spring);
 
 <main>
 
-<section class="hero">
+<section class="hero" id="home">
 <h2>Soy ZyrAkaAguilar<br><span>Creadora de Eventos Minecraft</span></h2>
 <p>
 Soy creadora de eventos Minecraft con más de 5 años de estudio y experiencia en la planificación,
@@ -246,7 +315,7 @@ buscando colaborar con studios y comunidades para demostrar todo mi potencial cr
 </div>
 </section>
 
-<section class="grid">
+<section class="grid" id="servicios">
 <div class="card">
 <span class="material-symbols-rounded">event</span>
 <p>Organización completa de eventos Minecraft, desde la idea hasta la ejecución final.</p>
@@ -265,7 +334,7 @@ buscando colaborar con studios y comunidades para demostrar todo mi potencial cr
 </div>
 </section>
 
-<section>
+<section id="experiencia">
 <h2>Experiencia</h2>
 <div class="timeline">
 <div class="step">
@@ -283,7 +352,7 @@ buscando colaborar con studios y comunidades para demostrar todo mi potencial cr
 </div>
 </section>
 
-<section>
+<section id="proyectos">
 <h2>Proyectos y Eventos</h2>
 <div class="carousel-wrap">
 <div class="carousel" id="carousel">
@@ -297,10 +366,31 @@ buscando colaborar con studios y comunidades para demostrar todo mi potencial cr
 
 </main>
 
-<nav class="tabbar">
-<div class="tab active"><span class="material-symbols-rounded">home</span>Inicio</div>
-<div class="tab"><span class="material-symbols-rounded">work</span>Experiencia</div>
-<div class="tab"><span class="material-symbols-rounded">mail</span>Contacto</div>
+<nav class="toolbar">
+  <button class="nav-btn active" data-target="home">
+    <span class="material-symbols-rounded">home</span>
+    <small>Inicio</small>
+  </button>
+
+  <button class="nav-btn" data-target="servicios">
+    <span class="material-symbols-rounded">event</span>
+    <small>Servicios</small>
+  </button>
+
+  <button class="nav-btn" data-target="experiencia">
+    <span class="material-symbols-rounded">work</span>
+    <small>Experiencia</small>
+  </button>
+
+  <button class="nav-btn" data-target="proyectos">
+    <span class="material-symbols-rounded">view_carousel</span>
+    <small>Proyectos</small>
+  </button>
+
+  <button class="nav-btn" data-target="contacto">
+    <span class="material-symbols-rounded">mail</span>
+    <small>Contacto</small>
+  </button>
 </nav>
 
 <script>
@@ -313,6 +403,28 @@ slides[(i+1)%slides.length].classList.add("next")
 slides[(i-1+slides.length)%slides.length].classList.add("prev")
 i=(i+1)%slides.length
 },4500)
+
+const buttons = document.querySelectorAll("[data-target]")
+
+buttons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const section = document.getElementById(btn.dataset.target)
+    section.scrollIntoView({behavior:"smooth",block:"start"})
+    buttons.forEach(b=>b.classList.remove("active"))
+    btn.classList.add("active")
+  })
+})
+
+const navButtons = document.querySelectorAll(".nav-btn")
+
+navButtons.forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.getElementById(btn.dataset.target)
+      .scrollIntoView({behavior:"smooth"})
+    navButtons.forEach(b=>b.classList.remove("active"))
+    btn.classList.add("active")
+  })
+})
 </script>
 
 </body>
