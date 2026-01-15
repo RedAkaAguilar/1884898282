@@ -2,6 +2,10 @@
   "productos": {
     "xUml-TestNodo": {
       "titulo": "ZyrAka Launcher",
+      "hero": {
+        "background": "https://tudominio.com/img/hero-bg.jpg",
+        "logo": "https://tudominio.com/img/logo.png"
+      },
       "descripcion": "Launcher oficial para **ZyrAkaNetwork** con soporte _multiplataforma_ y actualizaciones automáticas.",
       "secciones": [
         {
