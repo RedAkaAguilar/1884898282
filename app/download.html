@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Descarga</title>
+<title>App</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
@@ -12,28 +12,28 @@
 <style>
 :root{
   --bg:#0e1116;
-  --card:rgba(255,255,255,.06);
-  --border:rgba(255,255,255,.12);
+  --glass:rgba(255,255,255,.08);
+  --border:rgba(255,255,255,.15);
   --text:#fff;
   --muted:#cbd5e1;
   --accent:#38bdf8;
   --radius:22px;
 }
 
+*{box-sizing:border-box}
+
 body{
   margin:0;
   font-family:Outfit;
   color:var(--text);
   background:var(--bg);
+  overflow-x:hidden;
 }
 
+/* ===== STEAM HERO ===== */
 .hero{
   position:relative;
-  height:360px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
+  height:520px;
   overflow:hidden;
 }
 
@@ -42,154 +42,241 @@ body{
   inset:0;
   background-size:cover;
   background-position:center;
+  transform:scale(1.1);
+  filter:blur(0);
 }
 
-.hero-gradient{
+.hero-overlay{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(
-      to bottom,
-      rgba(14,17,22,0) 0%,
-      rgba(14,17,22,.7) 60%,
-      var(--bg) 100%
-    );
+    linear-gradient(to top, var(--bg) 0%, rgba(14,17,22,.6) 40%, rgba(14,17,22,.25) 70%),
+    linear-gradient(to right, rgba(14,17,22,.65), transparent 55%);
 }
 
-.hero-logo{
+.hero-content{
   position:relative;
   z-index:2;
-  width:140px;
-  height:140px;
-  border-radius:32px;
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
-}
-
-.container{
-  max-width:1000px;
+  max-width:1200px;
   margin:auto;
-  padding:32px 20px;
+  height:100%;
+  display:flex;
+  align-items:flex-end;
+  padding:40px;
+  gap:36px;
 }
 
-.description{
-  text-align:center;
-  font-size:18px;
+/* ===== CAPSULE ===== */
+.capsule{
+  width:260px;
+  aspect-ratio:3/4;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 40px 120px rgba(0,0,0,.7);
+  transform:translateY(20px);
+  animation:capsuleIn .9s cubic-bezier(.28,1.25,.55,1) forwards;
+}
+
+.capsule img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ===== INFO ===== */
+.info{
+  max-width:520px;
+}
+
+.info h1{
+  margin:0;
+  font-size:38px;
+  font-weight:700;
+}
+
+.subtitle{
+  margin-top:6px;
+  color:var(--muted);
+  font-weight:600;
+}
+
+.desc{
+  margin-top:18px;
   line-height:1.6;
   color:var(--muted);
-  margin-bottom:40px;
 }
 
-.sections{
+/* ===== ACTIONS ===== */
+.actions{
+  margin-top:26px;
+  display:flex;
+  gap:16px;
+}
+
+.btn{
+  padding:16px 26px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  backdrop-filter:blur(14px);
+  color:white;
+  transition:.3s;
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  border:none;
+  box-shadow:0 0 40px rgba(56,189,248,.4);
+}
+
+.btn:hover{
+  transform:translateY(-4px);
+}
+
+/* ===== SECTIONS ===== */
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.downloads{
   display:grid;
   gap:20px;
 }
 
 .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:24px;
   display:flex;
   align-items:center;
-  gap:20px;
+  gap:22px;
+  padding:24px;
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
   backdrop-filter:blur(14px);
   transition:.3s;
 }
 
 .card:hover{
   transform:translateY(-6px);
-  box-shadow:0 20px 50px rgba(0,0,0,.4);
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 
 .icon{
-  font-size:46px;
+  font-size:48px;
 }
 
-.card-content{
-  flex:1;
-}
-
-.card-content h3{
+.card h3{
   margin:0;
-  font-size:20px;
 }
 
-.card-content p{
+.card p{
   margin:6px 0 0;
   color:var(--muted);
   white-space:pre-line;
 }
 
-.download-btn{
-  padding:14px 22px;
-  border-radius:999px;
-  background:linear-gradient(135deg,#22c55e,#38bdf8);
-  color:#fff;
-  font-weight:700;
-  text-decoration:none;
+.download{
+  margin-left:auto;
 }
+
+/* ===== TEXT FX ===== */
 .grad{
   background:linear-gradient(90deg,#22c55e,#38bdf8);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-b{color:#fff}
+
+b{color:white}
 i{opacity:.85}
+
+/* ===== ANIMATIONS ===== */
+@keyframes capsuleIn{
+  from{
+    opacity:0;
+    transform:translateY(40px) scale(.9);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <section class="hero">
-  <div class="hero-bg" id="hero-bg"></div>
-  <div class="hero-gradient"></div>
-  <img id="hero-logo" class="hero-logo">
+  <div id="bg" class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="capsule">
+      <img id="capsule">
+    </div>
+
+    <div class="info">
+      <h1 id="title"></h1>
+      <div id="subtitle" class="subtitle"></div>
+      <div id="desc" class="desc"></div>
+
+      <div class="actions">
+        <a href="#downloads" class="btn primary">
+          <span class="material-symbols-rounded">download</span>
+          Descargar
+        </a>
+        <a href="#" class="btn">
+          <span class="material-symbols-rounded">info</span>
+          Información
+        </a>
+      </div>
+    </div>
+  </div>
 </section>
 
-<div class="container">
-  <div id="desc" class="description"></div>
-  <div id="sections" class="sections"></div>
+<div id="downloads" class="container">
+  <div id="list" class="downloads"></div>
 </div>
 
 <script>
-const params = new URLSearchParams(location.search)
-const APP_ID = params.get("id")
+const id = new URLSearchParams(location.search).get("id")
 
 fetch("/api/control/descarga-manager.json")
-.then(r => r.json())
-.then(data => {
-  const app = data.apps.find(a => a.id === APP_ID)
+.then(r=>r.json())
+.then(data=>{
+  const app = data.apps.find(a=>a.id===id)
   if(!app) return alert("App no encontrada")
 
   document.title = app.title
+  bg.style.backgroundImage = `url(${app.background})`
+  capsule.src = app.capsule
+  title.textContent = app.title
+  subtitle.textContent = app.subtitle
+  desc.innerHTML = format(app.description)
 
-  document.getElementById("hero-bg").style.backgroundImage =
-    `url(${app.banner})`
-
-  document.getElementById("hero-logo").src = app.logo
-
-  document.getElementById("desc").innerHTML = formatText(app.description)
-
-  const wrap = document.getElementById("sections")
-
-  app.secciones.forEach(s => {
-    const card = document.createElement("div")
-    card.className = "card"
-    card.innerHTML = `
+  app.secciones.forEach(s=>{
+    const c = document.createElement("div")
+    c.className = "card"
+    c.innerHTML = `
       <span class="material-symbols-rounded icon">${s.icono}</span>
-      <div class="card-content">
+      <div>
         <h3>${s.titulo}</h3>
-        <p>${formatText(s.descripcion)}</p>
+        <p>${format(s.descripcion)}</p>
       </div>
-      <a class="download-btn" href="${s.link}" target="_blank">
+      <a class="btn primary download" href="${s.link}">
         Descargar
       </a>
     `
-    wrap.appendChild(card)
+    list.appendChild(c)
   })
 })
 
-function formatText(t){
+function format(t){
   return t
     .replace(/\*\*(.*?)\*\*/g,"<b>$1</b>")
     .replace(/_(.*?)_/g,"<i>$1</i>")
