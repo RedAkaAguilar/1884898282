@@ -3,27 +3,16 @@
     {
       "id": "zyraka-launcher",
       "title": "ZyrAka Launcher",
-      "banner": "https://images.unsplash.com/photo-1605902711622-cfb43c44367f",
+      "subtitle": "Launcher Oficial",
+      "background": "https://images.unsplash.com/photo-1511512578047-dfb367046420",
       "logo": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/main/textures/-webpage-imgtool.png",
-      "description": "El **launcher oficial** de <grad> ZyrAkaNetwork </grad>. Descarga rápida, segura y optimizada para todos los sistemas.",
+      "description": "El **launcher oficial** de <grad>ZyrAkaNetwork</grad>.\nDiseñado como una **app nativa premium**.",
       "secciones": [
         {
           "titulo": "Windows",
-          "descripcion": "**Recomendado** para Windows 10/11.\nSoporte completo y actualizaciones automáticas.",
+          "descripcion": "**Windows 10 / 11**\nInstalador automático.",
           "icono": "desktop_windows",
-          "link": "https://example.com/windows.exe"
-        },
-        {
-          "titulo": "Linux",
-          "descripcion": "Compatible con **Ubuntu**, Arch y derivados.\n_Instalación manual._",
-          "icono": "terminal",
-          "link": "https://example.com/linux.AppImage"
-        },
-        {
-          "titulo": "macOS",
-          "descripcion": "**Apple Silicon & Intel**.\nInterfaz nativa con soporte Metal.",
-          "icono": "laptop_mac",
-          "link": "https://example.com/macos.dmg"
+          "link": "#"
         }
       ]
     }
