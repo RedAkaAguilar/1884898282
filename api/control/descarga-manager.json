@@ -1,27 +1,31 @@
 {
-  "productos": {
-    "xUml-TestNodo": {
-      "titulo": "ZyrAka Launcher",
-      "hero": {
-        "background": "https://tudominio.com/img/game-bg.jpg",
-        "capsule": "https://tudominio.com/img/game-capsule.jpg"
-      }
-      "descripcion": "Launcher oficial para **ZyrAkaNetwork** con soporte _multiplataforma_ y actualizaciones automáticas.",
+  "apps": [
+    {
+      "id": "zyraka-launcher",
+      "title": "ZyrAka Launcher",
+      "banner": "https://images.unsplash.com/photo-1605902711622-cfb43c44367f",
+      "logo": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/main/textures/-webpage-imgtool.png",
+      "description": "El **launcher oficial** de <grad> ZyrAkaNetwork </grad>. Descarga rápida, segura y optimizada para todos los sistemas.",
       "secciones": [
         {
-          "titulo": "Windows 64-bit",
+          "titulo": "Windows",
+          "descripcion": "**Recomendado** para Windows 10/11.\nSoporte completo y actualizaciones automáticas.",
           "icono": "desktop_windows",
-          "descripcion": "Compatible con **Windows 10/11**\n\nIncluye:\n- Actualizaciones automáticas\n- Instalador `.exe`\n- Soporte completo",
-          "url": "https://tudominio.com/windows.exe"
+          "link": "https://example.com/windows.exe"
         },
         {
           "titulo": "Linux",
+          "descripcion": "Compatible con **Ubuntu**, Arch y derivados.\n_Instalación manual._",
           "icono": "terminal",
-          "descripcion": "Distribuciones soportadas:\n`Ubuntu`, `Arch`, `Debian`\n\nFormato **AppImage**",
-          "url": "https://tudominio.com/linux.AppImage"
+          "link": "https://example.com/linux.AppImage"
+        },
+        {
+          "titulo": "macOS",
+          "descripcion": "**Apple Silicon & Intel**.\nInterfaz nativa con soporte Metal.",
+          "icono": "laptop_mac",
+          "link": "https://example.com/macos.dmg"
         }
       ]
     }
-  }
+  ]
 }
-
