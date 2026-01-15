@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>App</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+
+<title>App</title>
 
 <style>
 :root{
@@ -16,196 +16,158 @@
   --border:rgba(255,255,255,.15);
   --text:#fff;
   --muted:#cbd5e1;
-  --accent:#38bdf8;
   --radius:22px;
 }
-
-*{box-sizing:border-box}
 
 body{
   margin:0;
   font-family:Outfit;
-  color:var(--text);
   background:var(--bg);
+  color:var(--text);
   overflow-x:hidden;
 }
 
-/* ===== STEAM HERO ===== */
+/* ===================== */
+/* HERO STEAM */
+/* ===================== */
 .hero{
   position:relative;
-  height:520px;
+  height:620px;
   overflow:hidden;
 }
 
 .hero-bg{
   position:absolute;
-  inset:0;
+  inset:-10%;
   background-size:cover;
   background-position:center;
-  transform:scale(1.1);
-  filter:blur(0);
+  will-change:transform;
 }
 
 .hero-overlay{
   position:absolute;
   inset:0;
   background:
-    linear-gradient(to top, var(--bg) 0%, rgba(14,17,22,.6) 40%, rgba(14,17,22,.25) 70%),
+    linear-gradient(to top, var(--bg) 0%, rgba(14,17,22,.6) 40%, rgba(14,17,22,.2) 70%),
     linear-gradient(to right, rgba(14,17,22,.65), transparent 55%);
 }
 
+/* ===================== */
+/* FLOATING LOGO */
+/* ===================== */
+.logo-wrapper{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:5;
+  transition:
+    transform .45s cubic-bezier(.28,1.25,.55,1),
+    top .45s ease,
+    left .45s ease;
+}
+
+.logo-wrapper.sticky{
+  position:fixed;
+  top:18px;
+  left:28px;
+  transform:scale(.45);
+}
+
+.logo{
+  width:220px;
+  height:220px;
+  object-fit:contain;
+  filter:drop-shadow(0 40px 80px rgba(0,0,0,.85));
+  pointer-events:none;
+}
+
+/* ===================== */
+/* CONTENT */
+/* ===================== */
 .hero-content{
-  position:relative;
-  z-index:2;
-  max-width:1200px;
-  margin:auto;
-  height:100%;
-  display:flex;
-  align-items:flex-end;
-  padding:40px;
-  gap:36px;
-}
-
-/* ===== CAPSULE ===== */
-.capsule{
-  width:260px;
-  aspect-ratio:3/4;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 40px 120px rgba(0,0,0,.7);
-  transform:translateY(20px);
-  animation:capsuleIn .9s cubic-bezier(.28,1.25,.55,1) forwards;
-}
-
-.capsule img{
+  position:absolute;
+  bottom:60px;
+  left:50%;
+  transform:translateX(-50%);
+  text-align:center;
+  z-index:4;
+  max-width:900px;
   width:100%;
-  height:100%;
-  object-fit:cover;
 }
 
-/* ===== INFO ===== */
-.info{
-  max-width:520px;
-}
-
-.info h1{
+.hero-content h1{
+  font-size:42px;
   margin:0;
-  font-size:38px;
-  font-weight:700;
 }
 
 .subtitle{
-  margin-top:6px;
+  margin-top:8px;
   color:var(--muted);
   font-weight:600;
 }
 
 .desc{
-  margin-top:18px;
-  line-height:1.6;
+  margin-top:16px;
   color:var(--muted);
+  line-height:1.6;
 }
 
-/* ===== ACTIONS ===== */
-.actions{
-  margin-top:26px;
-  display:flex;
-  gap:16px;
-}
-
-.btn{
-  padding:16px 26px;
-  border-radius:999px;
-  font-weight:700;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  background:var(--glass);
-  border:1px solid var(--border);
-  backdrop-filter:blur(14px);
-  color:white;
-  transition:.3s;
-}
-
-.btn.primary{
-  background:linear-gradient(135deg,#22c55e,#38bdf8);
-  border:none;
-  box-shadow:0 0 40px rgba(56,189,248,.4);
-}
-
-.btn:hover{
-  transform:translateY(-4px);
-}
-
-/* ===== SECTIONS ===== */
+/* ===================== */
+/* DOWNLOADS */
+/* ===================== */
 .container{
   max-width:1100px;
   margin:auto;
-  padding:40px 20px;
-}
-
-.downloads{
-  display:grid;
-  gap:20px;
+  padding:60px 20px;
 }
 
 .card{
   display:flex;
   align-items:center;
-  gap:22px;
+  gap:20px;
   padding:24px;
+  margin-bottom:20px;
   background:var(--glass);
   border:1px solid var(--border);
   border-radius:var(--radius);
-  backdrop-filter:blur(14px);
-  transition:.3s;
+  backdrop-filter:blur(16px);
+  transition:.35s;
 }
 
 .card:hover{
   transform:translateY(-6px);
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  box-shadow:0 30px 80px rgba(0,0,0,.55);
 }
 
 .icon{
-  font-size:48px;
-}
-
-.card h3{
-  margin:0;
+  font-size:46px;
 }
 
 .card p{
-  margin:6px 0 0;
   color:var(--muted);
   white-space:pre-line;
 }
 
-.download{
+.btn{
   margin-left:auto;
+  padding:14px 26px;
+  border-radius:999px;
+  font-weight:700;
+  text-decoration:none;
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  color:white;
 }
 
-/* ===== TEXT FX ===== */
+/* ===================== */
+/* TEXT FX */
+/* ===================== */
 .grad{
   background:linear-gradient(90deg,#22c55e,#38bdf8);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-
 b{color:white}
-i{opacity:.85}
-
-/* ===== ANIMATIONS ===== */
-@keyframes capsuleIn{
-  from{
-    opacity:0;
-    transform:translateY(40px) scale(.9);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
-}
 </style>
 </head>
 
@@ -215,46 +177,34 @@ i{opacity:.85}
   <div id="bg" class="hero-bg"></div>
   <div class="hero-overlay"></div>
 
+  <!-- LOGO FLOATING -->
+  <div id="logoWrap" class="logo-wrapper">
+    <img id="logo" class="logo">
+  </div>
+
   <div class="hero-content">
-    <div class="capsule">
-      <img id="capsule">
-    </div>
-
-    <div class="info">
-      <h1 id="title"></h1>
-      <div id="subtitle" class="subtitle"></div>
-      <div id="desc" class="desc"></div>
-
-      <div class="actions">
-        <a href="#downloads" class="btn primary">
-          <span class="material-symbols-rounded">download</span>
-          Descargar
-        </a>
-        <a href="#" class="btn">
-          <span class="material-symbols-rounded">info</span>
-          Información
-        </a>
-      </div>
-    </div>
+    <h1 id="title"></h1>
+    <div id="subtitle" class="subtitle"></div>
+    <div id="desc" class="desc"></div>
   </div>
 </section>
 
-<div id="downloads" class="container">
-  <div id="list" class="downloads"></div>
-</div>
+<div class="container" id="downloads"></div>
 
 <script>
 const id = new URLSearchParams(location.search).get("id")
+const logoWrap = document.getElementById("logoWrap")
+const bg = document.getElementById("bg")
 
 fetch("/api/control/descarga-manager.json")
 .then(r=>r.json())
 .then(data=>{
   const app = data.apps.find(a=>a.id===id)
-  if(!app) return alert("App no encontrada")
+  if(!app) return
 
   document.title = app.title
   bg.style.backgroundImage = `url(${app.background})`
-  capsule.src = app.capsule
+  logo.src = app.logo
   title.textContent = app.title
   subtitle.textContent = app.subtitle
   desc.innerHTML = format(app.description)
@@ -268,18 +218,32 @@ fetch("/api/control/descarga-manager.json")
         <h3>${s.titulo}</h3>
         <p>${format(s.descripcion)}</p>
       </div>
-      <a class="btn primary download" href="${s.link}">
-        Descargar
-      </a>
+      <a class="btn" href="${s.link}">Descargar</a>
     `
-    list.appendChild(c)
+    downloads.appendChild(c)
   })
+})
+window.addEventListener("scroll",()=>{
+  const y = window.scrollY
+
+  // Background parallax
+  bg.style.transform = `translateY(${y * 0.25}px) scale(1.1)`
+
+  // Logo independent movement
+  logoWrap.style.transform =
+    `translate(-50%, calc(-50% + ${y * 0.15}px))`
+
+  // Sticky trigger
+  if(y > 220){
+    logoWrap.classList.add("sticky")
+  }else{
+    logoWrap.classList.remove("sticky")
+  }
 })
 
 function format(t){
   return t
     .replace(/\*\*(.*?)\*\*/g,"<b>$1</b>")
-    .replace(/_(.*?)_/g,"<i>$1</i>")
     .replace(/<grad>(.*?)<\/grad>/g,'<span class="grad">$1</span>')
 }
 </script>
