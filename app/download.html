@@ -52,26 +52,24 @@ body{
     linear-gradient(to right, rgba(14,17,22,.65), transparent 55%);
 }
 
-/* ===================== */
-/* FLOATING LOGO */
-/* ===================== */
 .logo-wrapper{
   position:absolute;
   top:50%;
   left:50%;
-  transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%) scale(1);
   z-index:5;
+
   transition:
-    transform .45s cubic-bezier(.28,1.25,.55,1),
-    top .45s ease,
-    left .45s ease;
+    transform .75s cubic-bezier(.22,1,.36,1),
+    top .75s cubic-bezier(.22,1,.36,1),
+    left .75s cubic-bezier(.22,1,.36,1);
 }
 
 .logo-wrapper.sticky{
   position:fixed;
-  top:20px;
-  left:24px;
-  transform:scale(.45);
+  top:22px;
+  left:26px;
+  transform:scale(.7);
 }
 
 .logo{
@@ -226,22 +224,22 @@ fetch("/api/control/descarga-manager.json")
 window.addEventListener("scroll", () => {
   const y = window.scrollY;
 
-  // Background parallax (siempre)
+  // Background parallax (siempre activo)
   bg.style.transform = `translateY(${y * 0.25}px) scale(1.1)`;
 
-  if (y > 220) {
+  if (y > 240) {
     // ===== STICKY MODE =====
     logoWrap.classList.add("sticky");
 
-    // MUY IMPORTANTE: cancelar parallax del logo
-    logoWrap.style.transform = "scale(.45)";
+    // Cancelamos parallax del logo
+    logoWrap.style.transform = "scale(.7)";
   } else {
-    // ===== CENTER MODE =====
+    // ===== FLOAT MODE =====
     logoWrap.classList.remove("sticky");
 
-    // Parallax independiente del logo
+    // Movimiento suave independiente
     logoWrap.style.transform =
-      `translate(-50%, calc(-50% + ${y * 0.15}px))`;
+      `translate(-50%, calc(-50% + ${y * 0.12}px)) scale(1)`;
   }
 });
 
