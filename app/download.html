@@ -27,12 +27,11 @@ body{
   overflow-x:hidden;
 }
 
-/* ===================== */
-/* HERO STEAM */
-/* ===================== */
 .hero{
   position:relative;
-  height:620px;
+  height:420px;
+  display:flex;
+  justify-content:center;
   overflow:hidden;
 }
 
@@ -53,10 +52,10 @@ body{
 }
 
 .logo-wrapper{
-  position:fixed;
-  top:50%;
+  position:absolute;
+  top:0;
   left:50%;
-  transform:translate(-50%,-50%) scale(1);
+  transform:translateX(-50%) scale(1.25);
   z-index:5;
   will-change: transform, top, left;
 
@@ -73,19 +72,17 @@ body{
   filter:drop-shadow(0 40px 80px rgba(0,0,0,.85));
   pointer-events:none;
 }
-
-/* ===================== */
-/* CONTENT */
-/* ===================== */
+  
 .hero-content{
-  position:absolute;
   bottom:60px;
   left:50%;
   transform:translateX(-50%);
-  text-align:center;
   z-index:4;
-  max-width:900px;
+  position:relative;
   width:100%;
+  max-width:1200px;
+  margin:auto;
+  text-align:center;
 }
 
 .hero-content h1{
@@ -105,9 +102,6 @@ body{
   line-height:1.6;
 }
 
-/* ===================== */
-/* DOWNLOADS */
-/* ===================== */
 .container{
   max-width:1100px;
   margin:auto;
@@ -151,9 +145,6 @@ body{
   color:white;
 }
 
-/* ===================== */
-/* TEXT FX */
-/* ===================== */
 .grad{
   background:linear-gradient(90deg,#22c55e,#38bdf8);
   -webkit-background-clip:text;
@@ -175,18 +166,15 @@ b{color:white}
 <body>
 
 <section class="hero">
-  <div id="bg" class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-
-  <!-- LOGO FLOATING -->
-  <div id="logoWrap" class="logo-wrapper">
-    <img id="logo" class="logo">
-  </div>
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-gradient"></div>
 
   <div class="hero-content">
+    <div id="logoWrap" class="logo-wrapper">
+      <img src="logo.png" alt="">
+    </div>
+
     <h1 id="title"></h1>
-    <div id="subtitle" class="subtitle"></div>
-    <div id="desc" class="desc"></div>
   </div>
 </section>
 
@@ -225,30 +213,37 @@ fetch("/api/control/descarga-manager.json")
   })
 })
 const startY = 0;
-const endY = 420; // distancia donde termina la transición
+const endY = 320;
 
 function clamp(v, min, max){
   return Math.min(max, Math.max(min, v));
 }
 
+function lerp(a, b, t){
+  return a + (b - a) * t;
+}
+
 window.addEventListener("scroll", () => {
   const y = window.scrollY;
+  const t = clamp(y / endY, 0, 1);
 
-  const t = clamp((y - startY) / endY, 0, 1);
+  // ===== POSICIÓN =====
+  const left = lerp(50, 12, t); // % → esquina
+  const topPx = lerp(80, 10, t); // px → sube hacia arriba
 
-  const x = lerp(50, 10, t); // %
-  const yPos = lerp(50, 8, t); // %
+  // ===== ESCALA =====
+  const scale = lerp(1.25, 0.7, t);
 
-  const scale = lerp(1.35, 0.7, t);
-
-  const logoParallax = lerp(y * 0.12, 0, t);
+  // ===== TRANSFORM FINAL =====
+  logoWrap.style.left = `${left}%`;
+  logoWrap.style.top = `${topPx}px`;
 
   logoWrap.style.transform = `
-    translate(-${x}%, -${yPos}%)
-    translateY(${logoParallax}px)
+    translateX(-50%)
     scale(${scale})
   `;
 
+  // Background parallax
   bg.style.transform =
     `translateY(${y * 0.25}px) scale(1.1)`;
 });
