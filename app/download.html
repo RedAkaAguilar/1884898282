@@ -69,8 +69,8 @@ body{
 
 .logo-wrapper.sticky{
   position:fixed;
-  top:18px;
-  left:28px;
+  top:20px;
+  left:24px;
   transform:scale(.45);
 }
 
@@ -223,23 +223,27 @@ fetch("/api/control/descarga-manager.json")
     downloads.appendChild(c)
   })
 })
-window.addEventListener("scroll",()=>{
-  const y = window.scrollY
+window.addEventListener("scroll", () => {
+  const y = window.scrollY;
 
-  // Background parallax
-  bg.style.transform = `translateY(${y * 0.25}px) scale(1.1)`
+  // Background parallax (siempre)
+  bg.style.transform = `translateY(${y * 0.25}px) scale(1.1)`;
 
-  // Logo independent movement
-  logoWrap.style.transform =
-    `translate(-50%, calc(-50% + ${y * 0.15}px))`
+  if (y > 220) {
+    // ===== STICKY MODE =====
+    logoWrap.classList.add("sticky");
 
-  // Sticky trigger
-  if(y > 220){
-    logoWrap.classList.add("sticky")
-  }else{
-    logoWrap.classList.remove("sticky")
+    // MUY IMPORTANTE: cancelar parallax del logo
+    logoWrap.style.transform = "scale(.45)";
+  } else {
+    // ===== CENTER MODE =====
+    logoWrap.classList.remove("sticky");
+
+    // Parallax independiente del logo
+    logoWrap.style.transform =
+      `translate(-50%, calc(-50% + ${y * 0.15}px))`;
   }
-})
+});
 
 function format(t){
   return t
