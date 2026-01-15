@@ -67,8 +67,8 @@ body{
 
 .logo-wrapper.sticky{
   position:fixed;
-  top:22px;
-  left:26px;
+  top:14px;
+  left:16px;
   transform:scale(.7);
 }
 
@@ -165,7 +165,16 @@ body{
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
+
 b{color:white}
+
+@media (max-width: 768px){
+  .logo-wrapper.sticky{
+    top:18px;
+    left:18px;
+    transform:scale(.65);
+  }
+}
 </style>
 </head>
 
@@ -228,16 +237,11 @@ window.addEventListener("scroll", () => {
   bg.style.transform = `translateY(${y * 0.25}px) scale(1.1)`;
 
   if (y > 240) {
-    // ===== STICKY MODE =====
     logoWrap.classList.add("sticky");
 
-    // Cancelamos parallax del logo
     logoWrap.style.transform = "scale(.7)";
   } else {
-    // ===== FLOAT MODE =====
     logoWrap.classList.remove("sticky");
-
-    // Movimiento suave independiente
     logoWrap.style.transform =
       `translate(-50%, calc(-50% + ${y * 0.12}px)) scale(1)`;
   }
