@@ -53,23 +53,17 @@ body{
 }
 
 .logo-wrapper{
-  position:absolute;
+  position:fixed;
   top:50%;
   left:50%;
   transform:translate(-50%,-50%) scale(1);
   z-index:5;
+  will-change: transform, top, left;
 
   transition:
     transform .75s cubic-bezier(.22,1,.36,1),
     top .75s cubic-bezier(.22,1,.36,1),
     left .75s cubic-bezier(.22,1,.36,1);
-}
-
-.logo-wrapper.sticky{
-  position:fixed;
-  top:8px;
-  left:12px;
-  transform:scale(.7);
 }
 
 .logo{
@@ -230,22 +224,38 @@ fetch("/api/control/descarga-manager.json")
     downloads.appendChild(c)
   })
 })
+const startY = 0;
+const endY = 420; // distancia donde termina la transición
+
+function clamp(v, min, max){
+  return Math.min(max, Math.max(min, v));
+}
+
 window.addEventListener("scroll", () => {
   const y = window.scrollY;
 
-  // Background parallax (siempre activo)
-  bg.style.transform = `translateY(${y * 0.25}px) scale(1.1)`;
+  const t = clamp((y - startY) / endY, 0, 1);
 
-  if (y > 240) {
-    logoWrap.classList.add("sticky");
+  const x = lerp(50, 10, t); // %
+  const yPos = lerp(50, 8, t); // %
 
-    logoWrap.style.transform = "scale(.7)";
-  } else {
-    logoWrap.classList.remove("sticky");
-    logoWrap.style.transform =
-      `translate(-50%, calc(-50% + ${y * 0.12}px)) scale(1.3)`;
-  }
+  const scale = lerp(1.35, 0.7, t);
+
+  const logoParallax = lerp(y * 0.12, 0, t);
+
+  logoWrap.style.transform = `
+    translate(-${x}%, -${yPos}%)
+    translateY(${logoParallax}px)
+    scale(${scale})
+  `;
+
+  bg.style.transform =
+    `translateY(${y * 0.25}px) scale(1.1)`;
 });
+
+function lerp(a, b, t){
+  return a + (b - a) * t;
+}
 
 function format(t){
   return t
