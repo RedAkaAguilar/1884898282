@@ -432,6 +432,47 @@ animation:dividerGlow 6s linear infinite;
 @keyframes dividerGlow{
 50%{opacity:.4}
 }
+
+.hero{
+position:relative;
+height:75vh;
+background-image:var(--bg);
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+
+.hero-gradient{
+position:absolute;
+inset:0;
+background:linear-gradient(
+to bottom,
+rgba(0,0,0,.15),
+rgba(14,17,22,.65),
+var(--bg)
+);
+z-index:1;
+}
+
+.hero-logo{
+width:220px;
+z-index:2;
+transition:.7s cubic-bezier(.28,1.25,.55,1);
+}
+
+.hero.sticky .hero-logo{
+position:fixed;
+top:24px;
+left:28px;
+width:68px;
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(18px);
+padding:10px;
+border-radius:16px;
+}
 </style>
 </head>
 
@@ -495,9 +536,13 @@ const p=d.productos?.[id]
 if(!p)return error('No encontrado','Producto inexistente.')
 
 app.innerHTML=`
+<div class="hero" style="--bg:url('${p.hero.background}')">
+  <div class="hero-gradient"></div>
+  <img class="hero-logo" src="${p.hero.logo}">
+</div>
+
 <div class="header">
-<h1>${p.titulo}</h1>
-<p>${rich(p.descripcion)}</p>
+  <p>${rich(p.descripcion)}</p>
 </div>
 <div class="sections">
 ${p.secciones.map((s,i)=>`
@@ -649,6 +694,17 @@ setInterval(async ()=>{
 
   checking = false
 },1000)
+
+  const hero = document.querySelector('.hero')
+const logo = document.querySelector('.hero-logo')
+
+window.addEventListener('scroll',()=>{
+  if(window.scrollY > window.innerHeight * 0.45){
+    hero.classList.add('sticky')
+  }else{
+    hero.classList.remove('sticky')
+  }
+})
 </script>
 
 </body>
