@@ -293,6 +293,17 @@ fetch("/api/control/descarga-manager.json")
     `
     downloads.appendChild(c)
   })
+
+  const carousel = document.getElementById("carousel")
+
+if(app.carousel){
+  app.carousel.forEach(img=>{
+    const item = document.createElement("div")
+    item.className = "carousel-item"
+    item.innerHTML = `<img src="${img}" loading="lazy">`
+    carousel.appendChild(item)
+  })
+}
 })
 window.addEventListener("scroll", () => {
   const y = window.scrollY;
@@ -315,17 +326,6 @@ function format(t){
   return t
     .replace(/\*\*(.*?)\*\*/g,"<b>$1</b>")
     .replace(/<grad>(.*?)<\/grad>/g,'<span class="grad">$1</span>')
-}
-
-const carousel = document.getElementById("carousel")
-
-if(app.carousel){
-  app.carousel.forEach(img=>{
-    const item = document.createElement("div")
-    item.className = "carousel-item"
-    item.innerHTML = `<img src="${img}" loading="lazy">`
-    carousel.appendChild(item)
-  })
 }
 </script>
 
