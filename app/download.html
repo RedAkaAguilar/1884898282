@@ -168,6 +168,65 @@ body{
 
 b{color:white}
 
+.carousel-section{
+  padding:40px 0 80px;
+}
+
+.carousel-title{
+  margin:0 0 20px 20px;
+  font-size:26px;
+}
+
+.carousel{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  padding:0 20px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+
+.carousel::-webkit-scrollbar{
+  height:8px;
+}
+.carousel::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.2);
+  border-radius:999px;
+}
+
+.carousel-item{
+  flex:0 0 320px;
+  height:180px;
+  border-radius:18px;
+  overflow:hidden;
+  scroll-snap-align:start;
+  position:relative;
+  transition:.4s cubic-bezier(.22,1,.36,1);
+}
+
+.carousel-item img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:.5s;
+}
+
+.carousel-item::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,.6), transparent 60%);
+}
+
+.carousel-item:hover{
+  transform:scale(1.12);
+  z-index:5;
+}
+
+.carousel-item:hover img{
+  transform:scale(1.1);
+}
+
 @media (max-width: 768px){
   .logo-wrapper.sticky{
     top:12px;
@@ -197,6 +256,11 @@ b{color:white}
 </section>
 
 <div class="container" id="downloads"></div>
+
+<section class="carousel-section">
+  <h2 class="carousel-title">Galería</h2>
+  <div class="carousel" id="carousel"></div>
+</section>
 
 <script>
 const id = new URLSearchParams(location.search).get("id")
@@ -251,6 +315,17 @@ function format(t){
   return t
     .replace(/\*\*(.*?)\*\*/g,"<b>$1</b>")
     .replace(/<grad>(.*?)<\/grad>/g,'<span class="grad">$1</span>')
+}
+
+const carousel = document.getElementById("carousel")
+
+if(app.carousel){
+  app.carousel.forEach(img=>{
+    const item = document.createElement("div")
+    item.className = "carousel-item"
+    item.innerHTML = `<img src="${img}" loading="lazy">`
+    carousel.appendChild(item)
+  })
 }
 </script>
 
