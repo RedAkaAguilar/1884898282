@@ -292,9 +292,8 @@ fetch("/api/control/descarga-manager.json")
       <a class="btn" href="${s.link}">Descargar</a>
     `
     downloads.appendChild(c)
-  })
 
-  const carousel = document.getElementById("carousel")
+    const carousel = document.getElementById("carousel")
 
 if(app.carousel){
   app.carousel.forEach(img=>{
@@ -304,6 +303,7 @@ if(app.carousel){
     carousel.appendChild(item)
   })
 }
+  })
 })
 window.addEventListener("scroll", () => {
   const y = window.scrollY;
