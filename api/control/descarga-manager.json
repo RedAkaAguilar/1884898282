@@ -14,6 +14,11 @@
           "icono": "desktop_windows",
           "link": "#"
         }
+      ],
+      "carousel": [
+        "https://images.unsplash.com/photo-1542751110-97427bbecf20",
+        "https://images.unsplash.com/photo-1605902711622-cfb43c4437d1",
+        "https://images.unsplash.com/photo-1550745165-9bc0b252726f"
       ]
     }
   ]
