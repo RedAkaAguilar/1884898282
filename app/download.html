@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Descarga • ZyrAkaNetwork</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Descarga</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
@@ -11,483 +11,43 @@
 <style>
 :root{
 --bg:#0e1116;
---glass:rgba(255,255,255,.18);
---glass-strong:rgba(255,255,255,.32);
---border:rgba(255,255,255,.38);
 --txt:#fff;
 --muted:#cbd5e1;
---green:#22c55e;
---blue:#38bdf8;
---blur:34px;
+--accent:#38bdf8;
+--glass:rgba(255,255,255,.08);
+--border:rgba(255,255,255,.18);
+--radius:18px;
 --spring:cubic-bezier(.28,1.25,.55,1);
 }
 
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-
+*{box-sizing:border-box}
 body{
 margin:0;
 font-family:Outfit,system-ui;
+background:var(--bg);
 color:var(--txt);
-background:linear-gradient(120deg,#290d0b,#291e0b,#27290b,#13290b,#0b291a,#0b2529,#0b1729,#130b29,#240b29,#290b17);
-background-size:400% 400%;
-animation:bgMove 18s ease infinite;
-overflow-x:hidden;
-}
-
-@keyframes bgMove{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
-
-.liquid-bg{
-position:fixed;
-inset:-25%;
-filter:blur(140px);
-pointer-events:none;
-z-index:-1;
-}
-.liquid-bg span{
-position:absolute;
-width:45vw;
-height:45vw;
-border-radius:50%;
-background:rgba(255,255,255,.2);
-animation:liquidMove 30s ease-in-out infinite;
-}
-.liquid-bg span:nth-child(2){animation-duration:40s;bottom:10%;right:10%}
-.liquid-bg span:nth-child(3){animation-duration:50s;top:40%;right:30%}
-
-@keyframes liquidMove{
-50%{transform:translate(120px,-90px) scale(1.3)}
-}
-
-.app{
-max-width:1200px;
-margin:auto;
-padding-left:180px;
-padding:90px 64px 140px;
-display:flex;
-flex-direction:column;
-gap:70px;
-opacity:0;
-transform:translateY(40px) scale(.96);
-filter:blur(12px);
-animation:appIn 1s var(--spring) forwards;
-}
-
-@keyframes appIn{
-to{opacity:1;transform:none;filter:none}
-}
-
-.header{
-max-width:760px;
-}
-.header h1{
-font-size:44px;
-font-weight:900;
-margin:0;
-}
-.header p{
-margin-top:18px;
-font-size:18px;
-line-height:1.85;
-color:var(--muted);
-white-space:normal;
-}
-
-.sections{
-display:grid;
-gap:32px;
-}
-
-.section{
-background:linear-gradient(180deg,var(--glass-strong),rgba(255,255,255,.08));
-backdrop-filter:blur(var(--blur)) saturate(180%);
-border:1px solid var(--border);
-border-radius:34px;
-box-shadow:0 50px 160px rgba(0,0,0,.8);
-overflow:hidden;
-opacity:0;
-transform:translateY(30px) scale(.95);
-transition:.6s var(--spring);
-}
-
-.section.visible{
-opacity:1;
-transform:none;
-}
-
-.section:hover{
-transform:translateY(-8px) scale(1.02);
-}
-
-.section-header{
-display:flex;
-align-items:center;
-gap:22px;
-padding:32px 36px;
-cursor:pointer;
-}
-
-.section-header span{
-font-size:36px;
-background:linear-gradient(135deg,var(--green),var(--blue));
--webkit-background-clip:text;
-color:transparent;
-transition:transform .45s var(--spring);
-}
-
-.section:hover .section-header span{
-transform:scale(1.35);
-}
-
-.section-header strong{
-font-size:22px;
-font-weight:800;
-flex:1;
-}
-
-.section-content{
-max-height:0;
-opacity:0;
-padding:0 36px;
-overflow:hidden;
-transform:translateY(-12px);
-transition:
-max-height 1s var(--spring),
-opacity .55s ease,
-transform .7s var(--spring);
-}
-
-.section.open .section-content{
-max-height:900px;
-opacity:1;
-transform:none;
-padding-bottom:36px;
-}
-
-.section-content p{
-margin:24px 0 30px;
-line-height:1.8;
-color:rgba(255,255,255,.88);
-}
-
-.download{
-height:64px;
-max-width:360px;
-border-radius:999px;
-background:linear-gradient(135deg,var(--green),var(--blue));
-display:flex;
-align-items:center;
-justify-content:center;
-gap:14px;
-font-weight:900;
-color:#fff;
-text-decoration:none;
-box-shadow:0 0 60px rgba(56,189,248,.55);
-position:relative;
-overflow:hidden;
-transition:.45s var(--spring);
-}
-
-.download::before{
-content:"";
-position:absolute;
-inset:0;
-background:linear-gradient(120deg,transparent,rgba(255,255,255,.7),transparent);
-transform:translateX(-130%);
-transition:1s ease;
-}
-
-.download:hover::before{
-transform:translateX(130%);
-}
-
-.download:hover{
-transform:translateY(-8px) scale(1.08);
-box-shadow:0 0 90px rgba(56,189,248,.9);
-}
-
-.download:active{
-transform:scale(.9);
-}
-
-.loader{
-height:70vh;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-gap:26px;
-}
-
-.spinner{
-width:80px;
-height:80px;
-border-radius:50%;
-border:4px solid rgba(255,255,255,.25);
-border-top-color:var(--blue);
-animation:spin .85s linear infinite;
-}
-
-@keyframes spin{to{rotate:360deg}}
-
-.error{
-text-align:center;
-margin-top:120px;
-}
-
-.error span{
-font-size:86px;
-opacity:.7;
-}
-
-@media(max-width:900px){
-.app{padding:40px 20px 90px}
-.header h1{font-size:30px}
-}
-
-#page-loader{
-position:fixed;
-inset:0;
-z-index:9999;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(180deg,rgba(15,18,25,.85),rgba(15,18,25,.65));
-backdrop-filter:blur(40px) saturate(180%);
-transition:opacity .8s ease,visibility .8s ease;
-}
-
-#page-loader.hide{
-opacity:0;
-visibility:hidden;
-}
-
-#wifi-loader{
---background:transparent;
---front-color:var(--blue);
---back-color:rgba(255,255,255,.25);
---text-color:rgba(255,255,255,.65);
-width:86px;
-height:86px;
-position:relative;
-display:flex;
-align-items:center;
-justify-content:center;
-filter:drop-shadow(0 0 25px rgba(56,189,248,.45));
-}
-
-#wifi-loader svg{
-position:absolute;
-}
-
-#wifi-loader svg circle{
-fill:none;
-stroke-width:6px;
-stroke-linecap:round;
-transform:rotate(-100deg);
-transform-origin:center;
-}
-
-#wifi-loader svg circle.back{
-stroke:var(--back-color);
-}
-
-#wifi-loader svg circle.front,
-#wifi-loader svg circle.new{
-stroke:var(--front-color);
-}
-
-#wifi-loader .text{
-position:absolute;
-bottom:-44px;
-font-size:14px;
-font-weight:600;
-letter-spacing:.4px;
-text-transform:lowercase;
-}
-
-#wifi-loader .text::before,
-#wifi-loader .text::after{
-content:attr(data-text);
-}
-
-#wifi-loader .text::before{
-color:var(--text-color);
-}
-
-#wifi-loader .text::after{
-color:var(--front-color);
-animation:text-animation76 3.6s ease infinite;
-position:absolute;
-left:0;
-}
-
-#wifi-loader svg.circle-outer{width:86px;height:86px}
-#wifi-loader svg.circle-middle{width:60px;height:60px}
-#wifi-loader svg.circle-inner{width:34px;height:34px}
-
-#wifi-loader svg.circle-outer circle{stroke-dasharray:62.75 188.25}
-#wifi-loader svg.circle-middle circle{stroke-dasharray:42.5 127.5}
-#wifi-loader svg.circle-inner circle{stroke-dasharray:22 66}
-
-#wifi-loader svg.circle-outer circle.back{animation:circle-outer135 1.8s ease infinite .3s}
-#wifi-loader svg.circle-outer circle.front{animation:circle-outer135 1.8s ease infinite .15s}
-
-#wifi-loader svg.circle-middle circle.back{animation:circle-middle6123 1.8s ease infinite .25s}
-#wifi-loader svg.circle-middle circle.front{animation:circle-middle6123 1.8s ease infinite .1s}
-
-#wifi-loader svg.circle-inner circle.back{animation:circle-inner162 1.8s ease infinite .2s}
-#wifi-loader svg.circle-inner circle.front{animation:circle-inner162 1.8s ease infinite .05s}
-
-@keyframes circle-outer135 {
-  0% { stroke-dashoffset: 25 }
-  25% { stroke-dashoffset: 0 }
-  65% { stroke-dashoffset: 301 }
-  80% { stroke-dashoffset: 276 }
-  100% { stroke-dashoffset: 276 }
-}
-
-@keyframes circle-middle6123 {
-  0% { stroke-dashoffset: 17 }
-  25% { stroke-dashoffset: 0 }
-  65% { stroke-dashoffset: 204 }
-  80% { stroke-dashoffset: 187 }
-  100% { stroke-dashoffset: 187 }
-}
-
-@keyframes circle-inner162 {
-  0% { stroke-dashoffset: 9 }
-  25% { stroke-dashoffset: 0 }
-  65% { stroke-dashoffset: 106 }
-  80% { stroke-dashoffset: 97 }
-  100% { stroke-dashoffset: 97 }
-}
-
-@keyframes text-animation76 {
-  0% { clip-path: inset(0 100% 0 0) }
-  50% { clip-path: inset(0) }
-  100% { clip-path: inset(0 0 0 100%) }
-}
-
-#wifi-loader{
-  animation: loaderPulse 2.8s ease-in-out infinite;
-}
-
-@keyframes loaderPulse{
-  50%{ transform:scale(1.08) }
-}
-
-#page-loader.hide{
-  opacity:0;
-  visibility:hidden;
-  transform:scale(1.1);
-  filter:blur(20px);
-}
-
-.hero-badge{
-display:inline-flex;
-align-items:center;
-gap:8px;
-padding:8px 16px;
-border-radius:999px;
-background:rgba(255,255,255,.12);
-backdrop-filter:blur(14px);
-font-size:13px;
-font-weight:700;
-margin-bottom:18px;
-animation:pulse 3s ease-in-out infinite;
-}
-@keyframes pulse{50%{opacity:.7}}
-
-.features{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-opacity:.85;
-}
-.features div{
-padding:14px 20px;
-border-radius:18px;
-background:rgba(255,255,255,.1);
-backdrop-filter:blur(14px);
-font-weight:600;
-}
-
-.preview-card{
-height:280px;
-border-radius:28px;
-background:linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.05));
-box-shadow:0 60px 160px rgba(0,0,0,.6);
-margin:60px 0;
-}
-
-.divider{
-height:1px;
-margin:80px 0;
-background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
-animation:dividerGlow 6s linear infinite;
-}
-@keyframes dividerGlow{
-50%{opacity:.4}
-}
-
-.hero{
-position:relative;
-height:75vh;
-background-image:var(--bg);
-background-size:cover;
-background-position:center;
-display:flex;
-align-items:center;
-justify-content:center;
-overflow:hidden;
-}
-
-.hero-gradient{
-position:absolute;
-inset:0;
-background:linear-gradient(
-to bottom,
-rgba(0,0,0,.15),
-rgba(14,17,22,.65),
-var(--bg)
-);
-z-index:1;
-}
-
-.hero-logo{
-width:220px;
-z-index:2;
-transition:.7s cubic-bezier(.28,1.25,.55,1);
-}
-
-.hero.sticky .hero-logo{
-position:fixed;
-top:24px;
-left:28px;
-width:68px;
-background:rgba(255,255,255,.15);
-backdrop-filter:blur(18px);
-padding:10px;
-border-radius:16px;
 }
 
 .steam-hero{
 position:relative;
-height:88vh;
-background-image:var(--bg);
-background-size:cover;
-background-position:center;
+height:85vh;
+background:linear-gradient(#111,#000);
+overflow:hidden;
 }
 
-.steam-overlay{
+.steam-hero::before{
+content:"";
 position:absolute;
 inset:0;
-background:
-linear-gradient(to bottom,rgba(0,0,0,.25),#0e1116 92%);
+background:linear-gradient(to bottom,rgba(0,0,0,.3),#0e1116 92%);
+}
+
+.steam-hero-bg{
+position:absolute;
+inset:0;
+background-size:cover;
+background-position:center;
+filter:blur(2px) brightness(.7);
 }
 
 .steam-hero-content{
@@ -496,22 +56,22 @@ bottom:80px;
 left:50%;
 transform:translateX(-50%);
 display:flex;
-gap:40px;
+gap:36px;
 align-items:flex-end;
-max-width:1100px;
 width:100%;
-padding:0 40px;
+max-width:1100px;
+padding:0 32px;
 }
 
 .steam-capsule{
 width:260px;
 border-radius:10px;
-box-shadow:0 40px 120px rgba(0,0,0,.85);
-transition:.6s cubic-bezier(.28,1.25,.55,1);
+box-shadow:0 40px 120px rgba(0,0,0,.8);
+transition:.6s var(--spring);
 }
 
 .steam-meta h1{
-margin:0 0 16px;
+margin:0 0 14px;
 font-size:44px;
 font-weight:900;
 }
@@ -522,262 +82,178 @@ line-height:1.8;
 color:var(--muted);
 }
 
-.steam-hero.sticky .steam-capsule{
+.sticky .steam-capsule{
 position:fixed;
 top:96px;
-left:32px;
+left:28px;
 width:120px;
 z-index:999;
+}
+
+.app{
+max-width:1100px;
+margin:auto;
+padding:80px 32px 120px;
+}
+
+.section{
+background:var(--glass);
+border:1px solid var(--border);
+border-radius:var(--radius);
+margin-bottom:22px;
+overflow:hidden;
+}
+
+.section-header{
+display:flex;
+align-items:center;
+gap:16px;
+padding:22px;
+cursor:pointer;
+}
+
+.section-header span{
+font-size:28px;
+color:var(--accent);
+}
+
+.section-header strong{
+flex:1;
+font-size:18px;
+}
+
+.section-content{
+max-height:0;
+overflow:hidden;
+padding:0 22px;
+transition:max-height .6s var(--spring);
+}
+
+.section.open .section-content{
+max-height:600px;
+padding-bottom:22px;
+}
+
+.section-content p{
+line-height:1.7;
+color:var(--muted);
+}
+
+.download{
+display:inline-flex;
+align-items:center;
+gap:12px;
+padding:14px 22px;
+border-radius:999px;
+background:linear-gradient(135deg,#22c55e,#38bdf8);
+color:white;
+font-weight:800;
+text-decoration:none;
+margin-top:16px;
+}
+
+.error{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+gap:14px;
 }
 </style>
 </head>
 
 <body>
-<div class="liquid-bg"><span></span><span></span><span></span></div>
-  
-<div id="page-loader">
-  <div id="wifi-loader">
-    <svg class="circle-outer" viewBox="0 0 86 86">
-      <circle class="back" cx="43" cy="43" r="40"></circle>
-      <circle class="front" cx="43" cy="43" r="40"></circle>
-      <circle class="new" cx="43" cy="43" r="40"></circle>
-    </svg>
-    <svg class="circle-middle" viewBox="0 0 60 60">
-      <circle class="back" cx="30" cy="30" r="27"></circle>
-      <circle class="front" cx="30" cy="30" r="27"></circle>
-    </svg>
-    <svg class="circle-inner" viewBox="0 0 34 34">
-      <circle class="back" cx="17" cy="17" r="14"></circle>
-      <circle class="front" cx="17" cy="17" r="14"></circle>
-    </svg>
-    <div class="text" data-text="Conectando"></div>
-  </div>
-</div>
 
-<div id="app" class="app">
-<div class="loader">
-<div class="spinner"></div>
-<p>Cargando plataforma…</p>
-</div>
-</div>
-
-<div class="features">
-  <div><span class="material-symbols-rounded">download_2</span> Descarga instantánea</div>
-  <div><span class="material-symbols-rounded">assured_workload</span> 100% seguro</div>
-  <div><span class="material-symbols-rounded">update</span> Actualizaciones automáticas</div>
-</div>
+<div id="root"></div>
 
 <script>
-const DATA_URL='/api/control/descarga-manager.json'
-const app=document.getElementById('app')
-const id=new URLSearchParams(location.search).get('id')
+const DATA_URL = '/api/control/descarga-manager.json'
+const root = document.getElementById('root')
+const id = new URLSearchParams(location.search).get('id')
 
-const rich=t=>t
-.replace(/\n/g,'<br>')
-.replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
-.replace(/_(.*?)_/g,'<i>$1</i>')
-.replace(/`(.*?)`/g,'<code>$1</code>')
+const rich = t => t
+  .replace(/\n/g,'<br>')
+  .replace(/\*\*(.*?)\*\*/g,'<b>$1</b>')
+  .replace(/_(.*?)_/g,'<i>$1</i>')
+  .replace(/`(.*?)`/g,'<code>$1</code>')
 
-const error=(t,m)=>app.innerHTML=`
-<div class="error">
-<span class="material-symbols-rounded">error</span>
-<h1>${t}</h1><p>${m}</p>
-</div>`
-
-if(!id) error('Descarga no válida','No se especificó producto.')
-else fetch(DATA_URL,{cache:'no-store'})
-.then(r=>r.ok?r.json():0)
-.then(d=>{
-const p=d.productos?.[id]
-if(!p)return error('No encontrado','Producto inexistente.')
-
-const heroBg = p.hero?.background || ''
-const capsule = p.hero?.capsule || ''
-  
-app.innerHTML=`
-<div class="steam-hero" style="${heroBg ? `--bg:url('${heroBg}')` : ''}">
-  <div class="steam-overlay"></div>
-
-  <div class="steam-hero-content">
-    ${capsule ? `<img class="steam-capsule" src="${capsule}">` : ''}
-    <div class="steam-meta">
-      <h1>${p.titulo}</h1>
-      <p>${rich(p.descripcion)}</p>
+function showError(title,msg){
+  root.innerHTML = `
+    <div class="error">
+      <span class="material-symbols-rounded">error</span>
+      <h1>${title}</h1>
+      <p>${msg}</p>
     </div>
-  </div>
-</div>
-<div class="sections">
-${p.secciones.map((s,i)=>`
-<div class="section" id="s${i}">
-<div class="section-header" onclick="toggle(${i})">
-<span class="material-symbols-rounded">${s.icono}</span>
-<strong>${s.titulo}</strong>
-</div>
-<div class="section-content">
-<p>${rich(s.descripcion)}</p>
-<a class="download" href="${s.url}">
-<span class="material-symbols-rounded">download</span> Descargar
-</a>
-</div>
-</div>`).join('')}
-</div>`
+  `
+}
 
-observe()
-})
-.catch(()=>error('Error','No se pudo cargar la información.'))
+if(!id){
+  showError('ID inválido','No se especificó producto.')
+}else{
+  fetch(DATA_URL + '?v=' + Date.now())
+    .then(r=>r.ok?r.json():Promise.reject())
+    .then(data=>{
+      const p = data.productos?.[id]
+      if(!p) throw 'Producto no encontrado'
+      render(p)
+    })
+    .catch(()=>{
+      showError('Error','No se pudo cargar la información.')
+    })
+}
+
+function render(p){
+  const heroBg = p.hero?.background || ''
+  const capsule = p.hero?.capsule || ''
+
+  root.innerHTML = `
+    <section class="steam-hero">
+      ${heroBg ? `<div class="steam-hero-bg" style="background-image:url('${heroBg}')"></div>` : ''}
+      <div class="steam-hero-content">
+        ${capsule ? `<img class="steam-capsule" src="${capsule}">` : ''}
+        <div class="steam-meta">
+          <h1>${p.titulo}</h1>
+          <p>${rich(p.descripcion || '')}</p>
+        </div>
+      </div>
+    </section>
+
+    <main class="app">
+      ${(p.secciones || []).map((s,i)=>`
+        <div class="section" id="sec${i}">
+          <div class="section-header" onclick="toggle(${i})">
+            <span class="material-symbols-rounded">${s.icono || 'download'}</span>
+            <strong>${s.titulo}</strong>
+          </div>
+          <div class="section-content">
+            <p>${rich(s.descripcion || '')}</p>
+            <a class="download" href="${s.url}" target="_blank">
+              <span class="material-symbols-rounded">download</span> Descargar
+            </a>
+          </div>
+        </div>
+      `).join('')}
+    </main>
+  `
+
+  setupScroll()
+}
 
 function toggle(i){
-document.querySelectorAll('.section').forEach(s=>s.classList.remove('open'))
-const sec=document.getElementById('s'+i)
-sec.classList.add('open')
-sec.scrollIntoView({behavior:'smooth',block:'center'})
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('open'))
+  document.getElementById('sec'+i)?.classList.add('open')
 }
 
-function observe(){
-const obs=new IntersectionObserver(e=>{
-e.forEach(v=>{
-if(v.isIntersecting)v.target.classList.add('visible')
-})
-},{threshold:.2})
-
-document.querySelectorAll('.section').forEach(s=>obs.observe(s))
-}
-
-const loader = document.getElementById('page-loader')
-const MIN_TIME = 5000
-const startTime = performance.now()
-
-function hideLoader(){
-  const elapsed = performance.now() - startTime
-  const remaining = Math.max(0, MIN_TIME - elapsed)
-
-  setTimeout(()=>{
-    loader.classList.add('hide')
-  }, remaining)
-}
-
-window.addEventListener('load', hideLoader)
-
-const messages = [
-  'Conectando',
-  'Sincronizando',
-  'Cargando datos',
-  'Preparando interfaz'
-]
-
-let msgIndex = 0
-const textEl = document.querySelector('#wifi-loader .text')
-
-setInterval(()=>{
-  if(textEl){
-    msgIndex = (msgIndex + 1) % messages.length
-    textEl.dataset.text = messages[msgIndex]
-  }
-}, 3000)
-
-document.addEventListener('mousemove',e=>{
-  document.querySelectorAll('.download').forEach(b=>{
-    const r=b.getBoundingClientRect()
-    const x=e.clientX-(r.left+r.width/2)
-    const y=e.clientY-(r.top+r.height/2)
-    b.style.transform=`translate(${x*0.02}px,${y*0.02}px)`
+function setupScroll(){
+  const hero = document.querySelector('.steam-hero')
+  window.addEventListener('scroll',()=>{
+    hero.classList.toggle('sticky',window.scrollY > window.innerHeight * .6)
   })
-})
-
-document.querySelectorAll('.download').forEach(b=>{
-  b.addEventListener('mouseleave',()=>{
-    b.style.transform=''
-  })
-})
-
-document.addEventListener('mousemove',e=>{
-  document.querySelectorAll('.liquid-bg span').forEach((b,i)=>{
-    const x=(e.clientX/window.innerWidth-.5)*(20+i*10)
-    const y=(e.clientY/window.innerHeight-.5)*(20+i*10)
-    b.style.transform=`translate(${x}px,${y}px)`
-  })
-})
-
-let lastData = null
-
-async function checkChanges(){
-  try{
-    const res = await fetch('/api/control/descarga-manager.json', {
-      cache: 'no-store'
-    })
-
-    if(!res.ok) return
-
-    const data = await res.json()
-
-    if(JSON.stringify(data) !== JSON.stringify(lastData)){
-      lastData = data
-      onChange(data)
-    }
-
-  }catch(e){}
 }
-
-function onChange(data){
-  console.log('Cambio detectado:', data)
-}
-
-setInterval(checkChanges, 1000)
-
-  function onChange(data){
-  const status = document.getElementById('server-status')
-
-  if(data.online){
-    status.textContent = 'Online'
-    status.classList.add('on')
-    status.classList.remove('off')
-  }else{
-    status.textContent = 'Offline'
-    status.classList.add('off')
-    status.classList.remove('on')
-  }
-  }
-
-  let checking = false
-
-setInterval(async ()=>{
-  if(checking) return
-  checking = true
-
-  try{
-    const res = await fetch('/api/control/descarga-manager.json',{cache:'no-store'})
-    const data = await res.json()
-
-    if(JSON.stringify(data) !== JSON.stringify(lastData)){
-      lastData = data
-      onChange(data)
-    }
-  }catch(e){}
-
-  checking = false
-},1000)
-
-  const hero = document.querySelector('.hero')
-const logo = document.querySelector('.hero-logo')
-
-window.addEventListener('scroll',()=>{
-  if(window.scrollY > window.innerHeight * 0.45){
-    hero.classList.add('sticky')
-  }else{
-    hero.classList.remove('sticky')
-  }
-})
-
-  const steamHero = document.querySelector('.steam-hero')
-
-window.addEventListener('scroll',()=>{
-  if(window.scrollY > window.innerHeight * 0.6){
-    steamHero.classList.add('sticky')
-  }else{
-    steamHero.classList.remove('sticky')
-  }
-})
 </script>
 
 </body>
 </html>
+
