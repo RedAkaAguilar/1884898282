@@ -536,6 +536,53 @@ const id = new URLSearchParams(location.search).get("id")
 const logoWrap = document.getElementById("logoWrap")
 const bg = document.getElementById("bg")
 
+function renderApp(data){
+  const id = new URLSearchParams(location.search).get("id")
+  const app = data.apps.find(a=>a.id===id)
+  if(!app) return
+
+  document.title = app.title
+  bg.style.backgroundImage = `url(${app.background})`
+  logo.src = app.logo
+  title.textContent = app.title
+  subtitle.textContent = app.subtitle
+  desc.innerHTML = format(app.description)
+
+  downloads.innerHTML = ""
+  app.secciones.forEach(s=>{
+    const c = document.createElement("div")
+    c.className = "card reveal visible"
+    c.innerHTML = `
+      <span class="material-symbols-rounded icon">${s.icono}</span>
+      <div>
+        <h3>${s.titulo}</h3>
+        <p>${format(s.descripcion)}</p>
+      </div>
+      <a class="btn" href="${s.link}">Descargar</a>
+    `
+    downloads.appendChild(c)
+  })
+
+  const carousel = document.getElementById("carousel")
+  carousel.innerHTML = ""
+  index = 0
+
+  if(app.carousel){
+    app.carousel.forEach((img,i)=>{
+      const slide = document.createElement("div")
+      slide.className = "slide"
+      if(i === 0) slide.classList.add("active")
+      if(i === 1) slide.classList.add("next")
+      if(i === app.carousel.length - 1) slide.classList.add("prev")
+      slide.innerHTML = `<img src="${img}">`
+      carousel.appendChild(slide)
+    })
+  }
+
+  footerTitle.textContent = app.title
+  footerDesc.innerHTML = format(app.description)
+}
+  
 async function loadJson(){
   const res = await fetch("/api/control/descarga-manager.json?ts=" + Date.now())
   return await res.json()
