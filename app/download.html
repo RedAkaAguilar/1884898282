@@ -337,7 +337,36 @@ b{color:white}
   text-align:center;
 }
 
+.reveal{
+  opacity:0;
+  transform:translateY(70px) scale(.97);
+  filter:blur(14px);
+  transition:
+    opacity .8s ease,
+    transform 1s cubic-bezier(.22,1,.36,1),
+    filter .9s ease;
+  will-change:transform, opacity, filter;
+}
+
+.reveal.visible{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
+
+.reveal > *{
+  transition-delay:.15s;
+}
+
+.reveal.visible > *{
+  transition-delay:calc(var(--i, 0) * 120ms);
+}
+
 @media (max-width: 768px){
+  .reveal{
+    transform:translateY(50px) scale(.98);
+    filter:blur(10px);
+    
   .hero{
     height:360px;
   }
@@ -430,7 +459,7 @@ b{color:white}
 
 <body>
 
-<section class="hero">
+<section class="hero reveal">
   <div id="bg" class="hero-bg"></div>
   <div class="hero-overlay"></div>
 
@@ -445,11 +474,11 @@ b{color:white}
   </div>
 </section>
 
-<div class="container" id="downloads"></div>
+<div class="container reveal" id="downloads"></div>
 
 <section class="carousel-section">
   <h2 class="carousel-title">Galería</h2>
-  <div class="carousel-wrap">
+  <div class="carousel-wrap reveal">
   <div class="carousel" id="carousel"></div>
   </div>
 </section>
@@ -612,6 +641,27 @@ const footerObserver = new IntersectionObserver(entries=>{
 })
 
 footerObserver.observe(footer)
+
+const reveals = document.querySelectorAll(".reveal")
+
+const revealObserver = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("visible")
+      revealObserver.unobserve(entry.target)
+    }
+  })
+},{
+  threshold:0.18
+})
+
+reveals.forEach(el=>revealObserver.observe(el))
+
+document.querySelectorAll(".reveal").forEach(block=>{
+  [...block.children].forEach((el,i)=>{
+    el.style.setProperty("--i", i)
+  })
+})
 </script>
 
 </body>
