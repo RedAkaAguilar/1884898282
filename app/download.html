@@ -362,6 +362,100 @@ b{color:white}
   transition-delay:calc(var(--i, 0) * 120ms);
 }
 
+#notFound{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(1200px 600px at 20% 10%, #1f2937, transparent 60%),
+    radial-gradient(1200px 600px at 80% 90%, #020617, transparent 60%),
+    var(--bg);
+  overflow:hidden;
+}
+
+#notFound .liquid-bg{
+  position:absolute;
+  inset:-20%;
+  filter:blur(180px);
+}
+
+#notFound .liquid-bg span{
+  position:absolute;
+  width:46vw;
+  height:46vw;
+  border-radius:50%;
+  background:rgba(56,189,248,.25);
+  animation:float 36s ease-in-out infinite;
+}
+
+#notFound .liquid-bg span:nth-child(2){
+  background:rgba(34,197,94,.22);
+  animation-duration:44s;
+}
+
+#notFound .liquid-bg span:nth-child(3){
+  background:rgba(255,255,255,.18);
+  animation-duration:52s;
+}
+
+.nf-card{
+  width:380px;
+  max-width:92%;
+  padding:42px 34px 38px;
+  border-radius:34px;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.38),
+    rgba(255,255,255,.12)
+  );
+  backdrop-filter:blur(36px) saturate(170%);
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.55),
+    0 90px 220px rgba(0,0,0,.85);
+  text-align:center;
+  animation:enter .9s cubic-bezier(.28,1.25,.55,1);
+}
+
+.nf-icon{
+  width:98px;
+  height:98px;
+  margin:0 auto 20px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(255,255,255,.22);
+  border:1px solid rgba(255,255,255,.4);
+  box-shadow:0 0 40px rgba(255,255,255,.25);
+}
+
+.nf-icon span{
+  font-size:46px;
+  color:#fbbf24;
+  animation:warn 1.6s ease-in-out infinite;
+}
+
+#notFound h1{
+  margin:10px 0 8px;
+  font-size:22px;
+}
+
+#notFound p{
+  margin:0;
+  font-size:14px;
+  color:var(--muted);
+}
+
+.nf-note{
+  margin-top:18px;
+  font-size:12px;
+  color:rgba(255,255,255,.55);
+}
+
 @media (max-width: 768px){
   .reveal{
     transform:translateY(50px) scale(.98);
@@ -458,6 +552,27 @@ b{color:white}
 </head>
 
 <body>
+<div id="notFound" style="display:none">
+  <div class="liquid-bg">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="nf-card">
+    <div class="nf-icon">
+      <span class="material-symbols-rounded">inventory_2</span>
+    </div>
+
+    <h1>Producto no encontrado</h1>
+    <p>
+      El producto que intentas abrir no existe<br>
+      o el identificador es incorrecto.
+    </p>
+
+    <div class="nf-note">
+      Verifica el enlace o vuelve al catálogo
+    </div>
+  </div>
+</div>
 
 <section class="hero">
   <div id="bg" class="hero-bg"></div>
@@ -539,8 +654,14 @@ const bg = document.getElementById("bg")
 function renderApp(data){
   const id = new URLSearchParams(location.search).get("id")
   const app = data.apps.find(a=>a.id===id)
-  if(!app) return
+  if(!app){
+    document.getElementById("notFound").style.display = "flex"
+      document.body.style.overflow = "hidden"
+        return
+  }
 
+  document.getElementById("notFound").style.display = "none"
+  document.body.style.overflow = ""
   document.title = app.title
   bg.style.backgroundImage = `url(${app.background})`
   logo.src = app.logo
