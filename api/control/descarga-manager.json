@@ -2,8 +2,8 @@
   "apps": [
     {
       "id": "testNodo",
-      "title": "ZyrAka Launcher",
-      "subtitle": "Launcher Oficial",
+      "title": "Test Site",
+      "subtitle": "Dev Mode Activate",
       "background": "https://images.unsplash.com/photo-1511512578047-dfb367046420",
       "logo": "https://raw.githubusercontent.com/RedAkaAguilar/1884898282/main/textures/-webpage-imgtool.png",
       "description": "El **launcher oficial** de <grad>ZyrAkaNetwork</grad>.\nDiseñado como una **app nativa premium**.",
