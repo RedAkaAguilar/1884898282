@@ -28,19 +28,20 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== HEADER ===== */
 header{
   position:sticky;
   top:0;
-  z-index:10;
-  padding:22px 20px 14px;
-  backdrop-filter:blur(22px);
-  background:linear-gradient(
-    to bottom,
-    rgba(14,17,22,.85),
-    rgba(14,17,22,.35),
-    transparent
-  );
+  z-index:20;
+  padding:26px 22px 18px;
+  backdrop-filter:blur(28px) saturate(180%);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(14,17,22,.9),
+      rgba(14,17,22,.6),
+      transparent
+    );
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 
 header h1{
@@ -49,7 +50,6 @@ header h1{
   font-weight:700;
 }
 
-/* ===== CATEGORY ===== */
 .section{
   padding:18px 0 26px;
 }
@@ -60,28 +60,64 @@ header h1{
   font-weight:600;
 }
 
-/* ===== APP ROW ===== */
-.row{
-  display:flex;
-  gap:16px;
-  padding:0 20px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-}
-
 .row::-webkit-scrollbar{display:none}
 
+.row{
+  display:flex;
+  gap:18px;
+  padding:0 22px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  overscroll-behavior-x:contain;
+}
+
 .app-card{
-  flex:0 0 160px;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
+  position:relative;
+  flex:0 0 170px;
+  border-radius:28px;
+  background:linear-gradient(
+    180deg,
+    rgba(255,255,255,.22),
+    rgba(255,255,255,.08)
+  );
+  border:1px solid rgba(255,255,255,.18);
   overflow:hidden;
-  cursor:pointer;
   transform-style:preserve-3d;
   transition:
-    transform .45s cubic-bezier(.22,1,.36,1),
-    box-shadow .45s ease;
+    transform .55s cubic-bezier(.22,1,.36,1),
+    box-shadow .55s ease;
+}
+
+.app-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.35),
+    transparent 70%
+  );
+  opacity:0;
+  transition:opacity .4s ease;
+}
+
+@media (hover:hover){
+  .app-card:hover{
+    transform:translateY(-14px) scale(1.08);
+    box-shadow:
+      0 70px 160px rgba(0,0,0,.9),
+      inset 0 1px 0 rgba(255,255,255,.35);
+    z-index:5;
+  }
+
+  .app-card:hover::before{
+    opacity:.45;
+  }
+}
+
+.app-card:active{
+  transform:scale(.96);
 }
 
 @media (hover:hover){
@@ -104,9 +140,17 @@ header h1{
 }
 
 .app-thumb{
-  height:110px;
+  height:115px;
   background-size:cover;
   background-position:center;
+  transform:translateZ(30px);
+  transition:transform .45s ease;
+}
+
+@media (hover:hover){
+  .app-card:hover .app-thumb{
+    transform:translateY(-6px) scale(1.05);
+  }
 }
 
 .app-info{
@@ -127,16 +171,21 @@ header h1{
 #authorView{
   position:fixed;
   inset:0;
-  background:var(--bg);
-  z-index:100;
+  background:linear-gradient(
+    180deg,
+    rgba(14,17,22,.98),
+    rgba(14,17,22,.9)
+  );
+  backdrop-filter:blur(40px) saturate(180%);
+  z-index:200;
   display:flex;
   flex-direction:column;
   opacity:0;
   pointer-events:none;
-  transform:translateY(30px);
+  transform:scale(.96) translateY(30px);
   transition:
     opacity .6s ease,
-    transform .6s cubic-bezier(.22,1,.36,1);
+    transform .7s cubic-bezier(.22,1,.36,1);
 }
 
 #authorView.show{
@@ -163,15 +212,28 @@ header h1{
   font-size:22px;
 }
 
+.grid .app-card{
+  flex: none;
+  opacity:0;
+  animation:gridIn .7s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes gridIn{
+  from{
+    opacity:0;
+    transform:translateY(50px) scale(.92);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
 .grid{
   padding:18px;
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
   gap:18px;
-}
-
-.grid .app-card{
-  flex:none;
 }
 
 @keyframes cardIn{
@@ -202,11 +264,30 @@ header h1{
     transform:none;
   }
 }
+
+.cinematic-bg{
+  position:fixed;
+  inset:-20%;
+  z-index:-1;
+  background:
+    radial-gradient(1200px 800px at 10% 10%, rgba(99,102,241,.25), transparent 60%),
+    radial-gradient(1200px 800px at 90% 80%, rgba(236,72,153,.22), transparent 60%),
+    radial-gradient(1000px 600px at 50% 50%, rgba(56,189,248,.18), transparent 65%);
+  filter:blur(120px) saturate(160%);
+  animation:bgFloat 40s ease-in-out infinite;
+}
+
+@keyframes bgFloat{
+  0%{transform:translate(0,0)}
+  50%{transform:translate(-120px,-80px)}
+  100%{transform:translate(0,0)}
+}
 </style>
 
 </head>
 
 <body>
+<div class="cinematic-bg"></div>
 
 <header>
   <h1>Aplicaciones</h1>
@@ -274,19 +355,18 @@ function openAuthor(author, apps){
   grid.innerHTML = ""
 
   apps.forEach((app,i)=>{
-    const card = document.createElement("div")
-    card.className = "app-card"
-    card.style.animation = `cardIn .6s ease forwards`
-    card.style.animationDelay = `${i * 70}ms`
-    card.innerHTML = `
-      <div class="app-thumb" style="background-image:url('${app.background}')"></div>
-      <div class="app-info">
-        <h3>${app.title}</h3>
-      </div>
-    `
-    card.onclick = ()=>location.href = "download.html?id=" + app.id
-    grid.appendChild(card)
-  })
+  const card = document.createElement("div")
+  card.className = "app-card"
+  card.style.animationDelay = `${i * 90}ms`
+  card.innerHTML = `
+    <div class="app-thumb" style="background-image:url('${app.background}')"></div>
+    <div class="app-info">
+      <h3>${app.title}</h3>
+    </div>
+  `
+  card.onclick = ()=>location.href = "download.html?id=" + app.id
+  grid.appendChild(card)
+})
 
   const view = document.getElementById("authorView")
   view.classList.add("show")
@@ -296,6 +376,18 @@ function closeAuthor(){
   const view = document.getElementById("authorView")
   view.classList.remove("show")
 }
+
+document.querySelectorAll(".row").forEach(row=>{
+  row.addEventListener("scroll",()=>{
+    row.querySelectorAll(".app-card").forEach(card=>{
+      const rect = card.getBoundingClientRect()
+      const center = window.innerWidth / 2
+      const dist = Math.abs(rect.left + rect.width/2 - center)
+      const scale = Math.max(.9, 1 - dist / 1200)
+      card.style.transform = `scale(${scale})`
+    })
+  })
+})
 </script>
 
 </body>
