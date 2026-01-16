@@ -662,6 +662,74 @@ document.querySelectorAll(".reveal").forEach(block=>{
     el.style.setProperty("--i", i)
   })
 })
+
+let lastJsonHash = null
+
+async function checkJsonUpdates(){
+  try{
+    const res = await fetch("/api/control/descarga-manager.json?ts=" + Date.now())
+    const json = await res.json()
+
+    const hash = JSON.stringify(json)
+
+    if(lastJsonHash && hash !== lastJsonHash){
+      console.log("📦 JSON actualizado")
+      onJsonChange(json)
+    }
+
+    lastJsonHash = hash
+  }catch(e){
+    console.warn("No se pudo comprobar el JSON")
+  }
+}
+
+setInterval(checkJsonUpdates, 1000)
+
+function onJsonChange(data){
+  const id = new URLSearchParams(location.search).get("id")
+  const app = data.apps.find(a=>a.id===id)
+  if(!app) return
+
+  bg.style.backgroundImage = `url(${app.background})`
+  logo.src = app.logo
+  title.textContent = app.title
+  subtitle.textContent = app.subtitle
+  desc.innerHTML = format(app.description)
+
+  downloads.innerHTML = ""
+  app.secciones.forEach(s=>{
+    const c = document.createElement("div")
+    c.className = "card reveal visible"
+    c.innerHTML = `
+      <span class="material-symbols-rounded icon">${s.icono}</span>
+      <div>
+        <h3>${s.titulo}</h3>
+        <p>${format(s.descripcion)}</p>
+      </div>
+      <a class="btn" href="${s.link}">Descargar</a>
+    `
+    downloads.appendChild(c)
+  })
+
+  const carousel = document.getElementById("carousel")
+  carousel.innerHTML = ""
+  index = 0
+
+  if(app.carousel){
+    app.carousel.forEach((img,i)=>{
+      const slide = document.createElement("div")
+      slide.className = "slide"
+      if(i === 0) slide.classList.add("active")
+      if(i === 1) slide.classList.add("next")
+      if(i === app.carousel.length - 1) slide.classList.add("prev")
+      slide.innerHTML = `<img src="${img}">`
+      carousel.appendChild(slide)
+    })
+  }
+
+  footerTitle.textContent = app.title
+  footerDesc.innerHTML = format(app.description)
+}
 </script>
 
 </body>
