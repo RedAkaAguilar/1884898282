@@ -218,6 +218,99 @@ b{color:white}
   z-index:2;
 }
 
+/* ===================== */
+/* FOOTER PREMIUM PANEL */
+/* ===================== */
+
+.footer-panel{
+  padding:120px 20px 40px;
+}
+
+.footer-card{
+  max-width:1200px;
+  margin:0 auto;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.16),
+    rgba(255,255,255,.06)
+  );
+  backdrop-filter:blur(40px);
+  border:1px solid var(--border);
+  border-radius:40px;
+  padding:60px 50px 40px;
+  box-shadow:0 80px 200px rgba(0,0,0,.9);
+}
+
+.footer-brand{
+  max-width:420px;
+}
+
+.brand-icon{
+  width:64px;
+  height:64px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 20px 60px rgba(56,189,248,.5);
+}
+
+.brand-icon span{
+  font-size:32px;
+  color:white;
+}
+
+.footer-brand h3{
+  margin-top:18px;
+  font-size:1.4rem;
+  font-weight:800;
+}
+
+.footer-brand p{
+  margin-top:12px;
+  font-size:.95rem;
+  color:var(--muted);
+}
+
+.footer-columns{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:40px;
+  margin-top:50px;
+}
+
+.footer-col h4{
+  font-size:.9rem;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  color:white;
+}
+
+.footer-col a{
+  display:block;
+  font-size:.9rem;
+  color:var(--muted);
+  margin-bottom:10px;
+  text-decoration:none;
+  transition:.25s;
+}
+
+.footer-col a:hover{
+  color:white;
+  transform:translateX(6px);
+}
+
+.footer-bottom{
+  margin-top:50px;
+  padding-top:30px;
+  border-top:1px solid var(--border);
+  font-size:.8rem;
+  color:var(--muted);
+  text-align:center;
+}
+
 @media (max-width: 768px){
   .hero{
     height:360px;
@@ -276,6 +369,11 @@ b{color:white}
     opacity:.25;
     transform:scale(.78);
   }
+
+  .footer-card{
+    padding:46px 26px 32px;
+    border-radius:32px;
+  }
 }
 @media (min-width: 1200px){
   .hero{
@@ -326,6 +424,54 @@ b{color:white}
   <h2 class="carousel-title">Galería</h2>
   <div class="carousel-wrap">
   <div class="carousel" id="carousel"></div>
+  </div>
+</section>
+
+<section class="footer-panel">
+  <div class="footer-card">
+
+    <div class="footer-brand">
+      <div class="brand-icon">
+        <span class="material-symbols-rounded">download</span>
+      </div>
+      <h3 id="footerTitle">Aplicación</h3>
+      <p id="footerDesc">
+        Descarga oficial del producto con soporte multiplataforma
+        y experiencia premium.
+      </p>
+    </div>
+
+    <div class="footer-columns">
+
+      <div class="footer-col">
+        <h4>Producto</h4>
+        <a>Descarga Oficial</a>
+        <a>Versiones</a>
+        <a>Requisitos</a>
+        <a>Actualizaciones</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Plataformas</h4>
+        <a>Windows</a>
+        <a>Linux</a>
+        <a>MacOS</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Soporte</h4>
+        <a>Documentación</a>
+        <a>Contacto</a>
+        <a>Discord</a>
+        <a>Reportar error</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 · Descarga Oficial · Experiencia Premium
+    </div>
+
   </div>
 </section>
 
