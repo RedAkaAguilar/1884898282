@@ -218,10 +218,13 @@ b{color:white}
   z-index:2;
 }
 
-/* ===================== */
-/* FOOTER PREMIUM PANEL */
-/* ===================== */
+.footer-card.visible{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
 
+  
 .footer-panel{
   padding:120px 20px 40px;
 }
@@ -239,7 +242,30 @@ b{color:white}
   border-radius:40px;
   padding:60px 50px 40px;
   box-shadow:0 80px 200px rgba(0,0,0,.9);
+  opacity:0;
+  transform:translateY(80px) scale(.96);
+  filter:blur(14px);
+  transition:
+    opacity .9s ease,
+    transform 1.1s cubic-bezier(.22,1,.36,1),
+    filter 1s ease;
+  will-change:transform, opacity, filter;
 }
+
+.footer-col{
+  opacity:0;
+  transform:translateY(40px);
+  transition:.6s ease;
+}
+
+.footer-card.visible .footer-col{
+  opacity:1;
+  transform:none;
+}
+
+.footer-card.visible .footer-col:nth-child(1){transition-delay:.15s}
+.footer-card.visible .footer-col:nth-child(2){transition-delay:.3s}
+.footer-card.visible .footer-col:nth-child(3){transition-delay:.45s}
 
 .footer-brand{
   max-width:420px;
@@ -373,6 +399,7 @@ b{color:white}
   .footer-card{
     padding:46px 26px 32px;
     border-radius:32px;
+    transform:translateY(60px) scale(.97);
   }
 }
 @media (min-width: 1200px){
@@ -570,6 +597,21 @@ setInterval(()=>{
 
   index = (index + 1) % slides.length
 },4000)
+
+const footer = document.querySelector(".footer-card")
+
+const footerObserver = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      footer.classList.add("visible")
+      footerObserver.disconnect()
+    }
+  })
+},{
+  threshold:0.25
+})
+
+footerObserver.observe(footer)
 </script>
 
 </body>
