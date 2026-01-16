@@ -536,7 +536,14 @@ const id = new URLSearchParams(location.search).get("id")
 const logoWrap = document.getElementById("logoWrap")
 const bg = document.getElementById("bg")
 
-fetch("/api/control/descarga-manager.json")
+async function loadJson(){
+  const res = await fetch("/api/control/descarga-manager.json?ts=" + Date.now())
+  return await res.json()
+}
+loadJson().then(data=>{
+  renderApp(data)
+  lastJsonHash = JSON.stringify(data)
+})
 .then(r=>r.json())
 .then(data=>{
   const app = data.apps.find(a=>a.id===id)
@@ -667,14 +674,12 @@ let lastJsonHash = null
 
 async function checkJsonUpdates(){
   try{
-    const res = await fetch("/api/control/descarga-manager.json?ts=" + Date.now())
-    const json = await res.json()
-
-    const hash = JSON.stringify(json)
+    const data = await loadJson()
+    const hash = JSON.stringify(data)
 
     if(lastJsonHash && hash !== lastJsonHash){
       console.log("📦 JSON actualizado")
-      onJsonChange(json)
+      renderApp(data)
     }
 
     lastJsonHash = hash
