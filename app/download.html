@@ -19,6 +19,10 @@
   --radius:22px;
 }
 
+html, body{
+  overflow-x:hidden;
+}
+
 body{
   margin:0;
   font-family:Outfit;
@@ -164,6 +168,9 @@ b{color:white}
 .carousel-wrap{
   padding:80px 0 120px;
   perspective:1600px;
+  position:relative;
+  overflow:hidden;
+  width:100%;
 }
 
 .carousel{
@@ -172,6 +179,7 @@ b{color:white}
   display:flex;
   justify-content:center;
   align-items:center;
+  isolation:isolate;
 }
 
 .slide{
