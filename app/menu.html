@@ -73,13 +73,29 @@ header h1{
 
 .app-card{
   flex:0 0 160px;
-  scroll-snap-align:start;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:var(--radius);
   overflow:hidden;
   cursor:pointer;
-  transition:transform .35s ease, box-shadow .35s ease;
+  transform-style:preserve-3d;
+  transition:
+    transform .45s cubic-bezier(.22,1,.36,1),
+    box-shadow .45s ease;
+}
+
+@media (hover:hover){
+  .app-card:hover{
+    transform:translateY(-10px) scale(1.06);
+    box-shadow:
+      0 50px 120px rgba(0,0,0,.8),
+      0 0 0 1px rgba(255,255,255,.08);
+    z-index:2;
+  }
+}
+
+.app-card:active{
+  transform:scale(.97);
 }
 
 .app-card:hover{
@@ -108,14 +124,25 @@ header h1{
   color:var(--muted);
 }
 
-/* ===== GRID VIEW (AUTHOR CLICK) ===== */
 #authorView{
   position:fixed;
   inset:0;
   background:var(--bg);
   z-index:100;
-  display:none;
+  display:flex;
   flex-direction:column;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(30px);
+  transition:
+    opacity .6s ease,
+    transform .6s cubic-bezier(.22,1,.36,1);
+}
+
+#authorView.show{
+  opacity:1;
+  transform:none;
+  pointer-events:auto;
 }
 
 .author-header{
@@ -145,6 +172,35 @@ header h1{
 
 .grid .app-card{
   flex:none;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(40px) scale(.95);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.section{
+  opacity:0;
+  transform:translateY(60px);
+  animation:sectionIn .9s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+.section:nth-child(1){animation-delay:.1s}
+.section:nth-child(2){animation-delay:.25s}
+.section:nth-child(3){animation-delay:.4s}
+.section:nth-child(4){animation-delay:.55s}
+
+@keyframes sectionIn{
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 </style>
 
@@ -217,9 +273,11 @@ function openAuthor(author, apps){
   const grid = document.getElementById("authorGrid")
   grid.innerHTML = ""
 
-  apps.forEach(app=>{
+  apps.forEach((app,i)=>{
     const card = document.createElement("div")
     card.className = "app-card"
+    card.style.animation = `cardIn .6s ease forwards`
+    card.style.animationDelay = `${i * 70}ms`
     card.innerHTML = `
       <div class="app-thumb" style="background-image:url('${app.background}')"></div>
       <div class="app-info">
@@ -230,11 +288,13 @@ function openAuthor(author, apps){
     grid.appendChild(card)
   })
 
-  document.getElementById("authorView").style.display = "flex"
+  const view = document.getElementById("authorView")
+  view.classList.add("show")
 }
 
 function closeAuthor(){
-  document.getElementById("authorView").style.display = "none"
+  const view = document.getElementById("authorView")
+  view.classList.remove("show")
 }
 </script>
 
