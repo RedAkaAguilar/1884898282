@@ -2,6 +2,7 @@
   "apps": [
     {
       "id": "testNodo",
+      "author": "Nodos de Prueba",
       "title": "Test",
       "subtitle": "Dev Mode Activate",
       "background": "https://images.unsplash.com/photo-1511512578047-dfb367046420",
