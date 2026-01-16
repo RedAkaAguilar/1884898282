@@ -107,13 +107,16 @@ body{
   display:flex;
   align-items:center;
   gap:20px;
-  padding:24px;
-  margin-bottom:20px;
-  background:var(--glass);
+  padding:26px;
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.14),
+    rgba(255,255,255,.04)
+  );
   border:1px solid var(--border);
-  border-radius:var(--radius);
-  backdrop-filter:blur(16px);
-  transition:.35s;
+  border-radius:26px;
+  backdrop-filter:blur(22px);
+  transition:.4s cubic-bezier(.22,1,.36,1);
 }
 
 .card:hover{
@@ -207,10 +210,45 @@ b{color:white}
 }
 
 @media (max-width: 768px){
-  .logo-wrapper.sticky{
-    top:12px;
-    left:14px;
-    transform:scale(.65);
+  .hero{
+    height:360px;
+  }
+
+  .logo{
+    width:260px;
+    height:260px;
+  }
+
+  .hero-content{
+    bottom:32px;
+    padding:0 18px;
+  }
+
+  .hero-content h1{
+    font-size:28px;
+  }
+
+  .subtitle{
+    font-size:14px;
+  }
+
+  .desc{
+    font-size:14px;
+    line-height:1.55;
+  }
+}
+@media (min-width: 1200px){
+  .hero{
+    height:460px;
+  }
+
+  .logo{
+    width:360px;
+    height:360px;
+  }
+
+  .hero-content h1{
+    font-size:46px;
   }
 }
 </style>
