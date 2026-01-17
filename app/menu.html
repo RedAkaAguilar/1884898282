@@ -228,22 +228,11 @@ header h1{
 
 <div class="cinematic-bg"></div>
 
-<div class="card" data-id="minecraft">
-  <div class="card-bg" style="background-image:url('BG')"></div>
-  <div class="card-logo">
-    <img src="LOGO">
-  </div>
-</div>
-
-<div class="author-result">
-  <div class="author-circle" style="background-image:url('ICON')"></div>
-  <span>Mojang</span>
-</div>
-
 <header>
   <h1>Aplicaciones</h1>
   <div class="search">
     <input id="search" placeholder="Buscar apps o autores...">
+    <div id="results"></div>
   </div>
 </header>
 
@@ -351,6 +340,21 @@ search.oninput = ()=>{
     `
     return
   }
+
+  const results = document.getElementById("results")
+  results.innerHTML += `
+  <div class="card" data-id="minecraft">
+  <div class="card-bg" style="background-image:url('BG')"></div>
+  <div class="card-logo">
+    <img src="LOGO">
+  </div>
+</div>
+
+<div class="author-result">
+  <div class="author-circle" style="background-image:url('ICON')"></div>
+  <span>Mojang</span>
+</div>
+`
 
   const results = document.createElement("div")
   results.className = "search-results"
