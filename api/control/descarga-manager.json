@@ -3,6 +3,7 @@
     {
       "id": "testNodo",
       "author": "Nodos de Prueba",
+      "authorIcon": "https://link-del-icono-del-autor.png",
       "title": "Test",
       "subtitle": "Dev Mode Activate",
       "background": "https://images.unsplash.com/photo-1511512578047-dfb367046420",
