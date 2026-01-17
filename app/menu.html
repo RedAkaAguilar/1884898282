@@ -29,7 +29,6 @@ body{
   overflow-x:hidden;
 }
 
-/* ===== CINEMATIC BG ===== */
 .cinematic-bg{
   position:fixed;
   inset:-20%;
@@ -45,7 +44,6 @@ body{
   50%{transform:translate(-120px,-80px)}
 }
 
-/* ===== HEADER ===== */
 header{
   position:sticky;
   top:0;
@@ -65,7 +63,6 @@ header h1{
   font-size:28px;
 }
 
-/* ===== SEARCH ===== */
 .search{
   position:relative;
 }
@@ -81,7 +78,6 @@ header h1{
   outline:none;
 }
 
-/* ===== SECTION ===== */
 .section{
   padding:26px 0;
   opacity:0;
@@ -101,7 +97,6 @@ header h1{
   font-size:20px;
 }
 
-/* ===== ROW ===== */
 .row{
   display:flex;
   gap:18px;
@@ -112,25 +107,63 @@ header h1{
 
 .row::-webkit-scrollbar{display:none}
 
-/* ===== CARD ===== */
 .card{
-  flex:0 0 170px;
+  position:relative;
+  flex:0 0 180px;
+  aspect-ratio:9/16;
   border-radius:28px;
-  background:var(--glass);
-  border:1px solid var(--border);
+  background:#000;
   overflow:hidden;
   cursor:pointer;
   transform-style:preserve-3d;
-  transition:.5s cubic-bezier(.22,1,.36,1);
+  transition:
+    aspect-ratio .6s cubic-bezier(.22,1,.36,1),
+    transform .6s cubic-bezier(.22,1,.36,1),
+    box-shadow .6s ease;
 }
 
-.card:hover{
-  transform:translateY(-14px) scale(1.08);
-  box-shadow:0 60px 140px rgba(0,0,0,.8);
-  z-index:5;
+.card.active{
+  aspect-ratio:16/9;
+  transform:scale(1.08);
+  box-shadow:0 60px 160px rgba(0,0,0,.9);
+  z-index:20;
 }
 
-.card:active{transform:scale(.96)}
+.card-bg{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(.9);
+  transition:filter .6s ease, transform .6s ease;
+}
+
+.card.active .card-bg{
+  filter:brightness(.6) blur(2px);
+  transform:scale(1.1);
+}
+
+.card-logo{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  transform:translateY(40px) scale(.9);
+  transition:.6s cubic-bezier(.22,1,.36,1);
+}
+
+.card-logo img{
+  max-width:60%;
+  max-height:40%;
+  filter:drop-shadow(0 30px 80px rgba(0,0,0,.9));
+}
+
+.card.active .card-logo{
+  opacity:1;
+  transform:none;
+}
 
 .thumb{
   height:115px;
@@ -152,7 +185,35 @@ header h1{
   color:var(--muted);
 }
 
-/* ===== GRID ===== */
+.search-results{
+  padding:22px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+  gap:20px;
+}
+
+.author-result{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+}
+
+.author-circle{
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+}
+
+.author-result span{
+  font-size:13px;
+  color:var(--muted);
+}
+
 .grid{
   padding:0 22px;
   display:grid;
@@ -166,6 +227,18 @@ header h1{
 <body>
 
 <div class="cinematic-bg"></div>
+
+<div class="card" data-id="minecraft">
+  <div class="card-bg" style="background-image:url('BG')"></div>
+  <div class="card-logo">
+    <img src="LOGO">
+  </div>
+</div>
+
+<div class="author-result">
+  <div class="author-circle" style="background-image:url('ICON')"></div>
+  <span>Mojang</span>
+</div>
 
 <header>
   <h1>Aplicaciones</h1>
@@ -249,13 +322,69 @@ function render(apps){
 }
 
 search.oninput = ()=>{
-  const q = search.value.toLowerCase()
-  const filtered = allApps.filter(a=>
-    a.title.toLowerCase().includes(q) ||
-    a.author.toLowerCase().includes(q)
+  const q = search.value.trim().toLowerCase()
+  content.innerHTML = ""
+
+  if(!q){
+    render(allApps)
+    return
+  }
+
+  const apps = allApps.filter(a =>
+    a.title.toLowerCase().includes(q)
   )
-  render(filtered)
+
+  const authors = [...new Set(
+    allApps
+      .filter(a => a.author.toLowerCase().includes(q))
+      .map(a => a.author)
+  )]
+
+  if(apps.length === 0 && authors.length === 0){
+    content.innerHTML = `
+      <section class="section">
+        <h2>No se encontraron resultados</h2>
+        <p style="padding:0 22px;color:var(--muted)">
+          Intenta con otro nombre o autor
+        </p>
+      </section>
+    `
+    return
+  }
+
+  const results = document.createElement("div")
+  results.className = "search-results"
+
+  authors.forEach(author=>{
+    const app = allApps.find(a=>a.author===author)
+    results.innerHTML += `
+      <div class="author-result" onclick="openAuthor('${author}', allApps.filter(a=>a.author==='${author}'))">
+        <div class="author-circle" style="background-image:url('${app.authorIcon}')"></div>
+        <span>${author}</span>
+      </div>
+    `
+  })
+
+  apps.forEach(app=>{
+    results.innerHTML += `
+      <div class="card" onclick="location.href='download.html?id=${app.id}'">
+        <div class="card-bg" style="background-image:url('${app.background}')"></div>
+        <div class="card-logo">
+          <img src="${app.logo}">
+        </div>
+      </div>
+    `
+  })
+
+  content.appendChild(results)
 }
+
+document.addEventListener("click",e=>{
+  const card = e.target.closest(".card")
+  if(!card) return
+
+  card.classList.toggle("active")
+})
 </script>
 
 </body>
