@@ -311,6 +311,22 @@ footer{
 </script>
   
 <script>
+const randomWords = [
+  'Zyr Zyr...',
+  'Cargando aventuras...',
+  'Preparando el servidor...',
+  'Eventos en camino',
+  'Minecraft nunca duerme',
+  'Ganga estuvo aqui!',
+  'El Demogorgon observa...'
+]
+
+const randomEl = document.getElementById('randomText')
+if(randomEl){
+  randomEl.textContent =
+    randomWords[Math.floor(Math.random() * randomWords.length)]
+}
+
 const tips=[
   'Estas en camino a la pagina Official!',
   'Suscribete a nuestra creadora ZyrAka',
