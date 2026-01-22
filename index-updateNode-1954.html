@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ZyrAkaNetwork">
+<meta property="og:title" content="ZyrAkaNetwork">
+<meta property="og:description" content="Página oficial de ZyrAkaNetwork • Servidor Minecraft con eventos, comunidad y recompensas">
+<meta property="og:url" content="https://www.zyrakaworld.net/">
+
+<meta property="og:image" content="https://raw.githubusercontent.com/RedAkaAguilar/1884898282/main/textures/-webpage-imgtool.png">
+<meta property="og:image:secure_url" content="https://raw.githubusercontent.com/RedAkaAguilar/1884898282/main/textures/-webpage-imgtool.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta property="og:locale" content="es_ES">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ZyrAkaNetwork">
+<meta name="twitter:description" content="Página oficial del servidor ZyrAkaNetwork">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/RedAkaAguilar/1884898282/main/textures/-webpage-imgtool.png">
+
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>ZyrAkaWorld | Sitio oficial</title>
+<meta name="description" content="ZyrAkaWorld es el sitio oficial de ZyrAkaNetwork. Ven y Mira todas las novedades de esta Creadora de Contenido!">
+<link rel="canonical" href="https://zyrakaworld.net/">
+
+<link rel="icon" type="image/png" href="/ico/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/ico/favicon.svg" />
+<link rel="shortcut icon" href="/ico/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/ico/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="ZyrNet" />
+<link rel="manifest" href="/ico/site.webmanifest" />
+  
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --glass:rgba(255,255,255,.22);
+  --border:rgba(255,255,255,.35);
+  --text:#fff;
+  --muted:rgba(255,255,255,.75);
+  --blur:32px;
+  --spring:cubic-bezier(.28,1.25,.55,1);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Outfit,system-ui;
+  background:linear-gradient(120deg,#290d0b,#0b291a,#0b1729,#240b29);
+  background-size:400% 400%;
+  animation:bg 18s ease infinite;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.liquid-bg{
+  position:fixed;
+  inset:-20%;
+  filter:blur(160px);
+  pointer-events:none;
+}
+
+.liquid-bg span{
+  position:absolute;
+  width:48vw;
+  height:48vw;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  animation:float 32s ease-in-out infinite;
+}
+
+.liquid-bg span:nth-child(1){top:5%;left:8%}
+.liquid-bg span:nth-child(2){bottom:8%;right:10%;animation-duration:40s}
+.liquid-bg span:nth-child(3){top:35%;right:30%;animation-duration:48s}
+
+@keyframes float{
+  0%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(110px,-80px) scale(1.4)}
+  100%{transform:translate(0,0) scale(1)}
+}
+
+.loader-card{
+  width:380px;
+  padding:38px 30px 34px;
+  border-radius:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15));
+  backdrop-filter:blur(var(--blur)) saturate(180%);
+  border:1px solid var(--border);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.7),
+    0 90px 220px rgba(0,0,0,.85);
+  text-align:center;
+  animation:enter .9s var(--spring);
+}
+
+@keyframes enter{
+  from{opacity:0;transform:translateY(50px) scale(.9)}
+  to{opacity:1;transform:none}
+}
+
+.orbit{
+  position:relative;
+  width:96px;
+  height:96px;
+  margin:0 auto 18px;
+}
+
+.core{
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 30px rgba(255,255,255,.9);
+  animation:pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.35)}
+}
+
+.ring{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);
+}
+
+.dot{
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:10px;
+  height:10px;
+  margin:-5px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 18px rgba(255,255,255,.9);
+  animation:orbit 2.2s linear infinite;
+  transform-origin:0 0;
+}
+
+@keyframes orbit{
+  from{transform:rotate(0deg) translateX(48px)}
+  to{transform:rotate(360deg) translateX(48px)}
+}
+
+h1{
+  margin:6px 0 4px;
+  font-size:20px;
+  font-weight:700;
+}
+
+.sub{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:14px;
+}
+
+.progress{
+  height:6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.25);
+  overflow:hidden;
+  margin-bottom:14px;
+}
+
+.progress span{
+  display:block;
+  height:100%;
+  width:35%;
+  background:linear-gradient(90deg,#fff,rgba(255,255,255,.6));
+  border-radius:999px;
+  animation:progress 1.9s ease-in-out infinite;
+}
+
+@keyframes progress{
+  0%{transform:translateX(-120%)}
+  50%{transform:translateX(140%)}
+  100%{transform:translateX(140%)}
+}
+
+.tip{
+  font-size:14px;
+  color:var(--muted);
+  min-height:42px;
+  animation:tipIn .8s ease;
+}
+
+@keyframes tipIn{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:none}
+}
+
+footer{
+  position:fixed;
+  bottom:16px;
+  font-size:12px;
+  color:var(--muted);
+  opacity:.8;
+}
+</style>
+</head>
+
+<body>
+<div class="liquid-bg">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="loader-card">
+  <div class="orbit">
+    <div class="ring"></div>
+    <div class="dot"></div>
+    <div class="core"></div>
+  </div>
+
+  <h1>Conectando</h1>
+  <div class="sub">Estas entrando a la pagina official!</div>
+
+  <div class="progress">
+    <span></span>
+  </div>
+
+  <div class="tip" id="tip"></div>
+</div>
+
+<footer>
+  © <span id="year"></span> ZyrAkaNetwork
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ZyrAkaWorld • Official",
+  "url": "https://www.zyrakaworld.net/",
+  "description": "Este es el Sitio Web Official de la Creadora de Eventos Minecraft ZyrAkaAguilar!, Ven y mira las noticias o el Calendario Offical de Eventos!"
+}
+</script>
+  
+<script>
+const tips=[
+  'Estas en camino a la pagina Official!',
+  'Suscribete a nuestra creadora ZyrAka',
+  'Dia de minijuegos, perfecto para pasarla increible!',
+  'Explora en el maravilloso mundo de ZyrAkaNetwork',
+  'Únete a Discord para estar en los eventos!',
+  'espero que los encuentres!',
+  'Zyr Zyr...',
+  'Ganga estuvo aqui!',
+  'Dios bendiga Minecraft!',
+  'El Demogorgon esta por aqui!'
+]
+
+document.getElementById('tip').textContent=
+  tips[Math.floor(Math.random()*tips.length)]
+
+document.getElementById('year').textContent=
+  new Date().getFullYear()
+
+const min = 3000
+const max = 8000
+
+const wait = Math.floor(Math.random() * (max - min + 1)) + min
+
+setTimeout(()=>{
+  location.href = 'https://www.zyrakaworld.net/app/server'
+}, wait)
+
+  const STATUS_URL = '/api/control/status.json'
+const CHECK_INTERVAL = 1000
+const HOME_URL = '/'
+
+const routes = {
+  mantenimiento: '/api/error/mantenimiento.html',
+  apagado: '/api/error/apagado.html',
+  servidores: '/api/error/servidores.html',
+  problema_tecnico: '/api/error/problema-tecnico.html',
+  actualizacion: '/api/error/actualizacion.html'
+}
+
+async function checkStatus(){
+  try{
+    const res = await fetch(STATUS_URL + '?t=' + Date.now(), { cache: 'no-store' })
+    const data = await res.json()
+
+    for(const key in routes){
+      if(data[key] === true){
+        if(!location.pathname.includes(routes[key])){
+          location.replace(routes[key])
+        }
+        return
+      }
+    }
+
+    const isErrorPage = Object.values(routes).some(p =>
+      location.pathname.includes(p)
+    )
+
+    if(isErrorPage){
+      location.replace(HOME_URL)
+    }
+
+  }catch(e){
+    console.error('Error leyendo status.json', e)
+  }
+}
+
+setInterval(checkStatus, CHECK_INTERVAL)
+checkStatus()
+</script>
+</body>
+</html>
