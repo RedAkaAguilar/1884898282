@@ -310,6 +310,104 @@ footer{
   height:100%;
   animation: glassIn 1.2s cubic-bezier(.22,1,.36,1);
 }
+
+.media-section{
+  width:100%;
+  padding:48px 0 32px;
+}
+
+/* HERO 16:9 */
+.hero-media{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin-bottom:40px;
+}
+
+.hero-media img{
+  width:90%;
+  max-width:1200px;
+  aspect-ratio:16 / 9;
+  object-fit:contain;
+  animation:fadeHero 1.4s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes fadeHero{
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* VIDEOS */
+.videos-wrap{
+  width:100%;
+  padding-left:5%;
+}
+
+.videos-wrap h2{
+  font-size:20px;
+  margin-bottom:16px;
+}
+
+.videos-row{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding-bottom:16px;
+  scroll-snap-type:x mandatory;
+}
+
+.videos-row::-webkit-scrollbar{
+  display:none;
+}
+
+/* CARD VIDEO */
+.video-card{
+  flex:0 0 260px;
+  scroll-snap-align:start;
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.18);
+  cursor:pointer;
+  transition:transform .45s cubic-bezier(.22,1,.36,1),
+             box-shadow .45s;
+  animation:cardIn .8s cubic-bezier(.22,1,.36,1) both;
+}
+
+.video-card:hover{
+  transform:scale(1.06);
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(18px) scale(.94);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.video-thumb{
+  width:100%;
+  aspect-ratio:16 / 9;
+  object-fit:cover;
+}
+
+.video-title{
+  padding:10px 12px;
+  font-size:14px;
+  line-height:1.3;
+}
 </style>
 </head>
 
@@ -340,8 +438,22 @@ footer{
 <div class="progress">
   <span id="bar"></span>
 </div>
+  </div>
 </div>
-</div>
+
+<section class="media-section">
+
+  <div class="hero-media">
+    <img id="heroImage" alt="ZyrAkaTV Hero">
+  </div>
+
+  <div class="videos-wrap">
+    <h2>Últimos videos de ZyrAkaTV</h2>
+
+    <div class="videos-row" id="videos"></div>
+  </div>
+
+</section>
 
 <footer>
   © <span id="year"></span> ZyrAkaNetwork
@@ -448,6 +560,37 @@ const progressInterval = setInterval(()=>{
     }, 800)
   }
 }, 50)
+
+const API_KEY = 'TU_API_KEY'
+const CHANNEL_ID = 'ID_DEL_CANAL_ZYRAKATV'
+const HERO_IMAGE_URL = 'LINK_CUSTOM_DE_LA_IMAGEN_16_9'
+
+document.getElementById('heroImage').src = HERO_IMAGE_URL
+
+fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=4`)
+.then(res => res.json())
+.then(data => {
+  const container = document.getElementById('videos')
+
+  data.items.forEach((item, i) => {
+    if(!item.id.videoId) return
+
+    const card = document.createElement('div')
+    card.className = 'video-card'
+    card.style.animationDelay = `${i * 0.08}s`
+
+    card.innerHTML = `
+      <img class="video-thumb" src="${item.snippet.thumbnails.high.url}">
+      <div class="video-title">${item.snippet.title}</div>
+    `
+
+    card.onclick = () => {
+      window.open(`https://youtube.com/watch?v=${item.id.videoId}`, '_blank')
+    }
+
+    container.appendChild(card)
+  })
+})
 </script>
 </body>
 </html>
