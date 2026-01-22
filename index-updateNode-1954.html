@@ -103,14 +103,13 @@ body{
   top:16px;
   left:50%;
   transform:translateX(-50%);
-  width:94%;
-  max-width:1100px;
-  height:90px;
-  padding:16px 22px;
+  width:90%;
+  max-width:720px;
+  padding:18px 20px 16px;
   display:flex;
-  align-items:center;
-  gap:20px;
-  border-radius:22px;
+  flex-direction:column;
+  gap:14px;
+  border-radius:26px;
   background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15));
   backdrop-filter:blur(var(--blur)) saturate(180%);
   border:1px solid var(--border);
@@ -123,9 +122,11 @@ body{
 }
 
 .orbit{
-  width:56px;
-  height:56px;
+  position:relative;
+  width:64px;
+  height:64px;
   flex-shrink:0;
+  aspect-ratio:1 / 1;
 }
 
 .core{
@@ -184,8 +185,8 @@ h1{
 }
 
 .progress{
-  flex:1;
-  height:8px;
+  height:7px;
+  width:100%;
   background:rgba(255,255,255,.35);
   border-radius:999px;
   overflow:hidden;
@@ -229,6 +230,30 @@ footer{
   color:var(--muted);
   opacity:.8;
 }
+
+.top-row{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.text{
+  flex:1;
+}
+
+.text h1{
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+}
+
+.text .sub{
+  margin-top:4px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+
 </style>
 </head>
 
@@ -240,19 +265,22 @@ footer{
 </div>
 
 <div class="loader-card">
+  <div class="top-row">
   <div class="orbit">
-  <div class="ring"></div>
-  <div class="dot"></div>
-  <div class="core"></div>
+    <div class="ring"></div>
+    <div class="dot"></div>
+    <div class="core"></div>
+  </div>
+
+  <div class="text">
+    <h1>Conectando</h1>
+    <div class="sub">Estas entrando a la página oficial!</div>
+  </div>
 </div>
 
-<div class="info">
-  <h1>Conectando</h1>
-  <div class="sub">Estas entrando a la página oficial!</div>
-
-  <div class="progress">
-    <span id="bar"></span>
-  </div>
+<div class="progress">
+  <span id="bar"></span>
+</div>
 </div>
 
   <div class="tip" id="tip"></div>
