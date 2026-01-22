@@ -200,6 +200,10 @@ h1{
   transition:width .1s linear;
 }
 
+.info{
+  flex:1;
+}
+  
 @keyframes progress{
   0%{transform:translateX(-120%)}
   50%{transform:translateX(140%)}
@@ -237,17 +241,19 @@ footer{
 
 <div class="loader-card">
   <div class="orbit">
-    <div class="ring"></div>
-    <div class="dot"></div>
-    <div class="core"></div>
-  </div>
+  <div class="ring"></div>
+  <div class="dot"></div>
+  <div class="core"></div>
+</div>
 
+<div class="info">
   <h1>Conectando</h1>
-  <div class="sub">Estas entrando a la pagina official!</div>
+  <div class="sub">Estas entrando a la página oficial!</div>
 
   <div class="progress">
-    <span></span>
+    <span id="bar"></span>
   </div>
+</div>
 
   <div class="tip" id="tip"></div>
 </div>
