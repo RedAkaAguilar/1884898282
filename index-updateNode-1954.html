@@ -113,7 +113,22 @@ body{
   background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15));
   backdrop-filter:blur(var(--blur)) saturate(180%);
   border:1px solid var(--border);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
   box-shadow:0 40px 120px rgba(0,0,0,.7);
+  animation: glassIn 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+.loader-card.exit{
+  animation: glassOut .8s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+@keyframes glassOut{
+  to{
+    opacity:0;
+    transform:translateY(10px) scale(0.98);
+    filter:blur(14px);
+  }
 }
 
 @keyframes enter{
@@ -127,6 +142,18 @@ body{
   height:64px;
   flex-shrink:0;
   aspect-ratio:1 / 1;
+  animation: fadeInUp .9s cubic-bezier(.22,1,.36,1) .2s both;
+}
+
+@keyframes fadeInUp{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 .core{
@@ -144,6 +171,19 @@ body{
 @keyframes pulse{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.35)}
+}
+
+@keyframes glassIn{
+  0%{
+    opacity:0;
+    transform:translateY(-12px) scale(0.98);
+    filter:blur(12px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
 }
 
 .ring{
@@ -190,6 +230,7 @@ h1{
   background:rgba(255,255,255,.35);
   border-radius:999px;
   overflow:hidden;
+  animation: fadeInUp .9s cubic-bezier(.22,1,.36,1) .5s both;
 }
 
 .progress span{
@@ -242,6 +283,7 @@ footer{
   display:flex;
   flex-direction:column;
   justify-content:center;
+  animation: fadeInUp .9s cubic-bezier(.22,1,.36,1) .35s both;
 }
 
 .text h1{
@@ -381,7 +423,8 @@ setInterval(checkStatus, CHECK_INTERVAL)
 checkStatus()
 
 const DURATION = 20000
-const bar = document.querySelector('.progress span')
+const bar = document.getElementById('bar')
+const card = document.querySelector('.loader-card')
 const start = Date.now()
 
 const progressInterval = setInterval(()=>{
@@ -391,7 +434,12 @@ const progressInterval = setInterval(()=>{
 
   if(percent >= 100){
     clearInterval(progressInterval)
-    location.href = 'https://www.zyrakaworld.net/app/server'
+
+    card.classList.add('exit')
+
+    setTimeout(()=>{
+      location.href = 'https://www.zyrakaworld.net/app/server'
+    }, 800)
   }
 }, 50)
 </script>
