@@ -316,7 +316,6 @@ footer{
   padding:48px 0 32px;
 }
 
-/* HERO 16:9 */
 .hero-media{
   width:100%;
   display:flex;
@@ -365,7 +364,6 @@ footer{
   display:none;
 }
 
-/* CARD VIDEO */
 .video-card{
   flex:0 0 260px;
   scroll-snap-align:start;
@@ -412,24 +410,43 @@ footer{
   position:relative;
   width:100%;
   min-height:520px;
-  overflow:hidden; /* 🔥 nada se sale */
+  overflow:hidden;
   display:flex;
   align-items:center;
   padding:60px 0;
 }
 
-/* PNG BACKGROUND */
+.feature-inner{
+  width:100%;
+  display:flex;
+  justify-content:flex-start;
+  max-width:1100px;
+  animation:featureIn 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes featureIn{
+  from{
+    opacity:0;
+    transform:translateY(24px) scale(.97);
+    filter:blur(12px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:blur(0);
+  }
+}
+
 .feature-bg{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
-  object-fit:contain; /* mantiene el PNG limpio */
+  object-fit:contain;
   z-index:0;
   pointer-events:none;
 }
 
-/* CONTENIDO */
 .feature-content{
   position:relative;
   z-index:1;
@@ -441,7 +458,6 @@ footer{
   gap:18px;
 }
 
-/* IMAGEN 16:9 */
 .feature-media{
   width:420px;
   max-width:100%;
@@ -449,7 +465,6 @@ footer{
   object-fit:contain;
 }
 
-/* TEXTO */
 .feature-desc{
   max-width:680px;
   font-size:16px;
@@ -457,7 +472,6 @@ footer{
   color:rgba(255,255,255,.85);
 }
 
-/* BOTÓN 🌈 */
 .feature-btn{
   width:fit-content;
   padding:12px 26px;
@@ -470,7 +484,6 @@ footer{
   overflow:hidden;
 }
 
-/* GRADIENTE ANIMADO */
 .feature-btn::before{
   content:'';
   position:absolute;
@@ -555,6 +568,7 @@ footer{
 
   <img class="feature-bg" src="textures/seccion1/-web-banner" alt="">
 
+  <div class="feature-inner">
   <div class="feature-content">
     <img class="feature-media" src="/textures/seccion1/-web-title" alt="">
 
@@ -566,6 +580,7 @@ footer{
     </p>
 
     <a href="#" class="feature-btn">Ir</a>
+  </div>
   </div>
 
 </section>
