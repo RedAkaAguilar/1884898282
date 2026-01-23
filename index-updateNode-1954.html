@@ -409,14 +409,11 @@ footer{
 .feature-section{
   position:relative;
   width:100%;
-  min-height:560px;
+  min-height:520px;
   overflow:hidden;
   display:flex;
   justify-content:center;
-  padding:60px 0;
-
-  opacity:0;
-  pointer-events:none;
+  padding:80px 0;
 }
 
 .feature-section.show{
@@ -488,6 +485,7 @@ footer{
   display:flex;
   flex-direction:column;
   gap:18px;
+  animation:featureIn 1s ease-out;
 }
 
 .feature-media{
