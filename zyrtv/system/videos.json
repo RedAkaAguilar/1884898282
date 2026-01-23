@@ -1,18 +1,19 @@
 {
   "videos": [
     {
+      "id": "trailer01",
       "title": "Trailer Oficial",
-      "description": "Mira el nuevo trailer en ultra calidad 4K HDR.",
-      "thumbnail": "https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg",
-      "link": "https://www.youtube.com/watch?v=VIDEO_ID",
-      "icon": "play_circle"
+      "thumbnail": "thumbs/trailer.jpg",
+      "video": "media/trailer.mp4",
+      "audio": "media/audio-es.mp3",
+      "subs": "subs/trailer-es.vtt"
     },
     {
-      "title": "Test",
-      "description": "Contenido exclusivo detrás de cámaras.",
-      "thumbnail": "thumb2.jpg",
-      "link": "video.mp4",
-      "icon": "movie"
+      "id": "behind01",
+      "title": "Behind The Scenes",
+      "thumbnail": "thumbs/behind.jpg",
+      "video": "media/behind.mp4",
+      "subs": "subs/behind.vtt"
     }
   ]
 }
