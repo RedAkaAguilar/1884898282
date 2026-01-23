@@ -63,7 +63,7 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
 @keyframes bg{
@@ -99,17 +99,36 @@ body{
 }
 
 .loader-card{
-  width:380px;
-  padding:38px 30px 34px;
-  border-radius:30px;
+  position:fixed;
+  top:16px;
+  left:50%;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:720px;
+  padding:18px 20px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  border-radius:26px;
   background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15));
   backdrop-filter:blur(var(--blur)) saturate(180%);
   border:1px solid var(--border);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.7),
-    0 90px 220px rgba(0,0,0,.85);
-  text-align:center;
-  animation:enter .9s var(--spring);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  box-shadow:0 40px 120px rgba(0,0,0,.7);
+  z-index: 9999;
+}
+
+.card-inner.exit{
+  animation: glassOut .8s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+@keyframes glassOut{
+  to{
+    opacity:0;
+    transform:translateY(10px) scale(0.98);
+    filter:blur(14px);
+  }
 }
 
 @keyframes enter{
@@ -119,9 +138,22 @@ body{
 
 .orbit{
   position:relative;
-  width:96px;
-  height:96px;
-  margin:0 auto 18px;
+  width:64px;
+  height:64px;
+  flex-shrink:0;
+  aspect-ratio:1 / 1;
+  animation: fadeInUp .9s cubic-bezier(.22,1,.36,1) .2s both;
+}
+
+@keyframes fadeInUp{
+  from{
+    opacity:0;
+    transform:translateY(6px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
 }
 
 .core{
@@ -139,6 +171,19 @@ body{
 @keyframes pulse{
   0%,100%{transform:scale(1)}
   50%{transform:scale(1.35)}
+}
+
+@keyframes glassIn{
+  0%{
+    opacity:0;
+    transform:translateY(-12px) scale(0.98);
+    filter:blur(12px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
+    filter:blur(0);
+  }
 }
 
 .ring{
@@ -180,22 +225,27 @@ h1{
 }
 
 .progress{
-  height:6px;
+  height:7px;
+  width:100%;
+  background:rgba(255,255,255,.35);
   border-radius:999px;
-  background:rgba(255,255,255,.25);
   overflow:hidden;
-  margin-bottom:14px;
+  animation: fadeInUp .9s cubic-bezier(.22,1,.36,1) .5s both;
 }
 
 .progress span{
   display:block;
   height:100%;
-  width:35%;
-  background:linear-gradient(90deg,#fff,rgba(255,255,255,.6));
+  width:0%;
+  background:#fff;
   border-radius:999px;
-  animation:progress 1.9s ease-in-out infinite;
+  transition:width .1s linear;
 }
 
+.info{
+  flex:1;
+}
+  
 @keyframes progress{
   0%{transform:translateX(-120%)}
   50%{transform:translateX(140%)}
@@ -221,6 +271,283 @@ footer{
   color:var(--muted);
   opacity:.8;
 }
+
+.top-row{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.text{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  animation: fadeInUp .9s cubic-bezier(.22,1,.36,1) .35s both;
+}
+
+.text h1{
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+}
+
+.text .sub{
+  margin-top:4px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+.random{
+  margin-top:2px;
+  font-size:12px;
+  color:rgba(255,255,255,.7);
+  line-height:1.2;
+  white-space:normal;
+}
+
+.card-inner{
+  width:100%;
+  height:100%;
+  animation: glassIn 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+.media-section{
+  width:100%;
+  padding:48px 0 32px;
+}
+
+.hero-media{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin-bottom:40px;
+}
+
+.hero-media img{
+  width:90%;
+  max-width:1200px;
+  aspect-ratio:16 / 9;
+  object-fit:contain;
+  animation:fadeHero 1.4s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes fadeHero{
+  from{
+    opacity:0;
+    transform:translateY(20px) scale(.96);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.videos-wrap{
+  width:100%;
+  padding-left:5%;
+}
+
+.videos-wrap h2{
+  font-size:20px;
+  margin-bottom:16px;
+}
+
+.videos-row{
+  display:flex;
+  gap:18px;
+  overflow-x:auto;
+  padding-bottom:16px;
+  scroll-snap-type:x mandatory;
+}
+
+.videos-row::-webkit-scrollbar{
+  display:none;
+}
+
+.video-card{
+  flex:0 0 260px;
+  scroll-snap-align:start;
+  border-radius:18px;
+  overflow:hidden;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.18);
+  cursor:pointer;
+  transition:transform .45s cubic-bezier(.22,1,.36,1),
+             box-shadow .45s;
+  animation:cardIn .8s cubic-bezier(.22,1,.36,1) both;
+}
+
+.video-card:hover{
+  transform:scale(1.06);
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(18px) scale(.94);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.video-thumb{
+  width:100%;
+  aspect-ratio:16 / 9;
+  object-fit:cover;
+}
+
+.video-title{
+  padding:10px 12px;
+  font-size:14px;
+  line-height:1.3;
+}
+
+.feature-section{
+  position:relative;
+  width:100%;
+  min-height:520px;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  padding:80px 0;
+}
+
+.feature-section.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.feature-section.show .feature-inner{
+  animation:featureIn 1.1s cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes featureIn{
+  from{
+    opacity:0;
+    transform:translateY(24px) scale(.97);
+    filter:blur(12px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:blur(0);
+  }
+}
+
+.feature-inner{
+  width:100%;
+  display:flex;
+  justify-content:flex-start;
+  max-width:1100px;
+}
+
+@keyframes featureIn{
+  from{
+    opacity:0;
+    transform:translateY(24px) scale(.97);
+    filter:blur(12px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+    filter:blur(0);
+  }
+}
+
+.feature-section.ready{
+  visibility:visible;
+}
+
+.feature-section.ready .feature-inner{
+  animation:featureIn 1.2s cubic-bezier(.22,1,.36,1);
+}
+
+.feature-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  z-index:0;
+  pointer-events:none;
+}
+
+.feature-content{
+  position:relative;
+  z-index:1;
+  max-width:1100px;
+  width:90%;
+  margin-left:6%;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  animation:featureIn 1s ease-out;
+}
+
+.feature-media{
+  width:420px;
+  max-width:100%;
+  aspect-ratio:16 / 9;
+  object-fit:contain;
+}
+
+.feature-desc{
+  max-width:680px;
+  font-size:16px;
+  line-height:1.6;
+  color:rgba(255,255,255,.85);
+}
+
+.feature-btn{
+  width:fit-content;
+  padding:12px 26px;
+  border-radius:999px;
+  background:#fff;
+  color:#000;
+  font-weight:600;
+  text-decoration:none;
+  position:relative;
+  overflow:hidden;
+}
+
+.feature-btn::before{
+  content:'';
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(
+    120deg,
+    #ff0080,
+    #7928ca,
+    #2afadf,
+    #faff00,
+    #ff0080
+  );
+  background-size:300% 300%;
+  animation:gradientMove 4s linear infinite;
+  z-index:-1;
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%}
+  100%{background-position:100% 50%}
+}
+
+@media (max-width:768px){
+  .feature-content{
+    margin:0 auto;
+    align-items:center;
+    text-align:center;
+  }
+
+  .feature-desc{
+    max-width:100%;
+  }
+}
 </style>
 </head>
 
@@ -232,21 +559,59 @@ footer{
 </div>
 
 <div class="loader-card">
+  <div class="card-inner">
+  <div class="top-row">
   <div class="orbit">
     <div class="ring"></div>
     <div class="dot"></div>
     <div class="core"></div>
   </div>
+  
 
-  <h1>Conectando</h1>
-  <div class="sub">Estas entrando a la pagina official!</div>
+  <div class="text">
+    <h1>Conectando</h1>
+    <div class="sub">Estas entrando a la página oficial!</div>
+    <div class="random" id="randomText"></div>
+  </div>
+</div>
 
-  <div class="progress">
-    <span></span>
+<div class="progress">
+  <span id="bar"></span>
+</div>
+  </div>
+</div>
+
+<section class="media-section">
+
+  <div class="hero-media">
+    <img id="heroImage" alt="ZyrAkaTV Hero">
   </div>
 
-  <div class="tip" id="tip"></div>
-</div>
+  <div class="videos-wrap">
+    <h2>Últimos videos de ZyrAkaTV</h2>
+
+    <div class="videos-row" id="videos"></div>
+  </div>
+
+  <section class="feature-section">
+
+  <img class="feature-bg" src="/textures/seccion/-web-banner.png" alt="">
+
+  <div class="feature-inner">
+  <div class="feature-content">
+    <img class="feature-media" src="/textures/seccion1/-web-title.png" alt="">
+
+    <p class="feature-desc">
+      Contacta a ZyrAkaAguilar Personalmente! Haz click en el Boton y iras a su Discord Official para Preguntas y mucho mas!
+    </p>
+
+    <a href="https://discord.com/users/1074113076795822080
+" class="feature-btn">Contactar</a>
+  </div>
+  </div>
+
+  </section>
+</section>
 
 <footer>
   © <span id="year"></span> ZyrAkaNetwork
@@ -263,7 +628,14 @@ footer{
 </script>
   
 <script>
-const tips=[
+const randomWords = [
+  'Zyr Zyr...',
+  'Cargando aventuras...',
+  'Preparando el servidor...',
+  'Eventos en camino',
+  'Minecraft nunca duerme',
+  'Ganga estuvo aqui!',
+  'El Demogorgon observa...',
   'Estas en camino a la pagina Official!',
   'Suscribete a nuestra creadora ZyrAka',
   'Dia de minijuegos, perfecto para pasarla increible!',
@@ -272,24 +644,17 @@ const tips=[
   'espero que los encuentres!',
   'Zyr Zyr...',
   'Ganga estuvo aqui!',
-  'Dios bendiga Minecraft!',
-  'El Demogorgon esta por aqui!'
+  'Dios bendiga Minecraft!'
 ]
 
-document.getElementById('tip').textContent=
-  tips[Math.floor(Math.random()*tips.length)]
+const randomEl = document.getElementById('randomText')
+if(randomEl){
+  randomEl.textContent =
+    randomWords[Math.floor(Math.random() * randomWords.length)]
+}
 
 document.getElementById('year').textContent=
   new Date().getFullYear()
-
-const min = 3000
-const max = 8000
-
-const wait = Math.floor(Math.random() * (max - min + 1)) + min
-
-setTimeout(()=>{
-  location.href = 'https://www.zyrakaworld.net/app/server'
-}, wait)
 
   const STATUS_URL = '/api/control/status.json'
 const CHECK_INTERVAL = 1000
@@ -332,6 +697,76 @@ async function checkStatus(){
 
 setInterval(checkStatus, CHECK_INTERVAL)
 checkStatus()
+
+const DURATION = 20000
+const bar = document.getElementById('bar')
+const card = document.querySelector('.loader-card')
+const start = Date.now()
+
+const progressInterval = setInterval(()=>{
+  const elapsed = Date.now() - start
+  const percent = Math.min(elapsed / DURATION * 100, 100)
+  bar.style.width = percent + '%'
+
+  if(percent >= 100){
+    clearInterval(progressInterval)
+    const cardInner = document.querySelector('.card-inner')
+    cardInner.classList.add('exit')
+
+    setTimeout(()=>{
+      location.href = 'https://www.zyrakaworld.net/app/server'
+    }, 800)
+  }
+}, 50)
+
+const API_KEY = 'AIzaSyBS1ymgKc4-Jlfy_HRR9ouGzkFc7Qd5tmc'
+const CHANNEL_ID = 'UCsRaNVBbSRLYT6BN1CIElrQ'
+const HERO_IMAGE_URL = '/textures/yt/-web-channelposter16-9.png'
+
+document.getElementById('heroImage').src = HERO_IMAGE_URL
+
+fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet&order=date&maxResults=4`)
+.then(res => res.json())
+.then(data => {
+  const container = document.getElementById('videos')
+
+  data.items.forEach((item, i) => {
+    if(!item.id.videoId) return
+
+    const card = document.createElement('div')
+    card.className = 'video-card'
+    card.style.animationDelay = `${i * 0.08}s`
+
+    card.innerHTML = `
+      <img class="video-thumb" src="${item.snippet.thumbnails.high.url}">
+      <div class="video-title">${item.snippet.title}</div>
+    `
+
+    card.onclick = () => {
+      window.open(`https://youtube.com/watch?v=${item.id.videoId}`, '_blank')
+    }
+
+    container.appendChild(card)
+  })
+})
+
+const featureSection = document.querySelector('.feature-section')
+
+Promise.all([
+  document.fonts.ready,
+  new Promise(resolve => setTimeout(resolve, 50))
+]).then(() => {
+  featureSection.classList.add('ready')
+})
+
+document.querySelectorAll('.feature-section')
+  .forEach(sec => sec.classList.add('ready'))
+
+window.addEventListener('load', () => {
+  document
+    .querySelectorAll('.feature-section')
+    .forEach(sec => sec.classList.add('show'))
+})
 </script>
 </body>
 </html>
