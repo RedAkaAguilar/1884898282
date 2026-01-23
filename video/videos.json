@@ -1,0 +1,18 @@
+{
+  "videos": [
+    {
+      "title": "Trailer Oficial",
+      "description": "Mira el nuevo trailer en ultra calidad 4K HDR.",
+      "thumbnail": "https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg",
+      "link": "https://www.youtube.com/watch?v=VIDEO_ID",
+      "icon": "play_circle"
+    },
+    {
+      "title": "Behind the Scenes",
+      "description": "Contenido exclusivo detrás de cámaras.",
+      "thumbnail": "thumb2.jpg",
+      "link": "video.mp4",
+      "icon": "movie"
+    }
+  ]
+}
