@@ -194,6 +194,99 @@ html, body{
     0 0 0 3px rgba(255,255,255,0.25),
     0 10px 30px rgba(0,0,0,.7);
 }
+
+.home{
+  height:100%;
+  width:100%;
+
+  padding-top:clamp(48px, 8vh, 96px);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:24px;
+}
+
+.home-title{
+  font-size:clamp(42px, 6vw, 96px);
+  font-weight:800;
+  letter-spacing:-0.03em;
+  text-align:center;
+}
+
+.home-desc{
+  max-width:820px;
+  font-size:clamp(14px, 1.2vw, 18px);
+  line-height:1.6;
+  text-align:center;
+  opacity:.75;
+  padding:0 24px;
+}
+
+.carousel{
+  margin-top:32px;
+
+  width:min(90%, 1100px);
+  height:280px;
+
+  position:relative;
+  overflow:hidden;
+
+  border-radius:28px;
+
+  background:rgba(255,255,255,.06);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,.15);
+}
+
+.carousel-track{
+  height:100%;
+  display:flex;
+  gap:18px;
+  padding:18px;
+
+  overflow-x:auto;
+  scroll-behavior:smooth;
+}
+
+.carousel-track img{
+  height:100%;
+  border-radius:20px;
+  object-fit:cover;
+  flex-shrink:0;
+
+  transition:transform .4s ease;
+}
+
+.carousel-track img:hover{
+  transform:scale(1.05);
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+
+  width:48px;
+  height:48px;
+
+  border-radius:50%;
+  border:none;
+
+  background:rgba(0,0,0,.45);
+  color:white;
+  font-size:28px;
+
+  cursor:pointer;
+  z-index:2;
+}
+
+.carousel-btn.left{ left:12px; }
+.carousel-btn.right{ right:12px; }
+
+.carousel-btn:hover{
+  background:rgba(0,0,0,.65);
+}
 </style>
 </head>
 
@@ -230,7 +323,34 @@ html, body{
 
 <div class="pages">
 
-  <section class="page page-1">1</section>
+  <section class="page page-1">
+
+  <div class="home">
+
+    <h1 class="home-title">Bienvenido Usuario!</h1>
+
+    <p class="home-desc">
+      Esta es la Network de ZyrAkaTV, un espacio donde encontrarás
+      eventos, noticias, contenido exclusivo y mucho más relacionado
+      con el universo que estamos construyendo juntos.
+    </p>
+
+    <div class="carousel">
+      <button class="carousel-btn left">‹</button>
+
+      <div class="carousel-track">
+        <img src="https://picsum.photos/500/300?1">
+        <img src="https://picsum.photos/500/300?2">
+        <img src="https://picsum.photos/500/300?3">
+        <img src="https://picsum.photos/500/300?4">
+      </div>
+
+      <button class="carousel-btn right">›</button>
+    </div>
+
+  </div>
+
+  </section>
   <section class="page page-2">2</section>
   <section class="page page-3">3</section>
   <section class="page page-4">4</section>
