@@ -9,7 +9,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
+* {
+  box-sizing:border-box
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
 body{
   margin:0;
   height:100vh;
@@ -38,6 +43,8 @@ body{
   background:rgba(255,255,255,0.08);
   backdrop-filter:blur(22px);
   -webkit-backdrop-filter:blur(22px);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 
   border-radius:28px;
   border:1px solid rgba(255,255,255,0.18);
@@ -84,6 +91,10 @@ body{
   box-shadow:none;
 
   cursor:pointer;
+
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: auto;
 
   transition:
     transform .35s cubic-bezier(.2,.8,.2,1),
@@ -181,9 +192,21 @@ body{
   </div>
 
   <div class="nav-bottom">
-    <img src="/textures/-zyrico.png" alt="Logo" class="nav-logo">
+    <img src="/textures/-zyrico.png" alt="Logo" class="nav-logo" draggable="false">
   </div>
 </nav>
+
+<script>
+document.addEventListener("contextmenu", e => {
+  e.preventDefault();
+});
+
+document.addEventListener("touchstart", e => {
+  if(e.target.closest(".nav-wrapper")){
+    e.preventDefault();
+  }
+}, { passive: false });
+</script>
 
 </body>
 </html>
