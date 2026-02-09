@@ -25,34 +25,35 @@ body{
 
 .nav-wrapper{
   position:fixed;
-  left:clamp(16px,2vw,32px);
+  left:clamp(12px, 2vw, 32px);
   top:50%;
   transform:translateY(-50%);
-  height:90vh;
-  max-height:820px;
-  width:clamp(78px,6vw,96px);
+
+  height: min(90vh, calc(100vh - 24px));
+  max-height: 820px;
+  min-height: 420px;
+
+  width: clamp(64px, 6vw, 96px);
+
+  padding: clamp(10px, 1.5vh, 18px) 0;
+
+  border-radius: 28px;
+
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
 
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:space-between;
-
-  padding:18px 0;
-
-  background:rgba(255,255,255,0.08);
-  backdrop-filter:blur(22px);
-  -webkit-backdrop-filter:blur(22px);
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  touch-action: manipulation;
-  -webkit-touch-callout: none;
-
-  border-radius:28px;
-  border:1px solid rgba(255,255,255,0.18);
 
   box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.04),
-    0 30px 80px rgba(0,0,0,0.65);
+    0 20px 50px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.25);
+
+  z-index: 100;
 }
 
 .nav-top,
