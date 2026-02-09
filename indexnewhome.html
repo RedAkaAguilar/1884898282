@@ -11,8 +11,6 @@
 * {
   box-sizing:border-box
   -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-  user-select: none;
 }
 body{
   margin:0;
@@ -44,8 +42,9 @@ body{
   -webkit-backdrop-filter:blur(22px);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
-  touch-action: manipulation;
+  -webkit-user-select: none;
   -webkit-touch-callout: none;
+  touch-action: manipulation;
 
   border-radius:28px;
   border:1px solid rgba(255,255,255,0.18);
