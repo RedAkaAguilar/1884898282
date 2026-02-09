@@ -362,6 +362,15 @@ html, body{
   document.querySelectorAll(".page")[index]
     .scrollIntoView({ behavior:"smooth" });
   }
+
+  document.querySelectorAll(".carousel").forEach(carousel => {
+  const track = carousel.querySelector(".carousel-track");
+  const left = carousel.querySelector(".left");
+  const right = carousel.querySelector(".right");
+
+  left.onclick = () => track.scrollBy({ left: -400, behavior: "smooth" });
+  right.onclick = () => track.scrollBy({ left: 400, behavior: "smooth" });
+});
 </script>
 
 </body>
