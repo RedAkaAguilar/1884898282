@@ -3,9 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zyra App</title>
+<title>Zyr App</title>
 
-<!-- Google Icons -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded" rel="stylesheet">
 
 <style>
@@ -45,6 +44,8 @@ body{
   -webkit-backdrop-filter:blur(22px);
   -webkit-tap-highlight-color: transparent;
   user-select: none;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
 
   border-radius:28px;
   border:1px solid rgba(255,255,255,0.18);
@@ -197,9 +198,6 @@ body{
 </nav>
 
 <script>
-document.addEventListener("contextmenu", e => {
-  e.preventDefault();
-});
 
 document.addEventListener("touchstart", e => {
   if(e.target.closest(".nav-wrapper")){
