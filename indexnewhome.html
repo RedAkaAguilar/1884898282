@@ -472,6 +472,107 @@ html, body{
   opacity:.65;
   font-size:14px;
 }
+
+/* ===== HOME MODERN (MATCH NEWS STYLE) ===== */
+
+.home-modern{
+  height:100%;
+  width:calc(100% - var(--nav-width) - var(--nav-gap));
+  margin-left:calc(var(--nav-width) + var(--nav-gap));
+
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* HERO */
+
+.home-hero{
+  position:relative;
+  flex:0 0 52%;
+  overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.home-hero img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.home-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 25%,
+    #0a0a0a 80%
+  );
+}
+
+.home-hero-content{
+  position:absolute;
+  bottom:clamp(20px,4vh,60px);
+  left:clamp(24px,4vw,80px);
+  max-width:680px;
+}
+
+.home-hero h1{
+  font-size:clamp(32px,4.5vw,64px);
+  margin:0 0 10px;
+}
+
+.home-hero p{
+  opacity:.75;
+  font-size:clamp(14px,1.2vw,18px);
+}
+
+/* GRID IGUAL A NEWS */
+
+.home-sections{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:clamp(16px,2vw,28px);
+  padding:clamp(20px,3vh,40px) clamp(24px,4vw,64px);
+  overflow:hidden;
+}
+
+/* CARDS */
+
+.home-card{
+  border-radius:22px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);
+
+  padding:22px;
+  transition:.35s;
+}
+
+.home-card:hover{
+  transform:translateY(-6px);
+  background:rgba(255,255,255,.08);
+}
+
+.home-card span{
+  font-size:32px;
+  opacity:.8;
+}
+
+.home-card h3{
+  margin:14px 0 6px;
+  font-size:20px;
+}
+
+.home-card p{
+  margin:0;
+  font-size:14px;
+  opacity:.65;
+}
 </style>
 </head>
 
@@ -505,31 +606,48 @@ html, body{
 <div class="pages">
 
   <section class="page page-1">
+  <div class="home-modern">
 
-  <div class="home">
+    <div class="home-hero">
+      <img src="https://picsum.photos/1600/900?random=21" alt="">
+      <div class="home-hero-content">
+        <h1>ZyrAka Network</h1>
+        <p>
+          Eventos dinámicos, sistemas únicos y una experiencia viva dentro del
+          universo que estamos construyendo.
+        </p>
+      </div>
+    </div>
 
-    <header class="home-header">
-      <h1 class="home-title">Bienvenido Usuario!</h1>
-      <p class="home-desc">
-        Esta es la Network de ZyrAkaTV, un espacio donde encontrarás eventos,
-        noticias y contenido exclusivo del universo que estamos construyendo.
-      </p>
-    </header>
+    <div class="home-sections">
 
-    <div class="hero-carousel">
-      <button class="hero-btn left">‹</button>
-
-      <div class="hero-frame">
-        <img src="https://picsum.photos/1200/600?1" class="hero-img active">
-        <img src="https://picsum.photos/1200/600?2" class="hero-img">
-        <img src="https://picsum.photos/1200/600?3" class="hero-img">
+      <div class="home-card">
+        <span class="material-symbols-rounded">event</span>
+        <h3>Eventos Activos</h3>
+        <p>Participa en desafíos semanales con recompensas exclusivas.</p>
       </div>
 
-      <button class="hero-btn right">›</button>
+      <div class="home-card">
+        <span class="material-symbols-rounded">hub</span>
+        <h3>Sistemas</h3>
+        <p>Mecánicas personalizadas diseñadas para progresión real.</p>
+      </div>
+
+      <div class="home-card">
+        <span class="material-symbols-rounded">groups</span>
+        <h3>Comunidad</h3>
+        <p>Un entorno activo donde cada jugador impacta el mundo.</p>
+      </div>
+
+      <div class="home-card">
+        <span class="material-symbols-rounded">emoji_events</span>
+        <h3>Competitivo</h3>
+        <p>Escala posiciones y demuestra tu dominio.</p>
+      </div>
+
     </div>
 
   </div>
-
   </section>
   <section class="page page-2">
   <div class="news">
