@@ -1,3 +1,4 @@
+import { requireAuth, getSession, logout } from "./auth.js";
 import { requireAuth, getSession } from "./auth.js";
 
 requireAuth();
@@ -51,4 +52,9 @@ function openInstance(instance) {
 }
 
 loadInstances();
+
+window.logoutUser = function () {
+  logout();
+};
+
 
