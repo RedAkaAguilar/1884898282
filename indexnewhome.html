@@ -1,157 +1,179 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<title>Evento</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+<title>ZyrAkaNetwork</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* === TU DISEÑO ORIGINAL (SIMPLIFICADO SOLO PARA EJEMPLO VISUAL) === */
 body{
   margin:0;
-  font-family:Outfit;
-  color:white;
-  background:#0e1116;
-  overflow-x:hidden;
+  font-family:Outfit,system-ui;
+  color:#fff;
+  background:linear-gradient(120deg,#290d0b,#130b29);
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
 }
 
-/* BACKGROUND DINÁMICO */
-#bg{
-  position:fixed;
-  inset:0;
-  background-size:cover;
-  background-position:center;
-  z-index:-2;
-  transition:1s ease;
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
-/* GRADIENT OVERLAY */
-#overlay{
-  position:fixed;
-  inset:0;
-  background:linear-gradient(to bottom, transparent 0%, #0e1116 80%);
-  z-index:-1;
-}
-
-/* TITLE IMAGE */
-#titleImg{
-  display:block;
-  margin:60px auto 20px;
-  max-width:90%;
-  height:auto;
-  transition:.5s;
-}
-
-/* CONTENT BOX */
 .container{
-  width:90%;
-  max-width:900px;
+  max-width:1100px;
   margin:40px auto;
-  padding:40px;
-  border-radius:20px;
+  padding:20px;
+}
 
+.card{
   background:rgba(255,255,255,0.06);
+  border-radius:20px;
+  padding:30px;
   backdrop-filter:blur(16px);
-
   border:1px solid rgba(255,255,255,0.1);
-  text-align:center;
+  margin-bottom:20px;
 }
 
-h1{
-  margin:0 0 10px;
-  font-size:32px;
-}
-
-p{
-  color:#cbd5e1;
-  margin-bottom:30px;
-}
-
-/* BUTTONS */
-.btn{
-  display:block;
-  width:100%;
-  padding:16px;
-  margin-top:12px;
+.menu-btn{
+  padding:14px 22px;
+  border-radius:999px;
   border:none;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:600;
+  font-weight:700;
   cursor:pointer;
+  background:rgba(255,255,255,.12);
+  color:white;
   transition:.25s;
 }
 
-.download{
-  background:#22c55e;
-  color:white;
+.menu-btn.primary{
+  background:linear-gradient(135deg,#22c55e,#38bdf8);
 }
 
-.ip{
-  background:#38bdf8;
-  color:white;
+.menu-btn:hover{
+  transform:translateY(-4px);
 }
 
-.btn:hover{
-  transform:translateY(-3px);
+/* === EVENT BACKGROUND DINÁMICO === */
+.event-active-bg{
+  background-size:cover !important;
+  background-position:center !important;
+  background-attachment:fixed !important;
+  transition:background 0.8s ease;
 }
 </style>
 </head>
 
 <body>
 
-<div id="bg"></div>
-<div id="overlay"></div>
-
-<img id="titleImg">
-
 <div class="container">
-  <h1 id="title"></h1>
-  <p id="desc"></p>
 
-  <button class="btn download" id="downloadBtn">Descargar Assets</button>
-  <button class="btn ip" id="ipBtn">Copiar IP</button>
+  <div class="card">
+    <h1>ZyrAkaNetwork — Server Official</h1>
+    <p>Bienvenido Usuario! Aqui encontraras la Informacion Official</p>
+  </div>
+
+  <!-- EVENT MANAGER (APARECE SOLO SI HAY EVENTO ACTIVO) -->
+  <section id="event-container" class="card" style="display:none; text-align:center;">
+
+    <img id="event-title-img"
+         style="max-width:520px;width:90%;margin-bottom:20px;filter:drop-shadow(0 10px 30px rgba(0,0,0,.6));">
+
+    <h2 id="event-title"></h2>
+
+    <p id="event-description" style="max-width:720px;margin:auto;color:#cbd5e1;"></p>
+
+    <div style="margin-top:24px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+
+      <button id="event-download" class="menu-btn primary">
+        Descargar Assets
+      </button>
+
+      <button id="event-ip" class="menu-btn">
+        Copiar IP del Evento
+      </button>
+
+    </div>
+
+  </section>
+
 </div>
 
 <script>
-let lastHash = '';
+/* ============================================
+   EVENT MANAGER — LIVE SYSTEM
+============================================ */
 
-async function checkEvent(){
-  const res = await fetch('./data/dataManager.json?nocache=' + Date.now());
-  const data = await res.json();
+let lastEventHash = '';
+let activeEventName = null;
 
-  const hash = JSON.stringify(data);
-  if(hash === lastHash) return;
-  lastHash = hash;
+async function checkEventManager(){
+  try{
+    const res = await fetch('./data/dataManager.json?t=' + Date.now(), {cache:'no-store'});
+    const json = await res.json();
 
-  const active = data.instances.find(i => i.active === true);
-  if(!active) return;
+    const hash = JSON.stringify(json);
+    if(hash === lastEventHash) return;
+    lastEventHash = hash;
 
-  applyEvent(active);
+    const active = json.instances.find(e => e.active === true);
+
+    if(!active){
+      disableEventMode();
+      return;
+    }
+
+    if(activeEventName !== active.name){
+      applyEventMode(active);
+      activeEventName = active.name;
+    }
+
+  }catch(err){
+    console.warn('EventManager:', err);
+  }
 }
 
-function applyEvent(e){
+function applyEventMode(event){
 
-  document.getElementById('bg').style.backgroundImage = `url(${e.background})`;
+  document.body.classList.add('event-active-bg');
 
-  document.getElementById('titleImg').src = e.titleImg;
+  document.body.style.background = `
+    linear-gradient(to bottom, rgba(14,17,22,.35), #0e1116 85%),
+    url(${event.background})
+  `;
 
-  document.getElementById('title').textContent = e.title;
-  document.getElementById('desc').textContent = e.description;
+  document.getElementById('event-container').style.display = 'block';
 
-  document.getElementById('downloadBtn').onclick = () => {
-    window.open(e.assetsDownload, '_blank');
+  document.getElementById('event-title-img').src = event.titleImg;
+  document.getElementById('event-title').textContent = event.title;
+  document.getElementById('event-description').textContent = event.description;
+
+  document.getElementById('event-download').onclick = () => {
+    window.open(event.assetsDownload, '_blank');
   };
 
-  document.getElementById('ipBtn').onclick = () => {
-    navigator.clipboard.writeText(e.ip);
-    document.getElementById('ipBtn').textContent = "IP Copiada ✔";
-    setTimeout(()=>document.getElementById('ipBtn').textContent="Copiar IP",2000);
+  document.getElementById('event-ip').onclick = () => {
+    navigator.clipboard.writeText(event.ip);
+    alert('IP copiada: ' + event.ip);
   };
 }
 
-setInterval(checkEvent, 1000);
-checkEvent();
+function disableEventMode(){
+  document.getElementById('event-container').style.display = 'none';
+  document.body.style.background = '';
+  document.body.classList.remove('event-active-bg');
+  activeEventName = null;
+}
+
+setInterval(checkEventManager, 1000);
+checkEventManager();
 </script>
 
 </body>
 </html>
+
