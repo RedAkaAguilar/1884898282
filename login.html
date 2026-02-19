@@ -4,15 +4,20 @@
   <title>ZyrAkaWorld Login</title>
   <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body class="login">
 
 <div class="login-box">
   <h1>ZyrAkaWorld</h1>
-  <input id="username" placeholder="@usuario">
-  <button onclick="login()">Entrar</button>
+
+  <input id="username" placeholder="Usuario (@usuario)">
+  <input id="password" type="password" placeholder="Contraseña">
+
+  <button onclick="login()">Iniciar Sesión</button>
+
+  <p id="error"></p>
 </div>
 
 <script type="module" src="/js/login.js"></script>
 </body>
 </html>
-
