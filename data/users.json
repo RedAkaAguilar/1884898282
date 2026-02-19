@@ -1,1 +1,20 @@
+{
+  "users": [
+    {
+      "nickname": "Cyn",
+      "username": "@cyn",
+      "level": 3
+    },
+    {
+      "nickname": "PlayerOne",
+      "username": "@player1",
+      "level": 1
+    },
+    {
+      "nickname": "Tester",
+      "username": "@tester",
+      "level": 0
+    }
+  ]
+}
 
