@@ -368,27 +368,127 @@ html, body{
 .hero-btn:hover{
   background:rgba(0,0,0,.65);
 }
+
+.news{
+  height:100%;
+  width:calc(100% - var(--nav-width) - var(--nav-gap));
+  margin-left:calc(var(--nav-width) + var(--nav-gap));
+
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* DESTACADA */
+
+.news-featured{
+  position:relative;
+  flex:0 0 52%;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
+}
+
+.news-featured::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0) 20%,
+    #111827 80%
+  );
+}
+
+.news-featured img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0;
+}
+
+.news-featured-content{
+  position:absolute;
+  bottom:clamp(20px,4vh,60px);
+  left:clamp(24px,4vw,80px);
+  max-width:700px;
+  z-index:1;
+}
+
+.news-featured h2{
+  font-size:clamp(28px,4vw,56px);
+  margin:0 0 12px;
+}
+
+.news-featured p{
+  opacity:.75;
+  font-size:clamp(14px,1.2vw,18px);
+}
+
+/* LISTA */
+
+.news-list{
+  flex:1;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:clamp(16px,2vw,28px);
+  padding:clamp(20px,3vh,40px) clamp(24px,4vw,64px);
+  overflow:hidden;
+}
+
+.news-card{
+  position:relative;
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  backdrop-filter:blur(14px);
+  transition:.35s;
+  cursor:pointer;
+}
+
+.news-card:hover{
+  transform:translateY(-6px);
+}
+
+.news-card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+}
+
+.news-card-content{
+  padding:16px;
+}
+
+.news-card h3{
+  margin:0 0 6px;
+  font-size:18px;
+}
+
+.news-card p{
+  margin:0;
+  opacity:.65;
+  font-size:14px;
+}
 </style>
 </head>
 
 <body>
-
 <nav class="nav-wrapper">
 
-  <div class="nav-top">
-    <div class="nav-btn">
-      <span class="material-symbols-rounded">home</span>
-    </div>
-  </div>
+  <div class="nav-btn" onclick="goToPage(0)">
+  <span class="material-symbols-rounded">home</span>
+</div>
 
-  <div class="nav-center">
-    <div class="nav-btn">
-      <span class="material-symbols-rounded">newspaper</span>
-    </div>
+<div class="nav-btn" onclick="goToPage(1)">
+  <span class="material-symbols-rounded">newspaper</span>
+</div>
 
-    <div class="nav-btn">
-      <span class="material-symbols-rounded">share</span>
-    </div>
+<div class="nav-btn" onclick="goToPage(2)">
+  <span class="material-symbols-rounded">share</span>
+</div>
 
     <div class="nav-divider"></div>
 
@@ -431,7 +531,20 @@ html, body{
   </div>
 
   </section>
-  <section class="page page-2">2</section>
+  <section class="page page-2">
+  <div class="news">
+
+    <div class="news-featured">
+      <div class="news-featured-content">
+        <h2 id="featured-title"></h2>
+        <p id="featured-desc"></p>
+      </div>
+    </div>
+
+    <div class="news-list" id="news-list"></div>
+
+  </div>
+  </section>
   <section class="page page-3">3</section>
   <section class="page page-4">4</section>
 
@@ -469,6 +582,45 @@ document.querySelector(".hero-btn.right").onclick = () => {
   index = (index + 1) % images.length;
   showImage(index);
 };
+
+async function loadNews(){
+  const res = await fetch("news.json");
+  const data = await res.json();
+
+  const news = data.news.sort((a,b)=> new Date(b.date)-new Date(a.date));
+
+  const featured = news[0];
+
+  // DESTACADA
+  const featuredBox = document.querySelector(".news-featured");
+
+  const img = document.createElement("img");
+  img.src = featured.image;
+  featuredBox.appendChild(img);
+
+  document.getElementById("featured-title").textContent = featured.title;
+  document.getElementById("featured-desc").textContent = featured.description;
+
+  // RESTO (5)
+  const list = document.getElementById("news-list");
+
+  news.slice(1,6).forEach(n=>{
+    const card = document.createElement("div");
+    card.className="news-card";
+
+    card.innerHTML = `
+      <img src="${n.image}">
+      <div class="news-card-content">
+        <h3>${n.title}</h3>
+        <p>${n.description}</p>
+      </div>
+    `;
+
+    list.appendChild(card);
+  });
+}
+
+loadNews();
 </script>
 
 </body>
