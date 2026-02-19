@@ -1,0 +1,35 @@
+{
+  "instances": [
+    {
+      "name": "Evento1",
+      "active": true,
+
+      "title": "Evento Survival Extremo",
+      "description": "Un evento hardcore con recompensas únicas.",
+
+      "ip": "event.zyrakaworld.net",
+
+      "background": "./assets/instance/Evento1/background.png",
+      "titleImg": "./assets/instance/Evento1/title.png",
+      "icon": "./assets/instance/Evento1/icon.png",
+
+      "assetsDownload": "./assets/instance/Evento1/assets.zip"
+    },
+
+    {
+      "name": "Evento2",
+      "active": false,
+
+      "title": "Evento PvP",
+      "description": "Combate competitivo entre jugadores.",
+
+      "ip": "pvp.zyrakaworld.net",
+
+      "background": "./assets/instance/Evento2/background.png",
+      "titleImg": "./assets/instance/Evento2/title.png",
+      "icon": "./assets/instance/Evento2/icon.png",
+
+      "assetsDownload": "./assets/instance/Evento2/assets.zip"
+    }
+  ]
+}
