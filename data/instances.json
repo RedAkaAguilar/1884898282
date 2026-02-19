@@ -1,1 +1,28 @@
+{
+  "instances": [
+    {
+      "title": "End Battle Event",
+      "description": "Evento PvE contra el Dragón.",
+      "icon": "/assets/end/icon.png",
+      "background": "/assets/end/bg.jpg",
+      "levelRequired": 1
+    },
+
+    {
+      "title": "Admin Testing Zone",
+      "description": "Instancia privada de pruebas.",
+      "icon": "/assets/admin/icon.png",
+      "background": "/assets/admin/bg.jpg",
+      "levelRequired": 3
+    },
+
+    {
+      "title": "Secret Event",
+      "description": "Evento exclusivo.",
+      "icon": "/assets/secret/icon.png",
+      "background": "/assets/secret/bg.jpg",
+      "allowedUsers": ["@player1"]
+    }
+  ]
+}
 
