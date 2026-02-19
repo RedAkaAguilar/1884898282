@@ -13,10 +13,13 @@ export function logout() {
 
 export function requireAuth() {
   const session = getSession();
-  if (!session) window.location.href = "/login.html";
+
+  if (!session) {
+    window.location.href = "/login.html";
+    return;
+  }
+
   if (session.level === 0) {
-    alert("Estás baneado.");
     logout();
   }
 }
-
