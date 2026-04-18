@@ -6,19 +6,18 @@
 
 <title>ZyrAkaWorld</title>
 
-<!-- Google Font -->
 <link href="https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-background:#111;
+background:#0b0b12;
 font-family:"Darumadrop One", sans-serif;
 overflow:hidden;
 }
 
-/* LOADING SCREEN */
+/* LOADER */
 
 #loader{
 position:fixed;
@@ -27,31 +26,66 @@ height:100%;
 display:flex;
 justify-content:center;
 align-items:center;
-z-index:999;
-backdrop-filter:blur(40px);
+flex-direction:column;
+backdrop-filter:blur(50px);
+z-index:1000;
+
 background:linear-gradient(
 270deg,
-#ff2b2b,
-#7a00ff,
+#ff2a2a,
+#7b00ff,
 #0066ff
 );
+
 background-size:600% 600%;
-animation:bgmove 6s infinite linear;
+animation:bgmove 12s ease infinite;
 }
 
-/* Animated gradient */
+/* GRADIENT ANIMATION */
 
 @keyframes bgmove{
+
 0%{background-position:0% 50%;}
 50%{background-position:100% 50%;}
 100%{background-position:0% 50%;}
+
 }
 
-/* Loading Text */
+/* PARTICLES */
+
+.particle{
+position:absolute;
+width:6px;
+height:6px;
+background:white;
+border-radius:50%;
+opacity:0.6;
+animation:float 8s linear infinite;
+}
+
+@keyframes float{
+
+0%{
+transform:translateY(100vh) scale(0.5);
+opacity:0;
+}
+
+10%{
+opacity:0.7;
+}
+
+100%{
+transform:translateY(-10vh) scale(1.2);
+opacity:0;
+}
+
+}
+
+/* LOADING TEXT */
 
 .loading-text{
 
-font-size:70px;
+font-size:72px;
 color:white;
 
 -webkit-text-stroke:20px transparent;
@@ -59,59 +93,144 @@ color:white;
 background:linear-gradient(
 90deg,
 #7a00ff,
-#ff6a6a
+#ff8c8c
 );
 
 -webkit-background-clip:text;
 
 text-shadow:0px 3px 0px rgba(0,0,0,1);
 
+animation:shine 4s linear infinite;
+
+}
+
+/* SHINE EFFECT */
+
+@keyframes shine{
+
+0%{filter:brightness(1);}
+50%{filter:brightness(1.4);}
+100%{filter:brightness(1);}
+
+}
+
+/* CINEMATIC TRANSITION */
+
+.fade-out{
+
+animation:fadeOut 1.6s forwards;
+
+}
+
+@keyframes fadeOut{
+
+0%{
+opacity:1;
+transform:scale(1);
+}
+
+100%{
+opacity:0;
+transform:scale(1.1);
+}
+
 }
 
 /* MAIN SITE */
 
 #site{
-display:none;
+
+position:absolute;
+width:100%;
 height:100vh;
+
 display:flex;
 justify-content:center;
 align-items:center;
+
+font-size:48px;
 color:white;
-font-size:40px;
+
+opacity:0;
+
+background:#0b0b12;
+
+}
+
+.show-site{
+
+animation:siteReveal 1.5s forwards;
+
+}
+
+@keyframes siteReveal{
+
+0%{
+opacity:0;
+transform:scale(1.05);
+}
+
+100%{
+opacity:1;
+transform:scale(1);
+}
+
 }
 
 </style>
 </head>
 
-
 <body>
 
-
-<!-- LOADING SCREEN -->
-
 <div id="loader">
-<div class="loading-text">Cargando...</div>
+
+<div class="loading-text">
+Cargando...
 </div>
 
-
-<!-- MAIN WEBSITE -->
+</div>
 
 <div id="site">
 Bienvenido a ZyrAkaWorld 🌎
 </div>
 
-
 <script>
 
-let loadTime = Math.floor(Math.random() * 4000) + 1000; 
-// entre 1 y 5 segundos
+/* PARTICLES GENERATOR */
 
-setTimeout(() => {
+for(let i=0;i<40;i++){
+
+let p=document.createElement("div");
+
+p.classList.add("particle");
+
+p.style.left=Math.random()*100+"%";
+p.style.animationDuration=(6+Math.random()*6)+"s";
+p.style.animationDelay=(Math.random()*5)+"s";
+
+document.body.appendChild(p);
+
+}
+
+/* LOADING TIME */
+
+let loadTime=Math.floor(Math.random()*4000)+1000;
+
+setTimeout(()=>{
+
+document.getElementById("loader").classList.add("fade-out");
+
+setTimeout(()=>{
 
 document.getElementById("loader").style.display="none";
-document.getElementById("site").style.display="flex";
 
-}, loadTime);
+let site=document.getElementById("site");
+
+site.classList.add("show-site");
+
+},1600);
+
+},loadTime);
 
 </script>
 
