@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -11,24 +12,32 @@
 <style>
 
 body{
+
 margin:0;
 height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-overflow:hidden;
+
 font-family:"Darumadrop One", cursive;
 
-/* Gradient like your image */
+overflow:hidden;
+
+/* background gradient */
 
 background:linear-gradient(
 135deg,
-#8bbfd1,
-#8ddbd1
+#8bc4cd,
+#79c9c3
 );
+
+/* blur like your design */
+
+filter:blur(2px);
+
 }
 
-/* LOADER CONTAINER */
+/* LOADER */
 
 .loader{
 
@@ -39,17 +48,18 @@ justify-content:center;
 
 }
 
-/* CIRCLE ANIMATION */
+/* CIRCLE */
 
 .ring{
 
 position:absolute;
-width:280px;
-height:280px;
 
-animation:spin 6s linear infinite;
+width:420px;
+height:420px;
 
-opacity:0.45;
+opacity:0.35;
+
+animation:spin 8s linear infinite;
 
 }
 
@@ -64,52 +74,56 @@ to{transform:rotate(360deg);}
 
 .loading-text{
 
-font-size:64px;
-color:#cfeeee;
+font-size:120px;
 
-/* outline */
+color:#d7ffff;
 
--webkit-text-stroke:8px #5e9aa1;
+/* cartoon border */
 
-/* shadow like your design */
+-webkit-text-stroke:10px #5a8f95;
+
+/* bottom shadow */
 
 text-shadow:
-0px 6px 0px #4c8b92;
+0px 12px 0px #4e858c;
 
-letter-spacing:2px;
+letter-spacing:3px;
 
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="loader">
 
-<!-- SVG RING -->
-
 <svg class="ring" viewBox="0 0 200 200">
 
-<circle 
+<!-- outer ring -->
+
+<circle
 cx="100"
 cy="100"
-r="70"
+r="80"
 fill="none"
-stroke="#e8ffff"
-stroke-width="8"
-stroke-dasharray="20 20"
+stroke="#eaffff"
+stroke-width="10"
+stroke-dasharray="30 25"
 stroke-linecap="round"
 />
 
-<circle 
+<!-- inner ring -->
+
+<circle
 cx="100"
 cy="100"
-r="50"
+r="55"
 fill="none"
-stroke="#e8ffff"
-stroke-width="6"
-stroke-dasharray="10 16"
+stroke="#eaffff"
+stroke-width="8"
+stroke-dasharray="18 20"
 stroke-linecap="round"
 />
 
