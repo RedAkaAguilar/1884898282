@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coming Soon</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --primary:#553445;
+    --secondary:#845353;
+    --glass:rgba(255,255,255,0.06);
+    --border:rgba(255,255,255,0.08);
+    --text:#ffffff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    background:
+    radial-gradient(circle at top left, rgba(132,83,83,.25), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(85,52,69,.35), transparent 40%),
+    linear-gradient(135deg,#20151d,#2d1d26,#3b2631);
+    overflow:hidden;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+body::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+    linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:40px 40px;
+    animation:gridMove 30s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(40px);
+    }
+}
+
+.floating-cube{
+    position:absolute;
+    width:180px;
+    height:180px;
+    border:1px solid rgba(255,255,255,.05);
+    background:rgba(255,255,255,.02);
+    backdrop-filter:blur(10px);
+    transform:rotate(45deg);
+    animation:float 8s ease-in-out infinite;
+}
+
+.cube1{
+    top:10%;
+    left:10%;
+}
+
+.cube2{
+    bottom:15%;
+    right:10%;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0) rotate(45deg);
+    }
+    50%{
+        transform:translateY(-30px) rotate(45deg);
+    }
+}
+
+.container{
+    position:relative;
+    z-index:10;
+    width:min(900px,90%);
+    text-align:center;
+}
+
+.logo{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:32px;
+    margin:auto;
+    display:block;
+    border:3px solid rgba(255,255,255,.08);
+    box-shadow:
+    0 0 40px rgba(132,83,83,.3),
+    0 20px 60px rgba(0,0,0,.4);
+    animation:logoFloat 5s ease-in-out infinite;
+}
+
+@keyframes logoFloat{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.title{
+    margin-top:35px;
+    font-size:clamp(3rem,8vw,7rem);
+    font-weight:800;
+    line-height:1;
+    background:linear-gradient(
+        90deg,
+        #ffffff,
+        #d9b4b4,
+        #845353,
+        #ffffff
+    );
+    background-size:300% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation:gradientMove 6s linear infinite;
+}
+
+@keyframes gradientMove{
+    to{
+        background-position:300% center;
+    }
+}
+
+.subtitle{
+    margin-top:18px;
+    font-size:1.1rem;
+    color:rgba(255,255,255,.7);
+    max-width:650px;
+    margin-left:auto;
+    margin-right:auto;
+    line-height:1.7;
+}
+
+.glow-line{
+    width:250px;
+    height:4px;
+    margin:35px auto;
+    border-radius:999px;
+    background:linear-gradient(
+    90deg,
+    transparent,
+    var(--secondary),
+    transparent
+    );
+}
+
+.footer{
+    margin-top:50px;
+    background:var(--glass);
+    backdrop-filter:blur(25px);
+    border:1px solid var(--border);
+    border-radius:30px;
+    padding:18px;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+}
+
+.social{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 18px;
+    border-radius:18px;
+    text-decoration:none;
+    color:white;
+    transition:.35s;
+}
+
+.social:hover{
+    transform:translateY(-5px);
+    background:rgba(255,255,255,.05);
+}
+
+.social img{
+    width:34px;
+    height:34px;
+    border-radius:10px;
+    object-fit:cover;
+}
+
+.social span{
+    font-weight:600;
+}
+
+.fade{
+    opacity:0;
+    transform:translateY(30px);
+    animation:fadeUp 1.2s forwards;
+}
+
+.delay1{
+    animation-delay:.2s;
+}
+
+.delay2{
+    animation-delay:.5s;
+}
+
+.delay3{
+    animation-delay:.8s;
+}
+
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+</style>
+</head>
+<body>
+
+<div class="floating-cube cube1"></div>
+<div class="floating-cube cube2"></div>
+
+<div class="container">
+
+    <!-- LOGO -->
+    <img
+    src="https://TU-LINK-DEL-LOGO.png"
+    alt="Logo"
+    class="logo fade">
+
+    <h1 class="title fade delay1">
+        COMING SOON
+    </h1>
+
+    <p class="subtitle fade delay2">
+        Something incredible is being crafted behind the scenes.
+        Stay tuned for an immersive next-generation experience.
+    </p>
+
+    <div class="glow-line fade delay2"></div>
+
+    <footer class="footer fade delay3">
+
+        <a href="#" class="social">
+            <img src="https://TU-ICONO-DISCORD.png">
+            <span>Discord</span>
+        </a>
+
+        <a href="#" class="social">
+            <img src="https://TU-ICONO-YOUTUBE.png">
+            <span>YouTube</span>
+        </a>
+
+        <a href="#" class="social">
+            <img src="https://TU-ICONO-X.png">
+            <span>X</span>
+        </a>
+
+        <a href="#" class="social">
+            <img src="https://TU-ICONO-INSTAGRAM.png">
+            <span>Instagram</span>
+        </a>
+
+    </footer>
+
+</div>
+
+<script>
+
+// Efecto de movimiento suave con el mouse
+
+document.addEventListener("mousemove", (e)=>{
+
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+    document.querySelector(".container").style.transform =
+        `translate(${x * 0.15}px, ${y * 0.15}px)`;
+
+});
+
+</script>
+
+</body>
+</html>
