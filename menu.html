@@ -717,6 +717,172 @@ nav{
     transform:
     translateX(100%);
 }
+
+.feedback{
+
+    max-width:1300px;
+    margin:auto;
+}
+
+.feedback-grid{
+
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(320px,1fr));
+
+    gap:25px;
+
+    margin-top:40px;
+}
+
+.feedback-card{
+
+    padding:30px;
+
+    border-radius:24px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+}
+
+.stars{
+
+    font-size:1.3rem;
+
+    margin-bottom:15px;
+
+    color:#FFD76A;
+}
+
+.roadmap{
+
+    max-width:1000px;
+    margin:auto;
+}
+
+.roadmap-list{
+
+    margin-top:40px;
+}
+
+.road-item{
+
+    padding:20px;
+
+    margin-bottom:15px;
+
+    border-radius:18px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.done{
+
+    color:#8DFFB2;
+}
+
+.active{
+
+    color:#FFD76A;
+}
+
+.contact{
+
+    text-align:center;
+}
+
+.contact-buttons{
+
+    margin-top:40px;
+
+    display:flex;
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+}
+
+.contact-btn{
+
+    padding:18px 28px;
+
+    border-radius:999px;
+
+    text-decoration:none;
+
+    color:white;
+
+    background:
+    linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    transition:.4s;
+}
+
+.contact-btn:hover{
+
+    transform:
+    translateY(-5px);
+}
+
+footer{
+
+    margin-top:120px;
+
+    padding:80px 20px;
+
+    text-align:center;
+
+    background:
+    rgba(0,0,0,.25);
+}
+
+.footer-logo{
+
+    width:90px;
+
+    margin-bottom:15px;
+}
+
+.footer-links{
+
+    margin:25px 0;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+}
+
+.footer-links a{
+
+    color:white;
+
+    text-decoration:none;
+
+    opacity:.8;
+}
+
+.footer-links a:hover{
+
+    opacity:1;
+}
+    
 </style>
 </head>
 
@@ -995,6 +1161,166 @@ class="about reveal">
     </div>
 
 </section>
+
+<section class="feedback reveal">
+
+    <h2>Community Feedback</h2>
+
+    <div class="feedback-grid">
+
+        <div class="feedback-card">
+            <div class="stars">★★★★★</div>
+
+            <p>
+                "Uno de los proyectos más creativos que he visto."
+            </p>
+
+            <span>— Community Member</span>
+        </div>
+
+        <div class="feedback-card">
+            <div class="stars">★★★★★</div>
+
+            <p>
+                "Diseño limpio, innovador y muy profesional."
+            </p>
+
+            <span>— Discord User</span>
+        </div>
+
+        <div class="feedback-card">
+            <div class="stars">★★★★★</div>
+
+            <p>
+                "Tiene muchísimo potencial."
+            </p>
+
+            <span>— Community Member</span>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="beyond reveal">
+
+    <h2>Beyond Minecraft</h2>
+
+    <div class="service-grid">
+
+        <div class="service-card">
+            <div class="icon">🎮</div>
+            <h3>Minecraft</h3>
+            <p>Eventos, sistemas y experiencias.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon">🎬</div>
+            <h3>YouTube</h3>
+            <p>Contenido creativo y edición.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon">🟦</div>
+            <h3>Geometry Dash</h3>
+            <p>Diseño visual y creación de niveles.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon">🌎</div>
+            <h3>ES / EN</h3>
+            <p>Comunicación entre comunidades.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="roadmap reveal">
+
+    <h2>Roadmap</h2>
+
+    <div class="roadmap-list">
+
+        <div class="road-item done">
+            ✓ Portfolio Launch
+        </div>
+
+        <div class="road-item done">
+            ✓ Project Showcase
+        </div>
+
+        <div class="road-item active">
+            ◉ Community Hub
+        </div>
+
+        <div class="road-item">
+            ○ Blog
+        </div>
+
+        <div class="road-item">
+            ○ Case Studies
+        </div>
+
+        <div class="road-item">
+            ○ Downloads
+        </div>
+
+    </div>
+
+</section>
+
+<section class="contact reveal">
+
+    <h2>Let's Create Something Amazing</h2>
+
+    <div class="contact-buttons">
+
+        <a href="#" class="contact-btn">
+            Discord
+        </a>
+
+        <a href="#" class="contact-btn">
+            YouTube
+        </a>
+
+        <a href="#" class="contact-btn">
+            GitHub
+        </a>
+
+        <a href="#" class="contact-btn">
+            Email
+        </a>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <img
+    src="YOUR_LOGO.png"
+    class="footer-logo">
+
+    <h3>CynAkaa</h3>
+
+    <p>
+        Creating experiences beyond the game.
+    </p>
+
+    <div class="footer-links">
+
+        <a href="#">Discord</a>
+        <a href="#">YouTube</a>
+        <a href="#">GitHub</a>
+
+    </div>
+
+    <span>
+        © 2026 CynAkaa. All Rights Reserved.
+    </span>
+
+</footer>
 
 <div id="lightbox">
 
