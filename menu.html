@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CynAkaa Portfolio</title>
+
+<meta name="theme-color" content="#553445">
+
+<style>
+
+:root{
+    --primary:#553445;
+    --secondary:#845353;
+    --accent:#A06A6A;
+    --light:#D9B4B4;
+    --white:#F6EEEE;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,Segoe UI,sans-serif;
+    background:
+    radial-gradient(circle at top left,
+    rgba(132,83,83,.25),
+    transparent 35%),
+
+    radial-gradient(circle at bottom right,
+    rgba(85,52,69,.35),
+    transparent 40%),
+
+    linear-gradient(
+    135deg,
+    #20151d,
+    #2d1d26,
+    #3b2631);
+
+    color:white;
+    overflow-x:hidden;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+#intro{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    background:#120d11;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    animation:introFade 2s forwards;
+}
+
+.intro-glow{
+    width:300px;
+    height:300px;
+
+    border-radius:50%;
+
+    background:
+    radial-gradient(circle,
+    rgba(132,83,83,.7),
+    transparent);
+
+    animation:introZoom 2s forwards;
+}
+
+@keyframes introFade{
+
+    0%,70%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:0;
+        visibility:hidden;
+    }
+}
+
+@keyframes introZoom{
+
+    from{
+        transform:scale(.5);
+    }
+
+    to{
+        transform:scale(2);
+        opacity:0;
+    }
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+#particles{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    z-index:0;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.grid-bg{
+
+    position:fixed;
+    inset:0;
+
+    background-image:
+    linear-gradient(
+    rgba(255,255,255,.03) 1px,
+    transparent 1px),
+
+    linear-gradient(
+    90deg,
+    rgba(255,255,255,.03) 1px,
+    transparent 1px);
+
+    background-size:40px 40px;
+
+    z-index:0;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+
+    position:fixed;
+
+    top:20px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(92%,1200px);
+
+    z-index:100;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:14px 22px;
+
+    border-radius:999px;
+
+    backdrop-filter:blur(18px);
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.logo-nav{
+
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.lang{
+
+    display:flex;
+    gap:10px;
+}
+
+.lang button{
+
+    background:none;
+    border:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:120px 20px;
+
+    position:relative;
+    z-index:2;
+}
+
+.hero-logo{
+
+    width:min(260px,45vw);
+
+    margin-bottom:25px;
+
+    animation:float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.hero h1{
+
+    font-size:
+    clamp(3rem,8vw,6rem);
+
+    line-height:1.05;
+
+    max-width:1000px;
+
+    background:
+    linear-gradient(
+    90deg,
+    white,
+    var(--light),
+    var(--secondary),
+    white);
+
+    background-size:300%;
+
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    animation:gradientMove 8s linear infinite;
+}
+
+@keyframes gradientMove{
+
+    to{
+        background-position:300%;
+    }
+}
+
+.hero p{
+
+    max-width:800px;
+
+    margin-top:20px;
+
+    opacity:.85;
+
+    font-size:1.15rem;
+}
+
+.hero-buttons{
+
+    margin-top:35px;
+
+    display:flex;
+    gap:15px;
+
+    flex-wrap:wrap;
+}
+
+.btn{
+
+    text-decoration:none;
+
+    color:white;
+
+    padding:15px 28px;
+
+    border-radius:999px;
+
+    background:
+    linear-gradient(
+    135deg,
+    var(--primary),
+    var(--secondary));
+
+    transition:.4s;
+}
+
+.btn:hover{
+
+    transform:
+    translateY(-4px)
+    scale(1.03);
+}
+
+/* =========================
+   ABOUT
+========================= */
+
+.about{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:120px 25px;
+
+    position:relative;
+    z-index:2;
+}
+
+.about h2{
+
+    font-size:
+    clamp(2rem,5vw,3rem);
+
+    margin-bottom:25px;
+}
+
+.about p{
+
+    line-height:1.9;
+
+    font-size:1.05rem;
+
+    opacity:.9;
+}
+
+/* =========================
+   REVEAL
+========================= */
+
+.reveal{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+    opacity .8s ease,
+    transform .8s ease;
+}
+
+.reveal.active{
+
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:768px){
+
+    .hero-buttons{
+
+        flex-direction:column;
+        width:100%;
+    }
+
+    .btn{
+        width:100%;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+    <div class="intro-glow"></div>
+</div>
+
+<canvas id="particles"></canvas>
+
+<div class="grid-bg"></div>
+
+<nav>
+
+    <div class="logo-nav">
+        CYNAAKA
+    </div>
+
+    <div class="lang">
+
+        <button onclick="setLang('es')">
+            ES
+        </button>
+
+        <button onclick="setLang('en')">
+            EN
+        </button>
+
+    </div>
+
+</nav>
+
+<section class="hero">
+
+    <img
+    src="YOUR_LOGO.png"
+    class="hero-logo"
+    alt="Logo">
+
+    <h1 id="heroTitle">
+        Creando experiencias más allá del juego.
+    </h1>
+
+    <p id="heroSubtitle">
+
+        Diseñador de experiencias,
+        creador de eventos y
+        desarrollador creativo
+        construyendo proyectos
+        únicos desde 2020.
+
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="#about" class="btn">
+            Sobre Mí
+        </a>
+
+        <a href="#" class="btn">
+            Ver Proyectos
+        </a>
+
+    </div>
+
+</section>
+
+<section
+id="about"
+class="about reveal">
+
+    <h2 id="aboutTitle">
+        Sobre Mí
+    </h2>
+
+    <p id="aboutText">
+
+        Mi viaje comenzó en 2020 con una visión simple:
+        crear experiencias únicas.
+
+        Con el paso de los años esa pasión creció mucho más allá de Minecraft.
+
+        He trabajado en eventos personalizados,
+        resource packs,
+        edición de video,
+        diseño creativo y desarrollo de sistemas.
+
+        Cada proyecto representa una nueva oportunidad para aprender,
+        mejorar y superar mis propios límites.
+
+    </p>
+
+</section>
+
+<script>
+
+/* =====================
+   LANG
+===================== */
+
+const content = {
+
+    es:{
+
+        title:
+        "Creando experiencias más allá del juego.",
+
+        subtitle:
+        "Diseñador de experiencias, creador de eventos y desarrollador creativo construyendo proyectos únicos desde 2020.",
+
+        aboutTitle:
+        "Sobre Mí",
+
+        about:
+        "Mi viaje comenzó en 2020 con una visión simple: crear experiencias únicas. Con el paso de los años esa pasión creció mucho más allá de Minecraft. He trabajado en eventos personalizados, resource packs, edición de video, diseño creativo y desarrollo de sistemas. Cada proyecto representa una nueva oportunidad para aprender, mejorar y superar mis propios límites."
+    },
+
+    en:{
+
+        title:
+        "Creating experiences beyond the game.",
+
+        subtitle:
+        "Experience designer, event creator and creative developer building unique projects since 2020.",
+
+        aboutTitle:
+        "About Me",
+
+        about:
+        "My journey started in 2020 with a simple vision: creating unique experiences. Over the years that passion expanded far beyond Minecraft. I have worked on custom events, resource packs, video editing, creative design and system development. Every project represents a new opportunity to learn, improve and push my limits."
+    }
+};
+
+function setLang(lang){
+
+    heroTitle.textContent =
+    content[lang].title;
+
+    heroSubtitle.textContent =
+    content[lang].subtitle;
+
+    aboutTitle.textContent =
+    content[lang].aboutTitle;
+
+    aboutText.textContent =
+    content[lang].about;
+}
+
+/* =====================
+   REVEAL
+===================== */
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add(
+'active'
+);
+
+}
+
+});
+
+});
+
+document
+.querySelectorAll('.reveal')
+.forEach(el=>observer.observe(el));
+
+/* =====================
+   PARTICLES
+===================== */
+
+const canvas =
+document.getElementById(
+'particles'
+);
+
+const ctx =
+canvas.getContext('2d');
+
+function resize(){
+
+canvas.width =
+innerWidth;
+
+canvas.height =
+innerHeight;
+}
+
+resize();
+
+addEventListener(
+'resize',
+resize
+);
+
+const particles=[];
+
+for(let i=0;i<80;i++){
+
+particles.push({
+
+x:
+Math.random()*canvas.width,
+
+y:
+Math.random()*canvas.height,
+
+size:
+Math.random()*3+1,
+
+speed:
+Math.random()*0.4+0.1,
+
+alpha:
+Math.random()*0.5+0.2
+
+});
+
+}
+
+function animate(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+particles.forEach(p=>{
+
+p.y-=p.speed;
+
+if(p.y<-10){
+
+p.y=
+canvas.height+10;
+
+p.x=
+Math.random()*canvas.width;
+}
+
+ctx.beginPath();
+
+ctx.fillStyle=
+`rgba(255,255,255,${p.alpha})`;
+
+ctx.arc(
+p.x,
+p.y,
+p.size,
+0,
+Math.PI*2
+);
+
+ctx.fill();
+
+});
+
+requestAnimationFrame(
+animate
+);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
