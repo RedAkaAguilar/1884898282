@@ -522,6 +522,201 @@ nav{
     color:var(--light);
 }
 
+/* =========================
+   PROJECTS
+========================= */
+
+.projects{
+
+    max-width:1300px;
+    margin:auto;
+}
+
+.project-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(auto-fit,minmax(400px,1fr));
+
+    gap:30px;
+
+    margin-top:40px;
+}
+
+.project-card{
+
+    overflow:hidden;
+
+    border-radius:28px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    transition:.5s;
+
+    backdrop-filter:blur(18px);
+}
+
+.project-card:hover{
+
+    transform:
+    translateY(-10px);
+}
+
+.project-card img{
+
+    width:100%;
+    height:280px;
+
+    object-fit:cover;
+
+    transition:.8s;
+}
+
+.project-card:hover img{
+
+    transform:scale(1.06);
+}
+
+.project-content{
+
+    padding:25px;
+}
+
+.tags{
+
+    margin-top:15px;
+
+    display:flex;
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+.tags span{
+
+    padding:8px 14px;
+
+    border-radius:999px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    font-size:.85rem;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+
+    column-count:3;
+    column-gap:18px;
+
+    margin-top:40px;
+}
+
+.gallery img{
+
+    width:100%;
+
+    margin-bottom:18px;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    transition:.5s;
+}
+
+.gallery img:hover{
+
+    transform:scale(1.02);
+}
+
+@media(max-width:900px){
+
+.gallery{
+
+    column-count:2;
+}
+
+}
+
+@media(max-width:600px){
+
+.gallery{
+
+    column-count:1;
+}
+
+}
+
+/* =========================
+   LIGHTBOX
+========================= */
+
+#lightbox{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    rgba(0,0,0,.9);
+
+    display:none;
+
+    justify-content:center;
+    align-items:center;
+
+    z-index:9999;
+}
+
+#lightbox img{
+
+    max-width:90%;
+    max-height:90%;
+
+    border-radius:20px;
+}
+
+.project-card{
+
+    position:relative;
+}
+
+.project-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.08),
+    transparent);
+
+    transform:
+    translateX(-100%);
+
+    transition:.8s;
+}
+
+.project-card:hover::before{
+
+    transform:
+    translateX(100%);
+}
 </style>
 </head>
 
@@ -720,6 +915,92 @@ class="about reveal">
     </div>
 
 </section>
+
+<section class="projects reveal" id="projects">
+
+    <h2>Proyectos Destacados</h2>
+
+    <div class="project-grid">
+
+        <div class="project-card">
+
+            <img
+            src="images/project1.jpg"
+            alt="Project">
+
+            <div class="project-content">
+
+                <h3>Sky Event</h3>
+
+                <p>
+                    Evento personalizado con sistemas únicos,
+                    UI personalizada y modelos 3D.
+                </p>
+
+                <div class="tags">
+
+                    <span>ItemsAdder</span>
+                    <span>Custom UI</span>
+                    <span>Models</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="project-card">
+
+            <img
+            src="images/project2.jpg"
+            alt="Project">
+
+            <div class="project-content">
+
+                <h3>Resource Pack</h3>
+
+                <p>
+                    Assets diseñados para mejorar la experiencia.
+                </p>
+
+                <div class="tags">
+
+                    <span>Textures</span>
+                    <span>Assets</span>
+                    <span>Design</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="showcase reveal">
+
+    <h2>Showcase</h2>
+
+    <div class="gallery">
+
+        <img src="images/show1.jpg">
+        <img src="images/show2.jpg">
+        <img src="images/show3.jpg">
+        <img src="images/show4.jpg">
+        <img src="images/show5.jpg">
+        <img src="images/show6.jpg">
+
+    </div>
+
+</section>
+
+<div id="lightbox">
+
+    <img id="lightbox-img">
+
+</div>
 
 <script>
 
@@ -941,6 +1222,45 @@ update();
 });
 
 animate();
+
+const lightbox =
+document.getElementById(
+'lightbox'
+);
+
+const lightboxImg =
+document.getElementById(
+'lightbox-img'
+);
+
+document
+.querySelectorAll(
+'.gallery img'
+)
+.forEach(img=>{
+
+img.addEventListener(
+'click',
+()=>{
+
+lightbox.style.display=
+'flex';
+
+lightboxImg.src=
+img.src;
+
+});
+
+});
+
+lightbox.addEventListener(
+'click',
+()=>{
+
+lightbox.style.display=
+'none';
+
+});
 
 </script>
 
