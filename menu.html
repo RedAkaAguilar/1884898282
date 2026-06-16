@@ -388,6 +388,140 @@ nav{
     }
 }
 
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline-section{
+    max-width:1100px;
+    margin:auto;
+}
+
+.timeline{
+    position:relative;
+    margin-top:40px;
+}
+
+.timeline::before{
+    content:"";
+    position:absolute;
+    left:15px;
+    top:0;
+    bottom:0;
+    width:2px;
+    background:var(--secondary);
+}
+
+.timeline-item{
+    position:relative;
+    padding-left:60px;
+    margin-bottom:40px;
+}
+
+.timeline-item::before{
+    content:"";
+    position:absolute;
+    left:7px;
+    top:8px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--secondary);
+}
+
+.timeline-item span{
+    color:var(--light);
+    font-weight:700;
+}
+
+/* =========================
+   SERVICES
+========================= */
+
+.services{
+    max-width:1200px;
+    margin:auto;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.service-card{
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:30px;
+
+    backdrop-filter:blur(18px);
+
+    transition:.4s;
+}
+
+.service-card:hover{
+    transform:
+    translateY(-8px);
+}
+
+.icon{
+    font-size:2rem;
+    margin-bottom:15px;
+}
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+
+    gap:25px;
+
+    max-width:1200px;
+
+    margin:auto;
+}
+
+.stat-card{
+
+    text-align:center;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    background:
+    rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.stat-card span{
+
+    font-size:3rem;
+
+    font-weight:800;
+
+    display:block;
+
+    margin-bottom:10px;
+
+    color:var(--light);
+}
+
 </style>
 </head>
 
@@ -480,6 +614,110 @@ class="about reveal">
         mejorar y superar mis propios límites.
 
     </p>
+
+</section>
+
+<section id="timeline" class="timeline-section reveal">
+
+    <h2>Mi Trayectoria</h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <span>2020</span>
+            <h3>Comienza la aventura</h3>
+            <p>Inicio de mis primeros proyectos creativos.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span>2021</span>
+            <h3>Primeros eventos</h3>
+            <p>Desarrollo de experiencias personalizadas.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span>2022</span>
+            <h3>Assets avanzados</h3>
+            <p>Custom models y resource packs.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span>2023</span>
+            <h3>Sistemas complejos</h3>
+            <p>Eventos más grandes y mecánicas únicas.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span>2024</span>
+            <h3>Reconocimiento</h3>
+            <p>Feedback positivo de comunidades.</p>
+        </div>
+
+        <div class="timeline-item">
+            <span>Hoy</span>
+            <h3>Construyendo el futuro</h3>
+            <p>Siempre aprendiendo y mejorando.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="services reveal">
+
+    <h2>Lo Que Creo</h2>
+
+    <div class="service-grid">
+
+        <div class="service-card">
+            <div class="icon">🎭</div>
+            <h3>Eventos</h3>
+            <p>Experiencias únicas diseñadas desde cero.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon">🎨</div>
+            <h3>Resource Packs</h3>
+            <p>Assets visuales personalizados.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon">⚙️</div>
+            <h3>Sistemas</h3>
+            <p>Mecánicas avanzadas e innovación.</p>
+        </div>
+
+        <div class="service-card">
+            <div class="icon">🎬</div>
+            <h3>Contenido</h3>
+            <p>Edición de video y creatividad digital.</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="stats reveal">
+
+    <div class="stat-card">
+        <span class="counter" data-target="6">0</span>
+        <p>Años Creando</p>
+    </div>
+
+    <div class="stat-card">
+        <span class="counter" data-target="2020">0</span>
+        <p>Inicio del Viaje</p>
+    </div>
+
+    <div class="stat-card">
+        <span>∞</span>
+        <p>Ideas</p>
+    </div>
+
+    <div class="stat-card">
+        <span>100%</span>
+        <p>Pasión</p>
+    </div>
 
 </section>
 
@@ -658,6 +896,49 @@ requestAnimationFrame(
 animate
 );
 }
+
+const counters =
+document.querySelectorAll(
+'.counter'
+);
+
+counters.forEach(counter=>{
+
+const update = ()=>{
+
+const target =
++counter.dataset.target;
+
+const count =
++counter.innerText;
+
+const increment =
+target / 100;
+
+if(count < target){
+
+counter.innerText =
+Math.ceil(
+count + increment
+);
+
+setTimeout(
+update,
+20
+);
+
+}else{
+
+counter.innerText =
+target;
+
+}
+
+};
+
+update();
+
+});
 
 animate();
 
