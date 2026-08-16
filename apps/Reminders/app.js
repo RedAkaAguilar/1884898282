@@ -149,7 +149,7 @@ async function loadJson() {
     const data = await response.json();
     state.data = data;
     state.reminders = Array.isArray(data) ? data : (data.reminders || []);
-    $("#syncStatus").textContent = "JSON conectado · cada 2 s";
+    $("#syncStatus").textContent = "JSON conectado · cada 30 s";
     render();
   } catch (error) {
     $("#syncStatus").textContent = "No se pudo leer JSON";
