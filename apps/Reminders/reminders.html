@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=routine" />
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -17,7 +18,7 @@
 
   <header class="topbar">
     <div class="brand">
-      <div class="brand-mark">✓</div>
+      <div class="brand-mark"><span class="material-symbols-outlined">routine</span></div>
       <div>
         <div class="brand-name">DailyFlow</div>
         <div class="brand-sub">Tus pequeños logros, cada día.</div>
@@ -56,27 +57,18 @@
 
     <div class="section-heading">
       <div>
-        <h2>Mis dailies</h2>
-        <p id="summary">Cargando recordatorios…</p>
+        <h2>My dailies</h2>
+        <p id="summary">Loading reminders…</p>
       </div>
       <button class="refresh-btn" id="refreshBtn" title="Actualizar JSON">↻ <span>Actualizar</span></button>
     </div>
 
     <section id="reminders" class="reminders"></section>
-
-    <section class="info-box">
-      <div class="info-icon">i</div>
-      <div>
-        <strong>¿Cómo se actualizan los recordatorios?</strong>
-        <p>El sitio vuelve a leer <code>reminders.json</code> automáticamente cada 2 segundos. Puedes editar ese archivo sin tocar el HTML.</p>
-      </div>
-    </section>
   </main>
 
-  <footer>DailyFlow · Tus datos de progreso se guardan en este dispositivo.</footer>
+  <footer>DailyFlow - ZyrAkaTV · Tus datos de progreso se guardan en este dispositivo.</footer>
 
   <div class="toast" id="toast"></div>
   <script src="app.js"></script>
-  <script src="/components/footer.js"></script>
 </body>
 </html>
