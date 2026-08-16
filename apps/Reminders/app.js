@@ -173,4 +173,4 @@ $("#refreshBtn").addEventListener("click", () => {
 });
 
 loadJson();
-setInterval(loadJson, 20000);
+setInterval(loadJson, 30000);
