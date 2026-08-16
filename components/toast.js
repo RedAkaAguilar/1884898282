@@ -1,0 +1,1 @@
+(()=>{let b=document.createElement("div");b.className="wc-toast-container";document.body.appendChild(b);window.showToast=(msg,d=2600)=>{let t=document.createElement("div");t.className="wc-toast";t.textContent=msg;b.appendChild(t);setTimeout(()=>{t.classList.add("out");setTimeout(()=>t.remove(),250)},d)}})();

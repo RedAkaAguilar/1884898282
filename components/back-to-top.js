@@ -1,0 +1,1 @@
+(()=>{let b=document.createElement("button");b.className="wc-backtop";b.innerHTML="↑";b.setAttribute("aria-label","Volver arriba");document.body.appendChild(b);addEventListener("scroll",()=>b.classList.toggle("show",scrollY>500),{passive:true});b.onclick=()=>scrollTo({top:0,behavior:"smooth"})})();
