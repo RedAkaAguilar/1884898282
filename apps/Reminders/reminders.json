@@ -1,0 +1,20 @@
+{
+  "reminders": [
+    {
+      "id": "estudiar",
+      "title": "Estudiar 30 minutos",
+      "description": "Dedica un rato a una materia o proyecto que quieras mejorar.",
+      "durationDays": 30,
+      "startDate": "2026-08-15",
+      "endDate": "2026-09-13"
+    },
+    {
+      "id": "ejercicio",
+      "title": "Moverme un poco",
+      "description": "Haz al menos 20 minutos de actividad física.",
+      "durationDays": 14,
+      "startDate": "2026-08-15",
+      "endDate": "2026-08-28"
+    }
+  ]
+}

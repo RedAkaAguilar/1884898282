@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Panel de recordatorios diarios y rachas.">
+  <title>DailyFlow — Recordatorios diarios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">✓</div>
+      <div>
+        <div class="brand-name">DailyFlow</div>
+        <div class="brand-sub">Tus pequeños logros, cada día.</div>
+      </div>
+    </div>
+    <div class="status-pill"><span class="pulse"></span><span id="syncStatus">Sincronizando…</span></div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">RECORDATORIOS DIARIOS</p>
+        <h1>Un día a la vez.</h1>
+        <p class="hero-text">Completa tus dailies, mantén tus rachas y convierte la constancia en progreso.</p>
+      </div>
+      <div class="today-card">
+        <span>HOY</span>
+        <strong id="todayLabel">—</strong>
+      </div>
+    </section>
+
+    <section class="stats" id="stats">
+      <div class="stat-card">
+        <span class="stat-icon">✓</span>
+        <div><b id="completedCount">0</b><span>Completados hoy</span></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon fire">✦</span>
+        <div><b id="bestStreak">0</b><span>Mejor racha actual</span></div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">◷</span>
+        <div><b id="activeCount">0</b><span>Dailies activos</span></div>
+      </div>
+    </section>
+
+    <div class="section-heading">
+      <div>
+        <h2>Mis dailies</h2>
+        <p id="summary">Cargando recordatorios…</p>
+      </div>
+      <button class="refresh-btn" id="refreshBtn" title="Actualizar JSON">↻ <span>Actualizar</span></button>
+    </div>
+
+    <section id="reminders" class="reminders"></section>
+
+    <section class="info-box">
+      <div class="info-icon">i</div>
+      <div>
+        <strong>¿Cómo se actualizan los recordatorios?</strong>
+        <p>El sitio vuelve a leer <code>reminders.json</code> automáticamente cada 2 segundos. Puedes editar ese archivo sin tocar el HTML.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>DailyFlow · Tus datos de progreso se guardan en este dispositivo.</footer>
+
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
