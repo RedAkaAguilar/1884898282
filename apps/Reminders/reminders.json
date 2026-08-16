@@ -1,20 +1,20 @@
 {
   "reminders": [
     {
-      "id": "estudiar",
-      "title": "Estudiar 30 minutos",
-      "description": "Dedica un rato a una materia o proyecto que quieras mejorar.",
+      "id": "vocals",
+      "title": "Ejercicios Diarios de Voz",
+      "description": "Hacer ejercicios de Voz Diarios por un mes.",
       "durationDays": 30,
-      "startDate": "2026-08-15",
-      "endDate": "2026-09-13"
+      "startDate": "2026-08-17",
+      "endDate": "2026-09-16"
     },
     {
       "id": "ejercicio",
-      "title": "Moverme un poco",
-      "description": "Haz al menos 20 minutos de actividad física.",
-      "durationDays": 14,
-      "startDate": "2026-08-15",
-      "endDate": "2026-08-28"
+      "title": "Ejercicios Diarios Fisicos",
+      "description": "Haz al menos 10 minutos de actividad física.",
+      "durationDays": 365,
+      "startDate": "2026-08-17",
+      "endDate": "2027-08-16"
     }
   ]
 }
